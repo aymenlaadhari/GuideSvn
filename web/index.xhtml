@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Gestion Centre Commerciale</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./Template.xhtml">
+            <ui:define name="top">
+                Gestion Centre Commerciale
+            </ui:define>
+
+            <ui:define name="content">
+
+                <p:dataTable var="centreCommercial" value="#{centrecommercialeManagedBean.listCentre}">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="EMAIL"/>
+                        </f:facet>
+                        <h:outputText value="#{centreCommercial.email}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="LATITUDE"/>
+                        </f:facet>
+                        <h:outputText value="#{centreCommercial.latitude}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="LONGITUDE"/>
+                        </f:facet>
+                        <h:outputText value="#{centreCommercial.longitude}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="SITE WEB"/>
+                        </f:facet>
+                        <h:outputText value="#{centreCommercial.siteweb}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Telephone"/>
+                        </f:facet>
+                        <h:outputText value="#{centreCommercial.telephone}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{centreCommercial.id}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Modifier"/>
+                        </f:facet>
+                        <h:form>
+                            <h:commandButton action="#{centrecommercialeManagedBean.preparerModifier()}" value="Modifier"/>
+                            <p:commandButton id="btnupdate1"  update=":formUpdate" oncomplete="userDialogUpdate.show()" icon="ui-icon-pencil" title="Modify">
+            
+                            </p:commandButton>
+                        </h:form>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Supprimer"/>
+                        </f:facet>
+                        <h:form>
+                            <h:commandButton action="#{centrecommercialeManagedBean.supprimer()}" value="Supprimer"/>
+                        </h:form>
+                    </p:column>
+                </p:dataTable>
+
+                <br/>
+                <h:form>
+                    <p:commandButton value="Nouveau Centre Commerciale" action="#{centrecommercialeManagedBean.preparerAjout()}"/>
+                    <br/>
+                </h:form>
+
+                <h:form id="formUpdate">
+
+                    <p:dialog header="Update " widgetVar="userDialogUpdate" resizable="false" id="DlgUserUpdate"
+                              showEffect="fade" hideEffect="explode" modal="true">
+
+                        <h:panelGrid id="displayUpdate" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <h:outputText value="Email:" />
+                            <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.email}" />
+
+                            <h:outputText value="telephone:" />
+                            <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.telephone}" />
+
+
+                            <h:outputText value="Site Web:" />
+                            <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.siteweb}" />
+
+                            <h:outputText value="Latitude:" />
+                            <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.latitude}" size="40"/>
+                            <h:outputText value="ID:" />
+                            <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.id}" />
+                            <f:facet name="footer">
+                                <p:separator/>
+                                <h:commandButton action="#{centrecommercialeManagedBean.ajouter()}" value="Inserer"/>
+                                <p:commandButton id="btnUpdateDecline" oncomplete="userDialogUpdate.hide()" icon="ui-icon-cancel" title="Cancel" value="Cancel"/>
+                            </f:facet>
+                        </h:panelGrid>
+
+
+                    </p:dialog>
+<p:commandButton id="btnupdate" update=":formUpdate" oncomplete="userDialogUpdate.show()" icon="ui-icon-pencil" title="Modify">
+            
+                            </p:commandButton>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+        
+
+    </h:body>
+</html>
+

@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+        <div id="conteiner">
+
+            <div id="top" class="title ui-widget-header ui-corner-all">
+                <ui:insert name="top"></ui:insert>
+            </div>
+            <div id="menu">
+                <h:form>
+                    <p:menubar>
+                        <p:submenu label="Utilsateur" icon="ui-icon-document">
+                            <p:menuitem value="User" url="http://localhost:8080/GestionLieu/faces/utilisateur.xhtml"/>
+                            <p:separator />
+                            <p:menuitem value="Quit" url="#" />
+                        </p:submenu>
+
+                        <p:submenu label="Lieu" icon="ui-icon-pencil">
+                            <p:menuitem value="Monument" url="#"/>
+                            <p:menuitem value="Restaurant" url="http://localhost:8080/PostgresEssail/faces/indexRestaurant.xhtml" icon="ui-icon-arrowreturnthick-1-e" />
+                            <p:menuitem value="Pharmacie" url="http://localhost:8080/PostgresEssail/faces/indexPharmacie.xhtml"/>
+                            <p:menuitem value="Centre Medicale" url="http://localhost:8080/PostgresEssail/faces/indexCentreMedicale.xhtml" icon="ui-icon-arrowreturnthick-1-e" />
+                            <p:menuitem value="Centre Commerciale" url="http://localhost:8080/PostgresEssail/faces/index.xhtml" icon="ui-icon-arrowreturnthick-1-e" />
+
+                        </p:submenu>
+
+                        <p:submenu label="Help" icon="ui-icon-help">
+                            <p:menuitem value="Contents" url="#" />
+                            <p:submenu label="Search" icon="ui-icon-search">
+                                <p:submenu label="Text">
+                                    <p:menuitem value="Workspace" url="#" />
+                                </p:submenu>
+                                <p:menuitem value="File" url="#" />
+                            </p:submenu>
+                        </p:submenu>
+
+                        <p:submenu label="Bord" icon="ui-icon-gear">
+                            <p:submenu label="Restaurant" icon="ui-icon-refresh">
+                                <p:menuitem value="Specialite"  url="http://localhost:8080/PostgresEssail/faces/indexSpecialite.xhtml" icon="ui-icon-disk"/>
+                                <p:menuitem value="Update"  icon="ui-icon-arrowrefresh-1-w"/>
+                            </p:submenu>
+                            <p:submenu label="Pharmacie" icon="ui-icon-newwin">
+                                <p:menuitem value="Garde"  icon="ui-icon-close" url="http://localhost:8080/PostgresEssail/faces/indexGarde.xhtml" ajax="false"/>
+                            </p:submenu>
+                            <p:submenu label="Pays" icon="ui-icon-newwin">
+                                <p:menuitem value="Gestion"  icon="ui-icon-close" url="http://localhost:8080/PostgresEssail/faces/indexPay.xhtml" ajax="false"/>
+                                <p:menuitem value="Ville"  icon="ui-icon-close" url="http://localhost:8080/PostgresEssail/faces/indexVille.xhtml" ajax="false"/>
+                            </p:submenu>
+                        </p:submenu>
+
+                        <p:menuitem value="Quit"  icon="ui-icon-close" url="http://localhost:8080/GestionLieu/faces/index.xhtml" oncomplete="handleLoginRequest(xhr, status, args)"/>
+
+                        <f:facet name="options">
+                            <p:inputText style="margin-right:10px"/>
+                            <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+                        </f:facet>
+                    </p:menubar>
+
+                </h:form>
+
+
+            </div>
+
+            <div id="content" class="center_content ui-widget ui-widget-content ui-corner-all" >
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+
+            <div id="bottom"  class="title ui-widget-header ui-corner-all">
+                <ui:insert name="bottom">&copy;Aymen 2014</ui:insert>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if (args.loggetOut) {
+
+                    location.href = args.ruta;
+                }
+            }
+        </script>
+
+    </h:body>
+
+</html>

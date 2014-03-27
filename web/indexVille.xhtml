@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"    
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Gestion Centre Medicale</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./Template.xhtml">
+            
+            <ui:define name="top">
+                Gestion Ville
+            </ui:define>
+            
+             <ui:define name="content">
+                 
+
+        <p:dataTable var="ville" value="#{villeManagedBean.listVille}">
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Títre"/>
+                </f:facet>
+                <h:outputText value="#{ville.id}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Auteur"/>
+                </f:facet>
+                <h:outputText value="#{ville.nom}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Páges"/>
+                </f:facet>
+                <h:outputText value="#{ville.rue}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Páges"/>
+                </f:facet>
+                <h:outputText value="#{ville.gouvernorat}"/>
+            </p:column>
+            
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Modifier"/>
+                </f:facet>
+                <h:form>
+                    <h:commandButton action="#{villeManagedBean.preparerModifier()}" value="Modifier"/>
+                </h:form>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Supprimer"/>
+                </f:facet>
+                <h:form>
+                    <h:commandButton action="#{villeManagedBean.supprimer()}" value="Supprimer"/>
+                </h:form>
+            </p:column>
+        </p:dataTable>
+
+        <br/>
+        <h:form>
+            <p:commandButton value="Nouveau Ville" action="#{villeManagedBean.preparerAjout()}"/>
+            <br/>
+        </h:form>
+
+
+        </ui:define>
+            </ui:composition>
+      
+    </h:body>
+</html>
+
