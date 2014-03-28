@@ -23,17 +23,17 @@
                 <h:form>
                     <p:menubar>
                         <p:submenu label="Utilsateur" icon="ui-icon-document">
-                            <p:menuitem value="User" url="http://localhost:8080/GestionLieu/faces/utilisateur.xhtml"/>
+                            <p:menuitem value="User" url="#"/>
                             <p:separator />
                             <p:menuitem value="Quit" url="#" />
                         </p:submenu>
 
                         <p:submenu label="Lieu" icon="ui-icon-pencil">
                             <p:menuitem value="Monument" url="#"/>
-                            <p:menuitem value="Restaurant" url="http://localhost:8080/PostgresEssail/faces/indexRestaurant.xhtml" icon="ui-icon-arrowreturnthick-1-e" />
-                            <p:menuitem value="Pharmacie" url="http://localhost:8080/PostgresEssail/faces/indexPharmacie.xhtml"/>
-                            <p:menuitem value="Centre Medicale" url="http://localhost:8080/PostgresEssail/faces/indexCentreMedicale.xhtml" icon="ui-icon-arrowreturnthick-1-e" />
-                            <p:menuitem value="Centre Commerciale" url="http://localhost:8080/PostgresEssail/faces/index.xhtml" icon="ui-icon-arrowreturnthick-1-e" />
+                            <p:menuitem value="Restaurant" action="#{applicationManagedBean.indexRestaurant()}" icon="ui-icon-arrowreturnthick-1-e" ajax="false"/>
+                            <p:menuitem value="Pharmacie" action="#{applicationManagedBean.indexPharmacie()}" ajax="false"/>
+                            <p:menuitem value="Centre Medicale" action="#{applicationManagedBean.indexMedical()}" icon="ui-icon-arrowreturnthick-1-e" ajax="false" />
+                            <p:menuitem value="Centre Commerciale" action="#{applicationManagedBean.indexCommercial()}" icon="ui-icon-arrowreturnthick-1-e" ajax="false"/>
 
                         </p:submenu>
 
@@ -49,19 +49,19 @@
 
                         <p:submenu label="Bord" icon="ui-icon-gear">
                             <p:submenu label="Restaurant" icon="ui-icon-refresh">
-                                <p:menuitem value="Specialite"  url="http://localhost:8080/PostgresEssail/faces/indexSpecialite.xhtml" icon="ui-icon-disk"/>
+                                <p:menuitem value="Specialite"  action="#{applicationManagedBean.indexSpecialite()}" icon="ui-icon-disk" ajax="false"/>
                                 <p:menuitem value="Update"  icon="ui-icon-arrowrefresh-1-w"/>
                             </p:submenu>
                             <p:submenu label="Pharmacie" icon="ui-icon-newwin">
-                                <p:menuitem value="Garde"  icon="ui-icon-close" url="http://localhost:8080/PostgresEssail/faces/indexGarde.xhtml" ajax="false"/>
+                                <p:menuitem value="Garde"  icon="ui-icon-close" action="#{applicationManagedBean.indexgarde()}" ajax="false"/>
                             </p:submenu>
                             <p:submenu label="Pays" icon="ui-icon-newwin">
-                                <p:menuitem value="Gestion"  icon="ui-icon-close" url="http://localhost:8080/PostgresEssail/faces/indexPay.xhtml" ajax="false"/>
-                                <p:menuitem value="Ville"  icon="ui-icon-close" url="http://localhost:8080/PostgresEssail/faces/indexVille.xhtml" ajax="false"/>
+                                <p:menuitem value="Gestion"  icon="ui-icon-close" action="#{applicationManagedBean.indexPay()}" ajax="false"/>
+                                <p:menuitem value="Ville"  icon="ui-icon-close" action="#{applicationManagedBean.indexVille()}" ajax="false"/>
                             </p:submenu>
                         </p:submenu>
 
-                        <p:menuitem value="Quit"  icon="ui-icon-close" url="http://localhost:8080/GestionLieu/faces/index.xhtml" oncomplete="handleLoginRequest(xhr, status, args)"/>
+                        <p:menuitem value="Quit"  icon="ui-icon-close" action="#{applicationManagedBean.logout()}" oncomplete="handleLoginRequest(xhr, status, args)" ajax="false"/>
 
                         <f:facet name="options">
                             <p:inputText style="margin-right:10px"/>
@@ -79,7 +79,7 @@
             </div>
 
             <div id="bottom"  class="title ui-widget-header ui-corner-all">
-                <ui:insert name="bottom">&copy;Aymen 2014</ui:insert>
+                <ui:insert name="bottom">Aymen &copy; 2014</ui:insert>
             </div>
         </div>
         <script type="text/javascript">

@@ -7,6 +7,8 @@
     <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">aymen</property>
+    
+    <property name="hibernate.current_session_context_class">thread</property>
     <mapping resource="model/mapping/CentreCommercial.hbm.xml"/>
     <mapping resource="model/mapping/CentreMedicale.hbm.xml"/>
     <mapping resource="model/mapping/Garde.hbm.xml"/>
