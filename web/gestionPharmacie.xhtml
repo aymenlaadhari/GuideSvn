@@ -16,11 +16,12 @@ xmlns:p="http://primefaces.org/ui">
             
      <ui:define name="content">
 <h:form>
+    ID <p:inputText value="#{pharmacieManagedBean.pharmacie.id}"/><br/>
     Email <p:inputText value="#{pharmacieManagedBean.pharmacie.email}"/><br/>
     Telephone: <p:inputText value="#{pharmacieManagedBean.pharmacie.telephone}"/><br/>
     siteWeb: <p:inputText value="#{pharmacieManagedBean.pharmacie.siteweb}"/><br/>
     Latitude: <p:inputText value="#{pharmacieManagedBean.pharmacie.latitude}"/><br/>
-    id: <p:inputText value="#{pharmacieManagedBean.pharmacie.id}"/><br/>
+    Longitude: <p:inputText value="#{pharmacieManagedBean.pharmacie.longitude}"/><br/>
 <br/>
 <h:commandButton action="#{pharmacieManagedBean.ajouter()}" value="Inserer"/>
 <h:commandButton action="#{pharmacieManagedBean.modifier()}" value="Modifier"/>

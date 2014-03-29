@@ -16,11 +16,11 @@
             
             <ui:define name="content">
             <h:form>
-                Email <h:inputText value="#{centrecommercialeManagedBean.centreCommercial.email}"/><br/>
-                Telephone: <h:inputText value="#{centrecommercialeManagedBean.centreCommercial.telephone}"/><br/>
-                siteWeb: <h:inputText value="#{centrecommercialeManagedBean.centreCommercial.siteweb}"/><br/>
-                Latitude: <h:inputText value="#{centrecommercialeManagedBean.centreCommercial.latitude}"/><br/>
-                id: <h:inputText value="#{centrecommercialeManagedBean.centreCommercial.id}"/><br/>
+                Email <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.email}"/><br/>
+                ID <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.id}"/><br/>
+                Telephone: <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.telephone}"/><br/>
+                siteWeb: <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.siteweb}"/><br/>
+                Latitude: <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.latitude}"/><br/>
                 <br/>
                 <h:commandButton action="#{centrecommercialeManagedBean.ajouter()}" value="Inserer"/>
                 <h:commandButton action="#{centrecommercialeManagedBean.modifier()}" value="Modifier"/>

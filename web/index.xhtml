@@ -19,6 +19,12 @@
             <ui:define name="content">
 
                 <p:dataTable var="centreCommercial" value="#{centrecommercialeManagedBean.listCentre}">
+                     <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{centreCommercial.id}"/>
+                    </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="EMAIL"/>
@@ -49,18 +55,13 @@
                         </f:facet>
                         <h:outputText value="#{centreCommercial.telephone}"/>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="ID"/>
-                        </f:facet>
-                        <h:outputText value="#{centreCommercial.id}"/>
-                    </p:column>
+                   
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Modifier"/>
                         </f:facet>
                         <h:form>
-                            <h:commandButton action="#{centrecommercialeManagedBean.preparerModifier()}" value="Modifier"/>
+                            <p:commandButton action="#{centrecommercialeManagedBean.preparerModifier()}" value="Modifier"/>
                             <p:commandButton id="btnupdate1"  update=":formUpdate" oncomplete="userDialogUpdate.show()" icon="ui-icon-pencil" title="Modify">
             
                             </p:commandButton>
@@ -71,14 +72,14 @@
                             <h:outputText value="Supprimer"/>
                         </f:facet>
                         <h:form>
-                            <h:commandButton action="#{centrecommercialeManagedBean.supprimer()}" value="Supprimer"/>
+                            <p:commandButton action="#{centrecommercialeManagedBean.supprimer()}" value="Supprimer" ajax="false"/>
                         </h:form>
                     </p:column>
                 </p:dataTable>
 
                 <br/>
                 <h:form>
-                    <h:commandLink value="Nouveau Centre Commerciale" action="#{centrecommercialeManagedBean.preparerAjout()}"/>
+                    <p:commandButton value="Nouveau Centre Commerciale" action="#{centrecommercialeManagedBean.preparerAjout()}" ajax="false"/>
                     <br/>
                 </h:form>
 

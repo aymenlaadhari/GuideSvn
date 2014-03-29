@@ -16,11 +16,13 @@ xmlns:p="http://primefaces.org/ui">
             
     <ui:define name="content">
 <h:form>
+    ID <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.id}"/><br/>
+
     Email <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.email}"/><br/>
     Telephone: <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.telephone}"/><br/>
     siteWeb: <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.siteweb}"/><br/>
     Latitude: <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.latitude}"/><br/>
-    id: <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.id}"/><br/>
+    Longitude: <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.longitude}"/><br/>
 <br/>
 <h:commandButton action="#{centreMedicaleManagedBean.ajouter()}" value="Inserer"/>
 <h:commandButton action="#{centreMedicaleManagedBean.modifier()}" value="Modifier"/>

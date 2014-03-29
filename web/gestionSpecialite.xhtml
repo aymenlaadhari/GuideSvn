@@ -16,12 +16,12 @@ xmlns:p="http://primefaces.org/ui">
             
      <ui:define name="content">
 <h:form>
-    ID <h:inputText value="#{specialiteManagedBean.specialite.id}"/><br/>
-    NOM: <h:inputText value="#{specialiteManagedBean.specialite.nom}"/><br/>
-    DESCRIPTION: <h:inputText value="#{specialiteManagedBean.specialite.description}"/><br/>
+    NOM: <p:inputText value="#{specialiteManagedBean.specialite.nom}"/><br/>
+    DESCRIPTION: <p:inputText value="#{specialiteManagedBean.specialite.description}"/><br/>
+    ID <p:inputText value="#{specialiteManagedBean.specialite.id}"/><br/>
    
 <br/>
-<h:commandButton action="#{specialiteManagedBean.ajouter()}" value="Inserer"/>
+<h:commandButton action="#{specialiteManagedBean.ajouter()}" value="Inserer" />
 <h:commandButton action="#{specialiteManagedBean.modifier()}" value="Modifier"/>
 <br/>
 <h:commandLink action="index" value="Retour"/>

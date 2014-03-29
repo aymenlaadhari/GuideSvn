@@ -4,6 +4,7 @@ package model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -36,7 +37,7 @@ public class Ville  implements java.io.Serializable {
        this.rue = rue;
     }
    
-     @Id 
+     @Id @GeneratedValue
 
     
     @Column(name="id", unique=true, nullable=false)

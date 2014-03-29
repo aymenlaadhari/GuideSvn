@@ -9,13 +9,10 @@
     <property name="hibernate.connection.password">aymen</property>
     <property name="hbm2ddl.auto">update</property>
     <!-- Montrer toutes les requêtes générées-->
-<property name="show_sql">true</property>
-<property name="format_sql">true</property>
- <property name="hibernate.current_session_context_class">thread</property>
- 
-                  <!-- Les fichiers de mapping -->
-                  
-   
+    <property name="show_sql">true</property>
+    <property name="format_sql">true</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <!-- Les fichiers de mapping -->
     <mapping resource="model/mapping/CentreCommercial.hbm.xml"/>
     <mapping resource="model/mapping/CentreMedicale.hbm.xml"/>
     <mapping resource="model/mapping/Garde.hbm.xml"/>
@@ -25,6 +22,6 @@
     <mapping resource="model/mapping/Restaurant.hbm.xml"/>
     <mapping resource="model/mapping/Specialite.hbm.xml"/>
     <mapping resource="model/mapping/Ville.hbm.xml"/>
-    
+    <mapping resource="model/mapping/utilisateur.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

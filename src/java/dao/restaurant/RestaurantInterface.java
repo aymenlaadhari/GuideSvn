@@ -8,7 +8,6 @@ package dao.restaurant;
 import java.util.List;
 import model.Restaurant;
 
-
 /**
  *
  * @author hp
@@ -26,5 +25,4 @@ public interface RestaurantInterface {
     public Restaurant getCentre(long id);
 
     //public Restaurant findByRestaurant(Restaurant restaurant);
-
 }

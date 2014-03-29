@@ -4,6 +4,7 @@ package model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -34,7 +35,7 @@ public class Specialite  implements java.io.Serializable {
        this.description = description;
     }
    
-     @Id 
+     @Id @GeneratedValue
 
     
     @Column(name="id", unique=true, nullable=false)

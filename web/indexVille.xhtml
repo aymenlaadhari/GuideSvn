@@ -50,7 +50,7 @@
                     <h:outputText value="Modifier"/>
                 </f:facet>
                 <h:form>
-                    <h:commandButton action="#{villeManagedBean.preparerModifier()}" value="Modifier"/>
+                    <p:commandButton action="#{villeManagedBean.preparerModifier()}" value="Modifier"/>
                 </h:form>
             </p:column>
             <p:column>
@@ -58,14 +58,14 @@
                     <h:outputText value="Supprimer"/>
                 </f:facet>
                 <h:form>
-                    <h:commandButton action="#{villeManagedBean.supprimer()}" value="Supprimer"/>
+                    <p:commandButton action="#{villeManagedBean.supprimer()}" value="Supprimer" ajax="false"/>
                 </h:form>
             </p:column>
         </p:dataTable>
 
         <br/>
         <h:form>
-            <h:commandLink value="Nouveau Ville" action="#{villeManagedBean.preparerAjout()}"/>
+            <p:commandButton value="Nouveau Ville" action="#{villeManagedBean.preparerAjout()}" ajax="false"/>
             <br/>
         </h:form>
 

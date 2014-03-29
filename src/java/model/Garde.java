@@ -5,6 +5,7 @@ package model;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -37,7 +38,7 @@ public class Garde  implements java.io.Serializable {
        this.fin = fin;
     }
    
-     @Id 
+     @Id @GeneratedValue
 
     
     @Column(name="id", unique=true, nullable=false)

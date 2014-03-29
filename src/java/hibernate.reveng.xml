@@ -11,4 +11,5 @@
   <table-filter match-name="specialite"/>
   <table-filter match-name="pharmacie"/>
   <table-filter match-name="restaurant"/>
+  
 </hibernate-reverse-engineering>

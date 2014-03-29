@@ -4,6 +4,7 @@ package model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -42,7 +43,7 @@ public class Pharmacie  implements java.io.Serializable {
        this.type = type;
     }
    
-     @Id 
+     @Id @GeneratedValue
 
     
     @Column(name="id", unique=true, nullable=false)

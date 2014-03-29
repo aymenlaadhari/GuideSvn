@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core"
-xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
 <h:head>
 <title>Gestion</title>
 </h:head>
@@ -15,10 +16,10 @@ xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
             
      <ui:define name="content">
 <h:form>
-    ID <h:inputText value="#{villeManagedBean.ville.id}"/><br/>
-    NOM: <h:inputText value="#{villeManagedBean.ville.nom}"/><br/>
-    RUE: <h:inputText value="#{villeManagedBean.ville.rue}"/><br/>
-    Gouvernorat: <h:inputText value="#{villeManagedBean.ville.gouvernorat}"/><br/>
+    NOM: <p:inputText value="#{villeManagedBean.ville.nom}"/><br/>
+    RUE: <p:inputText value="#{villeManagedBean.ville.rue}"/><br/>
+    Gouvernorat: <p:inputText value="#{villeManagedBean.ville.gouvernorat}"/><br/>
+    ID <p:inputText value="#{villeManagedBean.ville.id}"/><br/>
    
 <br/>
 <h:commandButton action="#{villeManagedBean.ajouter()}" value="Inserer"/>

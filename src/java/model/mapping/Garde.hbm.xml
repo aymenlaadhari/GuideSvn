@@ -6,7 +6,7 @@
     <class name="model.Garde" table="garde" schema="public">
         <id name="id" type="int">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="debut" type="date">
             <column name="debut" length="13" />

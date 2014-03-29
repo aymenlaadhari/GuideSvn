@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="top">
+                top
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    NOM: <p:inputText value="#{utilisateurManagedBean.utilisateur.nom}"/><br/>
+                    PRENOM: <p:inputText value="#{utilisateurManagedBean.utilisateur.prenom}"/><br/>
+                    ADDRESS: <p:inputText value="#{utilisateurManagedBean.utilisateur.adress}"/><br/>
+                    EMAIL: <p:inputText value="#{utilisateurManagedBean.utilisateur.email}"/><br/>
+                    PASSWORD: <p:inputText value="#{utilisateurManagedBean.utilisateur.password}"/><br/>
+                    ID <p:inputText value="#{utilisateurManagedBean.utilisateur.id}"/><br/>
+                    
+
+                    <br/>
+                    <h:commandButton action="#{utilisateurManagedBean.ajouter()}" value="Inserer"/>
+                    <h:commandButton action="#{utilisateurManagedBean.modifier()}" value="Modifier"/>
+                    <br/>
+                    <h:commandLink action="index" value="Retour"/>
+                    <br/>
+                    <h:commandLink action="userList" value="gestionUser"/>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

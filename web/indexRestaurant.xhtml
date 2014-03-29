@@ -22,6 +22,12 @@
                 <p:dataTable var="restaurant" value="#{restaurantManagedBean.listRestaurant}">
                     <p:column>
                         <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{restaurant.id}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
                             <h:outputText value="EMAIL"/>
                         </f:facet>
                         <h:outputText value="#{restaurant.email}" />
@@ -50,18 +56,13 @@
                         </f:facet>
                         <h:outputText value="#{restaurant.telephone}"/>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="ID"/>
-                        </f:facet>
-                        <h:outputText value="#{restaurant.id}"/>
-                    </p:column>
+                    
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Modifier"/>
                         </f:facet>
                         <h:form>
-                            <h:commandButton action="#{restaurantManagedBean.preparerModifier()}" value="Modifier"/>
+                            <p:commandButton action="#{restaurantManagedBean.preparerModifier()}" value="Modifier"/>
                         </h:form>
                     </p:column>
                     <p:column>
@@ -69,14 +70,14 @@
                             <h:outputText value="Supprimer"/>
                         </f:facet>
                         <h:form>
-                            <h:commandButton action="#{restaurantManagedBean.supprimer()}" value="Supprimer"/>
+                            <p:commandButton action="#{restaurantManagedBean.supprimer()}" value="Supprimer" ajax="false"/>
                         </h:form>
                     </p:column>
                 </p:dataTable>
 
                 <br/>
                 <h:form>
-                    <h:commandLink value="Nouveau Restaurant" action="#{restaurantManagedBean.preparerAjout()}"/>
+                    <p:commandButton value="Nouveau Restaurant" action="#{restaurantManagedBean.preparerAjout()}" ajax="false"/>
                     <br/>
                 </h:form>
 
