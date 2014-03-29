@@ -22,25 +22,25 @@
         <p:dataTable var="ville" value="#{villeManagedBean.listVille}">
             <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Títre"/>
+                    <h:outputText value="ID"/>
                 </f:facet>
                 <h:outputText value="#{ville.id}" />
             </p:column>
             <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Auteur"/>
+                    <h:outputText value="NOM"/>
                 </f:facet>
                 <h:outputText value="#{ville.nom}"/>
             </p:column>
             <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Páges"/>
+                    <h:outputText value="RUE"/>
                 </f:facet>
                 <h:outputText value="#{ville.rue}"/>
             </p:column>
             <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Páges"/>
+                    <h:outputText value="GOUVERNORAT"/>
                 </f:facet>
                 <h:outputText value="#{ville.gouvernorat}"/>
             </p:column>

@@ -2,6 +2,7 @@ package model;
 // Generated 26 mars 2014 16:28:09 by Hibernate Tools 3.6.0
 
 
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -23,6 +24,7 @@ public class Restaurant  implements java.io.Serializable {
      private String siteweb;
      private Long longitude;
      private Long latitude;
+     
 
     public Restaurant() {
     }
@@ -101,6 +103,12 @@ public class Restaurant  implements java.io.Serializable {
     public void setLatitude(Long latitude) {
         this.latitude = latitude;
     }
+
+   
+
+   
+    
+    
 
 
 

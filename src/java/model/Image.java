@@ -5,6 +5,7 @@ package model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 /**
@@ -17,9 +18,15 @@ import javax.persistence.Table;
 public class Image  implements java.io.Serializable {
 
 
+@Id
+     @Column(name="id", unique=true, nullable=false)
      private int id;
+@Column(name="nom", length=25)
      private String nom;
+@Column(name="description", length=25)
      private String description;
+@Column(name="data")
+     @Lob
      private byte[] data;
 
     public Image() {
@@ -36,11 +43,7 @@ public class Image  implements java.io.Serializable {
        this.data = data;
     }
    
-     @Id 
-
-    
-    @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+         public int getId() {
         return this.id;
     }
     
@@ -49,8 +52,7 @@ public class Image  implements java.io.Serializable {
     }
 
     
-    @Column(name="nom", length=25)
-    public String getNom() {
+        public String getNom() {
         return this.nom;
     }
     
@@ -59,8 +61,7 @@ public class Image  implements java.io.Serializable {
     }
 
     
-    @Column(name="description", length=25)
-    public String getDescription() {
+        public String getDescription() {
         return this.description;
     }
     
@@ -69,8 +70,7 @@ public class Image  implements java.io.Serializable {
     }
 
     
-    @Column(name="data")
-    public byte[] getData() {
+        public byte[] getData() {
         return this.data;
     }
     

@@ -59,13 +59,17 @@
                                 <p:menuitem value="Gestion"  icon="ui-icon-close" action="#{applicationManagedBean.indexPay()}" ajax="false"/>
                                 <p:menuitem value="Ville"  icon="ui-icon-close" action="#{applicationManagedBean.indexVille()}" ajax="false"/>
                             </p:submenu>
+                            
+                            <p:menuitem value="Gestion Images"  icon="ui-icon-close" action="#{applicationManagedBean.indexImage()}" ajax="false"/>
+                                
+                            
                         </p:submenu>
 
                         <p:menuitem value="Quit"  icon="ui-icon-close" action="#{applicationManagedBean.logout()}" oncomplete="handleLoginRequest(xhr, status, args)" ajax="false"/>
 
                         <f:facet name="options">
                             <p:inputText style="margin-right:10px"/>
-                            <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+                            <p:commandButton  value="Logout" action="#{applicationManagedBean.logout()}" icon="ui-icon-extlink" ajax="false" />
                         </f:facet>
                     </p:menubar>
 

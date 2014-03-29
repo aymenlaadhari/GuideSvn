@@ -4,6 +4,7 @@ package model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -40,7 +41,7 @@ public class CentreCommercial  implements java.io.Serializable {
        this.latitude = latitude;
     }
    
-     @Id 
+     @Id  @GeneratedValue
 
     
     @Column(name="id", unique=true, nullable=false)

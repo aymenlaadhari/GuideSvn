@@ -95,6 +95,16 @@ public class ApplicationManagedBean implements Serializable{
     {
         return "login";
     }
+    
+     public String indexImage()
+   {
+       return "indexImage";
+   }
+        public String gestionImage()
+   {
+       return "gestionImage";
+   }
+     
    
     public ApplicationManagedBean() {
         
