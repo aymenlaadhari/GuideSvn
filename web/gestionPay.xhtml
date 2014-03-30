@@ -16,14 +16,17 @@
 
             <ui:define name="content">
                 <h:form>
-                    Nom: <p:inputText value="#{payManagedBean.pay.nom}"/><br/>
-                    ID <p:inputText value="#{payManagedBean.pay.id}"/><br/>
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel value="Nom  "/>
+                    <p:inputText value="#{payManagedBean.pay.nom}"/><br/>
+                    <h:outputLabel value="ID   "/>
+                    <p:inputText value="#{payManagedBean.pay.id}"/><br/>
 
 
                     <br/>
                     <p:commandButton action="#{payManagedBean.ajouter()}" value="Inserer" ajax="false"/>
                     <p:commandButton action="#{payManagedBean.modifier()}" value="Modifier" ajax="false"/>
-                   
+                   </h:panelGrid>
                 </h:form>
             </ui:define>
         </ui:composition>

@@ -22,13 +22,12 @@
                                      id="username" required="true" label="username" />
 
                         <h:outputLabel for="password" value="Password:" />
-                        <h:inputSecret  value="#{loginManagedBean.utilisateur.password}"
-                                       id="password" required="true" label="password" />
+                        <p:password value="#{loginManagedBean.utilisateur.password}" required="true" />
 
                         <f:facet name="footer">
                             <p:commandButton id="loginButton" value="Login"  
                                              actionListener="#{loginManagedBean.login(actionEvent)}"
-                                             oncomplete="handleLoginRequest(xhr, status, args)" update="form" ajax="false"/>
+                                             oncomplete="handleLoginRequest(xhr, status, args)" update="form" ajax="true"/>
                         </f:facet>
                     </h:panelGrid>
                     </p:panel>

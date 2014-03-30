@@ -16,16 +16,23 @@
 
             <ui:define name="content">
                 <h:form>
-                    ID <p:inputText value="#{restaurantManagedBean.restaurant.id}" /><br/>
-                    Email <p:inputText value="#{restaurantManagedBean.restaurant.email}"/><br/>
-                    Telephone: <p:inputText value="#{restaurantManagedBean.restaurant.telephone}"/><br/>
-                    siteWeb: <p:inputText value="#{restaurantManagedBean.restaurant.siteweb}"/><br/>
-                    Latitude: <p:inputText value="#{restaurantManagedBean.restaurant.latitude}"/><br/>
-                    Latitude: <p:inputText value="#{restaurantManagedBean.restaurant.longitude}"/><br/>
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel value="ID "/>
+                    <p:inputText value="#{restaurantManagedBean.restaurant.id}" /><br/>
+                    <h:outputLabel value="Email "/>
+                  <p:inputText value="#{restaurantManagedBean.restaurant.email}"/><br/>
+                  <h:outputLabel value="Telephone "/>
+                    <p:inputText value="#{restaurantManagedBean.restaurant.telephone}"/><br/>
+                    <h:outputLabel value="Site Web "/>
+                    <p:inputText value="#{restaurantManagedBean.restaurant.siteweb}"/><br/>
+                    <h:outputLabel value="Latitude "/>
+                     <p:inputText value="#{restaurantManagedBean.restaurant.latitude}"/><br/>
+                     <h:outputLabel value="Longitude "/>
+                     <p:inputText value="#{restaurantManagedBean.restaurant.longitude}"/><br/>
                     <br/>
                     <p:commandButton action="#{restaurantManagedBean.ajouter()}" value="Inserer" ajax="false"/>
                     <p:commandButton action="#{restaurantManagedBean.modifier()}" value="Modifier" ajax="false"/>
-                   
+                   </h:panelGrid>
                 </h:form>
             </ui:define>
         </ui:composition>

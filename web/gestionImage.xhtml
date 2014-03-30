@@ -15,17 +15,21 @@
 
             <ui:define name="content">
                 <h:form>
-                    ID <p:inputText value="#{imageManagedBean.image.id}"/><br/>
-                    Nom: <p:inputText value="#{imageManagedBean.image.nom}"/><br/>
-                    Description: <p:inputText value="#{imageManagedBean.image.description}"/>
-                    <br/>
-                    <p:commandButton action="#{imageManagedBean.ajouter()}" value="Inserer" ajax="false"/>
-                    <p:commandButton action="#{imageManagedBean.modifier()}" value="Modifier" ajax="false"/>
-                   
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel value="id   "/>
+                        <p:inputText value="#{imageManagedBean.image.id}"/><br/>
+                        <h:outputLabel value="NOM   "/>
+                        <p:inputText value="#{imageManagedBean.image.nom}"/><br/>
+                        <h:outputLabel value="Description   "/>
+                        <p:inputText value="#{imageManagedBean.image.description}"/>
+                        <br/>
+                        <p:commandButton action="#{imageManagedBean.ajouter()}" value="Inserer" ajax="false"/>
+                        <p:commandButton action="#{imageManagedBean.modifier()}" value="Modifier" ajax="false"/>
+                    </h:panelGrid>
                 </h:form>
             </ui:define>
 
-            
+
 
         </ui:composition>
 

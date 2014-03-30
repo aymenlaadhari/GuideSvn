@@ -66,9 +66,6 @@
                             <h:form>
                                 <p:commandButton action="#{centrecommercialeManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil" title="Modify"/>
 
-                                <p:commandButton id="btnupdate1"  update=":formUpdate" oncomplete="userDialogUpdate.show()" icon="ui-icon-pencil" title="Modify">
-                                    <f:setPropertyActionListener value="#{centreCommercial}" target="#{centrecommercialeManagedBean.centreCommercial}" />
-                                </p:commandButton>
                                 <p:commandButton action="#{centrecommercialeManagedBean.supprimer()}" icon="ui-icon-cancel"  ajax="false"/>                      
                             </h:form>
                         </p:column>

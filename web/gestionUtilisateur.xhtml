@@ -15,18 +15,25 @@
 
             <ui:define name="content">
                 <h:form>
-                    NOM: <p:inputText value="#{utilisateurManagedBean.utilisateur.nom}"/><br/>
-                    PRENOM: <p:inputText value="#{utilisateurManagedBean.utilisateur.prenom}"/><br/>
-                    ADDRESS: <p:inputText value="#{utilisateurManagedBean.utilisateur.adress}"/><br/>
-                    EMAIL: <p:inputText value="#{utilisateurManagedBean.utilisateur.email}"/><br/>
-                    PASSWORD: <p:inputText value="#{utilisateurManagedBean.utilisateur.password}"/><br/>
-                    ID <p:inputText value="#{utilisateurManagedBean.utilisateur.id}"/><br/>
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel value="Nom "/>
+                    <p:inputText value="#{utilisateurManagedBean.utilisateur.nom}"/><br/>
+                    <h:outputLabel value="prenom "/>
+                     <p:inputText value="#{utilisateurManagedBean.utilisateur.prenom}"/><br/>
+                     <h:outputLabel value="Address "/>
+                     <p:inputText value="#{utilisateurManagedBean.utilisateur.adress}"/><br/>
+                     <h:outputLabel value="Email "/>
+                    <p:inputText value="#{utilisateurManagedBean.utilisateur.email}"/><br/>
+                    <h:outputLabel value="Password "/>
+                     <p:inputText value="#{utilisateurManagedBean.utilisateur.password}"/><br/>
+                     <h:outputLabel value="Id "/>
+                    <p:inputText value="#{utilisateurManagedBean.utilisateur.id}"/><br/>
                     
 
                     <br/>
                     <p:commandButton action="#{utilisateurManagedBean.ajouter()}" value="Inserer" ajax="false"/>
                     <p:commandButton action="#{utilisateurManagedBean.modifier()}" value="Modifier" ajax="false"/>
-                   
+                   </h:panelGrid>
                 </h:form>
             </ui:define>
 

@@ -78,6 +78,7 @@ public class ApplicationManagedBean implements Serializable {
         return "indexVille";
     }
 
+    
     public String logout() {
         return "login";
     }

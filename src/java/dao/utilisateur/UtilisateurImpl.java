@@ -78,7 +78,7 @@ public class UtilisateurImpl implements UtilisateurInterface{
     
         try {
             session.beginTransaction();
-            usuarioModel = (Utilisateur)session.createQuery("FROM Utilisateur WHERE utilisateur = '"+utilisateur.getNom()+ "'").uniqueResult();
+            usuarioModel = (Utilisateur)session.createQuery("FROM Utilisateur WHERE nom = '"+utilisateur.getNom()+ "'").uniqueResult();
             session.beginTransaction().commit();            
         } catch (HibernateException e) {
             session.beginTransaction().rollback();

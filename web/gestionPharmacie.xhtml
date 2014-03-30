@@ -16,16 +16,23 @@ xmlns:p="http://primefaces.org/ui">
             
      <ui:define name="content">
 <h:form>
-    ID <p:inputText value="#{pharmacieManagedBean.pharmacie.id}"/><br/>
-    Email <p:inputText value="#{pharmacieManagedBean.pharmacie.email}"/><br/>
-    Telephone: <p:inputText value="#{pharmacieManagedBean.pharmacie.telephone}"/><br/>
-    siteWeb: <p:inputText value="#{pharmacieManagedBean.pharmacie.siteweb}"/><br/>
-    Latitude: <p:inputText value="#{pharmacieManagedBean.pharmacie.latitude}"/><br/>
-    Longitude: <p:inputText value="#{pharmacieManagedBean.pharmacie.longitude}"/><br/>
+    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel value="ID "/>
+    <p:inputText value="#{pharmacieManagedBean.pharmacie.id}"/><br/>
+    <h:outputLabel value="Email "/>
+  <p:inputText value="#{pharmacieManagedBean.pharmacie.email}"/><br/>
+  <h:outputLabel value="telephone "/>
+    <p:inputText value="#{pharmacieManagedBean.pharmacie.telephone}"/><br/>
+    <h:outputLabel value="Site Web "/>
+   <p:inputText value="#{pharmacieManagedBean.pharmacie.siteweb}"/><br/>
+   <h:outputLabel value="Latitude "/>
+     <p:inputText value="#{pharmacieManagedBean.pharmacie.latitude}"/><br/>
+     <h:outputLabel value="Longitude "/>
+     <p:inputText value="#{pharmacieManagedBean.pharmacie.longitude}"/><br/>
 <br/>
 <p:commandButton action="#{pharmacieManagedBean.ajouter()}" value="Inserer" ajax="false"/>
 <p:commandButton action="#{pharmacieManagedBean.modifier()}" value="Modifier" ajax="false"/>
-
+</h:panelGrid>
 </h:form>
          </ui:define>
         </ui:composition>

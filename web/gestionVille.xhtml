@@ -16,15 +16,20 @@ xmlns:p="http://primefaces.org/ui">
             
      <ui:define name="content">
 <h:form>
-    NOM: <p:inputText value="#{villeManagedBean.ville.nom}"/><br/>
-    RUE: <p:inputText value="#{villeManagedBean.ville.rue}"/><br/>
-    Gouvernorat: <p:inputText value="#{villeManagedBean.ville.gouvernorat}"/><br/>
-    ID <p:inputText value="#{villeManagedBean.ville.id}"/><br/>
+    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel value="Nom "/>
+    <p:inputText value="#{villeManagedBean.ville.nom}"/><br/>
+    <h:outputLabel value="Rue "/>
+   <p:inputText value="#{villeManagedBean.ville.rue}"/><br/>
+   <h:outputLabel value="Gouvernorat "/>
+    <p:inputText value="#{villeManagedBean.ville.gouvernorat}"/><br/>
+    <h:outputLabel value="Id "/>
+    <p:inputText value="#{villeManagedBean.ville.id}"/><br/>
    
 <br/>
 <p:commandButton action="#{villeManagedBean.ajouter()}" value="Inserer" ajax="false"/>
 <p:commandButton action="#{villeManagedBean.modifier()}" value="Modifier" ajax="false"/>
-
+</h:panelGrid>
 </h:form>
          </ui:define>
         </ui:composition>

@@ -14,6 +14,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import model.Utilisateur;
 import org.primefaces.context.RequestContext;
 
@@ -44,27 +45,27 @@ public class LoginManagedBean implements Serializable{
      */
     public LoginManagedBean() {
         this.ui = new UtilisateurImpl();
+        
         if(this.utilisateur == null)
         {
             this.utilisateur = new Utilisateur();
         }
+      
     }
     
     public void login(ActionEvent actionEvent) {
 		RequestContext context = RequestContext.getCurrentInstance();
 		FacesMessage msg;
 		boolean loggedIn;
-                String ruta = "";
-                System.out.println("------------------");
-                System.out.println(this.utilisateur.getNom());
+                String path = "";
+               
                 this.utilisateur = this.ui.login(this.utilisateur);//tuto part 3 12:59
-		System.out.println("------------------");
-                System.out.println(this.utilisateur.getNom());
+		
 		if(this.utilisateur != null) {
 			loggedIn = true;
-                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", this.utilisateur.getNom());
-			msg = new FacesMessage("Welcome"+this.utilisateur.getNom());
-		        ruta = indexUtilisateur();
+                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("hey", this.utilisateur.getNom());
+			msg = new FacesMessage("Welcome  "+this.utilisateur.getNom());
+		        path = "/PostgresEssail/faces/indexUtilisateur.xhtml";
                 } else {
 			loggedIn = false;
 			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "User or password are incorrect");
@@ -73,11 +74,26 @@ public class LoginManagedBean implements Serializable{
                             this.utilisateur = new Utilisateur();
                         }
 		}
+                
 		
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		context.addCallbackParam("loggedIn", loggedIn);
-                context.addCallbackParam("ruta", ruta);
+                context.addCallbackParam("ruta", path);
 	}
+    
+    
+     public void logout()
+    {
+        String path ="/PostgresEssail/faces/login.xhtml";
+        RequestContext context = RequestContext.getCurrentInstance();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(false);
+        httpSession.invalidate();
+        context.addCallbackParam("loggetOut", true);
+        context.addCallbackParam("ruta", path);
+        
+        
+    }
     
    public String indexUtilisateur() {
         return "indexUtilisateur";
