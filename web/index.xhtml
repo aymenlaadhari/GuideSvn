@@ -17,62 +17,65 @@
             </ui:define>
 
             <ui:define name="content">
-                 <h:form>
+                <h:form>
                     <p:commandButton value="Nouveau Centre Commerciale" action="#{centrecommercialeManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
                 </h:form>
-                
+
                 <h:form>
 
-                <p:dataTable var="centreCommercial" value="#{centrecommercialeManagedBean.listCentre}">
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="ID"/>
-                        </f:facet>
-                        <h:outputText value="#{centreCommercial.id}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="EMAIL"/>
-                        </f:facet>
-                        <h:outputText value="#{centreCommercial.email}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="LATITUDE"/>
-                        </f:facet>
-                        <h:outputText value="#{centreCommercial.latitude}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="LONGITUDE"/>
-                        </f:facet>
-                        <h:outputText value="#{centreCommercial.longitude}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="SITE WEB"/>
-                        </f:facet>
-                        <h:outputText value="#{centreCommercial.siteweb}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Telephone"/>
-                        </f:facet>
-                        <h:outputText value="#{centreCommercial.telephone}"/>
-                    </p:column>
+                    <p:dataTable var="centreCommercial" value="#{centrecommercialeManagedBean.listCentre}">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ID"/>
+                            </f:facet>
+                            <h:outputText value="#{centreCommercial.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="EMAIL"/>
+                            </f:facet>
+                            <h:outputText value="#{centreCommercial.email}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="LATITUDE"/>
+                            </f:facet>
+                            <h:outputText value="#{centreCommercial.latitude}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="LONGITUDE"/>
+                            </f:facet>
+                            <h:outputText value="#{centreCommercial.longitude}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="SITE WEB"/>
+                            </f:facet>
+                            <h:outputText value="#{centreCommercial.siteweb}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Telephone"/>
+                            </f:facet>
+                            <h:outputText value="#{centreCommercial.telephone}"/>
+                        </p:column>
 
-                    <p:column style="width:4%">
-                        <h:form>
-                        <p:commandButton action="#{centrecommercialeManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil" title="Modify"/>
-                        <p:commandButton id="btnupdate1"  update=":formUpdate" oncomplete="userDialogUpdate.show()" icon="ui-icon-pencil" title="Modify"/>
-                        <p:commandButton action="#{centrecommercialeManagedBean.supprimer()}" icon="ui-icon-cancel"  ajax="false"/>                      
-                        </h:form>
-                    </p:column>
-                    
-                </p:dataTable>
+                        <p:column style="width:4%">
+                            <h:form>
+                                <p:commandButton action="#{centrecommercialeManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil" title="Modify"/>
+
+                                <p:commandButton id="btnupdate1"  update=":formUpdate" oncomplete="userDialogUpdate.show()" icon="ui-icon-pencil" title="Modify">
+                                    <f:setPropertyActionListener value="#{centreCommercial}" target="#{centrecommercialeManagedBean.centreCommercial}" />
+                                </p:commandButton>
+                                <p:commandButton action="#{centrecommercialeManagedBean.supprimer()}" icon="ui-icon-cancel"  ajax="false"/>                      
+                            </h:form>
+                        </p:column>
+
+                    </p:dataTable>
 
                 </h:form>
-               
+
 
                 <h:form id="formUpdate">
 

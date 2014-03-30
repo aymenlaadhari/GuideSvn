@@ -16,17 +16,19 @@ xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
             
      <ui:define name="content">
 <h:form>
-    ID <p:inputText value="#{gardeManagedBean.garde.id}"/><br/>
-    Date debut :<p:calendar value="#{gardeManagedBean.garde.debut}" pattern="MM/dd/yyyy HH:mm" /><br/>
-    Date Fin   :<p:calendar value="#{gardeManagedBean.garde.fin}" pattern="MM/dd/yyyy HH:mm" />
+    <h:panelGrid columns="3" cellpadding="5">
+        <h:outputLabel value="id   "/> 
+     <p:inputText value="#{gardeManagedBean.garde.id}"/><br/>
+     <h:outputLabel value="date debut   "/> 
+   <p:calendar value="#{gardeManagedBean.garde.debut}" pattern="MM/dd/yyyy HH:mm" /><br/>
+   <h:outputLabel value="date fin   "/> 
+   <p:calendar value="#{gardeManagedBean.garde.fin}" pattern="MM/dd/yyyy HH:mm" />
    
 <br/>
 <p:commandButton action="#{gardeManagedBean.ajouter()}" value="Inserer" ajax="false"/>
 <p:commandButton action="#{gardeManagedBean.modifier()}" value="Modifier" ajax="false"/>
 <br/>
-<h:commandLink action="index" value="Retour"/>
-<br/>
-<h:commandLink action="userList" value="gestionUser"/>
+</h:panelGrid>
 </h:form>
          </ui:define>
         </ui:composition>

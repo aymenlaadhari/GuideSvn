@@ -13,23 +13,36 @@
             <ui:define name="top">
                 Gestion Centre Commerciale
             </ui:define>
-            
+
             <ui:define name="content">
-            <h:form>
-                Email <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.email}"/><br/>
-                ID <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.id}"/><br/>
-                Telephone: <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.telephone}"/><br/>
-                siteWeb: <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.siteweb}"/><br/>
-                Latitude: <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.latitude}"/><br/>
-                <br/>
-                <p:commandButton action="#{centrecommercialeManagedBean.ajouter()}" value="Inserer" ajax="false"/>
-                <p:commandButton action="#{centrecommercialeManagedBean.modifier()}" value="Modifier" ajax="false"/>
-                <br/>
-                <h:commandLink action="index" value="Retour"/>
-                <br/>
-                <h:commandLink action="userList" value="gestionUser"/>
-            </h:form>
-                </ui:define>
+                
+                <h:form>
+                    <h:panelGrid columns="3" cellpadding="5">
+                    <h:outputLabel value="EMAIL   "/> 
+                    <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.email}"/><br/>
+                    <h:outputLabel value="ID  "/>
+                    <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.id}"/><br/>
+                     <h:outputLabel value="TELEPHONE  "/>
+                    <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.telephone}"/><br/>
+                     <h:outputLabel value="LONGITUDE  "/>
+                    <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.siteweb}"/><br/>
+                     <h:outputLabel value="LATITUDE  "/>
+                    <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.latitude}"/><br/>
+                    <br/>
+                    <p:commandButton action="#{centrecommercialeManagedBean.ajouter()}" value="Inserer" ajax="false"/>
+                    <p:commandButton action="#{centrecommercialeManagedBean.modifier()}" value="Modifier" ajax="false"/>
+</h:panelGrid>
+                </h:form>
+                    
+               
+
+                <p:panel>
+                    <p:gmap center="41.381542, 2.122893" zoom="15" type="HYBRID"
+                            style="width:600px;height:400px" />
+                    </p:panel>
+                
+
+            </ui:define>
         </ui:composition>
     </h:body>
 </html>

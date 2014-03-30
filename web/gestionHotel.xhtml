@@ -16,24 +16,32 @@
 
             <ui:define name="content">
                 <h:form>
-                    Id Hotel: <p:inputText value="#{hotelManagedBean.hotel.idHotel}"/><br/>
-                    Nom d'Hotel:  <p:inputText value="#{hotelManagedBean.hotel.nomH}"/><br/>
-                    Categorie : <p:inputText value="#{hotelManagedBean.hotel.categorieH}"/><br/>
-                    SiteWeb: <p:inputText value="#{hotelManagedBean.hotel.sitewebH}"/><br/>
-                    Latitude: <p:inputText value="#{hotelManagedBean.hotel.latitude}"/><br/>
-                    Longitude : <p:inputText value="#{hotelManagedBean.hotel.longitude}"/><br/>
-                    Description :  <p:inputText value="#{hotelManagedBean.hotel.description}"/><br/>
-                    Telephone: <p:inputText value="#{hotelManagedBean.hotel.telephoneH}"/><br/>
-                    Email : <p:inputText value="#{hotelManagedBean.hotel.emailH}"/><br/>
-                    Nombre Etoile: <p:inputText value="#{hotelManagedBean.hotel.nbreetoile}"/><br/>
+                    <h:panelGrid columns="3" cellpadding="5">
+        <h:outputLabel value="id   "/>
+                    <p:inputText value="#{hotelManagedBean.hotel.idHotel}"/><br/>
+                    <h:outputLabel value="nom   "/>
+                    <p:inputText value="#{hotelManagedBean.hotel.nomH}"/><br/>
+                    <h:outputLabel value="categorie   "/>
+                    <p:inputText value="#{hotelManagedBean.hotel.categorieH}"/><br/>
+                    <h:outputLabel value="site web   "/>
+                    <p:inputText value="#{hotelManagedBean.hotel.sitewebH}"/><br/>
+                    <h:outputLabel value="latitude   "/>
+                    <p:inputText value="#{hotelManagedBean.hotel.latitude}"/><br/>
+                    <h:outputLabel value="longitude   "/>
+                     <p:inputText value="#{hotelManagedBean.hotel.longitude}"/><br/>
+                     <h:outputLabel value="description   "/>
+                     <p:inputText value="#{hotelManagedBean.hotel.description}"/><br/>
+                     <h:outputLabel value="telephone   "/>
+                   <p:inputText value="#{hotelManagedBean.hotel.telephoneH}"/><br/>
+                   <h:outputLabel value="email   "/>
+                    <p:inputText value="#{hotelManagedBean.hotel.emailH}"/><br/>
+                    <h:outputLabel value="nombre etoile   "/>
+                     <p:inputText value="#{hotelManagedBean.hotel.nbreetoile}"/><br/>
 
                     <br/>
                     <p:commandButton action="#{hotelManagedBean.ajouter()}" value="Inserer" ajax="false"/>
                     <p:commandButton action="#{hotelManagedBean.modifier()}" value="Modifier" ajax="false"/>
-                    <br/>
-                    <h:commandLink action="index" value="Retour"/>
-                    <br/>
-                    <h:commandLink action="userList" value="gestionUser"/>
+                   </h:panelGrid>
                 </h:form>
             </ui:define>
         </ui:composition>
