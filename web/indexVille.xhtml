@@ -11,68 +11,61 @@
     </h:head>
     <h:body>
         <ui:composition template="./Template.xhtml">
-            
+
             <ui:define name="top">
                 Gestion Ville
             </ui:define>
-            
-             <ui:define name="content">
-                 
 
-        <p:dataTable var="ville" value="#{villeManagedBean.listVille}">
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="ID"/>
-                </f:facet>
-                <h:outputText value="#{ville.id}" />
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="NOM"/>
-                </f:facet>
-                <h:outputText value="#{ville.nom}"/>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="RUE"/>
-                </f:facet>
-                <h:outputText value="#{ville.rue}"/>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="GOUVERNORAT"/>
-                </f:facet>
-                <h:outputText value="#{ville.gouvernorat}"/>
-            </p:column>
-            
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Modifier"/>
-                </f:facet>
+            <ui:define name="content">
+
+
+                <p:dataTable var="ville" value="#{villeManagedBean.listVille}">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{ville.id}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="NOM"/>
+                        </f:facet>
+                        <h:outputText value="#{ville.nom}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="RUE"/>
+                        </f:facet>
+                        <h:outputText value="#{ville.rue}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="GOUVERNORAT"/>
+                        </f:facet>
+                        <h:outputText value="#{ville.gouvernorat}"/>
+                    </p:column>
+
+                    <p:column style="width:4%">
+
+                        <h:form>
+                            <p:commandButton action="#{villeManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
+                            <p:commandButton action="#{villeManagedBean.supprimer()}"  ajax="false" icon="ui-icon-cancel"/>
+
+                        </h:form>
+                    </p:column>
+
+                </p:dataTable>
+
+                <br/>
                 <h:form>
-                    <p:commandButton action="#{villeManagedBean.preparerModifier()}" value="Modifier" ajax="false"/>
+                    <p:commandButton value="Nouveau Ville" action="#{villeManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
+                    <br/>
                 </h:form>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Supprimer"/>
-                </f:facet>
-                <h:form>
-                    <p:commandButton action="#{villeManagedBean.supprimer()}" value="Supprimer" ajax="false"/>
-                </h:form>
-            </p:column>
-        </p:dataTable>
-
-        <br/>
-        <h:form>
-            <p:commandButton value="Nouveau Ville" action="#{villeManagedBean.preparerAjout()}" ajax="false"/>
-            <br/>
-        </h:form>
 
 
-        </ui:define>
-            </ui:composition>
-      
+            </ui:define>
+        </ui:composition>
+
     </h:body>
 </html>
 

@@ -35,26 +35,19 @@
                         <h:outputText value="#{images.description}" />
                     </p:column>
                     <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Modifier"/>
-                        </f:facet>
-                        <h:form>
-                            <p:commandButton action="#{imageManagedBean.preparerModifier()}" value="Modifier" ajax="false"/>
+
+                        <h:form style="width:4%">
+                            <p:commandButton action="#{imageManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
+                            <p:commandButton action="#{imageManagedBean.supprimer()}"  ajax="false" icon="ui-icon-cancel"/>
+
                         </h:form>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Supprimer"/>
-                        </f:facet>
-                        <h:form>
-                            <p:commandButton action="#{imageManagedBean.supprimer()}" value="Supprimer" ajax="false"/>
-                        </h:form>
-                    </p:column>
+                   
 
                 </p:dataTable>
                 <br/>
                 <h:form>
-                    <p:commandButton value="Nouveau Image" action="#{imageManagedBean.preparerAjout()}" ajax="false"/>
+                    <p:commandButton value="Nouveau Image" action="#{imageManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
                     <br/>
                 </h:form>
                 <h:form>
@@ -64,7 +57,7 @@
                 </h:form>
             </ui:define>
 
-            
+
 
         </ui:composition>
 

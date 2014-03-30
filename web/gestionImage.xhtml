@@ -19,8 +19,8 @@
                     Nom: <p:inputText value="#{imageManagedBean.image.nom}"/><br/>
                     Description: <p:inputText value="#{imageManagedBean.image.description}"/>
                     <br/>
-                    <h:commandButton action="#{imageManagedBean.ajouter()}" value="Inserer"/>
-                    <h:commandButton action="#{imageManagedBean.modifier()}" value="Modifier"/>
+                    <p:commandButton action="#{imageManagedBean.ajouter()}" value="Inserer" ajax="false"/>
+                    <p:commandButton action="#{imageManagedBean.modifier()}" value="Modifier" ajax="false"/>
                     <br/>
                     <h:commandLink action="index" value="Retour"/>
                     <br/>

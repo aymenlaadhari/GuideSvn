@@ -17,9 +17,14 @@
             </ui:define>
 
             <ui:define name="content">
+                 <h:form>
+                    <p:commandButton value="Nouveau Centre Commerciale" action="#{centrecommercialeManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
+                </h:form>
+                
+                <h:form>
 
                 <p:dataTable var="centreCommercial" value="#{centrecommercialeManagedBean.listCentre}">
-                     <p:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="ID"/>
                         </f:facet>
@@ -55,33 +60,19 @@
                         </f:facet>
                         <h:outputText value="#{centreCommercial.telephone}"/>
                     </p:column>
-                   
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Modifier"/>
-                        </f:facet>
+
+                    <p:column style="width:4%">
                         <h:form>
-                            <p:commandButton action="#{centrecommercialeManagedBean.preparerModifier()}" value="Modifier" ajax="false"/>
-                            <p:commandButton id="btnupdate1"  update=":formUpdate" oncomplete="userDialogUpdate.show()" icon="ui-icon-pencil" title="Modify">
-            
-                            </p:commandButton>
+                        <p:commandButton action="#{centrecommercialeManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil" title="Modify"/>
+                        <p:commandButton id="btnupdate1"  update=":formUpdate" oncomplete="userDialogUpdate.show()" icon="ui-icon-pencil" title="Modify"/>
+                        <p:commandButton action="#{centrecommercialeManagedBean.supprimer()}" icon="ui-icon-cancel"  ajax="false"/>                      
                         </h:form>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Supprimer"/>
-                        </f:facet>
-                        <h:form>
-                            <p:commandButton action="#{centrecommercialeManagedBean.supprimer()}" value="Supprimer" ajax="false"/>
-                        </h:form>
-                    </p:column>
+                    
                 </p:dataTable>
 
-                <br/>
-                <h:form>
-                    <p:commandButton value="Nouveau Centre Commerciale" action="#{centrecommercialeManagedBean.preparerAjout()}" ajax="false"/>
-                    <br/>
                 </h:form>
+               
 
                 <h:form id="formUpdate">
 
@@ -113,14 +104,14 @@
 
 
                     </p:dialog>
-<p:commandButton id="btnupdate" update=":formUpdate" oncomplete="userDialogUpdate.show()" icon="ui-icon-pencil" title="Modify">
-            
-                            </p:commandButton>
+                    <p:commandButton id="btnupdate" update=":formUpdate" oncomplete="userDialogUpdate.show()" icon="ui-icon-pencil" title="Modify">
+
+                    </p:commandButton>
                 </h:form>
 
             </ui:define>
         </ui:composition>
-        
+
 
     </h:body>
 </html>

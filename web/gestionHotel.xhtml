@@ -28,8 +28,8 @@
                     Nombre Etoile: <p:inputText value="#{hotelManagedBean.hotel.nbreetoile}"/><br/>
 
                     <br/>
-                    <h:commandButton action="#{hotelManagedBean.ajouter()}" value="Inserer"/>
-                    <h:commandButton action="#{hotelManagedBean.modifier()}" value="Modifier"/>
+                    <p:commandButton action="#{hotelManagedBean.ajouter()}" value="Inserer" ajax="false"/>
+                    <p:commandButton action="#{hotelManagedBean.modifier()}" value="Modifier" ajax="false"/>
                     <br/>
                     <h:commandLink action="index" value="Retour"/>
                     <br/>

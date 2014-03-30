@@ -21,8 +21,8 @@ xmlns:p="http://primefaces.org/ui">
     ID <p:inputText value="#{specialiteManagedBean.specialite.id}"/><br/>
    
 <br/>
-<h:commandButton action="#{specialiteManagedBean.ajouter()}" value="Inserer" />
-<h:commandButton action="#{specialiteManagedBean.modifier()}" value="Modifier"/>
+<p:commandButton action="#{specialiteManagedBean.ajouter()}" value="Inserer" ajax="false" />
+<p:commandButton action="#{specialiteManagedBean.modifier()}" value="Modifier" ajax="false"/>
 <br/>
 <h:commandLink action="index" value="Retour"/>
 <br/>

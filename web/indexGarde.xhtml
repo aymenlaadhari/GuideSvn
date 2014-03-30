@@ -41,27 +41,20 @@
             
             
             
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Modifier"/>
-                </f:facet>
+            <p:column style="width:4%">
+                
                 <h:form>
-                    <p:commandButton action="#{gardeManagedBean.preparerModifier()}" value="Modifier" ajax="false"/>
+                    <p:commandButton action="#{gardeManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
+                    <p:commandButton action="#{gardeManagedBean.supprimer()}"  ajax="false" icon="ui-icon-cancel"/>
+
                 </h:form>
             </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Supprimer"/>
-                </f:facet>
-                <h:form>
-                    <p:commandButton action="#{gardeManagedBean.supprimer()}" value="Supprimer" ajax="false"/>
-                </h:form>
-            </p:column>
+           
         </p:dataTable>
 
         <br/>
         <h:form>
-            <p:commandButton value="Nouveau Garde" action="#{gardeManagedBean.preparerAjout()}" ajax="false"/>
+            <p:commandButton value="Nouveau Garde" action="#{gardeManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
             <br/>
         </h:form>
 

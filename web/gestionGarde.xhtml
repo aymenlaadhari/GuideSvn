@@ -21,8 +21,8 @@ xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     Date Fin   :<p:calendar value="#{gardeManagedBean.garde.fin}" pattern="MM/dd/yyyy HH:mm" />
    
 <br/>
-<h:commandButton action="#{gardeManagedBean.ajouter()}" value="Inserer"/>
-<h:commandButton action="#{gardeManagedBean.modifier()}" value="Modifier"/>
+<p:commandButton action="#{gardeManagedBean.ajouter()}" value="Inserer" ajax="false"/>
+<p:commandButton action="#{gardeManagedBean.modifier()}" value="Modifier" ajax="false"/>
 <br/>
 <h:commandLink action="index" value="Retour"/>
 <br/>

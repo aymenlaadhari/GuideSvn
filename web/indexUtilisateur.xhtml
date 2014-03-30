@@ -16,69 +16,62 @@
 
             <ui:define name="content">
                 <p:dataTable var="utilisateur" value="#{utilisateurManagedBean.listUtlisateur}">
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="ID"/>
-                </f:facet>
-                <h:outputText value="#{utilisateur.id}" />
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="NOM"/>
-                </f:facet>
-                <h:outputText value="#{utilisateur.nom}"/>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Prenom"/>
-                </f:facet>
-                <h:outputText value="#{utilisateur.prenom}"/>
-            </p:column>
-                     <p:column>
-                <f:facet name="header">
-                    <h:outputText value="ADDRESS"/>
-                </f:facet>
-                         <h:outputText value="#{utilisateur.adress}"/>
-            </p:column>
                     <p:column>
-                <f:facet name="header">
-                    <h:outputText value="EMAIL"/>
-                </f:facet>
-                <h:outputText value="#{utilisateur.email}"/>
-            </p:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{utilisateur.id}" />
+                    </p:column>
                     <p:column>
-                <f:facet name="header">
-                    <h:outputText value="PASSWORD"/>
-                </f:facet>
-                <h:outputText value="#{utilisateur.password}"/>
-            </p:column>
-            
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Modifier"/>
-                </f:facet>
-                <h:form>
-                    <p:commandButton action="#{utilisateurManagedBean.preparerModifier()}" value="Modifier" ajax="false"/>
-                </h:form>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Supprimer"/>
-                </f:facet>
-                <h:form>
-                    <p:commandButton action="#{utilisateurManagedBean.supprimer()}" value="Supprimer" ajax="false"/>
-                </h:form>
-            </p:column>
-        </p:dataTable>
+                        <f:facet name="header">
+                            <h:outputText value="NOM"/>
+                        </f:facet>
+                        <h:outputText value="#{utilisateur.nom}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Prenom"/>
+                        </f:facet>
+                        <h:outputText value="#{utilisateur.prenom}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="ADDRESS"/>
+                        </f:facet>
+                        <h:outputText value="#{utilisateur.adress}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="EMAIL"/>
+                        </f:facet>
+                        <h:outputText value="#{utilisateur.email}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="PASSWORD"/>
+                        </f:facet>
+                        <h:outputText value="#{utilisateur.password}"/>
+                    </p:column>
 
-        <br/>
-        <h:form>
-            <p:commandButton value="Nouveau Utilisateur" action="#{utilisateurManagedBean.preparerAjout()}" ajax="false"/>
-            <br/>
-        </h:form>
+                    <p:column style="width:4%">
+
+                        <h:form>
+                            <p:commandButton action="#{utilisateurManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
+                            <p:commandButton action="#{utilisateurManagedBean.supprimer()}"  ajax="false" icon="ui-icon-cancel"/>
+
+                        </h:form>
+                    </p:column>
+
+                </p:dataTable>
+
+                <br/>
+                <h:form>
+                    <p:commandButton value="Nouveau Utilisateur" action="#{utilisateurManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
+                    <br/>
+                </h:form>
             </ui:define>
 
-           
+
 
         </ui:composition>
 

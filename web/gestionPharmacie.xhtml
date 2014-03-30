@@ -23,8 +23,8 @@ xmlns:p="http://primefaces.org/ui">
     Latitude: <p:inputText value="#{pharmacieManagedBean.pharmacie.latitude}"/><br/>
     Longitude: <p:inputText value="#{pharmacieManagedBean.pharmacie.longitude}"/><br/>
 <br/>
-<h:commandButton action="#{pharmacieManagedBean.ajouter()}" value="Inserer"/>
-<h:commandButton action="#{pharmacieManagedBean.modifier()}" value="Modifier"/>
+<p:commandButton action="#{pharmacieManagedBean.ajouter()}" value="Inserer" ajax="false"/>
+<p:commandButton action="#{pharmacieManagedBean.modifier()}" value="Modifier" ajax="false"/>
 <br/>
 <h:commandLink action="index" value="Retour"/>
 <br/>

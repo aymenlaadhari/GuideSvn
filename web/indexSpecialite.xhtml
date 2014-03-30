@@ -14,57 +14,50 @@
             <ui:define name="top">
                 Gestion Specialite
             </ui:define>
-            
+
             <ui:define name="content">
 
-        <p:dataTable var="specialite" value="#{specialiteManagedBean.listSpecialite}">
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="ID"/>
-                </f:facet>
-                <h:outputText value="#{specialite.id}" />
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="NOM"/>
-                </f:facet>
-                <h:outputText value="#{specialite.nom}"/>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="DESCRIPTION"/>
-                </f:facet>
-                <h:outputText value="#{specialite.description}"/>
-            </p:column>
-            
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Modifier"/>
-                </f:facet>
+                <p:dataTable var="specialite" value="#{specialiteManagedBean.listSpecialite}">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{specialite.id}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="NOM"/>
+                        </f:facet>
+                        <h:outputText value="#{specialite.nom}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="DESCRIPTION"/>
+                        </f:facet>
+                        <h:outputText value="#{specialite.description}"/>
+                    </p:column>
+
+                    <p:column style="width:4%">
+
+                        <h:form>
+                            <p:commandButton action="#{specialiteManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
+                            <p:commandButton action="#{specialiteManagedBean.supprimer()}"  ajax="false" icon="ui-icon-cancel"/>
+
+                        </h:form>
+                    </p:column>
+
+                </p:dataTable>
+
+                <br/>
                 <h:form>
-                    <p:commandButton action="#{specialiteManagedBean.preparerModifier()}" value="Modifier" ajax="false"/>
+                    <p:commandButton value="Nouveau Specialite" action="#{specialiteManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
+                    <br/>
                 </h:form>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Supprimer"/>
-                </f:facet>
-                <h:form>
-                    <p:commandButton action="#{specialiteManagedBean.supprimer()}" value="Supprimer" ajax="false"/>
-                </h:form>
-            </p:column>
-        </p:dataTable>
-
-        <br/>
-        <h:form>
-            <p:commandButton value="Nouveau Specialite" action="#{specialiteManagedBean.preparerAjout()}" ajax="false"/>
-            <br/>
-        </h:form>
 
 
-       </ui:define>
-            </ui:composition>
-      
+            </ui:define>
+        </ui:composition>
+
     </h:body>
 </html>
 

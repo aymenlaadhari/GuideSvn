@@ -23,8 +23,8 @@ xmlns:p="http://primefaces.org/ui">
     Date : <p:calendar value="#{evenementManagedBean.evenement.date}" pattern="MM/dd/yyyy HH:mm"/><br/>
    
 <br/>
-<h:commandButton action="#{evenementManagedBean.ajouter()}" value="Inserer"/>
-<h:commandButton action="#{evenementManagedBean.modifier()}" value="Modifier"/>
+<p:commandButton action="#{evenementManagedBean.ajouter()}" value="Inserer" ajax="false"/>
+<p:commandButton action="#{evenementManagedBean.modifier()}" value="Modifier" ajax="false"/>
 <br/>
 <h:commandLink action="index" value="Retour"/>
 <br/>

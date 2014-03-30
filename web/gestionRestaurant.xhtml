@@ -23,8 +23,8 @@
                     Latitude: <p:inputText value="#{restaurantManagedBean.restaurant.latitude}"/><br/>
                     Latitude: <p:inputText value="#{restaurantManagedBean.restaurant.longitude}"/><br/>
                     <br/>
-                    <h:commandButton action="#{restaurantManagedBean.ajouter()}" value="Inserer"/>
-                    <h:commandButton action="#{restaurantManagedBean.modifier()}" value="Modifier"/>
+                    <p:commandButton action="#{restaurantManagedBean.ajouter()}" value="Inserer" ajax="false"/>
+                    <p:commandButton action="#{restaurantManagedBean.modifier()}" value="Modifier" ajax="false"/>
                     <br/>
                     <h:commandLink action="index" value="Retour"/>
                     <br/>

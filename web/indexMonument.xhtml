@@ -26,19 +26,19 @@
                         </f:facet>
                         <h:outputText value="#{monument.idMonument}" />
                     </p:column>
-                     <p:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="NOM"/>
                         </f:facet>
                         <h:outputText value="#{monument.nomM}" />
                     </p:column>
-                     <p:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="CATEGORIE"/>
                         </f:facet>
                         <h:outputText value="#{monument.categorieM}" />
                     </p:column>
-                     <p:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="SITE WEB"/>
                         </f:facet>
@@ -74,33 +74,26 @@
                         </f:facet>
                         <h:outputText value="#{monument.dateconstruction}"/>
                     </p:column>
-                     <p:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="FINCONSTRUCTION"/>
                         </f:facet>
                         <h:outputText value="#{monument.finconstruction}"/>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Modifier"/>
-                        </f:facet>
+                    <p:column style="width:4%">
+
                         <h:form>
-                            <p:commandButton action="#{monumentManagedBean.preparerModifier()}" value="Modifier" ajax="false"/>
+                            <p:commandButton action="#{monumentManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
+                            <p:commandButton action="#{monumentManagedBean.supprimer()}"  ajax="false" icon="ui-icon-cancel"/>
+
                         </h:form>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Supprimer"/>
-                        </f:facet>
-                        <h:form>
-                            <p:commandButton action="#{monumentManagedBean.supprimer()}" value="Supprimer" ajax="false"/>
-                        </h:form>
-                    </p:column>
+                    
                 </p:dataTable>
 
                 <br/>
                 <h:form>
-                    <p:commandButton value="Nouveau Monument" action="#{monumentManagedBean.preparerAjout()}" ajax="false"/>
+                    <p:commandButton value="Nouveau Monument" action="#{monumentManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
                     <br/>
                 </h:form>
 

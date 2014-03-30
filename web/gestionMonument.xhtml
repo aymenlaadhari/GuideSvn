@@ -28,8 +28,8 @@ xmlns:p="http://primefaces.org/ui">
     Fin de Construction: <p:calendar value="#{monumentManagedBean.monument.finconstruction}" pattern="MM/dd/yyyy HH:mm"/><br/>
     
 <br/>
-<h:commandButton action="#{monumentManagedBean.ajouter()}" value="Inserer"/>
-<h:commandButton action="#{monumentManagedBean.modifier()}" value="Modifier"/>
+<p:commandButton action="#{monumentManagedBean.ajouter()}" value="Inserer" ajax="false"/>
+<p:commandButton action="#{monumentManagedBean.modifier()}" value="Modifier" ajax="false"/>
 <br/>
 <h:commandLink action="index" value="Retour"/>
 <br/>

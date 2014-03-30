@@ -24,8 +24,8 @@ xmlns:p="http://primefaces.org/ui">
     Latitude: <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.latitude}"/><br/>
     Longitude: <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.longitude}"/><br/>
 <br/>
-<h:commandButton action="#{centreMedicaleManagedBean.ajouter()}" value="Inserer"/>
-<h:commandButton action="#{centreMedicaleManagedBean.modifier()}" value="Modifier"/>
+<p:commandButton action="#{centreMedicaleManagedBean.ajouter()}" value="Inserer" ajax="false"/>
+<p:commandButton action="#{centreMedicaleManagedBean.modifier()}" value="Modifier" ajax="false"/>
 <br/>
 <h:commandLink action="index" value="Retour"/>
 <br/>
