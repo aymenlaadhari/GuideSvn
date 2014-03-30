@@ -18,6 +18,11 @@
             </ui:define>
 
             <ui:define name="content">
+                <h:form>
+                    <p:commandButton value="Nouveau Monument" action="#{monumentManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
+                    
+                </h:form>
+                <br/>
 
                 <p:dataTable var="monument" value="#{monumentManagedBean.listMonument}">
                     <p:column>
@@ -92,10 +97,7 @@
                 </p:dataTable>
 
                 <br/>
-                <h:form>
-                    <p:commandButton value="Nouveau Monument" action="#{monumentManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
-                    <br/>
-                </h:form>
+                
 
             </ui:define>
         </ui:composition>

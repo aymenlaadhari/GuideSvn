@@ -18,6 +18,11 @@
             </ui:define>
 
             <ui:define name="content">
+                 <h:form>
+                    <p:commandButton value="Nouveau Centre medicale" action="#{centreMedicaleManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
+                    
+                 </h:form>
+                <br/>
 
                 <p:dataTable var="centreMedicale" value="#{centreMedicaleManagedBean.listCentre}">
                     <p:column>
@@ -69,10 +74,7 @@
                 </p:dataTable>
 
                 <br/>
-                <h:form>
-                    <p:commandButton value="Nouveau Centre medicale" action="#{centreMedicaleManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
-                    <br/>
-                </h:form>
+               
 
 
             </ui:define>

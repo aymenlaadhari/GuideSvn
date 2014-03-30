@@ -15,6 +15,12 @@
             </ui:define>
 
             <ui:define name="content">
+                <h:form>
+                    <p:commandButton value="Nouveau Image" action="#{imageManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
+                    
+                </h:form>
+                <br/>
+                
                 <p:dataTable var="images" value="#{imageManagedBean.listGarde}">
                     <p:column>
                         <f:facet name="header">
@@ -46,10 +52,7 @@
 
                 </p:dataTable>
                 <br/>
-                <h:form>
-                    <p:commandButton value="Nouveau Image" action="#{imageManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
-                    <br/>
-                </h:form>
+                
                 <h:form>
                     <p:galleria  value="#{galleriaBean.images}" var="image" panelWidth="500" panelHeight="313" autoPlay="false">
                         <p:graphicImage value="resources/images/galleria/#{image}" alt="description de l'image #{images.nom}" title="#{image}"/>

@@ -18,6 +18,12 @@
             </ui:define>
 
             <ui:define name="content">
+               
+                <h:form>
+                    <p:commandButton value="Nouveau Evenement" action="#{evenementManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
+                    
+                </h:form>
+                <br/>
 
                 <p:dataTable var="evenement" value="#{evenementManagedBean.listEvenement}">
                     <p:column>
@@ -63,10 +69,7 @@
                 </p:dataTable>
 
                 <br/>
-                <h:form>
-                    <p:commandButton value="Nouveau Evenement" action="#{evenementManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
-                    <br/>
-                </h:form>
+                
 
             </ui:define>
         </ui:composition>

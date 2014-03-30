@@ -18,7 +18,11 @@
 
             <ui:define name="content">
 
+                <h:form>
+                    <p:commandButton value="Nouveau Ville" action="#{villeManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
 
+                </h:form>
+                <br/>
                 <p:dataTable var="ville" value="#{villeManagedBean.listVille}">
                     <p:column>
                         <f:facet name="header">
@@ -57,10 +61,7 @@
                 </p:dataTable>
 
                 <br/>
-                <h:form>
-                    <p:commandButton value="Nouveau Ville" action="#{villeManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
-                    <br/>
-                </h:form>
+
 
 
             </ui:define>

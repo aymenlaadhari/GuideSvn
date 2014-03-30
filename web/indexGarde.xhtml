@@ -18,6 +18,10 @@
             </ui:define>
             
              <ui:define name="content">
+                 <h:form>
+            <p:commandButton value="Nouveau Garde" action="#{gardeManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
+             </h:form>
+            <br/>
 
         <p:dataTable var="garde" value="#{gardeManagedBean.listGarde}">
             <p:column>
@@ -53,10 +57,8 @@
         </p:dataTable>
 
         <br/>
-        <h:form>
-            <p:commandButton value="Nouveau Garde" action="#{gardeManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
-            <br/>
-        </h:form>
+        
+       
 
 
        </ui:define>
