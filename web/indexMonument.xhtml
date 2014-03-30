@@ -9,60 +9,83 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Gestion Restaurant</title>
+        <title>Gestion Monument</title>
     </h:head>
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-                Gestion Restaurant
+                Gestion Monument
             </ui:define>
 
             <ui:define name="content">
 
-                <p:dataTable var="restaurant" value="#{restaurantManagedBean.listRestaurant}">
+                <p:dataTable var="monument" value="#{monumentManagedBean.listMonument}">
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="ID"/>
                         </f:facet>
-                        <h:outputText value="#{restaurant.id}"/>
+                        <h:outputText value="#{monument.idMonument}" />
                     </p:column>
-                    <p:column>
+                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="EMAIL"/>
+                            <h:outputText value="NOM"/>
                         </f:facet>
-                        <h:outputText value="#{restaurant.email}" />
+                        <h:outputText value="#{monument.nomM}" />
+                    </p:column>
+                     <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="CATEGORIE"/>
+                        </f:facet>
+                        <h:outputText value="#{monument.categorieM}" />
+                    </p:column>
+                     <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="SITE WEB"/>
+                        </f:facet>
+                        <h:outputText value="#{monument.sitewebM}" />
                     </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="LATITUDE"/>
                         </f:facet>
-                        <h:outputText value="#{restaurant.latitude}"/>
+                        <h:outputText value="#{monument.latitude}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="LONGITUDE"/>
                         </f:facet>
-                        <h:outputText value="#{restaurant.longitude}"/>
+                        <h:outputText value="#{monument.longitude}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="SITE WEB"/>
+                            <h:outputText value="DESCRIPTION"/>
                         </f:facet>
-                        <h:outputText value="#{restaurant.siteweb}"/>
+                        <h:outputText value="#{monument.description}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="TELEPHONE"/>
+                            <h:outputText value="TYPE"/>
                         </f:facet>
-                        <h:outputText value="#{restaurant.telephone}"/>
+                        <h:outputText value="#{monument.type}"/>
                     </p:column>
-                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="DATECONSTRUCTION"/>
+                        </f:facet>
+                        <h:outputText value="#{monument.dateconstruction}"/>
+                    </p:column>
+                     <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="FINCONSTRUCTION"/>
+                        </f:facet>
+                        <h:outputText value="#{monument.finconstruction}"/>
+                    </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Modifier"/>
                         </f:facet>
                         <h:form>
-                            <p:commandButton action="#{restaurantManagedBean.preparerModifier()}" value="Modifier" ajax="false"/>
+                            <p:commandButton action="#{monumentManagedBean.preparerModifier()}" value="Modifier" ajax="false"/>
                         </h:form>
                     </p:column>
                     <p:column>
@@ -70,14 +93,14 @@
                             <h:outputText value="Supprimer"/>
                         </f:facet>
                         <h:form>
-                            <p:commandButton action="#{restaurantManagedBean.supprimer()}" value="Supprimer" ajax="false"/>
+                            <p:commandButton action="#{monumentManagedBean.supprimer()}" value="Supprimer" ajax="false"/>
                         </h:form>
                     </p:column>
                 </p:dataTable>
 
                 <br/>
                 <h:form>
-                    <p:commandButton value="Nouveau Restaurant" action="#{restaurantManagedBean.preparerAjout()}" ajax="false"/>
+                    <p:commandButton value="Nouveau Monument" action="#{monumentManagedBean.preparerAjout()}" ajax="false"/>
                     <br/>
                 </h:form>
 

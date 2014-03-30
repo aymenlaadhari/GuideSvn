@@ -23,5 +23,8 @@
     <mapping resource="model/mapping/Specialite.hbm.xml"/>
     <mapping resource="model/mapping/Ville.hbm.xml"/>
     <mapping resource="model/mapping/utilisateur.hbm.xml"/>
+    <mapping resource="model/mapping/Evenement.hbm.xml"/>
+    <mapping resource="model/mapping/Hotel.hbm.xml"/>
+    <mapping resource="model/mapping/Monument.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

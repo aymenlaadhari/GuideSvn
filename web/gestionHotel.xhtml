@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Gestion</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./Template.xhtml">
+            <ui:define name="top">
+                Gestion Hotel
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    Id Hotel: <p:inputText value="#{hotelManagedBean.hotel.idHotel}"/><br/>
+                    Nom d'Hotel:  <p:inputText value="#{hotelManagedBean.hotel.nomH}"/><br/>
+                    Categorie : <p:inputText value="#{hotelManagedBean.hotel.categorieH}"/><br/>
+                    SiteWeb: <p:inputText value="#{hotelManagedBean.hotel.sitewebH}"/><br/>
+                    Latitude: <p:inputText value="#{hotelManagedBean.hotel.latitude}"/><br/>
+                    Longitude : <p:inputText value="#{hotelManagedBean.hotel.longitude}"/><br/>
+                    Description :  <p:inputText value="#{hotelManagedBean.hotel.description}"/><br/>
+                    Telephone: <p:inputText value="#{hotelManagedBean.hotel.telephoneH}"/><br/>
+                    Email : <p:inputText value="#{hotelManagedBean.hotel.emailH}"/><br/>
+                    Nombre Etoile: <p:inputText value="#{hotelManagedBean.hotel.nbreetoile}"/><br/>
+
+                    <br/>
+                    <h:commandButton action="#{hotelManagedBean.ajouter()}" value="Inserer"/>
+                    <h:commandButton action="#{hotelManagedBean.modifier()}" value="Modifier"/>
+                    <br/>
+                    <h:commandLink action="index" value="Retour"/>
+                    <br/>
+                    <h:commandLink action="userList" value="gestionUser"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -29,11 +29,12 @@
                         </p:submenu>
 
                         <p:submenu label="Lieu" icon="ui-icon-pencil">
-                            <p:menuitem value="Monument" url="#"/>
+                            <p:menuitem value="Monument" action="#{applicationManagedBean.indexMonument()}" ajax="false"/>
                             <p:menuitem value="Restaurant" action="#{applicationManagedBean.indexRestaurant()}" icon="ui-icon-arrowreturnthick-1-e" ajax="false"/>
                             <p:menuitem value="Pharmacie" action="#{applicationManagedBean.indexPharmacie()}" ajax="false"/>
                             <p:menuitem value="Centre Medicale" action="#{applicationManagedBean.indexMedical()}" icon="ui-icon-arrowreturnthick-1-e" ajax="false" />
                             <p:menuitem value="Centre Commerciale" action="#{applicationManagedBean.indexCommercial()}" icon="ui-icon-arrowreturnthick-1-e" ajax="false"/>
+                            <p:menuitem value="Hotel" action="#{applicationManagedBean.indexHotel()}" ajax="false"/>
 
                         </p:submenu>
 
@@ -59,10 +60,12 @@
                                 <p:menuitem value="Gestion"  icon="ui-icon-close" action="#{applicationManagedBean.indexPay()}" ajax="false"/>
                                 <p:menuitem value="Ville"  icon="ui-icon-close" action="#{applicationManagedBean.indexVille()}" ajax="false"/>
                             </p:submenu>
-                            
+
                             <p:menuitem value="Gestion Images"  icon="ui-icon-close" action="#{applicationManagedBean.indexImage()}" ajax="false"/>
-                                
-                            
+
+                            <p:menuitem value="Evenement"  icon="ui-icon-close" action="#{applicationManagedBean.indexEvenement()}" ajax="false"/>
+
+
                         </p:submenu>
 
                         <p:menuitem value="Quit"  icon="ui-icon-close" action="#{applicationManagedBean.logout()}" oncomplete="handleLoginRequest(xhr, status, args)" ajax="false"/>
@@ -83,7 +86,7 @@
             </div>
 
             <div id="bottom"  class="title ui-widget-header ui-corner-all">
-                <ui:insert name="bottom">Aymen &copy; 2014</ui:insert>
+                <ui:insert name="bottom">Touristas Guide&copy; 2014</ui:insert>
             </div>
         </div>
         <script type="text/javascript">

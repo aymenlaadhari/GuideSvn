@@ -39,7 +39,7 @@
                             <h:outputText value="Modifier"/>
                         </f:facet>
                         <h:form>
-                            <p:commandButton action="#{imageManagedBean.preparerModifier()}" value="Modifier"/>
+                            <p:commandButton action="#{imageManagedBean.preparerModifier()}" value="Modifier" ajax="false"/>
                         </h:form>
                     </p:column>
                     <p:column>
@@ -58,7 +58,7 @@
                     <br/>
                 </h:form>
                 <h:form>
-                    <p:galleria  value="#{galleriaBean.images}" var="image" panelWidth="500" panelHeight="313" showCaption="true">
+                    <p:galleria  value="#{galleriaBean.images}" var="image" panelWidth="500" panelHeight="313" autoPlay="false">
                         <p:graphicImage value="resources/images/galleria/#{image}" alt="description de l'image #{images.nom}" title="#{image}"/>
                     </p:galleria>
                 </h:form>

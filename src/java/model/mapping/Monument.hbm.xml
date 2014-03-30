@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 29, 2014 12:56:35 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+  <class name="model.Monument" schema="public" table="monument">
+    <id name="idMonument" type="int">
+      <column name="id_monument"/>
+      <generator class="increment"/>
+    </id>
+    <property name="nomM" type="string">
+      <column length="254" name="nom_m"/>
+    </property>
+    <property name="categorieM" type="string">
+      <column length="254" name="categorie_m"/>
+    </property>
+    <property name="sitewebM" type="string">
+      <column length="254" name="siteweb_m"/>
+    </property>
+    <property name="longitude" type="java.lang.Double">
+      <column name="longitude" precision="17" scale="17"/>
+    </property>
+    <property name="latitude" type="java.lang.Double">
+      <column name="latitude" precision="17" scale="17"/>
+    </property>
+    <property name="description" type="string">
+      <column length="254" name="description"/>
+    </property>
+    <property name="type" type="string">
+      <column length="254" name="type"/>
+    </property>
+    <property name="dateconstruction" type="date">
+      <column length="13" name="dateconstruction"/>
+    </property>
+    <property name="finconstruction" type="date">
+      <column length="13" name="finconstruction"/>
+    </property>
+  </class>
+</hibernate-mapping>

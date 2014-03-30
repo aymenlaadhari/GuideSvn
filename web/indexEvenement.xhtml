@@ -9,60 +9,54 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Gestion Restaurant</title>
+        <title>Gestion Evenement</title>
     </h:head>
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-                Gestion Restaurant
+                Gestion  Evenement
             </ui:define>
 
             <ui:define name="content">
 
-                <p:dataTable var="restaurant" value="#{restaurantManagedBean.listRestaurant}">
+                <p:dataTable var="evenement" value="#{evenementManagedBean.listEvenement}">
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="ID"/>
                         </f:facet>
-                        <h:outputText value="#{restaurant.id}"/>
+                        <h:outputText value="#{evenement.idEvent}" />
                     </p:column>
-                    <p:column>
+                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="EMAIL"/>
+                            <h:outputText value="TYPE"/>
                         </f:facet>
-                        <h:outputText value="#{restaurant.email}" />
+                        <h:outputText value="#{evenement.type}" />
                     </p:column>
-                    <p:column>
+                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="LATITUDE"/>
+                            <h:outputText value="INSCRIPTION"/>
                         </f:facet>
-                        <h:outputText value="#{restaurant.latitude}"/>
+                        <h:outputText value="#{evenement.inscription}" />
                     </p:column>
-                    <p:column>
+                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="LONGITUDE"/>
+                            <h:outputText value="PRIX"/>
                         </f:facet>
-                        <h:outputText value="#{restaurant.longitude}"/>
+                        <h:outputText value="#{evenement.prix}" />
                     </p:column>
-                    <p:column>
+                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="SITE WEB"/>
+                            <h:outputText value="DATE"/>
                         </f:facet>
-                        <h:outputText value="#{restaurant.siteweb}"/>
+                        <h:outputText value="#{evenement.date}" />
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="TELEPHONE"/>
-                        </f:facet>
-                        <h:outputText value="#{restaurant.telephone}"/>
-                    </p:column>
-                    
+                   
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Modifier"/>
                         </f:facet>
                         <h:form>
-                            <p:commandButton action="#{restaurantManagedBean.preparerModifier()}" value="Modifier" ajax="false"/>
+                            <p:commandButton action="#{evenementManagedBean.preparerModifier()}" value="Modifier" ajax="false"/>
                         </h:form>
                     </p:column>
                     <p:column>
@@ -70,14 +64,14 @@
                             <h:outputText value="Supprimer"/>
                         </f:facet>
                         <h:form>
-                            <p:commandButton action="#{restaurantManagedBean.supprimer()}" value="Supprimer" ajax="false"/>
+                            <p:commandButton action="#{evenementManagedBean.supprimer()}" value="Supprimer" ajax="false"/>
                         </h:form>
                     </p:column>
                 </p:dataTable>
 
                 <br/>
                 <h:form>
-                    <p:commandButton value="Nouveau Restaurant" action="#{restaurantManagedBean.preparerAjout()}" ajax="false"/>
+                    <p:commandButton value="Nouveau Evenement" action="#{evenementManagedBean.preparerAjout()}" ajax="false"/>
                     <br/>
                 </h:form>
 

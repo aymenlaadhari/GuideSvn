@@ -97,6 +97,30 @@ public class ApplicationManagedBean implements Serializable {
     public String gestionUtilisateur() {
         return "gestionUtilisateur";
     }
+    
+     public String indexEvenement() {
+        return "indexEvenement";
+    }
+
+    public String gestionEvenement() {
+        return "gestionEvenement";
+    }
+    
+      public String indexHotel() {
+        return "indexHotel";
+    }
+
+    public String gestionHotel() {
+        return "gestionHotel";
+    }
+    
+        public String indexMonument() {
+        return "indexMonument";
+    }
+
+    public String gestionMonument() {
+        return "gestionMonument";
+    }
 
     public ApplicationManagedBean() {
 

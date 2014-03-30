@@ -9,60 +9,83 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Gestion Restaurant</title>
+        <title>Gestion Hotel</title>
     </h:head>
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-                Gestion Restaurant
+                Gestion Hotel
             </ui:define>
 
             <ui:define name="content">
 
-                <p:dataTable var="restaurant" value="#{restaurantManagedBean.listRestaurant}">
+                <p:dataTable var="hotel" value="#{hotelManagedBean.listHotel}">
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="ID"/>
                         </f:facet>
-                        <h:outputText value="#{restaurant.id}"/>
+                        <h:outputText value="#{hotel.idHotel}" />
                     </p:column>
-                    <p:column>
+                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="EMAIL"/>
+                            <h:outputText value="NOM"/>
                         </f:facet>
-                        <h:outputText value="#{restaurant.email}" />
+                        <h:outputText value="#{hotel.nomH}" />
+                    </p:column>
+                     <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="CATEGORIE"/>
+                        </f:facet>
+                        <h:outputText value="#{hotel.categorieH}" />
+                    </p:column>
+                     <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="SITE WEB"/>
+                        </f:facet>
+                        <h:outputText value="#{hotel.sitewebH}" />
                     </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="LATITUDE"/>
                         </f:facet>
-                        <h:outputText value="#{restaurant.latitude}"/>
+                        <h:outputText value="#{hotel.latitude}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="LONGITUDE"/>
                         </f:facet>
-                        <h:outputText value="#{restaurant.longitude}"/>
+                        <h:outputText value="#{hotel.longitude}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="SITE WEB"/>
+                            <h:outputText value="DESCRIPTION"/>
                         </f:facet>
-                        <h:outputText value="#{restaurant.siteweb}"/>
+                        <h:outputText value="#{hotel.description}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="TELEPHONE"/>
                         </f:facet>
-                        <h:outputText value="#{restaurant.telephone}"/>
+                        <h:outputText value="#{hotel.telephoneH}"/>
                     </p:column>
-                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="EMAIL"/>
+                        </f:facet>
+                        <h:outputText value="#{hotel.emailH}"/>
+                    </p:column>
+                     <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="NBRE ETOILE"/>
+                        </f:facet>
+                        <h:outputText value="#{hotel.nbreetoile}"/>
+                    </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Modifier"/>
                         </f:facet>
                         <h:form>
-                            <p:commandButton action="#{restaurantManagedBean.preparerModifier()}" value="Modifier" ajax="false"/>
+                            <p:commandButton action="#{hotelManagedBean.preparerModifier()}" value="Modifier" ajax="false"/>
                         </h:form>
                     </p:column>
                     <p:column>
@@ -70,14 +93,14 @@
                             <h:outputText value="Supprimer"/>
                         </f:facet>
                         <h:form>
-                            <p:commandButton action="#{restaurantManagedBean.supprimer()}" value="Supprimer" ajax="false"/>
+                            <p:commandButton action="#{hotelManagedBean.supprimer()}" value="Supprimer" ajax="false"/>
                         </h:form>
                     </p:column>
                 </p:dataTable>
 
                 <br/>
                 <h:form>
-                    <p:commandButton value="Nouveau Restaurant" action="#{restaurantManagedBean.preparerAjout()}" ajax="false"/>
+                    <p:commandButton value="Nouveau Hotel" action="#{hotelManagedBean.preparerAjout()}" ajax="false"/>
                     <br/>
                 </h:form>
 

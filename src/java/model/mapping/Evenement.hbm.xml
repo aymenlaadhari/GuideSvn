@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 29, 2014 12:56:35 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+  <class name="model.Evenement" schema="public" table="evenement">
+    <id name="idEvent" type="int">
+      <column name="id_event"/>
+      <generator class="increment"/>
+    </id>
+    <property name="type" type="string">
+      <column length="254" name="type"/>
+    </property>
+    <property name="inscription" type="string">
+      <column length="254" name="inscription"/>
+    </property>
+    <property name="prix" type="java.lang.Integer">
+      <column name="prix"/>
+    </property>
+    <property name="date" type="date">
+      <column length="13" name="date"/>
+    </property>
+  </class>
+</hibernate-mapping>

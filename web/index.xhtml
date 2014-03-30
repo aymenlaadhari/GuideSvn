@@ -61,7 +61,7 @@
                             <h:outputText value="Modifier"/>
                         </f:facet>
                         <h:form>
-                            <p:commandButton action="#{centrecommercialeManagedBean.preparerModifier()}" value="Modifier"/>
+                            <p:commandButton action="#{centrecommercialeManagedBean.preparerModifier()}" value="Modifier" ajax="false"/>
                             <p:commandButton id="btnupdate1"  update=":formUpdate" oncomplete="userDialogUpdate.show()" icon="ui-icon-pencil" title="Modify">
             
                             </p:commandButton>
