@@ -11,37 +11,49 @@
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-                Gestion Monument
+               <div id="bottom"  class="title ui-widget-header ui-corner-all">
+                    <ui:insert name="bottom"  class="center_content">Gestion Monument</ui:insert>
+            </div>
             </ui:define>
 
             <ui:define name="content">
                 <h:form>
                     <h:panelGrid columns="3" cellpadding="5">
-                        <h:outputLabel value="id   "/>
-                        <p:inputText value="#{monumentManagedBean.monument.idMonument}"/><br/>
-                        <h:outputLabel value="Nom   "/>
+                      
+                        <h:outputLabel value="Nom : "/>
                         <p:inputText value="#{monumentManagedBean.monument.nomM}"/><br/>
-                        <h:outputLabel value="Categorie   "/>
+                        <h:outputLabel value="Catégorie :   "/>
                         <p:inputText value="#{monumentManagedBean.monument.categorieM}"/><br/>
-                        <h:outputLabel value="Site Web   "/>
-                        <p:inputText value="#{monumentManagedBean.monument.sitewebM}"/><br/>
-                        <h:outputLabel value="Latitude   "/>
+                        <h:outputLabel value="Site Web :  "/>
+                        <p:inputTextarea rows="1" cols="33" value="#{monumentManagedBean.monument.sitewebM}"/><br/>
+                        <h:outputLabel value="Latitude :  "/>
                         <p:inputText value="#{monumentManagedBean.monument.latitude}"/><br/>
-                        <h:outputLabel value="Longitude   "/>
+                        <h:outputLabel value="Longitude :  "/>
                         <p:inputText value="#{monumentManagedBean.monument.longitude}"/><br/>
-                        <h:outputLabel value="description   "/>
-                        <p:inputText value="#{monumentManagedBean.monument.description}"/><br/>
-                        <h:outputLabel value="Type   "/>
-                        <p:inputText value="#{monumentManagedBean.monument.type}"/><br/>
-                        <h:outputLabel value="Date Construction   "/>
-                        <p:calendar value="#{monumentManagedBean.monument.dateconstruction}" pattern="MM/dd/yyyy HH:mm"/><br/>
-                        <h:outputLabel value="date fin Construction   "/>
-                        <p:calendar value="#{monumentManagedBean.monument.finconstruction}" pattern="MM/dd/yyyy HH:mm"/><br/>
+                        <h:outputLabel value="Description :   "/>
+                        <p:inputTextarea rows="6" cols="33" value="#{monumentManagedBean.monument.description}"/><br/>
+                        <br/>
+                        <h:outputLabel value="Date Construction :  "/>
+                        <p:calendar value="#{monumentManagedBean.monument.dateconstruction}"   pattern="MM/dd/yyyy HH:mm" id="popupButtonCal" showOn="button" />  
+                        <br/>
+                        <h:outputLabel value="Date fin Construction : "/>
+                        <p:calendar value="#{monumentManagedBean.monument.finconstruction}"   pattern="MM/dd/yyyy HH:mm" id="popupButtonCal1" showOn="button" />  
 
                         <br/>
-                        <p:commandButton action="#{monumentManagedBean.ajouter()}" value="Inserer" ajax="false"/>
-                        <p:commandButton action="#{monumentManagedBean.modifier()}" value="Modifier" ajax="false"/>
-                        </h:panelGrid>
+                        <h:outputLabel value="Type :   "/>
+                        <p:selectOneMenu id="Type" value="#{monumentManagedBean.monument.type}">  
+                            <f:selectItem itemLabel="Historique" itemValue=""  />  
+                            <f:selectItem itemLabel="Touristique" itemValue="" />  
+                            <f:selectItem itemLabel="Culturelle" itemValue="" />  
+                        </p:selectOneMenu> 
+                        
+                        <br/>
+                        <br/>
+                        <br/> <p:commandButton action="#{monumentManagedBean.ajouter()}" value="Ajouter" ajax="false" icon="ui-icon-plusthick"/>
+                        <p:commandButton action="#{monumentManagedBean.modifier()}" value="Modifier" ajax="false" icon="ui-icon-pencil"/>
+                        <p:commandButton action="#{applicationManagedBean.indexMonument()}" value="Annuler" ajax="false" icon="ui-icon-cancel"/>
+                    </h:panelGrid>
+                  
 
                 </h:form>
             </ui:define>

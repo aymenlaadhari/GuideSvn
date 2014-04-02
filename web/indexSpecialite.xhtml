@@ -12,12 +12,14 @@
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-                Gestion Specialite
+                <div id="bottom"  class="title ui-widget-header ui-corner-all">
+                <ui:insert name="bottom">Gestion Specialite</ui:insert>
+            </div>
             </ui:define>
 
             <ui:define name="content">
                 <h:form>
-                    <p:commandButton value="Nouveau Specialite" action="#{specialiteManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
+                    <p:commandButton value="Ajouter une nouvelle Spécialité" action="#{specialiteManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
                     
                 </h:form>
                 <br/>
@@ -25,19 +27,19 @@
                 <p:dataTable var="specialite" value="#{specialiteManagedBean.listSpecialite}">
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="ID"/>
+                            <h:outputText value="Identifiant"/>
                         </f:facet>
                         <h:outputText value="#{specialite.id}" />
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="NOM"/>
+                            <h:outputText value="Nom de Spécialité"/>
                         </f:facet>
                         <h:outputText value="#{specialite.nom}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="DESCRIPTION"/>
+                            <h:outputText value="Description"/>
                         </f:facet>
                         <h:outputText value="#{specialite.description}"/>
                     </p:column>
@@ -46,7 +48,7 @@
 
                         <h:form>
                             <p:commandButton action="#{specialiteManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
-                            <p:commandButton action="#{specialiteManagedBean.supprimer()}"  ajax="false" icon="ui-icon-cancel"/>
+                            <p:commandButton action="#{specialiteManagedBean.supprimer()}"  ajax="false" icon="ui-icon-trash"/>
 
                         </h:form>
                     </p:column>

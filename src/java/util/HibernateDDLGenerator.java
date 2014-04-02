@@ -27,11 +27,12 @@ public class HibernateDDLGenerator {
 	 for (Class<?> entityClass : classes) {
 	    configuration.addAnnotatedClass(entityClass);
 	 }
+         configuration.configure("hibernate.cfg.xml");
 	SchemaExport schemaExport = new SchemaExport(configuration);
 	schemaExport.setDelimiter(";");
 	schemaExport.setOutputFile(String.format("%s_%s.%s ", new Object[] {"ddl", dialect.name().toLowerCase(), "sql" }));
 	boolean consolePrint = true;
-	boolean exportInDatabase = false;
+	boolean exportInDatabase = true;
 	schemaExport.create(consolePrint, exportInDatabase);
    }
 }

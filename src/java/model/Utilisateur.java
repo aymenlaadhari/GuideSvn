@@ -7,14 +7,14 @@
 package model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+
 import javax.validation.constraints.Size;
 
 /**
@@ -26,10 +26,10 @@ import javax.validation.constraints.Size;
 
 public class Utilisateur implements Serializable {
     
-    @Id @GeneratedValue
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "id", nullable = false)
+   
+@Id
+    @GeneratedValue
+    @Column(name = "id", unique=true, nullable=false)
     private Integer id;
     @Size(max = 25)
     @Column(name = "nom", length = 25)
@@ -54,8 +54,10 @@ public class Utilisateur implements Serializable {
     public Utilisateur(Integer id) {
         this.id = id;
     }
-
-    public Integer getId() {
+    
+    
+    
+         public Integer getId() {
         return id;
     }
 

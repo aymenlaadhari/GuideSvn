@@ -11,25 +11,27 @@ xmlns:p="http://primefaces.org/ui">
 <h:body>
     <ui:composition template="./Template.xhtml">
         <ui:define name="top">
-                Gestion Ville
+                <div id="bottom"  class="title ui-widget-header ui-corner-all">
+                <ui:insert name="bottom">Gestion Ville</ui:insert>
+            </div>
             </ui:define>
             
      <ui:define name="content">
 <h:form>
     <h:panelGrid columns="3" cellpadding="5">
-                        <h:outputLabel value="Nom "/>
+        
+    <h:outputLabel value="Nom : "/>
     <p:inputText value="#{villeManagedBean.ville.nom}"/><br/>
-    <h:outputLabel value="Rue "/>
+    <h:outputLabel value="Rue :"/>
    <p:inputText value="#{villeManagedBean.ville.rue}"/><br/>
-   <h:outputLabel value="Gouvernorat "/>
+   <h:outputLabel value="Gouvernorat :"/>
     <p:inputText value="#{villeManagedBean.ville.gouvernorat}"/><br/>
-    <h:outputLabel value="Id "/>
-    <p:inputText value="#{villeManagedBean.ville.id}"/><br/>
-   
+    
 <br/>
-<p:commandButton action="#{villeManagedBean.ajouter()}" value="Inserer" ajax="false"/>
-<p:commandButton action="#{villeManagedBean.modifier()}" value="Modifier" ajax="false"/>
-</h:panelGrid>
+<p:commandButton action="#{villeManagedBean.ajouter()}" value="Ajouter" ajax="false" icon="ui-icon-plusthick"/>
+<p:commandButton action="#{villeManagedBean.modifier()}" value="Modifier" ajax="false" icon="ui-icon-pencil"/>
+<p:commandButton action="#{applicationManagedBean.indexVille()}" value="Annuler" ajax="false" icon="ui-icon-cancel"/>
+</h:panelGrid> 
 </h:form>
          </ui:define>
         </ui:composition>

@@ -14,12 +14,14 @@
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-                Gestion Hotel
+                <div id="bottom"  class="title ui-widget-header ui-corner-all">
+                <ui:insert name="bottom">Gestion Hotel</ui:insert>
+            </div>
             </ui:define>
 
             <ui:define name="content">
                 <h:form>
-                    <p:commandButton value="Nouveau Hotel" action="#{hotelManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
+                    <p:commandButton value="Ajouter un hotel" action="#{hotelManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
 
                 </h:form>
                 <br/>
@@ -27,61 +29,61 @@
                 <p:dataTable var="hotel" value="#{hotelManagedBean.listHotel}">
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="ID"/>
+                            <h:outputText value="Identifiant"/>
                         </f:facet>
                         <h:outputText value="#{hotel.idHotel}" />
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="NOM"/>
+                            <h:outputText value="Nom Hotel"/>
                         </f:facet>
                         <h:outputText value="#{hotel.nomH}" />
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="CATEGORIE"/>
+                            <h:outputText value="Catégorie"/>
                         </f:facet>
                         <h:outputText value="#{hotel.categorieH}" />
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="SITE WEB"/>
+                            <h:outputText value="Site Web"/>
                         </f:facet>
                         <h:outputText value="#{hotel.sitewebH}" />
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="LATITUDE"/>
+                            <h:outputText value="Latitude"/>
                         </f:facet>
                         <h:outputText value="#{hotel.latitude}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="LONGITUDE"/>
+                            <h:outputText value="Longitude"/>
                         </f:facet>
                         <h:outputText value="#{hotel.longitude}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="DESCRIPTION"/>
+                            <h:outputText value="Description"/>
                         </f:facet>
                         <h:outputText value="#{hotel.description}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="TELEPHONE"/>
+                            <h:outputText value="Téléphone"/>
                         </f:facet>
                         <h:outputText value="#{hotel.telephoneH}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="EMAIL"/>
+                            <h:outputText value="Email"/>
                         </f:facet>
                         <h:outputText value="#{hotel.emailH}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="NBRE ETOILE"/>
+                            <h:outputText value="Nombre Etoile"/>
                         </f:facet>
                         <h:outputText value="#{hotel.nbreetoile}"/>
                     </p:column>
@@ -89,7 +91,7 @@
 
                         <h:form style="width:4%">
                             <p:commandButton action="#{hotelManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
-                            <p:commandButton action="#{hotelManagedBean.supprimer()}"  ajax="false" icon="ui-icon-cancel"/>
+                            <p:commandButton action="#{hotelManagedBean.supprimer()}"  ajax="false" icon="ui-icon-trash"/>
 
                         </h:form>
                     </p:column>

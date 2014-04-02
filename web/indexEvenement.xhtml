@@ -14,13 +14,15 @@
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-                Gestion  Evenement
+               <div id="bottom"  class="title ui-widget-header ui-corner-all">
+                <ui:insert name="bottom">Gestion Evenement</ui:insert>
+            </div>
             </ui:define>
 
             <ui:define name="content">
                
                 <h:form>
-                    <p:commandButton value="Nouveau Evenement" action="#{evenementManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
+                    <p:commandButton value="Ajouter Evenement" action="#{evenementManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
                     
                 </h:form>
                 <br/>
@@ -28,31 +30,31 @@
                 <p:dataTable var="evenement" value="#{evenementManagedBean.listEvenement}">
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="ID"/>
+                            <h:outputText value="Identifiant"/>
                         </f:facet>
                         <h:outputText value="#{evenement.idEvent}" />
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="TYPE"/>
+                            <h:outputText value="Type"/>
                         </f:facet>
                         <h:outputText value="#{evenement.type}" />
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="INSCRIPTION"/>
+                            <h:outputText value="Inscription"/>
                         </f:facet>
                         <h:outputText value="#{evenement.inscription}" />
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="PRIX"/>
+                            <h:outputText value="Prix"/>
                         </f:facet>
                         <h:outputText value="#{evenement.prix}" />
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="DATE"/>
+                            <h:outputText value="Date"/>
                         </f:facet>
                         <h:outputText value="#{evenement.date}" />
                     </p:column>
@@ -61,7 +63,7 @@
 
                         <h:form >
                             <p:commandButton action="#{evenementManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
-                            <p:commandButton action="#{evenementManagedBean.supprimer()}"  ajax="false" icon="ui-icon-cancel"/>
+                            <p:commandButton action="#{evenementManagedBean.supprimer()}"  ajax="false" icon="ui-icon-trash"/>
 
                         </h:form>
                     </p:column>

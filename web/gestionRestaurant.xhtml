@@ -11,27 +11,29 @@
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-                Gestion Restaurant
+               <div id="bottom"  class="title ui-widget-header ui-corner-all">
+                <ui:insert name="bottom">Gestion Restaurant</ui:insert>
+            </div>
             </ui:define>
 
             <ui:define name="content">
                 <h:form>
                     <h:panelGrid columns="3" cellpadding="5">
-                        <h:outputLabel value="ID "/>
-                    <p:inputText value="#{restaurantManagedBean.restaurant.id}" /><br/>
-                    <h:outputLabel value="Email "/>
-                  <p:inputText value="#{restaurantManagedBean.restaurant.email}"/><br/>
-                  <h:outputLabel value="Telephone "/>
-                    <p:inputText value="#{restaurantManagedBean.restaurant.telephone}"/><br/>
-                    <h:outputLabel value="Site Web "/>
-                    <p:inputText value="#{restaurantManagedBean.restaurant.siteweb}"/><br/>
-                    <h:outputLabel value="Latitude "/>
+                       
+                    <h:outputLabel value="Email : "/>
+                    <p:inputTextarea rows="1" cols="33" value="#{restaurantManagedBean.restaurant.email}"/><br/>
+                  <h:outputLabel value="Telephone : "/>
+                  <p:inputText value="#{restaurantManagedBean.restaurant.telephone}"/><br/>
+                    <h:outputLabel value="Site Web : "/>
+                    <p:inputTextarea rows="1" cols="33" value="#{restaurantManagedBean.restaurant.siteweb}"/><br/>
+                    <h:outputLabel value="Latitude : "/>
                      <p:inputText value="#{restaurantManagedBean.restaurant.latitude}"/><br/>
-                     <h:outputLabel value="Longitude "/>
+                     <h:outputLabel value="Longitude : "/>
                      <p:inputText value="#{restaurantManagedBean.restaurant.longitude}"/><br/>
                     <br/>
-                    <p:commandButton action="#{restaurantManagedBean.ajouter()}" value="Inserer" ajax="false"/>
-                    <p:commandButton action="#{restaurantManagedBean.modifier()}" value="Modifier" ajax="false"/>
+                    <p:commandButton action="#{restaurantManagedBean.ajouter()}" value="Ajouter" ajax="false" icon="ui-icon-plusthick"/>
+                    <p:commandButton action="#{restaurantManagedBean.modifier()}" value="Modifier" ajax="false" icon="ui-icon-pencil"/>
+                    <p:commandButton action="#{applicationManagedBean.indexRestaurant()}" value="Annuler" ajax="false" icon="ui-icon-cancel"/>
                    </h:panelGrid>
                 </h:form>
             </ui:define>

@@ -18,61 +18,57 @@
 
             <div id="top" class="title ui-widget-header ui-corner-all">
                 <ui:insert name="top"></ui:insert>
-            </div>
+                
+            </div> 
             <div id="menu">
-                <h:form>
+                <h:form>  
                     <p:menubar>
-                        <p:submenu label="Utilsateur" icon="ui-icon-document">
-                            <p:menuitem value="User" action="#{applicationManagedBean.indexUtilisateur()}"/>
+                        <p:submenu label="Utilisateur" icon="ui-icon-person">
+                            <p:menuitem value="Gestion Utilisateur" action="#{applicationManagedBean.indexUtilisateur()}" icon="ui-icon-person"/>
                             <p:separator />
-                            <p:menuitem value="Quit" url="#" />
+                            <p:menuitem value="Quit" url="#" icon="ui-icon-close" />
                         </p:submenu>
 
-                        <p:submenu label="Lieu" icon="ui-icon-pencil">
-                            <p:menuitem value="Monument" action="#{applicationManagedBean.indexMonument()}" ajax="false"/>
-                            <p:menuitem value="Restaurant" action="#{applicationManagedBean.indexRestaurant()}" icon="ui-icon-arrowreturnthick-1-e" ajax="false"/>
-                            <p:menuitem value="Pharmacie" action="#{applicationManagedBean.indexPharmacie()}" ajax="false"/>
-                            <p:menuitem value="Centre Medicale" action="#{applicationManagedBean.indexMedical()}" icon="ui-icon-arrowreturnthick-1-e" ajax="false" />
-                            <p:menuitem value="Centre Commerciale" action="#{applicationManagedBean.indexCommercial()}" icon="ui-icon-arrowreturnthick-1-e" ajax="false"/>
-                            <p:menuitem value="Hotel" action="#{applicationManagedBean.indexHotel()}" ajax="false"/>
+                        <p:submenu label="Lieu" icon="ui-icon-home">
+                            <p:menuitem value="Monument" action="#{applicationManagedBean.indexMonument()}" icon="ui-icon-home" ajax="false"/>
+                            <p:menuitem value="Restaurant" action="#{applicationManagedBean.indexRestaurant()}" icon="ui-icon-home" ajax="false"/>
+                            <p:menuitem value="Pharmacie" action="#{applicationManagedBean.indexPharmacie()}" icon="ui-icon-home" ajax="false"/>
+                            <p:menuitem value="Centre Medicale" action="#{applicationManagedBean.indexMedical()}"  icon="ui-icon-home" ajax="false" />
+                            <p:menuitem value="Centre Commerciale" action="#{applicationManagedBean.indexCommercial()}"  icon="ui-icon-home" ajax="false"/>
+                            <p:menuitem value="Hotel" action="#{applicationManagedBean.indexHotel()}" icon="ui-icon-home" ajax="false"/>
 
                         </p:submenu>
 
-                        <p:submenu label="Help" icon="ui-icon-help">
-                            <p:menuitem value="Contents" url="#" />
-                            <p:submenu label="Search" icon="ui-icon-search">
-                                <p:submenu label="Text">
-                                    <p:menuitem value="Workspace" url="#" />
-                                </p:submenu>
-                                <p:menuitem value="File" url="#" />
-                            </p:submenu>
-                        </p:submenu>
+                      
 
                         <p:submenu label="Bord" icon="ui-icon-gear">
-                            <p:submenu label="Restaurant" icon="ui-icon-refresh">
-                                <p:menuitem value="Specialite"  action="#{applicationManagedBean.indexSpecialite()}" icon="ui-icon-disk" ajax="false"/>
-                                <p:menuitem value="Update"  icon="ui-icon-arrowrefresh-1-w"/>
+                            <p:submenu label="Restaurant" >
+                                <p:menuitem value="Specialite"  action="#{applicationManagedBean.indexSpecialite()}"  ajax="false"/>
+                                
                             </p:submenu>
-                            <p:submenu label="Pharmacie" icon="ui-icon-newwin">
-                                <p:menuitem value="Garde"  icon="ui-icon-close" action="#{applicationManagedBean.indexgarde()}" ajax="false"/>
+                            <p:submenu label="Pharmacie" >
+                                <p:menuitem value="Garde"  action="#{applicationManagedBean.indexgarde()}" ajax="false"/>
                             </p:submenu>
-                            <p:submenu label="Pays" icon="ui-icon-newwin">
-                                <p:menuitem value="Gestion"  icon="ui-icon-close" action="#{applicationManagedBean.indexPay()}" ajax="false"/>
-                                <p:menuitem value="Ville"  icon="ui-icon-close" action="#{applicationManagedBean.indexVille()}" ajax="false"/>
+                            <p:submenu label="Pays" >
+                                <p:menuitem value="Gestion de Pays"   action="#{applicationManagedBean.indexPay()}" ajax="false"/>
+                                <p:menuitem value="Ville"   action="#{applicationManagedBean.indexVille()}" ajax="false"/>
                             </p:submenu>
 
-                            <p:menuitem value="Gestion Images"  icon="ui-icon-close" action="#{applicationManagedBean.indexImage()}" ajax="false"/>
+                            <p:menuitem value="Gestion Images"  icon="ui-icon-image" action="#{applicationManagedBean.indexImage()}" ajax="true"/>
 
-                            <p:menuitem value="Evenement"  icon="ui-icon-close" action="#{applicationManagedBean.indexEvenement()}" ajax="false"/>
-
+                            <p:menuitem value="Evenement"  icon="ui-icon-clock" action="#{applicationManagedBean.indexEvenement()}" ajax="true"/>
 
                         </p:submenu>
 
-                        <p:menuitem value="Quit"  icon="ui-icon-close" action="#{applicationManagedBean.logout()}" oncomplete="handleLoginRequest(xhr, status, args)" ajax="false"/>
+                        <p:menuitem value="Rechercher"  icon="ui-icon-search" action="#{applicationManagedBean.logout()}" oncomplete="handleLoginRequest(xhr, status, args)" ajax="false"/>
 
+                          <p:menuitem value="Help" icon="ui-icon-help">
+                             
+                          </p:menuitem>>
+                        
                         <f:facet name="options">
-                            <p:inputText style="margin-right:10px"/>
-                            <p:commandButton  value="Logout" action="#{loginManagedBean.logout()}" icon="ui-icon-extlink" ajax="true" />
+                         
+                            <p:commandButton  value="Logout" action="#{applicationManagedBean.logout()}" icon="ui-icon-power" ajax="true" />
                         </f:facet>
                     </p:menubar>
 
@@ -83,10 +79,10 @@
 
             <div id="content" class="center_content ui-widget ui-widget-content ui-corner-all" >
                 <ui:insert name="content">Content</ui:insert>
-            </div>
+            </div> 
 
             <div id="bottom"  class="title ui-widget-header ui-corner-all">
-                <ui:insert name="bottom">Touristas Guide&copy; 2014</ui:insert>
+                <ui:insert name="bottom">Guide Touristique&copy; 2014</ui:insert>
             </div>
         </div>
         <script type="text/javascript">

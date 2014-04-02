@@ -18,7 +18,7 @@
 
             <ui:define name="content">
                 <h:form>
-                    <p:commandButton value="Nouveau Centre Commerciale" action="#{centrecommercialeManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
+                    <p:commandButton value="Nouveau Centre Commerciale" action="#{centrecommercialeManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
                 </h:form>
 
                 <h:form>
@@ -29,7 +29,8 @@
                             <f:facet name="header">
                                 <h:outputText value="ID"/>
                             </f:facet>
-                            <h:outputText value="#{centreCommercial.id}"/>
+                            
+                            <h:outputText value="#{centreCommercial.id}" />
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -73,8 +74,6 @@
                     </p:dataTable>
 
                 </h:form>
-
-
                 <h:form id="formUpdate">
 
                     <p:dialog header="Update " widgetVar="userDialogUpdate" resizable="false" id="DlgUserUpdate"

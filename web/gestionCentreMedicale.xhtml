@@ -11,29 +11,31 @@ xmlns:p="http://primefaces.org/ui">
 <h:body>
     <ui:composition template="./Template.xhtml">
         <ui:define name="top">
-                Gestion Centre Medicale
+                <div id="bottom"  class="title ui-widget-header ui-corner-all">
+                <ui:insert name="bottom">Gestion de Centre Médical</ui:insert>
+            </div>
             </ui:define>
             
     <ui:define name="content">
         <h:form>
     <h:panelGrid columns="3" cellpadding="5">
-        <h:outputLabel value="id   "/> 
-   <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.id}"/><br/>
-   <h:outputLabel value="email   "/> 
-
-     <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.email}"/><br/>
-     <h:outputLabel value="telephone   "/> 
+        
+        
+   <h:outputLabel value="Email :    "/> 
+   <p:inputTextarea rows="1" cols="33" value="#{centreMedicaleManagedBean.centreMedicale.email}"/><br/>
+     <h:outputLabel value="Téléphone :   "/> 
     <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.telephone}"/><br/>
-    <h:outputLabel value="siteweb   "/> 
-    <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.siteweb}"/><br/>
-    <h:outputLabel value="latitude   "/> 
+    <h:outputLabel value="Site Web :  "/> 
+    <p:inputTextarea rows="1" cols="33" value="#{centreMedicaleManagedBean.centreMedicale.siteweb}"/><br/>
+    <h:outputLabel value="Latitude : "/> 
      <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.latitude}"/><br/>
-     <h:outputLabel value="longitude   "/> 
+     <h:outputLabel value="Longitude :  "/> 
      <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.longitude}"/><br/>
      
 
-<p:commandButton action="#{centreMedicaleManagedBean.ajouter()}" value="Inserer" ajax="false"/>
-<p:commandButton action="#{centreMedicaleManagedBean.modifier()}" value="Modifier" ajax="false"/>
+<p:commandButton action="#{centreMedicaleManagedBean.ajouter()}" value="Ajouter" ajax="false" icon="ui-icon-plusthick"/>
+<p:commandButton action="#{centreMedicaleManagedBean.modifier()}" value="Modifier" ajax="false" icon="ui-icon-pencil"/>
+<p:commandButton action="#{applicationManagedBean.indexMedical()}" value="Annuler" ajax="false" icon="ui-icon-cancel"/>
 </h:panelGrid>
     </h:form>
 

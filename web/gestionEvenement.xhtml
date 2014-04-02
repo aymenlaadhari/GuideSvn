@@ -11,26 +11,28 @@ xmlns:p="http://primefaces.org/ui">
 <h:body>
     <ui:composition template="./Template.xhtml">
         <ui:define name="top">
-                Gestion Evenement
+                <div id="bottom"  class="title ui-widget-header ui-corner-all">
+                <ui:insert name="bottom">Gestion Evenement</ui:insert>
+            </div>
             </ui:define>
             
      <ui:define name="content">
 <h:form>
     <h:panelGrid columns="3" cellpadding="5">
-        <h:outputLabel value="id   "/> 
-     <p:inputText value="#{evenementManagedBean.evenement.idEvent}"/><br/>
-      <h:outputLabel value="Type   "/> 
-    <p:inputText value="#{evenementManagedBean.evenement.type}"/><br/>
-     <h:outputLabel value="Inscription   "/> 
+        
+      <h:outputLabel value="Type :   "/> 
+      <p:inputText value="#{evenementManagedBean.evenement.type}"/><br/>
+     <h:outputLabel value="Inscription :   "/> 
     <p:inputText value="#{evenementManagedBean.evenement.inscription}"/><br/>
-     <h:outputLabel value="prix   "/> 
+     <h:outputLabel value="Prix :  "/> 
     <p:inputText value="#{evenementManagedBean.evenement.prix}"/><br/>
-     <h:outputLabel value="date   "/> 
-    <p:calendar value="#{evenementManagedBean.evenement.date}" pattern="MM/dd/yyyy HH:mm"/><br/>
+     <h:outputLabel value="Date :  "/> 
+     <p:calendar value="#{evenementManagedBean.evenement.date}" pattern="MM/dd/yyyy HH:mm" showOn="button"/><br/>
    
 <br/>
-<p:commandButton action="#{evenementManagedBean.ajouter()}" value="Inserer" ajax="false"/>
-<p:commandButton action="#{evenementManagedBean.modifier()}" value="Modifier" ajax="false"/>
+<p:commandButton action="#{evenementManagedBean.ajouter()}" value="Ajouter" ajax="false" icon="ui-icon-plusthick"/>
+<p:commandButton action="#{evenementManagedBean.modifier()}" value="Modifier" ajax="false" icon="ui-icon-pencil"/>
+<p:commandButton action="#{applicationManagedBean.indexEvenement()}" value="Annuler" ajax="false" icon="ui-icon-cancel"/>
 </h:panelGrid>
 </h:form>
          </ui:define>

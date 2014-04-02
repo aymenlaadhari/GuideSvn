@@ -50,7 +50,11 @@ public class CentrecommercialeManagedBean implements Serializable{
 
     public DataModel getListCentre() {
          List<CentreCommercial> list = new CentreCommercialImp().list();
+         
+         
+        
         listCentre = new ListDataModel(list);
+        
         
         return listCentre;
     }

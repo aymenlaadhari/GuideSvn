@@ -11,15 +11,17 @@
     <h:head>
         <title>Gestion Pharmacie</title>
     </h:head>
-    <h:body>
+   <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-                Gestion Pharmacie
+               <div id="bottom"  class="title ui-widget-header ui-corner-all">
+                <ui:insert name="bottom">Gestion Pharmacie</ui:insert>
+            </div>
             </ui:define>
 
             <ui:define name="content">
                 <h:form>
-                    <p:commandButton value="Nouveau Pharmacie" action="#{pharmacieManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
+                    <p:commandButton value="Ajouter Pharmacie" action="#{pharmacieManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
                    
                 </h:form>
                  <br/>
@@ -27,37 +29,37 @@
                 <p:dataTable var="pharmacie" value="#{pharmacieManagedBean.listPharmacie}">
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="ID"/>
+                            <h:outputText value="Identifiant"/>
                         </f:facet>
                         <h:outputText value="#{pharmacie.id}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="EMAIL"/>
+                            <h:outputText value="Email"/>
                         </f:facet>
                         <h:outputText value="#{pharmacie.email}" />
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="LATITUDE"/>
+                            <h:outputText value="Latitude"/>
                         </f:facet>
                         <h:outputText value="#{pharmacie.latitude}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="LONGITUDE"/>
+                            <h:outputText value="Longitude"/>
                         </f:facet>
                         <h:outputText value="#{pharmacie.longitude}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="SITE WEB"/>
+                            <h:outputText value="Site Web"/>
                         </f:facet>
                         <h:outputText value="#{pharmacie.siteweb}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="TELEPHONE"/>
+                            <h:outputText value="Téléphone"/>
                         </f:facet>
                         <h:outputText value="#{pharmacie.telephone}"/>
                     </p:column>
@@ -66,7 +68,7 @@
 
                         <h:form>
                             <p:commandButton action="#{pharmacieManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
-                            <p:commandButton action="#{pharmacieManagedBean.supprimer()}"  ajax="false" icon="ui-icon-cancel"/>
+                            <p:commandButton action="#{pharmacieManagedBean.supprimer()}"  ajax="false" icon="ui-icon-trash"/>
 
                         </h:form>
                     </p:column>

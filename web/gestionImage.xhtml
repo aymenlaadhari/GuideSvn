@@ -10,21 +10,23 @@
         <ui:composition template="./Template.xhtml">
 
             <ui:define name="top">
-                Gestion Image
+                <div id="bottom"  class="title ui-widget-header ui-corner-all">
+                    <ui:insert name="bottom"  class="center_content">Gestion Image</ui:insert>
+            </div>
             </ui:define>
 
             <ui:define name="content">
                 <h:form>
                     <h:panelGrid columns="3" cellpadding="5">
-                        <h:outputLabel value="id   "/>
-                        <p:inputText value="#{imageManagedBean.image.id}"/><br/>
-                        <h:outputLabel value="NOM   "/>
+                        
+                        <h:outputLabel value="Nom :   "/>
                         <p:inputText value="#{imageManagedBean.image.nom}"/><br/>
-                        <h:outputLabel value="Description   "/>
-                        <p:inputText value="#{imageManagedBean.image.description}"/>
+                        <h:outputLabel value="Description :   "/>
+                        <p:inputTextarea rows="6" cols="33" value="#{imageManagedBean.image.description}"/>
                         <br/>
-                        <p:commandButton action="#{imageManagedBean.ajouter()}" value="Inserer" ajax="false"/>
-                        <p:commandButton action="#{imageManagedBean.modifier()}" value="Modifier" ajax="false"/>
+                        <p:commandButton action="#{imageManagedBean.ajouter()}" value="Ajouter" ajax="false" icon="ui-icon-plusthick"/>
+                        <p:commandButton action="#{imageManagedBean.modifier()}" value="Modifier" ajax="false" icon="ui-icon-pencil"/>
+                        <p:commandButton action="#{applicationManagedBean.indexImage()}" value="Annuler" ajax="false" icon="ui-icon-cancel"/>
                     </h:panelGrid>
                 </h:form>
             </ui:define>

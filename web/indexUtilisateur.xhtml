@@ -11,49 +11,52 @@
         <ui:composition template="./Template.xhtml">
 
             <ui:define name="top">
-                Gestion Utilisateur
+                <div id="bottom"  class="title ui-widget-header ui-corner-all">
+                <ui:insert name="bottom">Gestion Utilisateur</ui:insert>
+            </div>
             </ui:define>
 
             <ui:define name="content">
                 <h:form>
-                    <p:commandButton value="Nouveau Utilisateur" action="#{utilisateurManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
+                    <p:commandButton value="Ajouter Utilisateur" action="#{utilisateurManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
                     
                 </h:form>
                 <br/>
                 <p:dataTable var="utilisateur" value="#{utilisateurManagedBean.listUtlisateur}">
+                   
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="ID"/>
+                            <h:outputText value="Identifiant"/>
                         </f:facet>
-                        <h:outputText value="#{utilisateur.id}" />
+                        <h:outputText value="#{utilisateur.id}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="NOM"/>
+                            <h:outputText value="Nom"/>
                         </f:facet>
                         <h:outputText value="#{utilisateur.nom}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Prenom"/>
+                            <h:outputText value="Prénom"/>
                         </f:facet>
                         <h:outputText value="#{utilisateur.prenom}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="ADDRESS"/>
+                            <h:outputText value="Adresse"/>
                         </f:facet>
                         <h:outputText value="#{utilisateur.adress}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="EMAIL"/>
+                            <h:outputText value="Email"/>
                         </f:facet>
                         <h:outputText value="#{utilisateur.email}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="PASSWORD"/>
+                            <h:outputText value="Mot de passe"/>
                         </f:facet>
                         <h:outputText value="#{utilisateur.password}"/>
                     </p:column>
@@ -62,7 +65,7 @@
 
                         <h:form>
                             <p:commandButton action="#{utilisateurManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
-                            <p:commandButton action="#{utilisateurManagedBean.supprimer()}"  ajax="false" icon="ui-icon-cancel"/>
+                            <p:commandButton action="#{utilisateurManagedBean.supprimer()}"  ajax="false" icon="ui-icon-trash"/>
 
                         </h:form>
                     </p:column>

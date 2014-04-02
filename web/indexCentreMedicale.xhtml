@@ -14,12 +14,14 @@
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-                Gestion Centre Medicale
+                <div id="bottom"  class="title ui-widget-header ui-corner-all">
+                <ui:insert name="bottom">Gestion de Centre Médical</ui:insert>
+            </div>
             </ui:define>
 
             <ui:define name="content">
                  <h:form>
-                    <p:commandButton value="Nouveau Centre medicale" action="#{centreMedicaleManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-new"/>
+                    <p:commandButton value="Ajouter Centre Médical" action="#{centreMedicaleManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
                     
                  </h:form>
                 <br/>
@@ -27,46 +29,46 @@
                 <p:dataTable var="centreMedicale" value="#{centreMedicaleManagedBean.listCentre}">
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="ID"/>
+                            <h:outputText value="Identifiant"/>
                         </f:facet>
                         <h:outputText value="#{centreMedicale.id}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="EMAIL"/>
+                            <h:outputText value="Email"/>
                         </f:facet>
                         <h:outputText value="#{centreMedicale.email}" />
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="LATITUDE"/>
+                            <h:outputText value="Latitude"/>
                         </f:facet>
                         <h:outputText value="#{centreMedicale.latitude}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="LONGITUDE"/>
+                            <h:outputText value="Longitude"/>
                         </f:facet>
                         <h:outputText value="#{centreMedicale.longitude}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="SITE WEB"/>
+                            <h:outputText value="Site Web"/>
                         </f:facet>
                         <h:outputText value="#{centreMedicale.siteweb}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="TELEPHONE"/>
+                            <h:outputText value="Téléphone"/>
                         </f:facet>
-                        <h:outputText value="#{centreMedicale.telephone}"/>
+                        <h:outputText value="telephone"/>
                     </p:column>
 
                     <p:column style="width:4%">
 
                         <h:form>
                             <p:commandButton action="#{centreMedicaleManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
-                            <p:commandButton action="#{centreMedicaleManagedBean.supprimer()}"  icon="ui-icon-cancel" ajax="false"/>
+                            <p:commandButton action="#{centreMedicaleManagedBean.supprimer()}" ajax="false" icon="ui-icon-trash"/>
 
                         </h:form>
                     </p:column>

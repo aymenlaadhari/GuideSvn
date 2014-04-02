@@ -56,6 +56,7 @@ public class CentreCommercial  implements java.io.Serializable {
     
     @Column(name="telephone", length=25)
     public String getTelephone() {
+        
         return this.telephone;
     }
     
