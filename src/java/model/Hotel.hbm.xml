@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 2, 2014 11:37:37 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.Hotel" table="hotel" schema="public">
+        <id name="idHotel" type="int">
+            <column name="id_hotel" />
+            <generator class="increment" />
+        </id>
+        <property name="nomH" type="string">
+            <column name="nom_h" length="254" />
+        </property>
+        <property name="categorieH" type="string">
+            <column name="categorie_h" length="254" />
+        </property>
+        <property name="sitewebH" type="string">
+            <column name="siteweb_h" length="254" />
+        </property>
+        <property name="longitude" type="java.lang.Double">
+            <column name="longitude" precision="17" scale="17" />
+        </property>
+        <property name="latitude" type="java.lang.Double">
+            <column name="latitude" precision="17" scale="17" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="254" />
+        </property>
+        <property name="nbreetoile" type="int">
+            <column name="nbreetoile" not-null="true" />
+        </property>
+        <property name="telephoneH" type="string">
+            <column name="telephone_h" length="254" />
+        </property>
+        <property name="emailH" type="string">
+            <column name="email_h" length="254" />
+        </property>
+    </class>
+</hibernate-mapping>

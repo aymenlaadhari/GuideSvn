@@ -3,21 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.pays;
+package controller.restaurant;
 
-
-import dao.pharmacie.PharmacieImpl;
-import dao.pharmacie.PharmacieInterface;
 import dao.restaurant.RestaurantImpl;
 import dao.restaurant.RestaurantInterface;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
-
-
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import model.Restaurant;
 
@@ -30,58 +27,71 @@ import model.Restaurant;
 public class RestaurantManagedBean implements Serializable {
 
     private Restaurant restaurant;
-    private DataModel listRestaurant;
+    private List<Restaurant> restaurants;
+     RestaurantInterface restaurantInterface;
 
     public Restaurant getRestaurant() {
         return restaurant;
     }
 
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
+    public void setRestaurant(Restaurant selectedRestaurant) {
+        this.restaurant = selectedRestaurant;
+    }
+
+    public List<Restaurant> getRestaurants() {
+        restaurantInterface = new RestaurantImpl();
+        this.restaurants = restaurantInterface.list();
+        return restaurants;
+    }
+
+    public void setRestaurants(List<Restaurant> restaurants) {
+        this.restaurants = restaurants;
+    }
+
+     public void ajoutEvent(ActionEvent actionEvent) {
+        restaurant = new Restaurant();
+
+    }
+
+    public void deletMessage(ActionEvent actionEvent) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Restaurant supprimé"));
+    }
+
+    public void editEvent(long id) {
+        System.out.print(id);
+        restaurantInterface = new RestaurantImpl();
+        restaurant = restaurantInterface.getCentre(id);
+
+    }
+
+    public void edition(ActionEvent actionEvent) {
+        restaurantInterface = new RestaurantImpl();
+        restaurantInterface.update(restaurant);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(" Restaurant mise à jour"));
+    }
+
+    public void ajoutcc(ActionEvent actionEvent) {
+        restaurantInterface = new RestaurantImpl();
+        restaurantInterface.save(restaurant);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Restaurant Evenement ajouté"));
+        restaurant = new Restaurant();
+    }
+
+    public void delet(Restaurant restaurant) {
+        restaurantInterface = new RestaurantImpl();
+        restaurantInterface.remove(restaurant);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(" Restaurant supprimé"));
+
     }
 
     
-
-    public DataModel getListRestaurant() {
-        List<Restaurant> list = new RestaurantImpl().list();
-        listRestaurant = new ListDataModel(list);
-
-        return listRestaurant;
-    }
-
-    public String preparerAjout() {
-        restaurant = new Restaurant();
-        return "gestionRestaurant";
-    }
-
-    public String preparerModifier() {
-        restaurant = (Restaurant) (listRestaurant.getRowData());
-        return "gestionRestaurant";
-    }
-
-    public String supprimer() {
-        Restaurant restaurantTemp = (Restaurant) (listRestaurant.getRowData());
-        RestaurantInterface cmi = new RestaurantImpl();
-        cmi.remove(restaurantTemp);
-        return "indexRestaurant";
-    }
-
-    public String ajouter() {
-        RestaurantInterface cmi = new RestaurantImpl();
-        cmi.save(restaurant);
-        return "indexRestaurant";
-    }
-
-    public String modifier() {
-        RestaurantInterface cmi = new RestaurantImpl();
-        cmi.update(restaurant);
-        return "indexRestaurant";
-    }
-
-    /**
-     * Creates a new instance of CentremedicaleManagedBean
-     */
     public RestaurantManagedBean() {
+
+        this.restaurants = new ArrayList<>();
 
         if (this.restaurant == null) {
             this.restaurant = new Restaurant();

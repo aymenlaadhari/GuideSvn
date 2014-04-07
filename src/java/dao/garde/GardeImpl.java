@@ -49,4 +49,11 @@ Session session = HibernateUtil.getSessionFactory().openSession();
         t.commit();
     }
     
+    @Override
+    public Garde getGarde(int id) {
+          Session session = HibernateUtil.getSessionFactory().openSession();
+       return (Garde) session.load(Garde.class, id);
+        
+    }
+    
 }

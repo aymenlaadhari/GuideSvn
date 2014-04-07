@@ -14,19 +14,43 @@
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-                <div id="bottom"  class="title ui-widget-header ui-corner-all">
-                <ui:insert name="bottom">Gestion de Centre Médical</ui:insert>
-            </div>
+                <img src="resources/images/csv.png" width="32" height="32" alt="csv"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                
+
+                Gestion Centre Médicale
+
+
             </ui:define>
 
             <ui:define name="content">
-                 <h:form>
+                <h:form class="left_content">
                     <p:commandButton value="Ajouter Centre Médical" action="#{centreMedicaleManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
-                    
-                 </h:form>
-                <br/>
 
-                <p:dataTable var="centreMedicale" value="#{centreMedicaleManagedBean.listCentre}">
+                </h:form>
+                <br/>
+                
+                <h1>Liste des Centres Médicales</h1> 
+                <br/> 
+
+                <p:dataTable paginator="true" rows="5"   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                             rowsPerPageTemplate="5,10,15" var="centreMedicale" value="#{centreMedicaleManagedBean.centreMedicales}">
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Identifiant"/>
@@ -35,10 +59,24 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Email"/>
+                            <h:outputText value="Nom de Centre"/>
                         </f:facet>
-                        <h:outputText value="#{centreMedicale.email}" />
+                        <h:outputText value="#{centreMedicale.nom}" />
                     </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Description"/>
+                        </f:facet>
+                        <h:outputText value="#{centreMedicale.description}" />
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Type"/>
+                        </f:facet>
+                        <h:outputText value="#{centreMedicale.type}" />
+                    </p:column>
+
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Latitude"/>
@@ -61,9 +99,14 @@
                         <f:facet name="header">
                             <h:outputText value="Téléphone"/>
                         </f:facet>
-                        <h:outputText value="telephone"/>
+                        <h:outputText value="#{centreMedicale.telephone}" />
                     </p:column>
-
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Email"/>
+                        </f:facet>
+                        <h:outputText value="#{centreMedicale.email}" />
+                    </p:column>
                     <p:column style="width:4%">
 
                         <h:form>
@@ -74,10 +117,6 @@
                     </p:column>
 
                 </p:dataTable>
-
-                <br/>
-               
-
 
             </ui:define>
         </ui:composition>

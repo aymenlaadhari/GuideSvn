@@ -7,12 +7,15 @@ package controller.evenement;
 
 import dao.evenement.EvenementImpl;
 import dao.evenement.EvenementInterface;
+import java.awt.event.ActionEvent;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
 import model.Evenement;
 
 
@@ -22,11 +25,12 @@ import model.Evenement;
  * @author hp
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class EvenementManagedBean implements Serializable {
 
     private Evenement evenement;
-    private DataModel listEvenement;
+    private List<Evenement> evenements;
+    EvenementInterface evenementInterface;
 
     //getteur et setteur -->Monument
     public Evenement getEvenement() {
@@ -36,50 +40,68 @@ public class EvenementManagedBean implements Serializable {
     public void setEvenement(Evenement evenement) {
         this.evenement = evenement;
     }
-    
 
-   //getteur -->listEvenement
-  
-    public DataModel getListEvenement() {
-        List<Evenement> list = new EvenementImpl().list();
-        listEvenement = new ListDataModel(list); 
-        return listEvenement;
+    //getteur -->listEvenement
+    public List<Evenement> getEvenements() {
+        evenementInterface = new EvenementImpl();
+        this.evenements = evenementInterface.list();
+        return evenements;
     }
+
+    public void setEvenements(List<Evenement> evenements) {
+        this.evenements = evenements;
+    }
+  
+    
       
 
 ///les methodes
-    public String preparerAjout() {
-       evenement = new Evenement();
-        return "gestionEvenement";
+   public void ajoutEvent(ActionEvent actionEvent) {
+        evenement = new Evenement();
+
     }
 
-    public String preparerModifier() {
-        evenement = (Evenement) (listEvenement.getRowData());
-        return "gestionEvenement";
+    public void deletMessage(ActionEvent actionEvent) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Evenement supprimé"));
     }
 
+    public void editEvent(int id) {
+        System.out.print(id);
+        evenementInterface = new EvenementImpl();
+        evenement = evenementInterface.getEvenement(id);
 
-    public String ajouter() {
-        EvenementInterface ei = new EvenementImpl();
-        ei.save(evenement);
-        return "indexEvenement";
     }
 
-    public String modifier() {
-       EvenementInterface ei = new  EvenementImpl();
-        ei.update(evenement);
-        return "indexEvenement";
+    public void edition(ActionEvent actionEvent) {
+        evenementInterface = new EvenementImpl();
+        evenementInterface.update(evenement);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Evenement mise à jour"));
     }
-     public String supprimer() {
-        Evenement evenementTemp = (Evenement) (listEvenement.getRowData());
-        EvenementInterface ei = new EvenementImpl();
-        ei.remove(evenementTemp);
-        return "indexEvenement";
+
+    public void ajoutcc(ActionEvent actionEvent) {
+        evenementInterface = new EvenementImpl();
+        evenementInterface.save(evenement);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Evenement ajouté"));
+        evenement = new Evenement();
     }
+
+    public void delet(Evenement evenement) {
+        evenementInterface = new EvenementImpl();
+        evenementInterface.remove(evenement);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Evenement supprimé"));
+
+    }
+    
     /**
      * Creates a new instance of EvenementManagedBean
      */
     public EvenementManagedBean() {
+        
+        this.evenements = new ArrayList<>();
 
         if (this.evenement== null) {
             this.evenement = new Evenement();

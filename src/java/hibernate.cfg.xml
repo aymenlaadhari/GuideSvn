@@ -1,30 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-  <session-factory>
+   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
     <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">aymen</property>
-    <property name="hbm2ddl.auto">update</property>
-    <!-- Montrer toutes les requêtes générées-->
-    <property name="show_sql">true</property>
-    <property name="format_sql">true</property>
-    <property name="hibernate.current_session_context_class">thread</property>
-    <!-- Les fichiers de mapping -->
-    <mapping resource="model/mapping/CentreCommercial.hbm.xml"/>
-    <mapping resource="model/mapping/CentreMedicale.hbm.xml"/>
-    <mapping resource="model/mapping/Garde.hbm.xml"/>
-    <mapping resource="model/mapping/Image.hbm.xml"/>
-    <mapping resource="model/mapping/Pay.hbm.xml"/>
-    <mapping resource="model/mapping/Pharmacie.hbm.xml"/>
-    <mapping resource="model/mapping/Restaurant.hbm.xml"/>
-    <mapping resource="model/mapping/Specialite.hbm.xml"/>
-    <mapping resource="model/mapping/Ville.hbm.xml"/>
-    <mapping resource="model/mapping/utilisateur.hbm.xml"/>
-    <mapping resource="model/mapping/Evenement.hbm.xml"/>
-    <mapping resource="model/mapping/Hotel.hbm.xml"/>
-    <mapping resource="model/mapping/Monument.hbm.xml"/>
+     <property name="hibernate.current_session_context_class">thread</property>
+    <mapping resource="model/Ville.hbm.xml"/>
+    <mapping resource="model/Pay.hbm.xml"/>
+    <mapping resource="model/Specialite.hbm.xml"/>
+    <mapping resource="model/Garde.hbm.xml"/>
+    <mapping resource="model/Hotel.hbm.xml"/>
+    <mapping resource="model/CentreMedicale.hbm.xml"/>
+    <mapping resource="model/Utilisateur.hbm.xml"/>
+    <mapping resource="model/Monument.hbm.xml"/>
+    <mapping resource="model/Evenement.hbm.xml"/>
+    <mapping resource="model/Pharmacie.hbm.xml"/>
+    <mapping resource="model/CentreCommercial.hbm.xml"/>
+    <mapping resource="model/Restaurant.hbm.xml"/>
+    <mapping resource="model/Image.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

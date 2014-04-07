@@ -1,115 +1,155 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package model;
+// Generated Apr 2, 2014 11:37:33 AM by Hibernate Tools 3.6.0
 
-import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
 import javax.persistence.Table;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
-import javax.validation.constraints.Size;
 
-/**
- *
- * @author hp
- */
 @Entity
-@Table(name = "utilisateur", catalog = "postgres", schema = "public")
+@Table(name="utilisateur"
+    ,schema="public"
+)
+public class Utilisateur  implements java.io.Serializable {
 
-public class Utilisateur implements Serializable {
-    
-   
-@Id
-    @GeneratedValue
-    @Column(name = "id", unique=true, nullable=false)
-    private Integer id;
-    @Size(max = 25)
-    @Column(name = "nom", length = 25)
-    private String nom;
-    @Size(max = 25)
-    @Column(name = "prenom", length = 25)
-    private String prenom;
-    @Size(max = 25)
-    @Column(name = "adress", length = 25)
-    private String adress;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Size(max = 25)
-    @Column(name = "email", length = 25)
-    private String email;
-    @Size(max = 25)
-    @Column(name = "password", length = 25)
-    private String password;
+
+     private int id;
+     private String nom;
+     private String prenom;
+     private String adresse;
+     private String email;
+     private String password;
+     private String login;
+     private String telephone;
+     private String passCrypt; 
+     MessageDigest md;
 
     public Utilisateur() {
     }
 
-    public Utilisateur(Integer id) {
+	
+    public Utilisateur(int id) {
         this.id = id;
     }
-    
-    
-    
-         public Integer getId() {
-        return id;
+    public Utilisateur(int id, String nom, String prenom, String adresse, String email, String password, String login, String telephone) {
+       this.id = id;
+       this.nom = nom;
+       this.prenom = prenom;
+       this.adresse = adresse;
+       this.email = email;
+       this.password = password;
+       this.login = login;
+       this.telephone = telephone;
     }
+   
+     @Id 
 
-    public void setId(Integer id) {
+    @Column(name="id", unique=true, nullable=false)
+    public int getId() {
+        return this.id;
+    }
+    
+    public void setId(int id) {
         this.id = id;
     }
 
+    
+    @Column(name="nom", length=25)
     public String getNom() {
-        return nom;
+        return this.nom;
     }
-
+    
     public void setNom(String nom) {
         this.nom = nom;
     }
 
+    
+    @Column(name="prenom", length=25)
     public String getPrenom() {
-        return prenom;
+        return this.prenom;
     }
-
+    
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
 
-    public String getAdress() {
-        return adress;
+    
+    @Column(name="adresse", length=25)
+    public String getAdresse() {
+        return this.adresse;
+    }
+    
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
-    }
-
+    
+    @Column(name="email", length=25)
     public String getEmail() {
-        return email;
+        return this.email;
     }
-
+    
     public void setEmail(String email) {
         this.email = email;
     }
 
+    
+    @Column(name="password", length=25)
     public String getPassword() {
-        return password;
+        return this.password;
     }
-
+    
     public void setPassword(String password) {
         this.password = password;
     }
 
-   
-
-   
-   
+    
+    @Column(name="login", length=258)
+    public String getLogin() {
+        return this.login;
+    }
+    
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
     
+    @Column(name="telephone", length=258)
+    public String getTelephone() {
+        return this.telephone;
+    }
     
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getPassCrypt() throws NoSuchAlgorithmException {
+        
+//        passCrypt = (byte[] )(password+"***poposs7700").getBytes();
+//        return passCrypt;		
+         md = MessageDigest.getInstance("MD5");
+		md.update(password.getBytes());
+		byte[] digest = md.digest();
+		StringBuilder sb = new StringBuilder();
+		for (byte b : digest) {
+			sb.append(String.format("%02x", b & 0xff));
+		}
+                passCrypt = sb.toString();
+         
+                return passCrypt;
+         
+        
+    }
+
+   
+
+
+
+
 }
+
+

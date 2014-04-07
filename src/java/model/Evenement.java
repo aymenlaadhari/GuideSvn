@@ -1,11 +1,10 @@
 package model;
-// Generated Mar 29, 2014 12:56:35 PM by Hibernate Tools 3.6.0
+// Generated Apr 2, 2014 11:37:33 AM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -42,7 +41,7 @@ public class Evenement  implements java.io.Serializable {
        this.date = date;
     }
    
-     @Id @GeneratedValue
+     @Id 
 
     
     @Column(name="id_event", unique=true, nullable=false)

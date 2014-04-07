@@ -5,25 +5,50 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
-
-     <body>
+    <h:head>
+        <title>Gestion Image</title>
+    </h:head>
+    <body>
 
         <ui:composition template="./Template.xhtml">
 
             <ui:define name="top">
-               <div id="bottom"  class="title ui-widget-header ui-corner-all">
-                    <ui:insert name="bottom"  class="center_content">Gestion Iamge</ui:insert>
-            </div>
+                <img src="resources/images/csv.png" width="32" height="32" alt="csv"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                Gestion Images
             </ui:define>
 
             <ui:define name="content">
-                <h:form>
+                
+                 <h:form class="left_content">
                     <p:commandButton value="Nouvelle Image" action="#{imageManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
-                    
+
                 </h:form>
                 <br/>
-                
-                <p:dataTable var="images" value="#{imageManagedBean.listGarde}">
+                <h1>Liste des Images</h1>
+                <br/>
+
+                <p:dataTable paginator="true" rows="5"   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 rowsPerPageTemplate="5,10,15" var="images" value="#{imageManagedBean.listGarde}">
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Identifiant"/>
@@ -43,6 +68,15 @@
                         <h:outputText value="#{images.description}" />
                     </p:column>
                     <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Image" />
+                        </f:facet>
+                        <h:outputLink  target="_blank" >
+                            <p:graphicImage width="50" height="50" ></p:graphicImage>
+                        </h:outputLink>
+
+                    </p:column>
+                    <p:column>
 
                         <h:form style="width:4%">
                             <p:commandButton action="#{imageManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
@@ -50,16 +84,17 @@
 
                         </h:form>
                     </p:column>
-                   
+
 
                 </p:dataTable>
-                <br/>
-                
+              
                 <h:form>
                     <p:galleria  value="#{galleriaBean.images}" var="image" panelWidth="500" panelHeight="313" autoPlay="false">
                         <p:graphicImage value="resources/images/galleria/#{image}" alt="description de l'image #{images.nom}" title="#{image}"/>
                     </p:galleria>
                 </h:form>
+                <br/>
+               
             </ui:define>
 
 

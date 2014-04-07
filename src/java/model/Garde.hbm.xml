@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 26 mars 2014 16:28:09 by Hibernate Tools 3.6.0 -->
+<!-- Generated Apr 2, 2014 11:37:37 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
-    <class name="model.Specialite" table="specialite" schema="public">
+    <class name="model.Garde" table="garde" schema="public">
         <id name="id" type="int">
             <column name="id" />
             <generator class="increment" />
         </id>
-        <property name="nom" type="string">
-            <column name="nom" length="25" />
+        <property name="debut" type="date">
+            <column name="debut" length="13" />
         </property>
-        <property name="description" type="string">
-            <column name="description" length="25" />
+        <property name="fin" type="date">
+            <column name="fin" length="13" />
         </property>
     </class>
 </hibernate-mapping>

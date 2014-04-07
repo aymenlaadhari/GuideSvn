@@ -1,10 +1,9 @@
 package model;
-// Generated 26 mars 2014 16:28:09 by Hibernate Tools 3.6.0
+// Generated Apr 2, 2014 11:37:33 AM by Hibernate Tools 3.6.0
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -35,7 +34,7 @@ public class Specialite  implements java.io.Serializable {
        this.description = description;
     }
    
-     @Id @GeneratedValue
+     @Id 
 
     
     @Column(name="id", unique=true, nullable=false)

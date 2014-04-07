@@ -1,10 +1,9 @@
 package model;
-// Generated Mar 29, 2014 12:56:35 PM by Hibernate Tools 3.6.0
+// Generated Apr 2, 2014 11:37:33 AM by Hibernate Tools 3.6.0
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -50,7 +49,7 @@ public class Hotel  implements java.io.Serializable {
        this.emailH = emailH;
     }
    
-     @Id @GeneratedValue
+     @Id 
 
     
     @Column(name="id_hotel", unique=true, nullable=false)

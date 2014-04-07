@@ -7,25 +7,47 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Gestion Centre Medicale</title>
+        <title>Gestion Ville</title>
     </h:head>
-   <h:body>
+    <h:body>
         <ui:composition template="./Template.xhtml">
 
             <ui:define name="top">
-              <div id="bottom"  class="title ui-widget-header ui-corner-all">
-                <ui:insert name="bottom">Gestion Ville</ui:insert>
-            </div>
+                <img src="resources/images/csv.png" width="32" height="32" alt="csv"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                Gestion Ville
+
             </ui:define>
 
             <ui:define name="content">
-
-                <h:form>
+                <h:form class="left_content">
                     <p:commandButton value="Ajouter une ville" action="#{villeManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
 
                 </h:form>
                 <br/>
-                <p:dataTable var="ville" value="#{villeManagedBean.listVille}">
+                <h1>Liste des Villes</h1>
+                <br/>
+                <p:dataTable paginator="true" rows="5"   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                             rowsPerPageTemplate="5,10,15" var="ville" value="#{villeManagedBean.listVille}">
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Identifiant"/>
@@ -61,11 +83,6 @@
                     </p:column>
 
                 </p:dataTable>
-
-                <br/>
-
-
-
             </ui:define>
         </ui:composition>
 

@@ -3,19 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.pays;
+package controller.pharmacie;
 
-import dao.pays.PaysImpl;
-import dao.pays.PaysInterface;
 import dao.pharmacie.PharmacieImpl;
 import dao.pharmacie.PharmacieInterface;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
-
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import model.Pay;
 import model.Pharmacie;
 
@@ -28,7 +27,8 @@ import model.Pharmacie;
 public class PharmacieManagedBean implements Serializable {
 
     private Pharmacie pharmacie;
-    private DataModel listPharmacie;
+    private List<Pharmacie> listPharmacie;
+    PharmacieInterface pharmacieInterface;
 
     public Pharmacie getPharmacie() {
         return pharmacie;
@@ -38,47 +38,64 @@ public class PharmacieManagedBean implements Serializable {
         this.pharmacie = pharmacie;
     }
 
-    public DataModel getListPharmacie() {
-        List<Pharmacie> list = new PharmacieImpl().list();
-        listPharmacie = new ListDataModel(list);
-
+    public List<Pharmacie> getListPharmacie() {
+        pharmacieInterface = new PharmacieImpl();
+        this.listPharmacie = pharmacieInterface.list();
+                
         return listPharmacie;
     }
 
-    public String preparerAjout() {
+    public void setListPharmacie(List<Pharmacie> listPharmacie) {
+        this.listPharmacie = listPharmacie;
+    }
+
+   
+
+    public void ajoutEvent(ActionEvent actionEvent) {
         pharmacie = new Pharmacie();
-        return "gestionPharmacie";
+
     }
 
-    public String preparerModifier() {
-        pharmacie = (Pharmacie) (listPharmacie.getRowData());
-        return "gestionPharmacie";
+    public void deletMessage(ActionEvent actionEvent) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Pharmacie supprimé"));
     }
 
-    public String supprimer() {
-        Pharmacie pharmacieTemp = (Pharmacie) (listPharmacie.getRowData());
-        PharmacieInterface cmi = new PharmacieImpl();
-        cmi.remove(pharmacieTemp);
-        return "indexPharmacie";
+    public void editEvent(long id) {
+        System.out.print(id);
+        pharmacieInterface = new PharmacieImpl();
+        pharmacie = pharmacieInterface.getPharmacie(id);
+
     }
 
-    public String ajouter() {
-        PharmacieInterface cmi = new PharmacieImpl();
-        cmi.save(pharmacie);
-        return "indexPharmacie";
+    public void edition(ActionEvent actionEvent) {
+        pharmacieInterface = new PharmacieImpl();
+        pharmacieInterface.update(pharmacie);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(" Pharmacie mise à jour"));
     }
 
-    public String modifier() {
-        PharmacieInterface cmi = new PharmacieImpl();
-        cmi.update(pharmacie);
-        return "indexPharmacie";
+    public void ajoutcc(ActionEvent actionEvent) {
+        pharmacieInterface = new PharmacieImpl();
+        pharmacieInterface.save(pharmacie);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Pharmacie ajouté"));
+        pharmacie = new Pharmacie();
+    }
+
+    public void delet(Pay pay) {
+        pharmacieInterface = new PharmacieImpl();
+        pharmacieInterface.remove(pharmacie);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(" Pharmacie supprimé"));
+
     }
 
     /**
      * Creates a new instance of CentremedicaleManagedBean
      */
     public PharmacieManagedBean() {
-
+        this.listPharmacie = new  ArrayList<>();
         if (this.pharmacie == null) {
             this.pharmacie = new Pharmacie();
         }

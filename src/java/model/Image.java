@@ -1,12 +1,10 @@
 package model;
-// Generated 26 mars 2014 16:28:09 by Hibernate Tools 3.6.0
+// Generated Apr 2, 2014 11:37:33 AM by Hibernate Tools 3.6.0
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 
 /**
@@ -19,15 +17,9 @@ import javax.persistence.Table;
 public class Image  implements java.io.Serializable {
 
 
-@Id @GeneratedValue
-     @Column(name="id", unique=true, nullable=false)
      private int id;
-@Column(name="nom", length=25)
      private String nom;
-@Column(name="description", length=25)
      private String description;
-@Column(name="data")
-     @Lob
      private byte[] data;
 
     public Image() {
@@ -44,7 +36,11 @@ public class Image  implements java.io.Serializable {
        this.data = data;
     }
    
-         public int getId() {
+     @Id 
+
+    
+    @Column(name="id", unique=true, nullable=false)
+    public int getId() {
         return this.id;
     }
     
@@ -53,7 +49,8 @@ public class Image  implements java.io.Serializable {
     }
 
     
-        public String getNom() {
+    @Column(name="nom", length=25)
+    public String getNom() {
         return this.nom;
     }
     
@@ -62,7 +59,8 @@ public class Image  implements java.io.Serializable {
     }
 
     
-        public String getDescription() {
+    @Column(name="description", length=25)
+    public String getDescription() {
         return this.description;
     }
     
@@ -71,7 +69,8 @@ public class Image  implements java.io.Serializable {
     }
 
     
-        public byte[] getData() {
+    @Column(name="data")
+    public byte[] getData() {
         return this.data;
     }
     

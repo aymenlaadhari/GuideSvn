@@ -6,35 +6,61 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Gestion</title>
+        <title>Gestion Restaurant</title>
     </h:head>
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-               <div id="bottom"  class="title ui-widget-header ui-corner-all">
-                <ui:insert name="bottom">Gestion Restaurant</ui:insert>
-            </div>
+                <img src="resources/images/csv.png" width="32" height="32" alt="csv"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                Gestion Restaurant
             </ui:define>
 
             <ui:define name="content">
                 <h:form>
                     <h:panelGrid columns="3" cellpadding="5">
-                       
-                    <h:outputLabel value="Email : "/>
-                    <p:inputTextarea rows="1" cols="33" value="#{restaurantManagedBean.restaurant.email}"/><br/>
-                  <h:outputLabel value="Telephone : "/>
-                  <p:inputText value="#{restaurantManagedBean.restaurant.telephone}"/><br/>
-                    <h:outputLabel value="Site Web : "/>
-                    <p:inputTextarea rows="1" cols="33" value="#{restaurantManagedBean.restaurant.siteweb}"/><br/>
-                    <h:outputLabel value="Latitude : "/>
-                     <p:inputText value="#{restaurantManagedBean.restaurant.latitude}"/><br/>
-                     <h:outputLabel value="Longitude : "/>
-                     <p:inputText value="#{restaurantManagedBean.restaurant.longitude}"/><br/>
-                    <br/>
-                    <p:commandButton action="#{restaurantManagedBean.ajouter()}" value="Ajouter" ajax="false" icon="ui-icon-plusthick"/>
-                    <p:commandButton action="#{restaurantManagedBean.modifier()}" value="Modifier" ajax="false" icon="ui-icon-pencil"/>
-                    <p:commandButton action="#{applicationManagedBean.indexRestaurant()}" value="Annuler" ajax="false" icon="ui-icon-cancel"/>
-                   </h:panelGrid>
+                        <h:outputLabel value="Identifiant : "/>
+                        <p:inputText value="#{restaurantManagedBean.restaurant.id}"/><br/>
+                        <h:outputLabel value="Nom de Restaurant : "/>
+                        <p:inputText value="#{restaurantManagedBean.restaurant.nom}"/><br/>
+                        <h:outputLabel value="Description : "/>
+                        <p:inputTextarea rows="6" cols="33" value="#{restaurantManagedBean.restaurant.description}"/><br/>
+                        <h:outputLabel value="Horaire Ouverture : "/>
+                        <p:calendar value="#{restaurantManagedBean.restaurant.horairehouverture}" pattern="MM/dd/yyyy HH:mm" id="popupButtonCal" showOn="button"/><br/>
+                        <h:outputLabel value="Horaire Fermeture : "/>
+                        <p:calendar value="#{restaurantManagedBean.restaurant.horairefermeture}" pattern="MM/dd/yyyy HH:mm" id="popupButtonCal123" showOn="button"/><br/>
+                        <h:outputLabel value="Latitude : "/>
+                        <p:inputText value="#{restaurantManagedBean.restaurant.latitude}"/><br/>
+                        <h:outputLabel value="Longitude : "/>
+                        <p:inputText value="#{restaurantManagedBean.restaurant.longitude}"/><br/>
+                        <h:outputLabel value="Téléphone : "/>
+                        <p:inputText value="#{restaurantManagedBean.restaurant.telephone}"/><br/>
+                        <h:outputLabel value="Site Web : "/>
+                        <p:inputText size="40" value="#{restaurantManagedBean.restaurant.siteweb}"/><br/>
+                        <h:outputLabel value="Email : "/>
+                        <p:inputText size="40" value="#{restaurantManagedBean.restaurant.email}"/><br/>
+
+                        <p:commandButton action="#{restaurantManagedBean.ajouter()}" value="Ajouter" ajax="false" icon="ui-icon-plusthick"/>
+                        <p:commandButton action="#{restaurantManagedBean.modifier()}" value="Modifier" ajax="false" icon="ui-icon-pencil"/>
+                        <p:commandButton action="#{applicationManagedBean.indexRestaurant()}" value="Annuler" ajax="false" icon="ui-icon-cancel"/>
+                    </h:panelGrid>
                 </h:form>
             </ui:define>
         </ui:composition>

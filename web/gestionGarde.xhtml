@@ -6,20 +6,42 @@ xmlns:f="http://java.sun.com/jsf/core"
 xmlns:p="http://primefaces.org/ui"
 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
-<title>Gestion</title>
+<title>Gestion Garde</title>
 </h:head>
 <h:body>
     <ui:composition template="./Template.xhtml">
         <ui:define name="top">
-                <div id="bottom"  class="title ui-widget-header ui-corner-all">
-                    <ui:insert name="bottom"  class="center_content">Gestion Garde</ui:insert>
-            </div>
+                 <img src="resources/images/csv.png" width="32" height="32" alt="csv"/>
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                
+                                
+                      Gestion Garde
             </ui:define>
             
      <ui:define name="content">
 <h:form>
     <h:panelGrid columns="3" cellpadding="5">
-       
+       <h:outputLabel value="Identifiant :   "/> 
+       <p:inputText value="#{gardeManagedBean.garde.id}"/><br/>
      <h:outputLabel value="Date debut :  "/> 
      <p:calendar value="#{gardeManagedBean.garde.debut}" pattern="MM/dd/yyyy HH:mm" id="popupButtonCal" showOn="button"/><br/>
    <h:outputLabel value="Date fin :  "/> 

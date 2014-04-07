@@ -22,7 +22,7 @@ public interface EvenementInterface {
 
     public void update(Evenement evenement);
 
-    public Evenement getEvenement(long idEvenement);
+    public Evenement getEvenement(int idEvenement);
 
     
 }

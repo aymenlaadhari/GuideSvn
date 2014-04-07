@@ -1,11 +1,9 @@
 package model;
-// Generated 26 mars 2014 16:28:09 by Hibernate Tools 3.6.0
+// Generated Apr 2, 2014 11:37:33 AM by Hibernate Tools 3.6.0
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -25,6 +23,10 @@ public class CentreMedicale  implements java.io.Serializable {
      private String siteweb;
      private Long longitude;
      private Long latitude;
+     private String nom;
+     private String description;
+     private String categorie;
+     private String type;
 
     public CentreMedicale() {
     }
@@ -33,16 +35,20 @@ public class CentreMedicale  implements java.io.Serializable {
     public CentreMedicale(int id) {
         this.id = id;
     }
-    public CentreMedicale(int id, String telephone, String email, String siteweb, Long longitude, Long latitude) {
+    public CentreMedicale(int id, String telephone, String email, String siteweb, Long longitude, Long latitude, String nom, String description, String categorie, String type) {
        this.id = id;
        this.telephone = telephone;
        this.email = email;
        this.siteweb = siteweb;
        this.longitude = longitude;
        this.latitude = latitude;
+       this.nom = nom;
+       this.description = description;
+       this.categorie = categorie;
+       this.type = type;
     }
    
-     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+     @Id 
 
     
     @Column(name="id", unique=true, nullable=false)
@@ -102,6 +108,46 @@ public class CentreMedicale  implements java.io.Serializable {
     
     public void setLatitude(Long latitude) {
         this.latitude = latitude;
+    }
+
+    
+    @Column(name="nom", length=258)
+    public String getNom() {
+        return this.nom;
+    }
+    
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    
+    @Column(name="description", length=258)
+    public String getDescription() {
+        return this.description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    
+    @Column(name="categorie", length=258)
+    public String getCategorie() {
+        return this.categorie;
+    }
+    
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
+    }
+
+    
+    @Column(name="type", length=258)
+    public String getType() {
+        return this.type;
+    }
+    
+    public void setType(String type) {
+        this.type = type;
     }
 
 

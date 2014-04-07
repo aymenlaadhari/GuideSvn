@@ -14,63 +14,154 @@
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-               <div id="bottom"  class="title ui-widget-header ui-corner-all">
-                <ui:insert name="bottom">Gestion Evenement</ui:insert>
-            </div>
+                <img src="resources/images/csv.png" width="32" height="32" alt="csv"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                Gestion Evenement
             </ui:define>
 
             <ui:define name="content">
-               
-                <h:form>
-                    <p:commandButton value="Ajouter Evenement" action="#{evenementManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
-                    
+                <h:form class="left_content">
+                    <p:commandButton value="Ajouter Evenement" action="#{evenementManagedBean.ajoutEvent(actionEvent)}" update=":edit:editEvt" ajax="true" icon="ui-icon-plusthick" oncomplete="CentreCommercialeAjout.show()"/>
+
                 </h:form>
-                <br/>
-
-                <p:dataTable var="evenement" value="#{evenementManagedBean.listEvenement}">
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Identifiant"/>
-                        </f:facet>
-                        <h:outputText value="#{evenement.idEvent}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Type"/>
-                        </f:facet>
-                        <h:outputText value="#{evenement.type}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Inscription"/>
-                        </f:facet>
-                        <h:outputText value="#{evenement.inscription}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Prix"/>
-                        </f:facet>
-                        <h:outputText value="#{evenement.prix}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Date"/>
-                        </f:facet>
-                        <h:outputText value="#{evenement.date}" />
-                    </p:column>
-
-                    <p:column style="width:4%">
-
-                        <h:form >
-                            <p:commandButton action="#{evenementManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
-                            <p:commandButton action="#{evenementManagedBean.supprimer()}"  ajax="false" icon="ui-icon-trash"/>
-
-                        </h:form>
-                    </p:column>
-                   
-                </p:dataTable>
 
                 <br/>
+                <h1>Liste des événements</h1>
+                <br/>
+                <h:form id="centreCommerciale">
+                    <p:growl id="growl" showDetail="true" sticky="false"  />
+                    <p:dataTable 
+                        paginator="true" 
+                        rows="5"   
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="5,10,15" 
+                        var="evenement" 
+                        value="#{evenementManagedBean.evenements}" 
+                        id="AjoutTab" 
+                        emptyMessage="Evenement non trouvé" 
+                        widgetVar="CentreCommercialeTable">
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText  value="Recherche : " />
+                                <p:inputText id="globalFilter"  onkeyup="CentreCommercialeTable.filter()" style="width:250px" />
+                            </p:outputPanel>
+                        </f:facet>
+                        <p:column id="centreId" headerText="Identifiant" filterBy="#{evenement.idEvent}">
+                            <h:outputText value="#{evenement.idEvent}" />
+                        </p:column>
+                        <p:column id="type" headerText="Type" filterBy="#{evenement.type}">
+
+                            <h:outputText value="#{evenement.type}" />
+                        </p:column>
+                        <p:column id="inscription" headerText="Inscription" filterBy="#{evenement.inscription}">
+
+                            <h:outputText value="#{evenement.inscription}" />
+                        </p:column>
+                        <p:column id="prix" headerText="Prix" filterBy="#{evenement.prix}">
+
+                            <h:outputText value="#{evenement.prix}" />
+                        </p:column>
+                        <p:column id="date" headerText="Date" filterBy="#{evenement.date}">
+
+                            <h:outputText value="#{evenement.date}" />
+                        </p:column>
+
+                        <p:column style="width:4%">
+
+
+                            <p:commandButton id="Supprimer" title="Modifier" update=":Actualise:displaye" oncomplete="centreCommercialeEdit.show();" actionListener="#{evenementManagedBean.editEvent(evenement.idEvent)}"  ajax="true" icon="ui-icon-pencil"/>
+
+                        </p:column>
+                        <p:column>
+                            <p:commandButton id="delete" title="Supprimer" update=":centreCommerciale:AjoutTab, :centreCommerciale:growl" action="#{evenementManagedBean.delet(evenement)}" ajax="false" icon="ui-icon-trash"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+                <h:form id="edit">
+
+                    <p:dialog header="Ajout Evenement" widgetVar="CentreCommercialeAjout" resizable="true" id="editEvt" modal="true" >
+
+                        <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
+                        <h:panelGrid id="displaye" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h:outputLabel value="Evenement"/>
+                            </f:facet>
+
+                            <h:outputLabel for="type" title="Type" value="Type:" style="color: crimson;" />
+                            <h:inputText value="#{evenementManagedBean.evenement.type}" required="true"/>
+
+
+                            <h:outputLabel for="prix" title="Prix" value="Prix:" style="color: crimson;" />
+                            <h:inputText value="#{evenementManagedBean.evenement.prix}" required="true"/>
+
+                            <h:outputLabel for="inscription" title="Inscription" value="Inscription:" style="color: crimson;" />
+                            <h:inputText value="#{evenementManagedBean.evenement.inscription}" required="true"/>
+                            <h:outputLabel for="date" title="Date" value="Date:" style="color: crimson;"/>
+
+                            <p:calendar value="#{evenementManagedBean.evenement.date}" pattern="MM/dd/yyyy HH:mm" showOn="button"/>
+                        </h:panelGrid>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+                            <p:commandButton ajax="true" value="Valider" update=":centreCommerciale:AjoutTab, growl" actionListener="#{evenementManagedBean.ajoutEvent(actionEvent)}" oncomplete="CentreCommercialeAjout.hide()" />
+                            <p:commandButton ajax="true" value="Annuler" oncomplete="CentreCommercialeAjout.hide()"/>
+
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="Actualise">
+
+                    <p:dialog  header="Modifier Evenement" widgetVar="centreCommercialeEdit" resizable="true" id="editCentreC" modal="true" >
+
+                        <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
+                        <h:panelGrid id="displaye" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h:outputLabel value="Evenement"/>
+                            </f:facet>
+
+                            <h:outputLabel for="type" title="Type" value="Type:" style="color: crimson;" />
+                            <h:inputText value="#{evenementManagedBean.evenement.type}" required="true"/>
+
+
+                            <h:outputLabel for="prix" title="Prix" value="Prix:" style="color: crimson;" />
+                            <h:inputText value="#{evenementManagedBean.evenement.prix}" required="true"/>
+
+                            <h:outputLabel for="inscription" title="Inscription" value="Inscription:" style="color: crimson;" />
+                            <h:inputText value="#{evenementManagedBean.evenement.inscription}" required="true"/>
+                            <h:outputLabel for="date" title="Date" value="Date:" style="color: crimson;"/>
+
+                            <p:calendar value="#{evenementManagedBean.evenement.date}" pattern="MM/dd/yyyy HH:mm" showOn="button"/>
+                        </h:panelGrid>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+                            <p:commandButton ajax="true" value="Modifier" update=":centreCommerciale:AjoutTab, growl" actionListener="#{evenementManagedBean.edition(actionEvent)}" oncomplete="centreCommercialeEdit.hide()" />
+                            <p:commandButton ajax="true" value="Annuler" oncomplete="CentreCommercialeAjout.hide()"/>
+                        </h:panelGrid>
+
+
+                    </p:dialog>
+                </h:form>
                 
 
             </ui:define>

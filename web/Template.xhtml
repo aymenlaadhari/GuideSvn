@@ -10,17 +10,22 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Facelets Template</title>
+        <title>Guide Touristique Application</title>
     </h:head>
 
     <h:body>
         <div id="conteiner">
 
-            <div id="top" class="title ui-widget-header ui-corner-all">
-                <ui:insert name="top"></ui:insert>
-                
+            <div id="top" class="title ui-widget-header ui-corner-all" >
+
+                <ui:insert name="top" >
+
+                </ui:insert>
+
+
             </div> 
-            <div id="menu">
+
+            <div id="menu" >
                 <h:form>  
                     <p:menubar>
                         <p:submenu label="Utilisateur" icon="ui-icon-person">
@@ -28,7 +33,6 @@
                             <p:separator />
                             <p:menuitem value="Quit" url="#" icon="ui-icon-close" />
                         </p:submenu>
-
                         <p:submenu label="Lieu" icon="ui-icon-home">
                             <p:menuitem value="Monument" action="#{applicationManagedBean.indexMonument()}" icon="ui-icon-home" ajax="false"/>
                             <p:menuitem value="Restaurant" action="#{applicationManagedBean.indexRestaurant()}" icon="ui-icon-home" ajax="false"/>
@@ -39,12 +43,12 @@
 
                         </p:submenu>
 
-                      
+
 
                         <p:submenu label="Bord" icon="ui-icon-gear">
                             <p:submenu label="Restaurant" >
                                 <p:menuitem value="Specialite"  action="#{applicationManagedBean.indexSpecialite()}"  ajax="false"/>
-                                
+
                             </p:submenu>
                             <p:submenu label="Pharmacie" >
                                 <p:menuitem value="Garde"  action="#{applicationManagedBean.indexgarde()}" ajax="false"/>
@@ -60,14 +64,20 @@
 
                         </p:submenu>
 
-                        <p:menuitem value="Rechercher"  icon="ui-icon-search" action="#{applicationManagedBean.logout()}" oncomplete="handleLoginRequest(xhr, status, args)" ajax="false"/>
+                        <p:menuitem value="Help" icon="ui-icon-help">
 
-                          <p:menuitem value="Help" icon="ui-icon-help">
-                             
-                          </p:menuitem>>
-                        
+                        </p:menuitem>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <p:menuitem>
+                        <p:themeSwitcher>
+                            <f:selectItem itemLabel="--Choose Theme--" 
+                                          itemValue=""/>
+                            <f:selectItems value="#{themeChoices.themes}"/> 
+                        </p:themeSwitcher> 
+                            </p:menuitem>
+
                         <f:facet name="options">
-                         
+
                             <p:commandButton  value="Logout" action="#{applicationManagedBean.logout()}" icon="ui-icon-power" ajax="true" />
                         </f:facet>
                     </p:menubar>
@@ -83,6 +93,10 @@
 
             <div id="bottom"  class="title ui-widget-header ui-corner-all">
                 <ui:insert name="bottom">Guide Touristique&copy; 2014</ui:insert>
+
+
+
+
             </div>
         </div>
         <script type="text/javascript">

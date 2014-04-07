@@ -14,19 +14,41 @@
      <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-                <div id="bottom"  class="title ui-widget-header ui-corner-all">
-                    <ui:insert name="bottom"  class="center_content">Gestion Monument</ui:insert>
-            </div>
+               <img src="resources/images/csv.png" width="32" height="32" alt="csv"/>
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                
+                                
+                         Gestion Monument
             </ui:define>
 
             <ui:define name="content">
-                <h:form>
+                 <h:form class="left_content">
                     <p:commandButton value="Ajouter Monument"  action="#{monumentManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
                     
                 </h:form>
                 <br/>
+                <h1>Liste des Monuments</h1>
+                <br/>
 
-                <p:dataTable var="monument" value="#{monumentManagedBean.listMonument}">
+                <p:dataTable  paginator="true" rows="5"   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 rowsPerPageTemplate="5,10,15" var="monument" value="#{monumentManagedBean.listMonument}">
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Identifiant"/>
@@ -35,22 +57,12 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Nom"/>
+                            <h:outputText value="Nom de Monument"/>
                         </f:facet>
                         <h:outputText value="#{monument.nomM}" />
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Catégorie"/>
-                        </f:facet>
-                        <h:outputText value="#{monument.categorieM}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Site Web"/>
-                        </f:facet>
-                        <h:outputText value="#{monument.sitewebM}" />
-                    </p:column>
+                    
+                    
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Latitude"/>
@@ -81,12 +93,7 @@
                         </f:facet>
                         <h:outputText value="#{monument.dateconstruction}"/>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Fin Construction"/>
-                        </f:facet>
-                        <h:outputText value="#{monument.finconstruction}"/>
-                    </p:column>
+                    
                     <p:column style="width:4%">
 
                         <h:form>
@@ -97,10 +104,7 @@
                     </p:column>
                     
                 </p:dataTable>
-
-                <br/>
-                
-
+              
             </ui:define>
         </ui:composition>
 

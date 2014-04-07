@@ -5,48 +5,53 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Guide Touristique Application</title>
         <link href="resources/css/login.css" type="text/css" rel="stylesheet"/>
     </h:head>
     <h:body>
         <div class="conteiner">
             <p:growl  showDetail="true" life="3000"/>
-            
+
             <h:form id="form">       
 
-                <p:panel id="panel" header="User Login" footer="Touristas guide management System">
+                <p:panel id="panel"  header="&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Authentification" footer=" &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Guide Touristique Application"  >
 
                     <h:panelGrid columns="2" cellpadding="5">
-                        <h:outputLabel for="username" value="Username:" />
-                        <p:inputText  value="#{loginManagedBean.utilisateur.nom}"
-                                     id="username" required="true" label="username" />
+                        <h:outputLabel for="username" value="Login :" />
+                        <p:inputText  value="#{loginManagedBean.utilisateur.login}"
+                                      id="username" required="true" label="username" />
 
-                        <h:outputLabel for="password" value="Password:" />
-                        <p:password value="#{loginManagedBean.utilisateur.password}" required="true" />
+                        <h:outputLabel for="password" value="Password :" />
+                        <p:password value="#{loginManagedBean.utilisateur.password}" required="true"  />
 
                         <f:facet name="footer">
-                            <p:commandButton id="loginButton" value="Login"  
-                                             actionListener="#{loginManagedBean.login(actionEvent)}"
-                                             oncomplete="handleLoginRequest(xhr, status, args)" update="form" ajax="true"/>
+                           
+                            <p:commandButton id="loginButton" value="Connexion"
+                                                 actionListener="#{loginManagedBean.login(actionEvent)}"
+                                                 oncomplete="handleLoginRequest(xhr, status, args)" update="form" ajax="true" icon="ui-icon-check"/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p:commandButton id="AnnulerButton" value="Annuler "  icon="ui-icon-cancel"/>
+                            
                         </f:facet>
                     </h:panelGrid>
-                    </p:panel>
 
-                
+                </p:panel>
+
+
             </h:form>
 
 
 
         </div>
         <script type="text/javascript">
-        function handleLoginRequest(xhr, status, args) {
-        if(args.validationFailed || !args.loggedIn) {
-            jQuery('#form').effect("shake", { times:5 }, 100);
-        } 
-        else {
-            location.href = args.ruta;
-        }
-    }
+            function handleLoginRequest(xhr, status, args) {
+                if (args.validationFailed || !args.loggedIn) {
+                    jQuery('#form').effect("shake", {times: 5}, 100);
+                }
+                else {
+                    location.href = args.ruta;
+                }
+            }
         </script>
 
     </h:body>

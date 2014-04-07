@@ -3,43 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controller.centreCommercial;
 
 import dao.centreCommercial.CentreCommercialImp;
 import dao.centreCommercial.CentreInt;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
+import javax.faces.bean.SessionScoped;
+
+
+
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+
 import model.CentreCommercial;
 
-/**
- *
- * @author hp
- */
-@ManagedBean
-@RequestScoped
+@ManagedBean(name = "centrecommercialeManagedBean")
+@SessionScoped
 public class CentrecommercialeManagedBean implements Serializable{
+
+    CentreInt centreInt;
     private CentreCommercial centreCommercial;
-    private DataModel listCentre;
-    //private List<CentreCommercial> centreCommercials;
+    private List<CentreCommercial> listCentreCommerciale;
 
-   /* public List<CentreCommercial> getCentreCommercials() {
-        CentreInt ci = new CentreCommercialImp();
-        this.centreCommercials = ci.list();
-        return centreCommercials;
-    }
-
-    public void setCentreCommercials(List<CentreCommercial> centreCommercials) {
-        this.centreCommercials = centreCommercials;
-    }*/
-    
-    
-
+    //get+set
     public CentreCommercial getCentreCommercial() {
         return centreCommercial;
     }
@@ -47,64 +36,70 @@ public class CentrecommercialeManagedBean implements Serializable{
     public void setCentreCommercial(CentreCommercial centreCommercial) {
         this.centreCommercial = centreCommercial;
     }
-
-    public DataModel getListCentre() {
-         List<CentreCommercial> list = new CentreCommercialImp().list();
-         
-         
-        
-        listCentre = new ListDataModel(list);
-        
-        
-        return listCentre;
+ public List<CentreCommercial> getListCentreCommerciale() {
+        centreInt = new CentreCommercialImp();
+        listCentreCommerciale = centreInt.getListCentreCommercial();
+        return listCentreCommerciale;
     }
 
-   public String preparerAjout()
-   {
-       centreCommercial = new CentreCommercial();
-       return "gestion";
-   }
+    public void setListCentreCommerciale(List<CentreCommercial> listCentreCommerciale) {
+        this.listCentreCommerciale = listCentreCommerciale;
+    }
+
+    //Methodes
+    public void ajoutEvent(ActionEvent actionEvent) {
+        centreCommercial = new CentreCommercial();
+
+    }
+
+    public void deletMessage(ActionEvent actionEvent) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Centre Commerciale supprimé"));
+    }
+
+    public void editEvent(int id) {
+        System.out.print(id);
+        centreInt = new CentreCommercialImp();
+        centreCommercial = centreInt.getCentreCommercial(id);
+
+    }
+
+    public void edition(ActionEvent actionEvent) {
+        centreInt = new CentreCommercialImp();
+        centreInt.updateCentreCommercial(centreCommercial);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Centre Commerciale mise à jour"));
+    }
+
+    public void ajoutcc(ActionEvent actionEvent) {
+        centreInt = new CentreCommercialImp();
+        centreInt.addCentreCommercial(centreCommercial);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Centre Commerciale ajouté"));
+        centreCommercial = new CentreCommercial();
+    }
+
+    public void delet(CentreCommercial centreCommercial) {
+        centreInt = new CentreCommercialImp();
+        centreInt.deletCentreCommercial(centreCommercial);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Centre Commerciale supprimé"));
+
+    }
+
    
-   public String preparerModifier()
-   {
-       centreCommercial = (CentreCommercial)(listCentre.getRowData());
-       return "gestion";
-   }
-    
-    public String supprimer()
-    {
-        CentreCommercial centreCommercialTemp = (CentreCommercial)(listCentre.getRowData());
-        CentreInt ci = new CentreCommercialImp();
-        ci.remove(centreCommercialTemp);
-        return "index";
-    }
-    
-    public String ajouter()
-    {
-        CentreInt ci = new CentreCommercialImp();
-        ci.save(centreCommercial);
-        return "index";
-    }
-    
-    public String modifier()
-    {
-        CentreInt ci = new CentreCommercialImp();
-        ci.update(centreCommercial);
-        return "index";
-    }
+   
 
     /**
      * Creates a new instance of CentremedicaleManagedBean
      */
     public CentrecommercialeManagedBean() {
         //this.centreCommercials = new ArrayList<>();
-        
-        if(this.centreCommercial == null)
-        {
-        this.centreCommercial = new CentreCommercial();
+
+        if (this.centreCommercial == null) {
+            this.centreCommercial = new CentreCommercial();
         }
-          
-        
+
     }
-    
+
 }

@@ -1,11 +1,10 @@
 package model;
-// Generated Mar 29, 2014 12:56:35 PM by Hibernate Tools 3.6.0
+// Generated Apr 2, 2014 11:37:33 AM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,6 +30,7 @@ public class Monument  implements java.io.Serializable {
      private String type;
      private Date dateconstruction;
      private Date finconstruction;
+     private String historique;
 
     public Monument() {
     }
@@ -39,7 +39,7 @@ public class Monument  implements java.io.Serializable {
     public Monument(int idMonument) {
         this.idMonument = idMonument;
     }
-    public Monument(int idMonument, String nomM, String categorieM, String sitewebM, Double longitude, Double latitude, String description, String type, Date dateconstruction, Date finconstruction) {
+    public Monument(int idMonument, String nomM, String categorieM, String sitewebM, Double longitude, Double latitude, String description, String type, Date dateconstruction, Date finconstruction, String historique) {
        this.idMonument = idMonument;
        this.nomM = nomM;
        this.categorieM = categorieM;
@@ -50,9 +50,10 @@ public class Monument  implements java.io.Serializable {
        this.type = type;
        this.dateconstruction = dateconstruction;
        this.finconstruction = finconstruction;
+       this.historique = historique;
     }
    
-     @Id @GeneratedValue
+     @Id 
 
     
     @Column(name="id_monument", unique=true, nullable=false)
@@ -152,6 +153,16 @@ public class Monument  implements java.io.Serializable {
     
     public void setFinconstruction(Date finconstruction) {
         this.finconstruction = finconstruction;
+    }
+
+    
+    @Column(name="historique", length=258)
+    public String getHistorique() {
+        return this.historique;
+    }
+    
+    public void setHistorique(String historique) {
+        this.historique = historique;
     }
 
 

@@ -6,37 +6,63 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Gestion</title>
+        <title>Gestion Centre Commerciale</title>
     </h:head>
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-                 <div id="bottom"  class="title ui-widget-header ui-corner-all">
-                <ui:insert name="bottom">Gestion de Centre Commercial</ui:insert>
-            </div>
+                <img src="resources/images/csv.png" width="32" height="32" alt="csv"/>
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             
+                                
+                          Gestion Centre Commerciale
+                 
             </ui:define>
 
             <ui:define name="content">
-                
+
                 <h:form>
                     <h:panelGrid columns="3" cellpadding="5">
-                    
-                    
-                    <h:outputLabel value="Email :   "/> 
-                    <p:inputTextarea rows="1" cols="33" value="#{centrecommercialeManagedBean.centreCommercial.email}"/><br/>
-                     <h:outputLabel value="Téléphone :  "/>
-                     <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.telephone}"/><br/>
-                     <h:outputLabel value="Longitude : "/>
-                     <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.longitude}"/><br/>
-                     <h:outputLabel value="Latitude :  "/>
-                    <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.latitude}"/><br/>
-                    <br/>
-                    <p:commandButton action="#{centrecommercialeManagedBean.ajouter()}" value="Ajouter" ajax="false" icon="ui-icon-plusthick"/>
-                    <p:commandButton action="#{centrecommercialeManagedBean.modifier()}" value="Modifier" ajax="false" icon="ui-icon-pencil"/>
-                    <p:commandButton action="#{centrecommercialeManagedBean.ajouter()}" value="Annuler" ajax="false" icon="ui-icon-cancel"/>
-</h:panelGrid>
+
+                         <h:outputLabel value="Identifiant :  "/>
+                         <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.id}"  /><br/>
+                        <h:outputLabel value="Nom de Centre Commerciale :  "/>
+                        <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.nom}"/><br/>
+                         <h:outputLabel value="Description :  "/>
+                         <p:inputTextarea rows="6" cols="30" value="#{centrecommercialeManagedBean.centreCommercial.description}"/><br/>
+                        <h:outputLabel value="Longitude : "/>
+                        <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.longitude}"/><br/>
+                        <h:outputLabel value="Latitude :  "/>
+                        <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.latitude}"/><br/>
+                        <h:outputLabel value="Site Web :   "/> 
+                        <p:inputText size="40" value="#{centrecommercialeManagedBean.centreCommercial.siteweb}"/><br/>
+                        <h:outputLabel value="Email :   "/> 
+                        <p:inputText size="40" value="#{centrecommercialeManagedBean.centreCommercial.email}"/><br/>
+                        <h:outputLabel value="Téléphone :  "/>
+                        <p:inputText value="#{centrecommercialeManagedBean.centreCommercial.telephone}"/><br/>
+                        <br/>
+                        <p:commandButton action="#{centrecommercialeManagedBean.ajouter()}" value="Ajouter" ajax="false" icon="ui-icon-plusthick"/>
+                        <p:commandButton action="#{centrecommercialeManagedBean.modifier()}" value="Modifier" ajax="false" icon="ui-icon-pencil"/>
+                        <p:commandButton action="#{applicationManagedBean.indexCommercial()}" value="Annuler" ajax="false" icon="ui-icon-cancel"/>
+                    </h:panelGrid>
                 </h:form>
-                 
+
             </ui:define>
         </ui:composition>
     </h:body>

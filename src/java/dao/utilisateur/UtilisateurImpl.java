@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package dao.utilisateur;
 
 import java.util.List;
@@ -17,7 +16,7 @@ import util.HibernateUtil;
  *
  * @author hp
  */
-public class UtilisateurImpl implements UtilisateurInterface{
+public class UtilisateurImpl implements UtilisateurInterface {
 
     @Override
     public void save(Utilisateur utilisateur) {
@@ -45,11 +44,13 @@ public class UtilisateurImpl implements UtilisateurInterface{
     }
 
     @Override
-    public void update(Utilisateur utilisateur) {
-         Session session = HibernateUtil.getSessionFactory().openSession();
+    public void update(Utilisateur utilisateur)  {
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction t = session.beginTransaction();
         session.update(utilisateur);
         t.commit();
+    
+
     }
 
     @Override
@@ -61,12 +62,10 @@ public class UtilisateurImpl implements UtilisateurInterface{
     @Override
     public Utilisateur login(Utilisateur utilisateur) {
         Utilisateur userModel = this.findByUtilisateur(utilisateur);
-        if(userModel != null)
-        {
-            if(!utilisateur.getPassword().equals(userModel.getPassword()))
-                    {
-                        userModel = null;
-                    }
+        if (userModel != null) {
+            if (!utilisateur.getPassword().equals(userModel.getPassword())) {
+                userModel = null;
+            }
         }
         return userModel;
     }
@@ -75,15 +74,15 @@ public class UtilisateurImpl implements UtilisateurInterface{
     public Utilisateur findByUtilisateur(Utilisateur utilisateur) {
         Utilisateur usuarioModel = null;
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-    
+
         try {
             session.beginTransaction();
-            usuarioModel = (Utilisateur)session.createQuery("FROM Utilisateur WHERE nom = '"+utilisateur.getNom()+ "'").uniqueResult();
-            session.beginTransaction().commit();            
+            usuarioModel = (Utilisateur) session.createQuery("FROM Utilisateur WHERE login = '" + utilisateur.getLogin() + "'").uniqueResult();
+            session.beginTransaction().commit();
         } catch (HibernateException e) {
             session.beginTransaction().rollback();
         }
-          return usuarioModel;
+        return usuarioModel;
     }
-    
+
 }

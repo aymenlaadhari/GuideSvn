@@ -9,11 +9,14 @@ package controller.specialite;
 import dao.specialite.SpecialiteImpl;
 import dao.specialite.SpecialiteInterface;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+
 
 import model.Specialite;
 
@@ -22,11 +25,12 @@ import model.Specialite;
  * @author hp
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class SpecialiteManagedBean implements Serializable {
 
     private Specialite specialite;
-    private DataModel listSpecialite;
+    private List<Specialite> listSpecialite;
+    SpecialiteInterface specialiteInterface;
 
     public Specialite getSpecialite() {
         return specialite;
@@ -36,46 +40,63 @@ public class SpecialiteManagedBean implements Serializable {
         this.specialite = specialite;
     }
 
-    public DataModel getListSpecialite() {
-        List<Specialite> list = new SpecialiteImpl().list();
-        listSpecialite = new ListDataModel(list);
-
+    public List<Specialite> getListSpecialite() {
+        specialiteInterface = new SpecialiteImpl();
+        this.listSpecialite = specialiteInterface.list();
         return listSpecialite;
     }
 
-    public String preparerAjout() {
+    public void setListSpecialite(List<Specialite> listSpecialite) {
+        this.listSpecialite = listSpecialite;
+    }
+
+   
+
+   public void ajoutEvent(ActionEvent actionEvent) {
         specialite = new Specialite();
-        return "gestionSpecialite";
+
     }
 
-    public String preparerModifier() {
-        specialite = (Specialite) (listSpecialite.getRowData());
-        return "gestionSpecialite";
+    public void deletMessage(ActionEvent actionEvent) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Specialite supprimé"));
     }
 
-    public String supprimer() {
-        Specialite specialiteTemp = (Specialite) (listSpecialite.getRowData());
-        SpecialiteInterface cmi = new SpecialiteImpl();
-        cmi.remove(specialiteTemp);
-        return "indexSpecialite";
+    public void editEvent(long id) {
+        System.out.print(id);
+        specialiteInterface = new SpecialiteImpl();
+        specialite = specialiteInterface.getSpecialite(id);
+
     }
 
-    public String ajouter() {
-        SpecialiteInterface cmi = new SpecialiteImpl();
-        cmi.save(specialite);
-        return "indexSpecialite";
+    public void edition(ActionEvent actionEvent) {
+        specialiteInterface = new SpecialiteImpl();
+        specialiteInterface.update(specialite);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(" Specialite mise à jour"));
     }
 
-    public String modifier() {
-        SpecialiteInterface cmi = new SpecialiteImpl();
-        cmi.update(specialite);
-        return "indexSpecialite";
+    public void ajoutcc(ActionEvent actionEvent) {
+        specialiteInterface = new SpecialiteImpl();
+        specialiteInterface.save(specialite);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Specialite ajouté"));
+        specialite = new Specialite();
+    }
+
+    public void delet(Specialite specialite) {
+        specialiteInterface = new SpecialiteImpl();
+        specialiteInterface.remove(specialite);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(" Specialite supprimé"));
+
     }
 
     /**
      * Creates a new instance of CentremedicaleManagedBean
      */
     public SpecialiteManagedBean() {
+        this.listSpecialite = new ArrayList<>();
 
         if (this.specialite == null) {
             this.specialite = new Specialite();

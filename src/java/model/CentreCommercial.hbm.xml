@@ -1,18 +1,25 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 26 mars 2014 16:28:09 by Hibernate Tools 3.6.0 -->
+<!-- Generated Apr 2, 2014 11:37:37 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="model.CentreCommercial" table="centre_commercial" schema="public">
         <id name="id" type="int">
             <column name="id" />
             <generator class="increment" />
+            
         </id>
         <property name="telephone" type="string">
             <column name="telephone" length="25" />
         </property>
         <property name="email" type="string">
             <column name="email" length="25" />
+        </property>
+        <property name="nom" type="string">
+            <column name="nom" length="25" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="258" />
         </property>
         <property name="siteweb" type="string">
             <column name="siteweb" length="25" />
@@ -22,6 +29,9 @@
         </property>
         <property name="latitude" type="java.lang.Long">
             <column name="latitude" />
+        </property>
+        <property name="categorie" type="string">
+            <column name="categorie" length="258" />
         </property>
     </class>
 </hibernate-mapping>

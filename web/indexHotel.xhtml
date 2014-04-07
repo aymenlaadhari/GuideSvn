@@ -14,19 +14,40 @@
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-                <div id="bottom"  class="title ui-widget-header ui-corner-all">
-                <ui:insert name="bottom">Gestion Hotel</ui:insert>
-            </div>
+                <img src="resources/images/csv.png" width="32" height="32" alt="csv"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                
+
+                Gestion Hotel
             </ui:define>
 
             <ui:define name="content">
-                <h:form>
+                <h:form class="left_content">
                     <p:commandButton value="Ajouter un hotel" action="#{hotelManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
 
                 </h:form>
                 <br/>
+                <h1>Liste des Hotels</h1>
+                <br/>
 
-                <p:dataTable var="hotel" value="#{hotelManagedBean.listHotel}">
+                <p:dataTable paginator="true" rows="5"   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 rowsPerPageTemplate="5,10,15" var="hotel" value="#{hotelManagedBean.listHotel}">
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Identifiant"/>
@@ -39,18 +60,19 @@
                         </f:facet>
                         <h:outputText value="#{hotel.nomH}" />
                     </p:column>
-                    <p:column>
+                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Catégorie"/>
+                            <h:outputText value="Description"/>
                         </f:facet>
-                        <h:outputText value="#{hotel.categorieH}" />
+                        <h:outputText value="#{hotel.description}"/>
                     </p:column>
-                    <p:column>
+                   <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Site Web"/>
+                            <h:outputText value="Nombre Etoile"/>
                         </f:facet>
-                        <h:outputText value="#{hotel.sitewebH}" />
+                        <h:outputText value="#{hotel.nbreetoile}"/>
                     </p:column>
+                   
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Latitude"/>
@@ -63,17 +85,18 @@
                         </f:facet>
                         <h:outputText value="#{hotel.longitude}"/>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Description"/>
-                        </f:facet>
-                        <h:outputText value="#{hotel.description}"/>
-                    </p:column>
+                   
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Téléphone"/>
                         </f:facet>
                         <h:outputText value="#{hotel.telephoneH}"/>
+                    </p:column>
+                     <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Site Web"/>
+                        </f:facet>
+                        <h:outputText value="#{hotel.sitewebH}" />
                     </p:column>
                     <p:column>
                         <f:facet name="header">
@@ -81,12 +104,7 @@
                         </f:facet>
                         <h:outputText value="#{hotel.emailH}"/>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Nombre Etoile"/>
-                        </f:facet>
-                        <h:outputText value="#{hotel.nbreetoile}"/>
-                    </p:column>
+                    
                     <p:column>
 
                         <h:form style="width:4%">
@@ -97,8 +115,7 @@
                     </p:column>
 
                 </p:dataTable>
-
-                <br/>
+                
 
             </ui:define>
         </ui:composition>

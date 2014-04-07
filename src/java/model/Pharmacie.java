@@ -1,10 +1,9 @@
 package model;
-// Generated 26 mars 2014 16:28:09 by Hibernate Tools 3.6.0
+// Generated Apr 2, 2014 11:37:33 AM by Hibernate Tools 3.6.0
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -25,6 +24,8 @@ public class Pharmacie  implements java.io.Serializable {
      private Long longitude;
      private Long latitude;
      private String type;
+     private String nom;
+     private String description;
 
     public Pharmacie() {
     }
@@ -33,7 +34,7 @@ public class Pharmacie  implements java.io.Serializable {
     public Pharmacie(int id) {
         this.id = id;
     }
-    public Pharmacie(int id, String telephone, String email, String siteweb, Long longitude, Long latitude, String type) {
+    public Pharmacie(int id, String telephone, String email, String siteweb, Long longitude, Long latitude, String type, String nom, String description) {
        this.id = id;
        this.telephone = telephone;
        this.email = email;
@@ -41,9 +42,11 @@ public class Pharmacie  implements java.io.Serializable {
        this.longitude = longitude;
        this.latitude = latitude;
        this.type = type;
+       this.nom = nom;
+       this.description = description;
     }
    
-     @Id @GeneratedValue
+     @Id 
 
     
     @Column(name="id", unique=true, nullable=false)
@@ -113,6 +116,26 @@ public class Pharmacie  implements java.io.Serializable {
     
     public void setType(String type) {
         this.type = type;
+    }
+
+    
+    @Column(name="nom", length=258)
+    public String getNom() {
+        return this.nom;
+    }
+    
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    
+    @Column(name="description", length=258)
+    public String getDescription() {
+        return this.description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 
