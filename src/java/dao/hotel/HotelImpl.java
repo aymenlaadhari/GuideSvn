@@ -23,46 +23,84 @@ public class HotelImpl implements HotelInterface{
     @Override
     public void save(Hotel hotel) 
     {
+       
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.save(hotel);
-        t.commit();
+        try {
+            session.beginTransaction();
+            session.save(hotel);
+            session.getTransaction().commit();
+            session.close();
+            System.out.print("Bien ajouté");
+        } catch (Exception e) {
+            System.out.print("Erreur insertion" + e.getMessage());
+        }
      }
 
     @Override
-    public List<Hotel> list() 
+    public List<Hotel> getListHotel() 
     {
+         List<Hotel> listHotel = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-        List listeHotel = session.createQuery("from Hotel").list();
-        transaction.commit();
-        return listeHotel;
-        
+        try {
+            session.beginTransaction();
+           listHotel = session.createQuery("from Hotel").list();
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return listHotel;
+        }
+        return listHotel;
+    
        }
 
     @Override
     public void remove(Hotel hotel) 
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.delete(hotel);
-        t.commit();
+        try {
+            session.beginTransaction();
+            session.delete(hotel);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("Erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+        }
      }
 
     @Override
     public void update(Hotel hotel) 
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.update(hotel);
-       t.commit();
+        try {
+            session.beginTransaction();
+            session.update(hotel);
+            session.getTransaction().commit();
+            session.close();
+            System.out.print("Bien modifier");
+        } catch (Exception e) {
+            System.out.print("Erreur Modification" + e.getMessage());
+        }
         }
 
     @Override
-    public Hotel getHotel(long idHotel) 
+    public Hotel getHotel(int idHotel) 
     {
+        Hotel hotel   = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        return (Hotel) session.load(Hotel.class, idHotel);
+        try {
+            session.beginTransaction();
+            hotel= (Hotel) session.get(Hotel.class, idHotel);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return hotel;
+        }
+        return hotel;
        
     }
 

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -24,15 +25,17 @@ import model.Specialite;
  *
  * @author hp
  */
-@ManagedBean
+@ManagedBean(name = "SpecialiteManagedBean")
 @SessionScoped
-public class SpecialiteManagedBean implements Serializable {
+public class SpecialiteManagedBean implements Serializable{
 
-    private Specialite specialite;
+    SpecialiteInterface specialiteInterface ;
+    private Specialite specialite  ;
     private List<Specialite> listSpecialite;
-    SpecialiteInterface specialiteInterface;
 
-    public Specialite getSpecialite() {
+    //get+set
+    
+ public Specialite getSpecialite() {
         return specialite;
     }
 
@@ -42,55 +45,65 @@ public class SpecialiteManagedBean implements Serializable {
 
     public List<Specialite> getListSpecialite() {
         specialiteInterface = new SpecialiteImpl();
-        this.listSpecialite = specialiteInterface.list();
+        listSpecialite = specialiteInterface.getListSpecialite();
+       
         return listSpecialite;
     }
 
     public void setListSpecialite(List<Specialite> listSpecialite) {
         this.listSpecialite = listSpecialite;
     }
+    
+ 
 
-   
+    
 
-   public void ajoutEvent(ActionEvent actionEvent) {
-        specialite = new Specialite();
+    //Methodes
+    public void ajoutEvent(ActionEvent actionEvent) {
+        specialite= new Specialite();
 
     }
 
-    public void deletMessage(ActionEvent actionEvent) {
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Specialite supprimé"));
-    }
-
-    public void editEvent(long id) {
+    public void editEvent(int id) {
         System.out.print(id);
         specialiteInterface = new SpecialiteImpl();
         specialite = specialiteInterface.getSpecialite(id);
 
+    }
+public void suppEvent(int id) {
+         System.out.print(id);
+        specialiteInterface = new SpecialiteImpl();
+        specialite = specialiteInterface.getSpecialite(id);
+
+    }
+    public void deletMessage(ActionEvent actionEvent) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Specialite supprimé"));
     }
 
     public void edition(ActionEvent actionEvent) {
         specialiteInterface = new SpecialiteImpl();
         specialiteInterface.update(specialite);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(" Specialite mise à jour"));
+        context.addMessage(null, new FacesMessage("Specialite mise à jour"));
     }
 
-    public void ajoutcc(ActionEvent actionEvent) {
-        specialiteInterface = new SpecialiteImpl();
+    public void ajoutph(ActionEvent actionEvent) {
+       specialiteInterface = new SpecialiteImpl();
         specialiteInterface.save(specialite);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Specialite ajouté"));
-        specialite = new Specialite();
+        specialite= new Specialite();
     }
 
-    public void delet(Specialite specialite) {
+    public void delet(ActionEvent actionEvent) {
         specialiteInterface = new SpecialiteImpl();
         specialiteInterface.remove(specialite);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(" Specialite supprimé"));
+        context.addMessage(null, new FacesMessage("Specialite supprimé"));
 
     }
+
 
     /**
      * Creates a new instance of CentremedicaleManagedBean

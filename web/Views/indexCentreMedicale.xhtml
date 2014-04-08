@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+
+
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Gestion Centre Medicale</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./Template.xhtml">
+            <ui:define name="top">
+                <img src="resources/images/csv.png" width="32" height="32" alt="csv"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+                <titreGuide>
+                    Gestion Centre Medicale
+
+                </titreGuide>
+
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h:form class="left_content" id="AjoutCM" >
+                    <p:commandButton  value="Nouveau Centre Medicale" actionListener="#{centreMedicaleManagedBean.ajoutEvent(actionEvent)}" update=":edit:editCM" oncomplete="CentreMedicaleAjout.show()" ajax="true" icon="ui-icon-plusthick"/>
+                </h:form>
+                <h1>Liste Centres Medicales</h1> 
+                <br/> 
+                <h:form id="centreMedicale">
+                    <p:growl id="growl" showDetail="true" sticky="false"  />
+                    <p:dataTable   paginator="true" rows="5"   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                   rowsPerPageTemplate="5,10,15,20,25"  
+                                   var="centreMedicale" value="#{centreMedicaleManagedBean.listCentreMedicale}"
+                                   id="AjoutTab"
+                                   emptyMessage="Centre non trouvé" widgetVar="CentreMedicaleTable">
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText  value="Recherche : " />
+                                <p:inputText id="globalFilter"  onkeyup="CentreMedicaleTable.filter()" style="width:250px" />
+                            </p:outputPanel>
+                        </f:facet>
+                        <p:column id="centreId" headerText="Identifiant" filterBy="#{centreMedicale.id}" filterMatchMode="exact" footerText=" Identifiant exacte">
+                            <h:outputText value="#{centreMedicale.id}" />
+                        </p:column>
+
+                        <p:column id="Nom" headerText="Nom" filterBy="#{centreMedicale.nom}" filterMatchMode="exact" footerText=" Nom exacte">
+
+                            <h:outputText value="#{centreMedicale.nom}" />
+                        </p:column>
+                        <p:column id="Description" headerText="Description" filterBy="#{centreMedicale.description}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{centreMedicale.description}"/>
+                        </p:column>
+
+                        <p:column id="Latitude" headerText="Latitude" filterBy="#{centreMedicale.latitude}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{centreMedicale.latitude}"/>
+                        </p:column>
+                        <p:column id="Longitude" headerText="longitude" filterBy="#{centreMedicale.longitude}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{centreMedicale.longitude}"/>
+                        </p:column>
+                        <p:column id="Siteweb" headerText="Site Web" filterBy="#{centreMedicale.siteweb}" filterMatchMode="startsWith" footerText="Commence par"
+                                  >
+                            <h:outputText value="#{centreMedicale.siteweb}"/>
+                        </p:column>
+                        <p:column id="type" headerText="Type" filterBy="#{centreMedicale.type}" filterMatchMode="startsWith" footerText="Commence par"
+                                  >
+                            <h:outputText value="#{centreMedicale.type}"/>
+                        </p:column>
+
+                        <p:column id="Telephone" headerText="Telephone" filterBy="#{centreMedicale.telephone}" filterMatchMode="contains" footerText="Contient"
+                                  >
+                            <h:outputText value="#{centreMedicale.telephone}"/>
+                        </p:column>
+                        <p:column id="Email" headerText="Email" filterBy="#{centreMedicale.email}" filterMatchMode="startsWith" footerText="Commence par"
+                                  >
+                            <h:outputText value="#{centreMedicale.email}"/>
+                        </p:column>
+
+                        <p:column style="width:4%">
+                            <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editCM"  oncomplete="centreMedicaleEdit.show();" actionListener="#{centreMedicaleManagedBean.editEvent(centreMedicale.id)}" ajax="true" icon="ui-icon-pencil"/>
+                            <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppCentre"  oncomplete="confirmation.show();" actionListener="#{centreMedicaleManagedBean.suppEvent(centreMedicale.id)}" ajax="true" icon="ui-icon-trash"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+
+
+
+                <h:form id="edit">
+
+                    <p:dialog  header="Centre Medicale" widgetVar="CentreMedicaleAjout" resizable="true" id="editCM" modal="true">
+
+                        <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h1>
+                                    <h:outputLabel value="Ajout Centre Medicale" />
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
+                            <h:outputLabel for="nom" title="Nom" value="* Nom :" style="color: #000000"  />
+                            <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.nom}"  id="nom" required="true"/>
+                            <h:outputLabel for="latitude" title="Nom" value="* Latitude :" style="color: #000000" />
+                            <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.latitude}"   id="latitude" required="true"/>
+                            <h:outputLabel for="logitude" title="Nom" value="* Logitude :" style="color: #000000"  />
+                            <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.longitude}"  id="logitude" required="true"/>
+                            <h:outputLabel for="type"  value="Type :  " style="color: #000000"/> 
+                            <p:selectOneMenu  value="#{centreMedicaleManagedBean.centreMedicale.type}" >  
+                                <f:selectItem  itemLabel="Hopitale &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;     " itemValue="Hopitale  "  />  
+                                <f:selectItem itemLabel="Clinique      " itemValue="Clinique  " />  
+                                <f:selectItem itemLabel="Centre Massage     " itemValue="Centre Massage" />  
+                            </p:selectOneMenu> 
+                            <h:outputLabel for="telephone" title="Nom" value="* Telephone :" style="color: #000000"  />
+                            <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.telephone}"  id="telephone" required="true"/>
+                            <h:outputLabel for="siteweb" title="Nom" value="Site Web :" style="color: #000000" />
+                            <p:inputText size="40" value="#{centreMedicaleManagedBean.centreMedicale.siteweb}"   id="siteweb" required="false"/>
+                            <h:outputLabel for="email" title="Nom" value="Email :" style="color: #000000"  />
+                            <p:inputText  size="40" value="#{centreMedicaleManagedBean.centreMedicale.email}"  id="email" required="false"/>
+                            <h:outputLabel for="description"  value="Description :" style="color: #000000" />
+                            <p:inputTextarea rows="6" cols="30" value="#{centreMedicaleManagedBean.centreMedicale.description}"  id="description" required="false"/>
+                        </h:panelGrid>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+                            <p:commandButton icon="ui-icon-plusthick" ajax="true" value="Ajouter" update=":centreMedicale:AjoutTab, growl" actionListener="#{centreMedicaleManagedBean.ajoutcm(actionEvent)}" oncomplete="CentreMedicaleAjout.hide()"/>
+                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="CentreMedicaleAjout.hide()"  />
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="Actualise">
+                    <p:dialog header="Centre Medicale" widgetVar="centreMedicaleEdit" resizable="true" id="editCM" modal="true">
+                        <p:growl id="growl" showDetail="true" sticky="false" />
+                        <h:panelGrid id="displaye" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h1>
+                                    <h:outputLabel value="Modifier Centre Medicale"/>
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
+                            <h:outputLabel for="nom" title="Nom" value="* Nom :" style="color: #000000"  />
+                            <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.nom}"  id="nom" required="true"/>
+                            <h:outputLabel for="latitude" title="Nom" value="* Latitude :" style="color: #000000" />
+                            <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.latitude}"   id="latitude" required="true"/>
+                            <h:outputLabel for="logitude" title="Nom" value="* Logitude :" style="color: #000000"  />
+                            <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.longitude}"  id="logitude" required="true"/>
+                            <h:outputLabel for="type"  value="Type :  " style="color: #000000"/> 
+                            <p:selectOneMenu  value="#{centreMedicaleManagedBean.centreMedicale.type}" >  
+                                <f:selectItem  itemLabel="Hopitale &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;     " itemValue="Hopitale  "  />  
+                                <f:selectItem itemLabel="Clinique      " itemValue="Clinique  " />  
+                                <f:selectItem itemLabel="Centre Massage     " itemValue="Centre Massage" />  
+                            </p:selectOneMenu> 
+                            <h:outputLabel for="telephone" title="Nom" value="* Telephone :" style="color: #000000"  />
+                            <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.telephone}"  id="telephone" required="true"/>
+                            <h:outputLabel for="siteweb" title="Nom" value="Site Web :" style="color: #000000" />
+                            <p:inputText size="40" value="#{centreMedicaleManagedBean.centreMedicale.siteweb}"   id="siteweb" required="false"/>
+                            <h:outputLabel for="email" title="Nom" value="Email :" style="color: #000000"  />
+                            <p:inputText  size="40" value="#{centreMedicaleManagedBean.centreMedicale.email}"  id="email" required="false"/>
+                            <h:outputLabel for="description"  value="Description :" style="color: #000000" />
+                            <p:inputTextarea rows="6" cols="30" value="#{centreMedicaleManagedBean.centreMedicale.description}"  id="description" required="false"/>
+                        </h:panelGrid>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+                            <p:commandButton icon="ui-icon-pencil" ajax="true" value="Modifier" update=":centreMedicale:AjoutTab, growl" actionListener="#{centreMedicaleManagedBean.edition(actionEvent)}" oncomplete="centreMedicaleEdit.hide()"/>
+                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="centreMedicaleEdit.hide()"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formSupp">
+                    
+                
+                <p:confirmDialog header="Confirmation" 
+                                 message="Êtes-vous sûr(e) de vouloir supprimer  #{centreMedicaleManagedBean.centreMedicale.nom} ?" 
+                                             severity="alert" 
+                                             widgetVar="confirmation" id="suppCentre">
+                    <p:growl id="growl" showDetail="true" sticky="false" />
+
+                                <h:panelGrid id="display" columns="2" cellpadding="4"
+                                             style="margin:0 auto;">
+                                    <p:commandButton icon="ui-icon-check" ajax="true" value="Oui" update=":centreMedicale:AjoutTab, growl" actionListener="#{centreMedicaleManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
+                                    <p:commandButton value="Non" onclick="confirmation.hide()" icon="ui-icon-close"/>
+                                </h:panelGrid>
+                            </p:confirmDialog>
+                    </h:form>
+            </ui:define>
+        </ui:composition>
+
+
+    </h:body>
+</html>

@@ -14,7 +14,7 @@
 
             <h:form id="form">       
 
-                <p:panel id="panel"  header="&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Authentification" footer=" &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Guide Touristique Application"  >
+                <p:panel id="panel"  header="&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Authentification" footer=" &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Guide Touristique ">
 
                     <h:panelGrid columns="2" cellpadding="5">
                         <h:outputLabel for="username" value="Login :" />
@@ -22,15 +22,15 @@
                                       id="username" required="true" label="username" />
 
                         <h:outputLabel for="password" value="Password :" />
-                        <p:password value="#{loginManagedBean.utilisateur.password}" required="true"  />
+                        <p:password value="#{loginManagedBean.utilisateur.password}" required="true" id="password" />
 
                         <f:facet name="footer">
                            
                             <p:commandButton id="loginButton" value="Connexion"
                                                  actionListener="#{loginManagedBean.login(actionEvent)}"
                                                  oncomplete="handleLoginRequest(xhr, status, args)" update="form" ajax="true" icon="ui-icon-check"/>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <p:commandButton id="AnnulerButton" value="Annuler "  icon="ui-icon-cancel"/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <p:commandButton id="AnnulerButton" value="Annuler "  icon="ui-icon-close"/>
                             
                         </f:facet>
                     </h:panelGrid>

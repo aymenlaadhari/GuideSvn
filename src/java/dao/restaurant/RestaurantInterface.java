@@ -8,21 +8,13 @@ package dao.restaurant;
 import java.util.List;
 import model.Restaurant;
 
-/**
- *
- * @author hp
- */
 public interface RestaurantInterface {
 
     public void save(Restaurant restaurant);
-
-    public List<Restaurant> list();
-
+    public List<Restaurant> getlistResto();
     public void remove(Restaurant restaurant);
-
     public void update(Restaurant restaurant);
-
-    public Restaurant getCentre(long id);
+    public Restaurant getRestaurant(int id);
 
     //public Restaurant findByRestaurant(Restaurant restaurant);
 }

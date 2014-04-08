@@ -12,15 +12,10 @@ import model.Monument;
 
 public interface MonumentInterface {
 
-    public void save(Monument monument);
-
-    public List<Monument> list();
-
-    public void remove(Monument monument);
-
-    public void update(Monument monument);
-
-    public Monument getMonument(long idMonument);
-
-    
+     public void addMonument(Monument monument);
+    public void updateMonument(Monument monument);
+    public void deletMonument(Monument monument);
+    public Monument getMonument(int id);
+    public List<Monument> getListMonument();
+         
 }

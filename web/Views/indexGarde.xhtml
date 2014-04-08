@@ -9,7 +9,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Gestion Pharmacie</title>
+        <title>Gestion Garde</title>
     </h:head>
     <h:body>
         <ui:composition template="./Template.xhtml">
@@ -33,80 +33,60 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;
 
 
-                Gestion Pharmacie
+                Gestion Garde
             </ui:define>
 
             <ui:define name="content">
-                 <h:form class="left_content">
-                    <p:commandButton value="Ajouter Pharmacie" action="#{pharmacieManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
-
+                <h:form class="left_content">
+                    <p:commandButton value="Ajouter Garde" action="#{gardeManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
                 </h:form>
+
+
                 <br/>
-                <h1>Liste des Pharmacies</h1>
+                <h1>Liste des gardes</h1>
                 <br/>
 
-                <p:dataTable  paginator="true" rows="5"   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                 rowsPerPageTemplate="5,10,15" var="pharmacie" value="#{pharmacieManagedBean.listPharmacie}">
+                <p:dataTable paginator="true" rows="5"   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 rowsPerPageTemplate="5,10,15" var="garde" value="#{gardeManagedBean.listGarde}">
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Identifiant"/>
                         </f:facet>
-                        <h:outputText value="#{pharmacie.id}"/>
+                        <h:outputText value="#{garde.id}" />
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Nom de Pharmacie"/>
+                            <h:outputText value="Date Debut"/>
                         </f:facet>
-                        <h:outputText value="#{pharmacie.nom}" />
+                        <h:outputText value="#{garde.debut}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Description"/>
+                            <h:outputText value="Date Fin"/>
                         </f:facet>
-                        <h:outputText value="#{pharmacie.description}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Type"/>
-                        </f:facet>
-                        <h:outputText value="#{pharmacie.type}" />
+                        <h:outputText value="#{garde.fin}"/>
                     </p:column>
 
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Latitude"/>
-                        </f:facet>
-                        <h:outputText value="#{pharmacie.latitude}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Longitude"/>
-                        </f:facet>
-                        <h:outputText value="#{pharmacie.longitude}"/>
-                    </p:column>
 
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Téléphone"/>
-                        </f:facet>
-                        <h:outputText value="#{pharmacie.telephone}"/>
-                    </p:column>
 
                     <p:column style="width:4%">
 
                         <h:form>
-                            <p:commandButton action="#{pharmacieManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
-                            <p:commandButton action="#{pharmacieManagedBean.supprimer()}"  ajax="false" icon="ui-icon-trash"/>
+                            <p:commandButton action="#{gardeManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
+                            <p:commandButton action="#{gardeManagedBean.supprimer()}"  ajax="false" icon="ui-icon-trash"/>
 
                         </h:form>
                     </p:column>
 
                 </p:dataTable>
-               
+              
             </ui:define>
         </ui:composition>
+
     </h:body>
 </html>
 

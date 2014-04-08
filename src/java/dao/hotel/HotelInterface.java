@@ -8,18 +8,16 @@ package dao.hotel;
 import java.util.List;
 import model.Hotel;
 
-
 public interface HotelInterface {
 
     public void save(Hotel hotel);
 
-    public List<Hotel> list();
+    public void update(Hotel hotel);
 
     public void remove(Hotel hotel);
 
-    public void update(Hotel hotel);
+    public List<Hotel> getListHotel();
 
-    public Hotel getHotel(long idHotel);
+    public Hotel getHotel(int idHotel);
 
-  
 }

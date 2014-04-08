@@ -22,56 +22,79 @@ public class RestaurantImpl implements RestaurantInterface{
 
     @Override
     public void save(Restaurant restaurant) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.save(restaurant);
-        t.commit();
+         Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.save(restaurant);
+            session.getTransaction().commit();
+            session.close();
+            System.out.print("Bien ajouté");
+        } catch (Exception e) {
+            System.out.print("Erreur insertion" + e.getMessage());
+        }
     }
 
     @Override
-    public List<Restaurant> list() {
-         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        List liste = session.createQuery("from Restaurant").list();
-        t.commit();
-        return liste;
+    public List<Restaurant> getlistResto() {
+         List<Restaurant> listResto = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+           listResto = session.createQuery("from Restaurant").list();
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return listResto;
+        }
+        return listResto;
     }
+    
 
     @Override
     public void remove(Restaurant restaurant) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.delete(restaurant);
-        t.commit();
+        try {
+            session.beginTransaction();
+            session.delete(restaurant);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("Erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+        }
     }
 
     @Override
     public void update(Restaurant restaurant) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.update(restaurant);
-        t.commit();
-    }
-
-    @Override
-    public Restaurant getCentre(long id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        return (Restaurant) session.load(Restaurant.class, id);
-    }
-/*
-    @Override
-    public Restaurant findByRestaurant(Restaurant restaurant) {
-         Restaurant model = null;
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-
         try {
             session.beginTransaction();
-            model = (Restaurant) session.createQuery("FROM Userinfo WHERE user = '" + restaurant.getNom_lieu() + "'").uniqueResult();
-            session.beginTransaction().commit();
-        } catch (HibernateException e) {
-            session.beginTransaction().rollback();
+            session.update(restaurant);
+            session.getTransaction().commit();
+            session.close();
+            System.out.print("Bien modifier");
+        } catch (Exception e) {
+            System.out.print("Erreur Modification" + e.getMessage());
         }
-        return model;
     }
-    */
+
+    @Override
+    public Restaurant getRestaurant(int id) {
+       Restaurant restaurant  = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            restaurant= (Restaurant) session.get(Restaurant.class, id);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return restaurant;
+        }
+        return restaurant;
+    }
+
 }

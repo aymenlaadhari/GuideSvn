@@ -17,13 +17,13 @@ public interface SpecialiteInterface {
 
     public void save(Specialite specialite);
 
-    public List<Specialite> list();
+    public List<Specialite> getListSpecialite();
 
     public void remove(Specialite specialite);
 
     public void update(Specialite specialite);
 
-    public Specialite getSpecialite(long id);
+    public Specialite getSpecialite(int id);
 
    // public Specialite findBySpecialite(Specialite specialite);
 

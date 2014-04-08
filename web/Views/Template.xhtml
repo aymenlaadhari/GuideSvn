@@ -10,71 +10,69 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Guide Touristique Application</title>
+        <title>Systeme Guide Touristique </title>
     </h:head>
 
     <h:body>
         <div id="conteiner">
 
             <div id="top" class="title ui-widget-header ui-corner-all" >
-
-                <ui:insert name="top" >
-
-                </ui:insert>
-
-
+                <ui:insert name="top" ></ui:insert> 
             </div> 
 
             <div id="menu" >
                 <h:form>  
                     <p:menubar>
                         <p:submenu label="Utilisateur" icon="ui-icon-person">
-                            <p:menuitem value="Gestion Utilisateur" action="#{applicationManagedBean.indexUtilisateur()}" icon="ui-icon-person"/>
+                            <p:menuitem value="Gestion Utilisateur" url="#{applicationManagedBean.indexUtilisateur()}" icon="ui-icon-person"/>
                             <p:separator />
                             <p:menuitem value="Quit" url="#" icon="ui-icon-close" />
                         </p:submenu>
                         <p:submenu label="Lieu" icon="ui-icon-home">
-                            <p:menuitem value="Monument" action="#{applicationManagedBean.indexMonument()}" icon="ui-icon-home" ajax="false"/>
-                            <p:menuitem value="Restaurant" action="#{applicationManagedBean.indexRestaurant()}" icon="ui-icon-home" ajax="false"/>
-                            <p:menuitem value="Pharmacie" action="#{applicationManagedBean.indexPharmacie()}" icon="ui-icon-home" ajax="false"/>
-                            <p:menuitem value="Centre Medicale" action="#{applicationManagedBean.indexMedical()}"  icon="ui-icon-home" ajax="false" />
-                            <p:menuitem value="Centre Commerciale" action="#{applicationManagedBean.indexCommercial()}"  icon="ui-icon-home" ajax="false"/>
-                            <p:menuitem value="Hotel" action="#{applicationManagedBean.indexHotel()}" icon="ui-icon-home" ajax="false"/>
-
+                            <p:menuitem value="Monument" url="#{applicationManagedBean.indexMonument()}" icon="ui-icon-home" ajax="false"/>
+                            <p:separator />
+                            <p:menuitem value="Restaurant" url="#{applicationManagedBean.indexRestaurant()}" icon="ui-icon-home" ajax="false"/>
+                            <p:separator />
+                            <p:menuitem value="Pharmacie" url="#{applicationManagedBean.indexPharmacie()}" icon="ui-icon-home" ajax="false"/>
+                            <p:separator />
+                            <p:menuitem value="Centre Medicale" url="#{applicationManagedBean.indexMedical()}"  icon="ui-icon-home" ajax="false" />
+                            <p:separator />
+                            <p:menuitem value="Centre Commerciale" url="#{applicationManagedBean.indexCommercial()}"  icon="ui-icon-home" ajax="false"/>
+                            <p:separator />
+                            <p:menuitem value="Hotel" url="#{applicationManagedBean.indexHotel()}" icon="ui-icon-home" ajax="false"/>
                         </p:submenu>
 
 
 
                         <p:submenu label="Bord" icon="ui-icon-gear">
                             <p:submenu label="Restaurant" >
-                                <p:menuitem value="Specialite"  action="#{applicationManagedBean.indexSpecialite()}"  ajax="false"/>
+                               
+                                <p:menuitem value="Specialite"  url="#{applicationManagedBean.indexSpecialite()}"  ajax="false"/>
 
                             </p:submenu>
+                            <p:separator />
                             <p:submenu label="Pharmacie" >
-                                <p:menuitem value="Garde"  action="#{applicationManagedBean.indexgarde()}" ajax="false"/>
+                                
+                                <p:menuitem value="Garde"  url="#{applicationManagedBean.indexgarde()}" ajax="false"/>
                             </p:submenu>
+                            <p:separator />
                             <p:submenu label="Pays" >
+                                
                                 <p:menuitem value="Gestion de Pays"   action="#{applicationManagedBean.indexPay()}" ajax="false"/>
-                                <p:menuitem value="Ville"   action="#{applicationManagedBean.indexVille()}" ajax="false"/>
+                                <p:separator />
+                                <p:menuitem value="Ville"   url="#{applicationManagedBean.indexVille()}" ajax="false"/>
                             </p:submenu>
-
-                            <p:menuitem value="Gestion Images"  icon="ui-icon-image" action="#{applicationManagedBean.indexImage()}" ajax="true"/>
-
-                            <p:menuitem value="Evenement"  icon="ui-icon-clock" action="#{applicationManagedBean.indexEvenement()}" ajax="true"/>
+                            
+                            <p:separator />
+                            <p:menuitem value="Gestion Images"  icon="ui-icon-image" url="#{applicationManagedBean.indexImage()}" ajax="true"/>
+                            <p:separator />
+                            <p:menuitem value="Evenement"  icon="ui-icon-clock" url="#{applicationManagedBean.indexEvenement()}" ajax="true"/>
 
                         </p:submenu>
 
                         <p:menuitem value="Help" icon="ui-icon-help">
 
-                        </p:menuitem>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <p:menuitem>
-                        <p:themeSwitcher>
-                            <f:selectItem itemLabel="--Choose Theme--" 
-                                          itemValue=""/>
-                            <f:selectItems value="#{themeChoices.themes}"/> 
-                        </p:themeSwitcher> 
-                            </p:menuitem>
+                        </p:menuitem>>
 
                         <f:facet name="options">
 
@@ -92,11 +90,7 @@
             </div> 
 
             <div id="bottom"  class="title ui-widget-header ui-corner-all">
-                <ui:insert name="bottom">Guide Touristique&copy; 2014</ui:insert>
-
-
-
-
+                <ui:insert name="bottom"> <h1> Guide Touristique&copy; 2014</h1></ui:insert>
             </div>
         </div>
         <script type="text/javascript">

@@ -4,10 +4,10 @@ package model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 
 @Entity
@@ -25,8 +25,6 @@ public class Utilisateur  implements java.io.Serializable {
      private String password;
      private String login;
      private String telephone;
-     private String passCrypt; 
-     MessageDigest md;
 
     public Utilisateur() {
     }
@@ -126,26 +124,6 @@ public class Utilisateur  implements java.io.Serializable {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
-
-    public String getPassCrypt() throws NoSuchAlgorithmException {
-        
-//        passCrypt = (byte[] )(password+"***poposs7700").getBytes();
-//        return passCrypt;		
-         md = MessageDigest.getInstance("MD5");
-		md.update(password.getBytes());
-		byte[] digest = md.digest();
-		StringBuilder sb = new StringBuilder();
-		for (byte b : digest) {
-			sb.append(String.format("%02x", b & 0xff));
-		}
-                passCrypt = sb.toString();
-         
-                return passCrypt;
-         
-        
-    }
-
-   
 
 
 

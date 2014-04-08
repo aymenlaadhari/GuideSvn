@@ -3,54 +3,103 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package dao.evenement;
 
 import java.util.List;
 import model.Evenement;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import util.HibernateUtil;
 
-public class EvenementImpl implements EvenementInterface {
+public class EvenementImpl implements EvenementInterface
+{
 
     @Override
-    public void save(Evenement evenement) {
+    public void save(Evenement evenement)
+    {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.save(evenement);
-        t.commit();
-    }
+        try {
+            session.beginTransaction();
+            session.save(evenement);
+            session.getTransaction().commit();
+            session.close();
+            System.out.print("Bien ajouté");
+        } catch (Exception e) {
+            System.out.print("Erreur insertion" + e.getMessage());
+        }
+      }
 
     @Override
-    public List<Evenement> list() {
+    public List<Evenement> getListEvenement()
+    {
+        List<Evenement> listEvenement = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-        List listeEvenement = session.createQuery("from Evenement").list();
-        transaction.commit();
-        return listeEvenement;
+        try {
+            session.beginTransaction();
+           listEvenement = session.createQuery("from Evenement").list();
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return listEvenement;
+        }
+        return listEvenement;
     }
+    
+         
 
     @Override
-    public void remove(Evenement evenement) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.delete(evenement);
-        t.commit();
-    }
+    public void remove(Evenement evenement) 
+    {
+     Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.delete(evenement);
+            session.getTransaction().commit();
+            session.close();
+        
+        System.out.print("Bien supprimé");
+        } catch (Exception e) {
+            System.out.print("Erreur Suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+        }
+        }
 
     @Override
-    public void update(Evenement evenement) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.update(evenement);
-        t.commit();
-
-    }
+    public void update(Evenement evenement) 
+    {
+       Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.update(evenement);
+            session.getTransaction().commit();
+            session.close();
+            System.out.print("Bien modifier");
+        } catch (Exception e) {
+            System.out.print("Erreur Modification" + e.getMessage());
+        }
+        }
 
     @Override
-    public Evenement getEvenement(int idEvenement) {
+    public Evenement getEvenement(int idEvent)
+    {
+     Evenement evenement  = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        return (Evenement) session.load(Evenement.class, idEvenement);
+        try {
+            session.beginTransaction();
+            evenement= (Evenement) session.get(Evenement.class, idEvent);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return evenement;
+        }
+        return evenement;
     }
+
+       
+
 
 }

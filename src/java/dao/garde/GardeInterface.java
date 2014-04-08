@@ -22,7 +22,5 @@ public interface GardeInterface {
     public void remove(Garde garde);
 
     public void update(Garde garde);
-    
-    public Garde getGarde(int id);
 
 }

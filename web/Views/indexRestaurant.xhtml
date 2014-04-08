@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+
+
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Gestion Restaurant</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./Template.xhtml">
+            <ui:define name="top">
+                <img src="resources/images/csv.png" width="32" height="32" alt="csv"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+                <titreGuide>
+                    Gestion Restaurant
+
+                </titreGuide>
+
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h:form class="left_content" id="AjoutR" >
+                    <p:commandButton  value="Nouveau Restaurant" actionListener="#{RestaurantManagedBean.ajoutEvent(actionEvent)}" update=":edit:editR" oncomplete="RestaurantAjout.show()" ajax="true" icon="ui-icon-plusthick"/>
+
+                </h:form>
+                <h1>Liste Restaurant</h1> 
+                <br/> 
+                <h:form id="Resto">
+                    <p:growl id="growl" showDetail="true" sticky="false"  />
+                    <p:dataTable   paginator="true" rows="5"   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                   rowsPerPageTemplate="5,10,15,20,25"  
+                                   var="restaurant" value="#{RestaurantManagedBean.listRestaurant}"
+                                   id="AjoutTab"
+                                   emptyMessage="Restaurant non trouvé" widgetVar="RestaurantTable">
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText  value="Recherche : " />
+                                <p:inputText id="globalFilter"  onkeyup="RestaurantTable.filter()" style="width:250px" />
+                            </p:outputPanel>
+                        </f:facet>
+
+
+                        <p:column id="Id" headerText="Identifiant" filterBy="#{restaurant.id}" filterMatchMode="exact" footerText=" Identifiant exacte">
+                            <h:outputText value="#{restaurant.id}" />
+                        </p:column>
+
+                        <p:column id="Nom" headerText="Nom" filterBy="#{restaurant.nom}" filterMatchMode="exact" footerText=" Nom exacte">
+
+                            <h:outputText value="#{restaurant.nom}" />
+                        </p:column>
+                        <p:column id="Description" headerText="Description" filterBy="#{restaurant.description}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{restaurant.description}"/>
+                        </p:column>
+
+                        <p:column id="Latitude" headerText="Latitude" filterBy="#{restaurant.latitude}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{restaurant.latitude}"/>
+                        </p:column>
+                        <p:column id="Longitude" headerText="Longitude" filterBy="#{restaurant.longitude}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{restaurant.longitude}"/>
+                        </p:column>
+                        <p:column id="ouverture" headerText="Horaire Ouverture" filterBy="#{restaurant.horairehouverture}" filterMatchMode="startsWith" footerText="Commence par"
+                                  >
+                            <h:outputText value="#{restaurant.horairehouverture}"/>
+                        </p:column>
+                        <p:column id="fermeture" headerText="Horaire Fermeture" filterBy="#{restaurant.horairefermeture}" filterMatchMode="startsWith" footerText="Commence par"
+                                  >
+                            <h:outputText value="#{restaurant.horairefermeture}"/>
+                        </p:column>
+                        <p:column id="Telephone" headerText="Telephone" filterBy="#{restaurant.telephone}" filterMatchMode="contains" footerText="Contient"
+                                  >
+                            <h:outputText value="#{restaurant.telephone}"/>
+                        </p:column>
+                        <p:column id="Siteweb" headerText="Site Web" filterBy="#{restaurant.siteweb}" filterMatchMode="startsWith" footerText="Commence par"
+                                  >
+                            <h:outputText value="#{restaurant.siteweb}"/>
+                        </p:column>
+                        <p:column id="Email" headerText="Email" filterBy="#{restaurant.email}" filterMatchMode="startsWith" footerText="Commence par"
+                                  >
+                            <h:outputText value="#{restaurant.email}"/>
+                        </p:column>
+                        
+
+                        <p:column style="width:4%">
+                            <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editResto"  oncomplete="RestaurantEdit.show();" actionListener="#{RestaurantManagedBean.editEvent(restaurant.id)}" ajax="true" icon="ui-icon-pencil"/>
+
+                            <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppCentre"  oncomplete="confirmation.show();" actionListener="#{RestaurantManagedBean.suppEvent(restaurant.id)}" ajax="true" icon="ui-icon-trash"/>
+
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+
+
+                <h:form id="edit">
+
+                    <p:dialog  header="Restaurant" widgetVar="RestaurantAjout" resizable="true" id="editR" modal="true">
+
+                        <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h1>
+                                    <h:outputLabel value="Ajout Restaurant" />
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
+
+
+                            <h:outputLabel for="Nom" title="Nom" value="* Nom :" style="color: #000000"  />
+                            <p:inputText value="#{RestaurantManagedBean.restaurant.nom}"  id="nom" required="true"/>
+                            <h:outputLabel for="Latitude" title="Nom" value="* Latitude :" style="color: #000000" />
+                            <p:inputText value="#{RestaurantManagedBean.restaurant.latitude}"   id="latitude" required="true"/>
+                            <h:outputLabel for="Longitude" title="Nom" value="* Longitude :" style="color: #000000"  />
+                            <p:inputText value="#{RestaurantManagedBean.restaurant.longitude}"  id="longitude" required="true"/>
+                            <h:outputLabel for="Telephone" title="Nom" value="* Telephone :" style="color: #000000"  />
+                            <p:inputText value="#{RestaurantManagedBean.restaurant.telephone}"  id="telephone" required="true"/>
+                            <h:outputLabel for="Siteweb" title="Nom" value="Site Web :" style="color: #000000" />
+                            <p:inputText value="#{RestaurantManagedBean.restaurant.siteweb}"   id="siteweb" required="false"/>
+                            <h:outputLabel for="Email" title="Nom" value="Email  :" style="color: #000000"  />
+                            <p:inputText value="#{RestaurantManagedBean.restaurant.email}"  id="email" required="false"/>
+                            <h:outputLabel for="Description"  value="Description:" style="color: #000000" />
+                            <p:inputTextarea rows="6" cols="30" value="#{RestaurantManagedBean.restaurant.description}"  id="description" required="false"/>
+                            <h:outputLabel   for="ouverture"  value="Horaire Ouverture :"  style="color: #000000"/>
+                            <p:calendar value="#{RestaurantManagedBean.restaurant.horairehouverture}"   pattern="MM/dd/yyyy HH:mm" id="ouverture" showOn="button" />  
+                            <h:outputLabel   for="fermeture"  value="Horaire Fermeture :"  style="color: #000000"/>
+                            <p:calendar value="#{RestaurantManagedBean.restaurant.horairefermeture}"   pattern="MM/dd/yyyy HH:mm" id="fermeture" showOn="button" />  
+
+                        </h:panelGrid>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+                            <p:commandButton icon="ui-icon-plusthick" ajax="true" value="Ajouter" update=":Resto:AjoutTab, growl" actionListener="#{RestaurantManagedBean.ajoutr(actionEvent)}" oncomplete="RestaurantAjout.hide()"  />
+                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="RestaurantAjout.hide()"  />
+
+                        </h:panelGrid>
+
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="Actualise">
+                    <p:dialog header="Restaurant" widgetVar="RestaurantEdit" resizable="true" id="editResto" modal="true">
+                        <p:growl id="growl" showDetail="true" sticky="false" />
+                        <h:panelGrid id="displaye" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h1>
+                                    <h:outputLabel value="Modifier Restaurant"/>
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
+
+                            <h:outputLabel for="Nom" value="* Nom :" style="color: #000000" />
+                            <p:inputText value="#{RestaurantManagedBean.restaurant.nom}"   id="Nom" required="true"/>
+                            <h:outputLabel for="Latitude" value="* Latitude :" style="color: #000000" />
+                            <p:inputText value="#{RestaurantManagedBean.restaurant.latitude}"   id="Latitude" required="true"/>
+                            <h:outputLabel for="Longitude"  value="* Longitude :" style="color: #000000"  />
+                            <p:inputText value="#{RestaurantManagedBean.restaurant.longitude}"  id="Longitude" required="true"/>
+                            <h:outputLabel for="Telephone"  value="* Telephone :" style="color: #000000"  />
+                            <p:inputText value="#{RestaurantManagedBean.restaurant.telephone}"  id="Telephone" required="true"/>
+                            <h:outputLabel for="Siteweb" title="Nom" value="Site Web :" style="color: #000000" />
+                            <p:inputText value="#{RestaurantManagedBean.restaurant.siteweb}"   id="Siteweb" required="false"/>
+                            <h:outputLabel for="Email"  value="Email  :" style="color: #000000"  />
+                            <p:inputText value="#{RestaurantManagedBean.restaurant.email}"  id="email" required="false"/>
+                            <h:outputLabel   for="ouverture"  value="Horaire Ouverture :"  style="color: #000000"/>
+                            <p:calendar value="#{RestaurantManagedBean.restaurant.horairehouverture}"   pattern="MM/dd/yyyy HH:mm" id="ouverture" showOn="button" />  
+                            <h:outputLabel   for="fermeture"  value="Horaire Fermeture :"  style="color: #000000"/>
+                            <p:calendar value="#{RestaurantManagedBean.restaurant.horairefermeture}"   pattern="MM/dd/yyyy HH:mm" id="fermeture" showOn="button" />  
+                            <h:outputLabel for="Description"  value="Description:" style="color: #000000" />
+                            <p:inputTextarea rows="6" cols="30" value="#{RestaurantManagedBean.restaurant.description}"  id="Description" required="false"/>
+
+                        </h:panelGrid>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <p:commandButton icon="ui-icon-pencil" ajax="true" value="Modifier" update=":Resto:AjoutTab, growl" actionListener="#{RestaurantManagedBean.edition(actionEvent)}" oncomplete="RestaurantEdit.hide()"/>
+                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="RestaurantEdit.hide()"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="formSupp">
+
+                    <p:confirmDialog header="Confirmation" 
+                                     message="Êtes-vous sûr(e) de vouloir supprimer  #{RestaurantManagedBean.restaurant.nom} ?" 
+                                     severity="alert" 
+                                     widgetVar="confirmation" id="suppCentre">
+                        <p:growl id="growl" showDetail="true" sticky="false" />
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4"
+                                     style="margin:0 auto;">
+                            <p:commandButton icon="ui-icon-check" ajax="true" value="Oui" update=":Resto:AjoutTab, growl" actionListener="#{RestaurantManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
+                            <p:commandButton value="Non" onclick="confirmation.hide()" icon="ui-icon-close"/>
+                        </h:panelGrid>
+                    </p:confirmDialog>
+                </h:form>
+
+
+            </ui:define>
+        </ui:composition>
+
+
+    </h:body>
+</html>

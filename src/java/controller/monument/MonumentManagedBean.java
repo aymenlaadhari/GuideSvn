@@ -13,96 +13,100 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-
 import model.Monument;
 
 
-/**
- *
- * @author hp
- */
-@ManagedBean
-@RequestScoped
-public class MonumentManagedBean implements Serializable {
+@ManagedBean(name = "MonumentManagedBean")
+@SessionScoped
+public class MonumentManagedBean implements Serializable{
 
-    private Monument monument ;
+   MonumentInterface monumentInterface;
+    private Monument monument;
     private List<Monument> listMonument;
-    MonumentInterface monumentInterface;
 
-    //getteur et setteur -->Monument
-    public Monument getMonument() {
+    //get+set
+   
+ public Monument getMonument() {
         return monument;
     }
 
     public void setMonument(Monument monument) {
         this.monument = monument;
     }
-   
 
-   //getteur -->listMonument
-    
-    public List getListMonument() {
-       monumentInterface = new MonumentImpl();
-       this.listMonument = monumentInterface.list(); 
+    public List<Monument> getListMonument() {
+        monumentInterface= new MonumentImpl();
+        listMonument = monumentInterface.getListMonument();
         return listMonument;
     }
-    
 
-///les methodes
+    public void setListMonument(List<Monument> listMonument) {
+        this.listMonument = listMonument;
+    }
+   
+
+    //Methodes
     public void ajoutEvent(ActionEvent actionEvent) {
         monument = new Monument();
 
     }
 
-    public void deletMessage(ActionEvent actionEvent) {
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Monument supprimé"));
-    }
-
-    public void editEvent(long id) {
+    public void editEvent(int id) {
         System.out.print(id);
         monumentInterface = new MonumentImpl();
         monument = monumentInterface.getMonument(id);
 
     }
+ public void suppEvent(int id) {
+        System.out.print(id);
+        monumentInterface = new MonumentImpl();
+        monument = monumentInterface.getMonument(id);
+
+    }    
+    
+
+    public void deletMessage(ActionEvent actionEvent) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("tMonument supprimé"));
+    }
 
     public void edition(ActionEvent actionEvent) {
         monumentInterface = new MonumentImpl();
-        monumentInterface.update(monument);
+        monumentInterface.updateMonument(monument);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(" Monument mise à jour"));
+        context.addMessage(null, new FacesMessage("Monument mise à jour"));
     }
 
-    public void ajoutcc(ActionEvent actionEvent) {
+    public void ajoutm(ActionEvent actionEvent) {
         monumentInterface = new MonumentImpl();
-        monumentInterface.save(monument);
+        monumentInterface.addMonument(monument);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Monument Evenement ajouté"));
+        context.addMessage(null, new FacesMessage("Monument ajouté"));
         monument = new Monument();
     }
 
-    public void delet(Monument monument) {
+    public void delet(ActionEvent actionEvent) {
         monumentInterface = new MonumentImpl();
-        monumentInterface.remove(monument);
+          monumentInterface.deletMonument(monument);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(" Monument supprimé"));
+        context.addMessage(null, new FacesMessage("Monument supprimé"));
 
     }
+
+
     /**
      * Creates a new instance of CentremedicaleManagedBean
      */
     public MonumentManagedBean() {
-        
         this.listMonument = new ArrayList<>();
 
-        if (this.monument== null) {
+        if (this.monument == null) {
             this.monument = new Monument();
         }
 
     }
-    
 
 }

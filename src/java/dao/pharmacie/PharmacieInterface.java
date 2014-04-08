@@ -16,15 +16,10 @@ import model.Pharmacie;
 public interface PharmacieInterface {
 
     public void save(Pharmacie pharmacie);
-
-    public List<Pharmacie> list();
-
     public void remove(Pharmacie pharmacie);
-
     public void update(Pharmacie pharmacie);
+    public Pharmacie getPharmacie(int id);
+    public List<Pharmacie> getListPharmacie();
 
-    public Pharmacie getPharmacie(long id);
-
-   // public Pharmacie findByPharmacie(Pharmacie pharmacie);
-
+  
 }

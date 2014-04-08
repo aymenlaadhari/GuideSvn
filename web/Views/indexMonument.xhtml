@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+
+
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Gestion Monument</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./Template.xhtml">
+            <ui:define name="top">
+                <img src="resources/images/csv.png" width="32" height="32" alt="csv"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                <titreGuide>
+                    Gestion Monument
+                </titreGuide> 
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form class="left_content" id="AjoutM" >
+                    <p:commandButton  value="Nouveau Monument" actionListener="#{MonumentManagedBean.ajoutEvent(actionEvent)}" update=":edit:editM" oncomplete="MonumentAjout.show()" ajax="true" icon="ui-icon-plusthick"/>
+
+                </h:form>
+                <br/>
+                <h1>Liste Monuments</h1>
+                <br/>
+
+                <h:form id="Monument">
+                    <p:growl id="growl" showDetail="true" sticky="false"  />
+                    <p:dataTable   paginator="true" rows="5"   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                   rowsPerPageTemplate="5,10,15,20,25"  
+                                   var="monument" value="#{MonumentManagedBean.listMonument}"
+                                   id="AjoutTab"
+                                   emptyMessage="Monument non trouvé" widgetVar="MonumentTable">
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText  value="Recherche : " />
+                                <p:inputText id="globalFilter"  onkeyup="MonumentTable.filter()" style="width:250px" />
+                            </p:outputPanel>
+                        </f:facet>
+
+
+                        <p:column id="monumentId" headerText="Identifiant" filterBy="#{monument.idMonument}" filterMatchMode="exact" footerText=" Identifiant exacte">
+                            <h:outputText value="#{monument.idMonument}" />
+                        </p:column>
+
+                        <p:column id="Nom" headerText="Nom" filterBy="#{monument.nomM}" filterMatchMode="exact" footerText=" Nom exacte">
+
+                            <h:outputText value="#{monument.nomM}" />
+                        </p:column>
+                        <p:column id="Description" headerText="Description" filterBy="#{monument.description}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{monument.description}"/>
+                        </p:column>
+
+                        <p:column id="Latitude" headerText="Latitude" filterBy="#{monument.latitude}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{monument.latitude}"/>
+                        </p:column>
+                        <p:column id="Longitude" headerText="longitude" filterBy="#{monument.longitude}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{monument.longitude}"/>
+                        </p:column>
+                        <p:column id="type" headerText="Type" filterBy="#{monument.type}" filterMatchMode="startsWith" footerText="Commence par"
+                                  >
+                            <h:outputText value="#{monument.type}"/>
+                        </p:column>
+                        
+                        <p:column id="dateconstruction" headerText="Date Consctruction" filterBy="#{monument.dateconstruction}" filterMatchMode="startsWith" footerText="Commence par"
+                                  >
+                            <h:outputText value="#{monument.dateconstruction}"/>
+                        </p:column>
+
+
+                        <p:column style="width:4%">
+                            <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editM"  oncomplete="monumentEdit.show();" actionListener="#{MonumentManagedBean.editEvent(monument.idMonument)}" ajax="true" icon="ui-icon-pencil"/>
+
+                            <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppCentre"  oncomplete="confirmation.show();" actionListener="#{MonumentManagedBean.suppEvent(monument.idMonument)}" ajax="true" icon="ui-icon-trash"/>
+
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+                <h:form id="edit">
+
+                    <p:dialog  header="Monument" widgetVar="MonumentAjout" resizable="true" id="editM" modal="true">
+
+                        <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h1>
+                                    <h:outputLabel value="Ajout Monument" />
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
+                            <h:outputLabel for="nom"  value="* Nom :" style="color: #000000"  />
+                            <p:inputText value="#{MonumentManagedBean.monument.nomM}"  id="nom" required="true"/>
+                            <h:outputLabel for="latitude"  value="* Latitude :" style="color: #000000" />
+                            <p:inputText value="#{MonumentManagedBean.monument.latitude}"   id="latitude" required="true"/>
+                            <h:outputLabel for="logitude"  value="* Logitude :" style="color: #000000"  />
+                            <p:inputText value="#{MonumentManagedBean.monument.longitude}"  id="logitude" required="true"/>
+                            <h:outputLabel   for="dateconstruction"  value="Date Construction :"  style="color: #000000"/>
+                            <p:calendar value="#{MonumentManagedBean.monument.dateconstruction}" required="false"  pattern="MM/dd/yyyy HH:mm" id="dateconstruction" showOn="button" />  
+                            <h:outputLabel   for="type" value="Type :" style="color: #000000" />
+                            <p:selectOneMenu value="#{MonumentManagedBean.monument.type}" id="type" required="false">  
+                                <f:selectItem itemLabel="Historique&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" itemValue="Historique"  />  
+                                <f:selectItem itemLabel="Touristique" itemValue="Touristique" />  
+                                <f:selectItem itemLabel="Culturel" itemValue="Culturel" />  
+                                <f:selectItem itemLabel="Artistique" itemValue="Artistique" /> 
+                                <f:selectItem itemLabel="Religieux" itemValue="Religieux" /> 
+                                <f:selectItem itemLabel="Antique" itemValue="Antique" /> 
+                            </p:selectOneMenu> 
+                            <h:outputLabel for="description"  value="Description:" style="color: #000000" />
+                            <p:inputTextarea rows="6" cols="30" value="#{MonumentManagedBean.monument.description}"  id="description" required="false"/>
+
+                        </h:panelGrid>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+                            <p:commandButton icon="ui-icon-plusthick" ajax="true" value="Ajouter" update=":Monument:AjoutTab, growl" actionListener="#{MonumentManagedBean.ajoutm(actionEvent)}" oncomplete="MonumentAjout.hide()"  />
+                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="MonumentAjout.hide()"  />
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="Actualise">
+                    <p:dialog header="Monument" widgetVar="monumentEdit" resizable="true" id="editM" modal="true">
+                        <p:growl id="growl" showDetail="true" sticky="false" />
+                        <h:panelGrid id="displaye" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h1>
+                                    <h:outputLabel value="Modifier Monument"/>
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
+
+                            <h:outputLabel  for="nom"  value="* Nom de monument : " style="color: #000000"/>
+                            <p:inputText value="#{MonumentManagedBean.monument.nomM}" id="nom" required="true"/>
+                            <h:outputLabel for="latitude"  value="* Latitude :" style="color: #000000" />
+                            <p:inputText value="#{MonumentManagedBean.monument.latitude}" id="latitude" required="true"/>
+                            <h:outputLabel for="logitude"  value="* Logitude :" style="color: #000000"  />
+                            <p:inputText value="#{MonumentManagedBean.monument.longitude}"  id="logitude" required="true"/>
+                            <h:outputLabel for="dateconstruction"  value="Date Construction :"   style="color: #000000"/>
+                            <p:calendar value="#{MonumentManagedBean.monument.dateconstruction}"   pattern="MM/dd/yyyy HH:mm" id="dateconstruction" showOn="button" />  
+                            <h:outputLabel for="type" value="Type :" style="color: #000000" />
+                            <p:selectOneMenu value="#{MonumentManagedBean.monument.type}" id="type">  
+                                <f:selectItem itemLabel="Historique&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" itemValue="Historique"  />  
+                                <f:selectItem itemLabel="Touristique" itemValue="Touristique" />  
+                                <f:selectItem itemLabel="Culturel" itemValue="Culturel" />  
+                                <f:selectItem itemLabel="Artistique" itemValue="Artistique" /> 
+                                <f:selectItem itemLabel="Religieux" itemValue="Religieux" /> 
+                                <f:selectItem itemLabel="Antique" itemValue="Antique" /> 
+                            </p:selectOneMenu> 
+                            <h:outputLabel for="description"  value="Description:" style="color: #000000" />
+                            <p:inputTextarea rows="6" cols="30" value="#{MonumentManagedBean.monument.description}"  id="description" required="false"/>
+                        </h:panelGrid>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <p:commandButton icon="ui-icon-pencil" ajax="true" value="Modifier" update=":Monument:AjoutTab" actionListener="#{MonumentManagedBean.edition(actionEvent)}" oncomplete="monumentEdit.hide()"/>
+                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="monumentEdit.hide()"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                
+                <h:form id="formSupp">
+
+                    <p:confirmDialog header="Confirmation" 
+                                     message="Êtes-vous sûr(e) de vouloir supprimer  #{MonumentManagedBean.monument.nomM} ?" 
+                                     severity="alert" 
+                                     widgetVar="confirmation" id="suppCentre">
+                        <p:growl id="growl" showDetail="true" sticky="false" />
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4"
+                                     style="margin:0 auto;">
+                            <p:commandButton icon="ui-icon-check" ajax="true" value="Oui" update=":Monument:AjoutTab, growl" actionListener="#{MonumentManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
+                            <p:commandButton value="Non" onclick="confirmation.hide()" icon="ui-icon-close"/>
+                        </h:panelGrid>
+                    </p:confirmDialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>
+

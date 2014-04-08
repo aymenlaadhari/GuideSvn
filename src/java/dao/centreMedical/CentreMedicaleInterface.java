@@ -15,16 +15,9 @@ import model.CentreMedicale;
  */
 public interface CentreMedicaleInterface {
 
-    public void save(CentreMedicale centreMedicale);
-
-    public List<CentreMedicale> list();
-
-    public void remove(CentreMedicale centreMedicale);
-
-    public void update(CentreMedicale centreMedicale);
-
-    public CentreMedicale getCentreMedicale(long id);
-
-    //public CentreMedicale findByCentre(CentreMedicale centreMedicale);
-
+    public void addCentreMedicale(CentreMedicale centreMedicale);
+    public void updateCentreMedicale(CentreMedicale centreMedicale);
+    public void deletCentreMedicale(CentreMedicale centreMedicale);
+    public CentreMedicale getCentreMedicale(int id);
+    public List<CentreMedicale> getListCentreMedicale();
 }

@@ -65,9 +65,10 @@ public class LoginManagedBean implements Serializable{
 			loggedIn = true;
                         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("hey", this.utilisateur.getNom());
 			msg = new FacesMessage("Welcome  "+this.utilisateur.getNom());
-		        path = "/GuideEssai/faces/Acceuil.xhtml";
+		        path = "/GuideEssai/faces/Views/Acceuil.xhtml";
                 } else {
 			loggedIn = false;
+                        
 			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "User or password are incorrect");
                         if(this.utilisateur == null)
                         {
@@ -84,7 +85,7 @@ public class LoginManagedBean implements Serializable{
     
      public void logout()
     {
-        String path ="/GuideEssai/faces/login.xhtml";
+        String path ="/GuideEssai/faces/Views/login.xhtml";
         RequestContext context = RequestContext.getCurrentInstance();
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(false);
@@ -96,7 +97,7 @@ public class LoginManagedBean implements Serializable{
     }
     
    public String indexUtilisateur() {
-        return "ndexUtilisateur";
+        return "IndexUtilisateur";
     }
     
 }

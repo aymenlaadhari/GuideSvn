@@ -29,3 +29,30 @@ a:link:hover, a:visited:hover  {
   font-weight : bold;
   text-decoration : underline;
 }
+h2 {
+    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif; 
+   // border-bottom: 1px solid #AFAFAF; 
+    font-size:  9px;
+    font-weight: bold;
+    margin: 0px;
+    padding: auto;
+    color: #045491;
+    text-align: center;
+    
+}
+
+
+titreGuide {
+    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif; 
+   // border-bottom: 1px solid #AFAFAF; 
+    font-size:  30px;
+    font-weight: bold;
+    margin: 0px;
+    padding: auto;
+    text-align: center;
+    color: white;
+    
+    
+    
+    
+}

@@ -22,56 +22,79 @@ public class PharmacieImpl implements PharmacieInterface{
 
     @Override
     public void save(Pharmacie pharmacie) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.save(pharmacie);
-        t.commit();
+         Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.save(pharmacie);
+            session.getTransaction().commit();
+            session.close();
+            System.out.print("Bien ajouté");
+        } catch (Exception e) {
+            System.out.print("Erreur insertion" + e.getMessage());
+        }
     }
 
     @Override
-    public List<Pharmacie> list() {
+    public List<Pharmacie> getListPharmacie() {
+       List<Pharmacie> listPharmacie = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        List liste = session.createQuery("from Pharmacie").list();
-        t.commit();
-        return liste;
+        try {
+            session.beginTransaction();
+           listPharmacie  = session.createQuery("from Pharmacie ").list();
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return listPharmacie ;
+        }
+        return listPharmacie ;
     }
 
     @Override
     public void remove(Pharmacie pharmacie) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.delete(pharmacie);
-        t.commit();
+        try {
+            session.beginTransaction();
+            session.delete(pharmacie);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("Erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+        }
     }
 
     @Override
     public void update(Pharmacie pharmacie) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.update(pharmacie);
-        t.commit();
-    }
-
-    @Override
-    public Pharmacie getPharmacie(long id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        return (Pharmacie) session.load(Pharmacie.class, id);
-    }
-/*
-    @Override
-    public Pharmacie findByPharmacie(Pharmacie pharmacie) {
-         Pharmacie model = null;
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-
         try {
             session.beginTransaction();
-            model = (Pharmacie) session.createQuery("FROM Pharmacie WHERE pharmacie = '" + pharmacie.getNom_lieu() + "'").uniqueResult();
-            session.beginTransaction().commit();
-        } catch (HibernateException e) {
-            session.beginTransaction().rollback();
+            session.update(pharmacie);
+            session.getTransaction().commit();
+            session.close();
+            System.out.print("Bien modifier");
+        } catch (Exception e) {
+            System.out.print("Erreur Modification" + e.getMessage());
         }
-        return model;
-    }*/
+    }
+
+    @Override
+    public Pharmacie getPharmacie(int id) {
+        Pharmacie pharmacie   = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            pharmacie= (Pharmacie) session.get(Pharmacie.class, id);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return pharmacie;
+        }
+        return pharmacie;
+    }
+
     
 }

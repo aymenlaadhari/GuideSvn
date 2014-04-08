@@ -15,14 +15,9 @@ import model.Evenement;
 public interface EvenementInterface {
 
     public void save(Evenement evenement);
-
-    public List<Evenement> list();
-
     public void remove(Evenement evenement);
-
     public void update(Evenement evenement);
-
-    public Evenement getEvenement(int idEvenement);
-
+    public Evenement getEvenement(int idEvent);
+    public List<Evenement> getListEvenement();
     
 }

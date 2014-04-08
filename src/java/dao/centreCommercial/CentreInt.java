@@ -16,10 +16,10 @@ import model.CentreCommercial;
 public interface CentreInt {
 
     public void addCentreCommercial(CentreCommercial centreCommercial);
-     public void updateCentreCommercial(CentreCommercial centreCommercial);
-     public void deletCentreCommercial(CentreCommercial centreCommercial);
-       public CentreCommercial getCentreCommercial(int id);
-         public List<CentreCommercial> getListCentreCommercial();
+    public void updateCentreCommercial(CentreCommercial centreCommercial);
+    public void deletCentreCommercial(CentreCommercial centreCommercial);
+    public CentreCommercial getCentreCommercial(int id);
+    public List<CentreCommercial> getListCentreCommercial();
          
 
 }

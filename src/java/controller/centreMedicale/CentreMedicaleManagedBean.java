@@ -8,6 +8,8 @@ package controller.centreMedicale;
 import dao.centreMedical.CentreMedicalImpl;
 import dao.centreMedical.CentreMedicaleInterface;
 import java.io.Serializable;
+
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -24,15 +26,17 @@ import model.CentreMedicale;
  *
  * @author hp
  */
-@ManagedBean
+@ManagedBean(name = "centreMedicaleManagedBean")
 @SessionScoped
-public class CentreMedicaleManagedBean implements Serializable{
+public class CentreMedicaleManagedBean  implements Serializable{
 
-    private CentreMedicale centreMedicale;
-    private List<CentreMedicale> centreMedicales;
-    CentreMedicaleInterface centreMedicaleInterface;
+    CentreMedicaleInterface medicaleInterface ;
+    private CentreMedicale centreMedicale ;
+    private List<CentreMedicale> listCentreMedicale;
 
-    public CentreMedicale getCentreMedicale() {
+    //get+set
+   
+ public CentreMedicale getCentreMedicale() {
         return centreMedicale;
     }
 
@@ -40,74 +44,72 @@ public class CentreMedicaleManagedBean implements Serializable{
         this.centreMedicale = centreMedicale;
     }
 
-    public List<CentreMedicale> getCentreMedicales() {
-         centreMedicaleInterface = new CentreMedicalImpl();
-        this.centreMedicales = centreMedicaleInterface.list();
-        return centreMedicales;
+    public List<CentreMedicale> getListCentreMedicale() {
+       medicaleInterface= new CentreMedicalImpl();
+        listCentreMedicale = medicaleInterface.getListCentreMedicale();
+        return listCentreMedicale;
     }
 
-    public void setCentreMedicales(List<CentreMedicale> centreMedicales) {
-        this.centreMedicales = centreMedicales;
+    public void setListCentreMedicale(List<CentreMedicale> listCentreMedicale) {
+        this.listCentreMedicale = listCentreMedicale;
     }
-
    
-
-
-public void ajoutEvent(ActionEvent actionEvent) {
+    //Methodes
+    public void ajoutEvent(ActionEvent actionEvent) {
         centreMedicale = new CentreMedicale();
 
     }
 
     public void deletMessage(ActionEvent actionEvent) {
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Centre Commerciale supprimé"));
+        context.addMessage(null, new FacesMessage("Centre Medicale supprimé"));
     }
 
     public void editEvent(int id) {
         System.out.print(id);
-        centreMedicaleInterface = new CentreMedicalImpl();
-        centreMedicale = centreMedicaleInterface.getCentreMedicale(id);
+        medicaleInterface = new CentreMedicalImpl();
+        centreMedicale = medicaleInterface.getCentreMedicale(id);
 
     }
+    public void suppEvent(int id) {
+        System.out.print(id);
+        medicaleInterface = new CentreMedicalImpl();
+        centreMedicale = medicaleInterface.getCentreMedicale(id);
+    }
+    
 
     public void edition(ActionEvent actionEvent) {
-        centreMedicaleInterface = new CentreMedicalImpl();
-        centreMedicaleInterface.update(centreMedicale);
+       medicaleInterface = new CentreMedicalImpl();
+        medicaleInterface.updateCentreMedicale(centreMedicale);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Centre Medicale mis à jour"));
+        context.addMessage(null, new FacesMessage("Centre Medicale mise à jour"));
     }
 
-    public void ajoutcc(ActionEvent actionEvent) {
-        centreMedicaleInterface = new CentreMedicalImpl();
-        centreMedicaleInterface.save(centreMedicale);
+    public void ajoutcm(ActionEvent actionEvent) {
+        medicaleInterface = new CentreMedicalImpl();
+        medicaleInterface.addCentreMedicale(centreMedicale);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Centre Commerciale ajouté"));
+        context.addMessage(null, new FacesMessage("Centre Medicale ajouté"));
         centreMedicale = new CentreMedicale();
     }
 
-    public void delet(CentreMedicale centreMedicale) {
-        centreMedicaleInterface = new CentreMedicalImpl();
-        centreMedicaleInterface.remove(centreMedicale);
+    public void delet(ActionEvent actionEvent) {
+        medicaleInterface = new CentreMedicalImpl();
+        medicaleInterface.deletCentreMedicale(centreMedicale);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Centre CentreMedicale supprimé"));
+        context.addMessage(null, new FacesMessage("Centre Medicale supprimé"));
 
     }
-    
-    public void refresh()
-    {
-        this.centreMedicales = centreMedicaleInterface.list();
-    }
-    /**
+ /**
      * Creates a new instance of CentremedicaleManagedBean
      */
     public CentreMedicaleManagedBean() {
-        
-        this.centreMedicales = new ArrayList<>();
+        this.listCentreMedicale = new ArrayList<>();
 
-        if (this.centreMedicale == null) {
+        if (this.centreMedicale== null) {
             this.centreMedicale = new CentreMedicale();
         }
 
     }
-
 }
+

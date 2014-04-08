@@ -25,9 +25,9 @@ public class CentreCommercialImp implements CentreInt {
             session.save(centreCommercial);
             session.getTransaction().commit();
             session.close();
-            System.out.print("bien ajouté");
+            System.out.print("Bien ajouté");
         } catch (Exception e) {
-            System.out.print("erreur insertion" + e.getMessage());
+            System.out.print("Erreur insertion" + e.getMessage());
         }
     }
     @Override
@@ -39,9 +39,9 @@ public class CentreCommercialImp implements CentreInt {
             session.update(centreCommercial);
             session.getTransaction().commit();
             session.close();
-            System.out.print("bien ajouté");
+            System.out.print("Bien modifier");
         } catch (Exception e) {
-            System.out.print("erreur insertion" + e.getMessage());
+            System.out.print("Erreur Modification" + e.getMessage());
         }
     }
      @Override
@@ -52,8 +52,10 @@ public class CentreCommercialImp implements CentreInt {
             session.delete(centreCommercial);
             session.getTransaction().commit();
             session.close();
+        
+        System.out.print("Bien supprimé");
         } catch (Exception e) {
-            System.out.print("erreur suppression" + e.getMessage());
+            System.out.print("Erreur Suppression" + e.getMessage());
             session.beginTransaction().rollback();
         }
     }

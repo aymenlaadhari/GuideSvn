@@ -8,8 +8,6 @@ package controller.images;
 
 import dao.images.ImageImpl;
 import dao.images.ImageInterface;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -17,8 +15,6 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import model.Image;
-import org.apache.commons.io.IOUtils;
-import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -28,8 +24,7 @@ import org.primefaces.model.UploadedFile;
 @RequestScoped
 public class ImageManagedBean implements Serializable{
 private Image image;
-private DataModel listImage;
-  private UploadedFile file;
+    private DataModel listImage;
 
     public Image getImage() {
         return image;
@@ -37,14 +32,6 @@ private DataModel listImage;
 
     public void setImage(Image image) {
         this.image = image;
-    }
-
-    public UploadedFile getFile() {
-        return file;
-    }
-
-    public void setFile(UploadedFile file) {
-        this.file = file;
     }
 
    
@@ -75,12 +62,9 @@ private DataModel listImage;
         return "indexImage";
     }
 
-    public String ajouter() throws IOException {
-       InputStream fin2 = file.getInputstream();
-        image.setData(IOUtils.toByteArray(fin2));
+    public String ajouter() {
         ImageInterface cmi = new ImageImpl();
         cmi.save(image);
-        System.out.println("Inserting Successfully!");
         return "indexImage";
     }
 

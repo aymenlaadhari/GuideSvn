@@ -5,98 +5,123 @@
  */
 package controller.restaurant;
 
+
 import dao.restaurant.RestaurantImpl;
 import dao.restaurant.RestaurantInterface;
+import dao.specialite.SpecialiteInterface;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+
+
+
 import model.Restaurant;
+import model.Specialite;
 
 /**
  *
  * @author hp
  */
-@ManagedBean
-@RequestScoped
-public class RestaurantManagedBean implements Serializable {
-
+@ManagedBean(name = "RestaurantManagedBean")
+@SessionScoped
+public class RestaurantManagedBean implements Serializable{
+    
+ RestaurantInterface restaurantInterface;
+ SpecialiteInterface specialiteInterface;
     private Restaurant restaurant;
-    private List<Restaurant> restaurants;
-     RestaurantInterface restaurantInterface;
+    private Specialite specialite;
+       private List<Restaurant> listRestaurant;
 
+//get+set
     public Restaurant getRestaurant() {
         return restaurant;
     }
 
-    public void setRestaurant(Restaurant selectedRestaurant) {
-        this.restaurant = selectedRestaurant;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+     public Specialite getSpecialite() {
+        return specialite;
     }
 
-    public List<Restaurant> getRestaurants() {
+    public void setSpecialite(Specialite specialite) {
+        this.specialite = specialite;
+    }
+
+    public List<Restaurant> getListRestaurant() {
+         restaurantInterface= new RestaurantImpl();
+        listRestaurant = restaurantInterface.getlistResto();
+        return listRestaurant;
+    }
+
+    public void setListRestaurant(List<Restaurant> listRestaurant) {
+        this.listRestaurant = listRestaurant;
+    }
+   
+
+    //Methodes
+    public void ajoutEvent(ActionEvent actionEvent) {
+        restaurant= new Restaurant();
+
+    }
+    
+
+    public void editEvent(int id) {
+        System.out.print(id);
         restaurantInterface = new RestaurantImpl();
-        this.restaurants = restaurantInterface.list();
-        return restaurants;
-    }
-
-    public void setRestaurants(List<Restaurant> restaurants) {
-        this.restaurants = restaurants;
-    }
-
-     public void ajoutEvent(ActionEvent actionEvent) {
-        restaurant = new Restaurant();
+        restaurant = restaurantInterface.getRestaurant(id);
 
     }
+public void suppEvent(int id) {
+        System.out.print(id);
+        restaurantInterface = new RestaurantImpl();
+        restaurant = restaurantInterface.getRestaurant(id);
 
+    }
     public void deletMessage(ActionEvent actionEvent) {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Restaurant supprimé"));
-    }
-
-    public void editEvent(long id) {
-        System.out.print(id);
-        restaurantInterface = new RestaurantImpl();
-        restaurant = restaurantInterface.getCentre(id);
-
     }
 
     public void edition(ActionEvent actionEvent) {
         restaurantInterface = new RestaurantImpl();
         restaurantInterface.update(restaurant);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(" Restaurant mise à jour"));
+        context.addMessage(null, new FacesMessage("Restaurant mise à jour"));
     }
 
-    public void ajoutcc(ActionEvent actionEvent) {
+    public void ajoutr(ActionEvent actionEvent) {
         restaurantInterface = new RestaurantImpl();
         restaurantInterface.save(restaurant);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Restaurant Evenement ajouté"));
+        context.addMessage(null, new FacesMessage("Restaurant ajouté"));
         restaurant = new Restaurant();
     }
 
-    public void delet(Restaurant restaurant) {
+    public void delet(ActionEvent actionEvent) {
         restaurantInterface = new RestaurantImpl();
-        restaurantInterface.remove(restaurant);
+          restaurantInterface.remove(restaurant);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(" Restaurant supprimé"));
+        context.addMessage(null, new FacesMessage("Restaurant supprimé"));
 
     }
 
-    
-    public RestaurantManagedBean() {
 
-        this.restaurants = new ArrayList<>();
+    /**
+     * Creates a new instance of CentremedicaleManagedBean
+     */
+    public RestaurantManagedBean() {
+        this.listRestaurant = new ArrayList<>();
 
         if (this.restaurant == null) {
             this.restaurant = new Restaurant();
-        }
 
     }
-
+    }
 }

@@ -9,15 +9,12 @@ package controller.garde;
 
 import dao.garde.GardeImpl;
 import dao.garde.GardeInterface;
-import java.awt.event.ActionEvent;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-
+import javax.faces.bean.RequestScoped;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 
 
 import model.Garde;
@@ -27,12 +24,11 @@ import model.Garde;
  * @author hp
  */
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class GardeManagedBean implements Serializable {
 
     private Garde garde;
-    private List<Garde> listGarde;
-    GardeInterface gardeInterface;
+    private DataModel listGarde;
 
     public Garde getGarde() {
         return garde;
@@ -44,58 +40,46 @@ public class GardeManagedBean implements Serializable {
 
    
 
-    public List getListGarde() {
-        gardeInterface = new GardeImpl();
-        this.listGarde = gardeInterface.list();
+    public DataModel getListGarde() {
+        List<Garde> list = new GardeImpl().list();
+        listGarde = new ListDataModel(list);
+
         return listGarde;
     }
 
-     public void ajoutEvent(ActionEvent actionEvent) {
+    public String preparerAjout() {
         garde = new Garde();
-
+        return "gestionGarde";
     }
 
-    public void deletMessage(ActionEvent actionEvent) {
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Garde supprimé"));
+    public String preparerModifier() {
+        garde = (Garde) (listGarde.getRowData());
+        return "gestionGarde";
     }
 
-    public void editEvent(int id) {
-        System.out.print(id);
-        gardeInterface = new GardeImpl();
-        garde = gardeInterface.getGarde(id);
-
+    public String supprimer() {
+        Garde gardeTemp = (Garde) (listGarde.getRowData());
+        GardeInterface cmi = new GardeImpl();
+        cmi.remove(gardeTemp);
+        return "indexGarde";
     }
 
-    public void edition(ActionEvent actionEvent) {
-        gardeInterface = new GardeImpl();
-        gardeInterface.update(garde);
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(" Garde mise à jour"));
+    public String ajouter() {
+        GardeInterface cmi = new GardeImpl();
+        cmi.save(garde);
+        return "indexGarde";
     }
 
-    public void ajoutcc(ActionEvent actionEvent) {
-        gardeInterface = new GardeImpl();
-        gardeInterface.save(garde);
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Centre Evenement ajouté"));
-        garde = new Garde();
-    }
-
-    public void delet(Garde garde) {
-        gardeInterface = new GardeImpl();
-        gardeInterface.remove(garde);
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(" Garde supprimé"));
-
+    public String modifier() {
+        GardeInterface cmi = new GardeImpl();
+        cmi.update(garde);
+        return "indexGarde";
     }
 
     /**
      * Creates a new instance of CentremedicaleManagedBean
      */
     public GardeManagedBean() {
-        
-        this.listGarde = new ArrayList<>();
 
         if (this.garde == null) {
             this.garde = new Garde();

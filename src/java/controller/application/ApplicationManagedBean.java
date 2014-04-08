@@ -11,117 +11,92 @@ import javax.faces.bean.ManagedBean;
 
 
 
+
 /**
  *
  * @author hp
  */
 @ManagedBean
+
 public class ApplicationManagedBean implements Serializable {
 
-    public String gestionCommercial() {
-        return "gestion";
-    }
+   
 
     public String indexCommercial() {
-        return "index";
+        return "/faces/Views/index.xhtml";
     }
 
     public String indexMedical() {
-        return "indexCentreMedicale";
+        return "/faces/Views/indexCentreMedicale.xhtml";
     }
 
-    public String gestionGarde() {
-        return "gestionGarde";
-    }
-
+    
     public String indexgarde() {
-        return "indexGarde";
+        return "/faces/Views/indexGarde.xhtml";
     }
 
-    public String gestionPay() {
-        return "gestionPay";
-    }
+    
 
     public String indexPay() {
-        return "indexPay";
+        return "/faces/Views/indexPay.xhtml";
     }
 
-    public String gestionPharmacie() {
-        return "gestionPharmacie";
-    }
-
+    
     public String indexPharmacie() {
-        return "indexPharmacie";
+        return "/faces/Views/indexPharmacie.xhtml";
     }
 
-    public String gestionRestaurant() {
-        return "gestionRestaurant";
-    }
+    
 
     public String indexRestaurant() {
-        return "indexRestaurant";
+        return "/faces/Views/indexRestaurant.xhtml";
     }
 
-    public String gestionSpecialite() {
-        return "gestionSpecialite";
-    }
+   
 
     public String indexSpecialite() {
-        return "indexSpecialite";
+        return "/faces/Views/indexSpecialite.xhtml";
     }
 
-    public String gestionVille() {
-        return "gestionVille";
-    }
+    
 
     public String indexVille() {
-        return "indexVille";
+        return "/faces/Views/indexVille.xhtml";
     }
 
     
     public String logout() {
-        return "login";
+        return "/faces/Views/login";
     }
 
     public String indexImage() {
-        return "indexImage";
+        return "/faces/Views/indexImage.xhtml";
     }
 
-    public String gestionImage() {
-        return "gestionImage";
-    }
+    
 
     public String indexUtilisateur() {
-        return "indexUtilisateur";
+        return "/faces/Views/indexUtilisateur.xhtml";
     }
 
-    public String gestionUtilisateur() {
-        return "gestionUtilisateur";
-    }
+    
+    
     
      public String indexEvenement() {
-        return "indexEvenement";
+        return "/faces/Views/indexEvenement.xhtml";
     }
 
-    public String gestionEvenement() {
-        return "gestionEvenement";
-    }
+    
     
       public String indexHotel() {
-        return "indexHotel";
+        return "/faces/Views/indexHotel.xhtml";
     }
 
-    public String gestionHotel() {
-        return "gestionHotel";
-    }
     
         public String indexMonument() {
-        return "indexMonument";
+        return "/faces/Views/indexMonument.xhtml";
     }
 
-    public String gestionMonument() {
-        return "gestionMonument";
-    }
 
     public ApplicationManagedBean() {
 

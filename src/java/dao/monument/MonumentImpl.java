@@ -5,12 +5,9 @@
  */
 
 package dao.monument;
-
-
 import java.util.List;
 import model.Monument;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import util.HibernateUtil;
 
 
@@ -23,51 +20,81 @@ public class MonumentImpl implements MonumentInterface
 {
 
     @Override
-    public void save(Monument monument) 
+    public void addMonument(Monument monument) 
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.save(monument);
-        t.commit();
-     }
+        try {
+            session.beginTransaction();
+            session.save(monument);
+            session.getTransaction().commit();
+            session.close();
+            System.out.print("Bien ajouté");
+        } catch (Exception e) {
+            System.out.print("Erreur insertion" + e.getMessage());
+        }
+        }
 
     @Override
-    public List<Monument> list() 
-    {
+    public void updateMonument(Monument monument) {
+       Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.update(monument);
+            session.getTransaction().commit();
+            session.close();
+            System.out.print("Bien modifier");
+        } catch (Exception e) {
+            System.out.print("Erreur Modification" + e.getMessage());
+        }}
+
+    @Override
+    public void deletMonument(Monument monument) {
+       Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.delete(monument);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("Erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+        } }
+
+    @Override
+    public Monument getMonument(int id) {
+        Monument monument  = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
-       Transaction transaction = session.beginTransaction();
-       List listeMonument = session.createQuery("from Monument").list();
-       transaction.commit();
-       return listeMonument;
-     
-          }
+        try {
+            session.beginTransaction();
+            monument= (Monument) session.get(Monument.class, id);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("Erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return monument;
+        }
+        return monument;
+    }
 
     @Override
-    public void remove(Monument monument) 
-    {
-        
+    public List<Monument> getListMonument() {
+    
+        List<Monument> listMonument = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.delete(monument);
-        t.commit();
-         }
-
-    @Override
-    public void update(Monument monument) 
-    {
-         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.update(monument);
-      t.commit();
-         }
-
-    @Override
-    public Monument getMonument(long idMonument) 
-    {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        return (Monument) session.load(Monument.class, idMonument);
-       
-         }
-
-
+        try {
+            session.beginTransaction();
+           listMonument = session.createQuery("from Monument").list();
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("Erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return  listMonument;
+        }
+        return listMonument;
+    }
 }
+
+   
+

@@ -19,58 +19,84 @@ import util.HibernateUtil;
  */
 public class CentreMedicalImpl implements CentreMedicaleInterface {
 
-    @Override
-    public void save(CentreMedicale centreMedicale) {
+    
+    
+@Override
+    public void addCentreMedicale(CentreMedicale centreMedicale) 
+    {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.save(centreMedicale);
-        t.commit();
-    }
-
-    @Override
-    public List<CentreMedicale> list() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        List liste = session.createQuery("from CentreMedicale").list();
-        t.commit();
-        return liste;
-    }
-
-    @Override
-    public void remove(CentreMedicale centreMedicale) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.delete(centreMedicale);
-        t.commit();
-    }
-
-    @Override
-    public void update(CentreMedicale centreMedicale) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.update(centreMedicale);
-        t.commit();
-    }
-
-    @Override
-    public CentreMedicale getCentreMedicale(long id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        return (CentreMedicale) session.load(CentreMedicale.class, id);
-    }
-/*
-    @Override
-    public CentreMedicale findByCentre(CentreMedicale centreMedicale) {
-        CentreMedicale model = null;
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-
         try {
             session.beginTransaction();
-            model = (CentreMedicale) session.createQuery("FROM CentreMedicale WHERE evenement = '" + centreMedicale.getNom_lieu() + "'").uniqueResult();
-            session.beginTransaction().commit();
-        } catch (HibernateException e) {
+            session.save(centreMedicale);
+            session.getTransaction().commit();
+            session.close();
+            System.out.print("Bien ajouté");
+        } catch (Exception e) {
+            System.out.print("Erreur insertion" + e.getMessage());
+        }
+         }
+    @Override
+   public void updateCentreMedicale(CentreMedicale centreMedicale) {
+    
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.update(centreMedicale);
+            session.getTransaction().commit();
+            session.close();
+            System.out.print("Bien modifier");
+        } catch (Exception e) {
+            System.out.print("Erreur modification" + e.getMessage());
+        }
+    }
+    
+   
+    @Override
+    public void deletCentreMedicale(CentreMedicale centreMedicale) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.delete(centreMedicale);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("Erreur Suppression" + e.getMessage());
             session.beginTransaction().rollback();
         }
-        return model;
     }
-*/
+
+    @Override
+    public CentreMedicale getCentreMedicale(int id) {
+        CentreMedicale centreMedicale = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+           centreMedicale= (CentreMedicale) session.get(CentreMedicale.class, id);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return centreMedicale;
+        }
+        return centreMedicale;
+    }
+    
+
+    @Override
+    public List<CentreMedicale> getListCentreMedicale() {
+        List<CentreMedicale> listCentreMedicale = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+           listCentreMedicale = session.createQuery("from CentreMedicale").list();
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("Erreur Suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return listCentreMedicale;
+        }
+        return listCentreMedicale;
+    }
 }
