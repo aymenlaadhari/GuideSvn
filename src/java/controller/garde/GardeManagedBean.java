@@ -76,7 +76,7 @@ public class GardeManagedBean implements Serializable {
         context.addMessage(null, new FacesMessage("Garde mise à jour"));
     }
 
-    public void ajoutcc(ActionEvent actionEvent) {
+    public void ajoutgarde(ActionEvent actionEvent) {
         gardeInterface = new GardeImpl();
         gardeInterface.save(garde);
         FacesContext context = FacesContext.getCurrentInstance();

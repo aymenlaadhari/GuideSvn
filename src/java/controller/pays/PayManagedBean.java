@@ -80,7 +80,7 @@ public void suppEvent(int id) {
         context.addMessage(null, new FacesMessage("Pay mise à jour"));
     }
 
-    public void ajoutcc(ActionEvent actionEvent) {
+    public void ajoutpays(ActionEvent actionEvent) {
         paysInterface = new PaysImpl();
        paysInterface.save(pay);
         FacesContext context = FacesContext.getCurrentInstance();

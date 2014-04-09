@@ -82,7 +82,7 @@ public void suppEvent(int id) {
         context.addMessage(null, new FacesMessage("Ville mise à jour"));
     }
 
-    public void ajoutcc(ActionEvent actionEvent) {
+    public void ajoutville(ActionEvent actionEvent) {
         villeInterface = new VilleImpl();
         villeInterface.save(ville);
         FacesContext context = FacesContext.getCurrentInstance();

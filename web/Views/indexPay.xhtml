@@ -9,17 +9,13 @@
 
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
+   <h:head>
         <title>Gestion Pays</title>
     </h:head>
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-               <img src="../resources/images/csv.png" width="32" height="32" alt="csv"/>
-                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="../resources/images/csv.png" width="32" height="32" alt="csv"/>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -36,51 +32,133 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
-                Gestion Pays
+
+                <titreGuide>
+                    Gestion Pays
+
+                </titreGuide>
+
             </ui:define>
 
             <ui:define name="content">
-               
-                <h:form class="left_content">
-                    <p:commandButton value="Nouveau Pays" action="#{payManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
+
+                <h:form class="left_content" id="AjoutPays" >
+                    <p:commandButton  value="Ajout Pays" actionListener="#{PayManagedBean.ajoutEvent(actionEvent)}" update=":edit:editPays" oncomplete="PaysAjout.show()" ajax="true" icon="ui-icon-plusthick"/>
 
                 </h:form>
-                <br/>
-
-                <h1>Liste des Pays</h1>
-                <br/>
-
-                <p:dataTable paginator="true" rows="5"   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                 rowsPerPageTemplate="5,10,15" var="pays" value="#{payManagedBean.listPay}">
-                    <p:column>
+                <h1>Liste Pays</h1> 
+                <br/> 
+                <h:form id="Pays">
+                    <p:growl id="growl" showDetail="true" sticky="false"  />
+                    <p:dataTable   paginator="true" rows="5"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                   rowsPerPageTemplate="5,10,15,20,25"  
+                                   var="Pays" value="#{PayManagedBean.listPay}"
+                                   id="AjoutTab"
+                                   emptyMessage="Pay non trouvé" widgetVar="PaysTable">
                         <f:facet name="header">
-                            <h:outputText value="Identifiant"/>
+                            <p:outputPanel>
+                                <h:outputText  value="Recherche : " />
+                                <p:inputText id="globalFilter"  onkeyup="PaysTable.filter()" style="width:250px" />
+                            </p:outputPanel>
                         </f:facet>
-                        <h:outputText value="#{pays.id}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Nom"/>
-                        </f:facet>
-                        <h:outputText value="#{pays.nom}"/>
-                    </p:column>
+
+
+                        <p:column id="Id" headerText="Identifiant" filterBy="#{Pays.id}" filterMatchMode="exact" footerText=" Identifiant exacte">
+                            <h:outputText value="#{Pays.id}" />
+                        </p:column>
+
+                        <p:column id="Nom" headerText="Nom" filterBy="#{Pays.nom}" filterMatchMode="exact" footerText=" Nom exacte">
+
+                            <h:outputText value="#{Pays.nom}" />
+                        </p:column>
+                        
+
+                       
+                        <p:column style="width:4%">
+                            <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editPays"  oncomplete="PaysEdit.show();" actionListener="#{PayManagedBean.editEvent(Pays.id)}" ajax="true" icon="ui-icon-pencil"/>
+
+                            <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppPays"  oncomplete="confirmation.show();" actionListener="#{PayManagedBean.suppEvent(Pays.id)}" ajax="true" icon="ui-icon-trash"/>
+
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
 
 
 
+                <h:form id="edit">
 
-                    <p:column style="width:4%">
+                    <p:dialog  header="Pays" widgetVar="PaysAjout" resizable="true" id="editPays" modal="true">
 
-                        <h:form>
-                            <p:commandButton action="#{payManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
-                            <p:commandButton action="#{payManagedBean.supprimer()}"  ajax="false" icon="ui-icon-trash"/>
+                        <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
 
-                        </h:form>
-                    </p:column>
+                            <f:facet name="header">
+                                <h1>
+                                    <h:outputLabel value="Ajout Pays" />
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
 
-                </p:dataTable>
-               
+                            <h:outputLabel for="nom" value="* Nom :" style="color: #000000"  />
+                            <p:inputText value="#{PayManagedBean.pay.nom}"  id="nom" required="true"/>
+                            
+                            
+                        </h:panelGrid>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+                            <p:commandButton icon="ui-icon-plusthick" ajax="true" value="Ajouter" update=":Pays:AjoutTab, growl" actionListener="#{PayManagedBean.ajoutpays(actionEvent)}" oncomplete="PaysAjout.hide()"  />
+                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="PaysAjout.hide()"  />
+
+                        </h:panelGrid>
+
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="Actualise">
+                    <p:dialog header="Pays" widgetVar="PaysEdit" resizable="true" id="editPays" modal="true">
+                        <p:growl id="growl" showDetail="true" sticky="false" />
+                        <h:panelGrid id="displaye" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h1>
+                                    <h:outputLabel value="Modifier Pays"/>
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
+                          
+                           <h:outputLabel for="nom" value="* Nom :" style="color: #000000"  />
+                            <p:inputText value="#{PayManagedBean.pay.nom}"  id="nom" required="true"/>
+                            
+                        </h:panelGrid>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <p:commandButton icon="ui-icon-pencil" ajax="true" value="Modifier" update=":Pays:AjoutTab, growl" actionListener="#{PayManagedBean.edition(actionEvent)}" oncomplete="PaysEdit.hide()"/>
+                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="PaysEdit.hide()"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="formSupp">
+
+                    <p:confirmDialog header="Confirmation" 
+                                     message="Êtes-vous sûr(e) de vouloir supprimer  #{PayManagedBean.pay.nom} ?" 
+                                     severity="alert" 
+                                     widgetVar="confirmation" id="suppPays">
+                        <p:growl id="growl" showDetail="true" sticky="false" />
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4"
+                                     style="margin:0 auto;">
+                            <p:commandButton icon="ui-icon-check" ajax="true" value="Oui" update=":Pays:AjoutTab, growl" actionListener="#{PayManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
+                            <p:commandButton value="Non" onclick="confirmation.hide()" icon="ui-icon-close"/>
+                        </h:panelGrid>
+                    </p:confirmDialog>
+                </h:form>
+
             </ui:define>
         </ui:composition>
+
 
     </h:body>
 </html>

@@ -14,8 +14,7 @@
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-               <img src="../resources/images/csv.png" width="32" height="32" alt="csv"/>
-                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="../resources/images/csv.png" width="32" height="32" alt="csv"/>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -30,62 +29,137 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;
 
 
-                Gestion Garde
+
+                <titreGuide>
+                    Gestion Garde
+
+                </titreGuide>
+
             </ui:define>
 
             <ui:define name="content">
-                <h:form class="left_content">
-                    <p:commandButton value="Ajouter Garde" action="#{gardeManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
+
+                <h:form class="left_content" id="AjoutG" >
+                    <p:commandButton  value="Nouveau Garde" actionListener="#{GardeManagedBean.ajoutEvent(actionEvent)}" update=":edit:editG" oncomplete="GardeAjout.show()" ajax="true" icon="ui-icon-plusthick"/>
+
+                </h:form>
+                <h1>Liste Gardes</h1> 
+                <br/> 
+                <h:form id="Garde">
+                    <p:growl id="growl" showDetail="true" sticky="false"  />
+                    <p:dataTable   paginator="true" rows="5"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                   rowsPerPageTemplate="5,10,15,20,25"  
+                                   var="Garde" value="#{GardeManagedBean.listGarde}"
+                                   id="AjoutTab"
+                                   emptyMessage="Garde non trouvé" widgetVar="GardeTable">
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText  value="Recherche : " />
+                                <p:inputText id="globalFilter"  onkeyup="GardeTable.filter()" style="width:250px" />
+                            </p:outputPanel>
+                        </f:facet>
+
+
+                        <p:column id="Id" headerText="Identifiant" filterBy="#{Garde.id}" filterMatchMode="exact" footerText=" Identifiant exacte">
+                            <h:outputText value="#{Garde.id}" />
+                        </p:column>
+                        <p:column id="debut" headerText="Debut Garde" filterBy="#{Garde.debut}" filterMatchMode="exact" footerText=" Identifiant exacte">
+                            <h:outputText value="#{Garde.debut}" />
+                        </p:column>
+                        <p:column id="fin" headerText="Fin Garde" filterBy="#{Garde.fin}" filterMatchMode="exact" footerText=" Identifiant exacte">
+                            <h:outputText value="#{Garde.fin}" />
+                        </p:column>
+
+                        <p:column style="width:4%">
+                            <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editG"  oncomplete="GardeEdit.show();" actionListener="#{GardeManagedBean.editEvent(Garde.id)}" ajax="true" icon="ui-icon-pencil"/>
+
+                            <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppGarde"  oncomplete="confirmation.show();" actionListener="#{GardeManagedBean.suppEvent(Garde.id)}" ajax="true" icon="ui-icon-trash"/>
+
+                        </p:column>
+
+                    </p:dataTable>
+
                 </h:form>
 
 
-                <br/>
-                <h1>Liste des gardes</h1>
-                <br/>
 
-                <p:dataTable paginator="true" rows="5"   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                 rowsPerPageTemplate="5,10,15" var="garde" value="#{gardeManagedBean.listGarde}">
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Identifiant"/>
-                        </f:facet>
-                        <h:outputText value="#{garde.id}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Date Debut"/>
-                        </f:facet>
-                        <h:outputText value="#{garde.debut}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Date Fin"/>
-                        </f:facet>
-                        <h:outputText value="#{garde.fin}"/>
-                    </p:column>
+                <h:form id="edit">
 
+                    <p:dialog  header="Garde" widgetVar="GardeAjout" resizable="true" id="editG" modal="true">
 
+                        <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
 
-                    <p:column style="width:4%">
+                            <f:facet name="header">
+                                <h1>
+                                    <h:outputLabel value="Ajout Garde" />
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
 
-                        <h:form>
-                            <p:commandButton action="#{gardeManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
-                            <p:commandButton action="#{gardeManagedBean.supprimer()}"  ajax="false" icon="ui-icon-trash"/>
+                            <h:outputLabel for="debut"  value="* Debut Garde :" style="color: #000000"  />
+                            <p:calendar value="#{GardeManagedBean.garde.debut}" required="false"  pattern="MM/dd/yyyy HH:mm" id="debut" showOn="button" />  
+                            <h:outputLabel for="fin"  value="* Fin Garde :" style="color: #000000"  />
+                            <p:calendar value="#{GardeManagedBean.garde.fin}" required="false"  pattern="MM/dd/yyyy HH:mm" id="fin" showOn="button" />  
 
-                        </h:form>
-                    </p:column>
+                        </h:panelGrid>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+                            <p:commandButton icon="ui-icon-plusthick" ajax="true" value="Ajouter" update=":Garde:AjoutTab, growl" actionListener="#{GardeManagedBean.ajoutgarde(actionEvent)}" oncomplete="GardeAjout.hide()"  />
+                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="GardeAjout.hide()"  />
 
-                </p:dataTable>
-              
+                        </h:panelGrid>
+
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="Actualise">
+                    <p:dialog header="Garde" widgetVar="GardeEdit" resizable="true" id="editG" modal="true">
+                        <p:growl id="growl" showDetail="true" sticky="false" />
+                        <h:panelGrid id="displaye" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h1>
+                                    <h:outputLabel value="Modifier Garde"/>
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
+
+                            <h:outputLabel for="debut"  value="* Debut Garde :" style="color: #000000"  />
+                            <p:calendar value="#{GardeManagedBean.garde.debut}" required="false"  pattern="MM/dd/yyyy HH:mm" id="debut" showOn="button" />  
+                            <h:outputLabel for="fin"  value="* Fin Garde :" style="color: #000000"  />
+                            <p:calendar value="#{GardeManagedBean.garde.fin}" required="false"  pattern="MM/dd/yyyy HH:mm" id="fin" showOn="button" />  
+
+                        </h:panelGrid>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+                            <p:commandButton icon="ui-icon-pencil" ajax="true" value="Modifier" update=":Garde:AjoutTab, growl" actionListener="#{GardeManagedBean.edition(actionEvent)}" oncomplete="GardeEdit.hide()"  />
+                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="GardeEdit.hide()"  />
+
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="formSupp">
+
+                    <p:confirmDialog header="Confirmation" 
+                                     message="Êtes-vous sûr(e) de vouloir supprimer  #{GardeManagedBean.garde.id} ?" 
+                                     severity="alert" 
+                                     widgetVar="confirmation" id="suppGarde">
+                        <p:growl id="growl" showDetail="true" sticky="false" />
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4"
+                                     style="margin:0 auto;">
+                            <p:commandButton icon="ui-icon-check" ajax="true" value="Oui" update=":Garde:AjoutTab, growl" actionListener="#{GardeManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
+                            <p:commandButton value="Non" onclick="confirmation.hide()" icon="ui-icon-close"/>
+                        </h:panelGrid>
+                    </p:confirmDialog>
+                </h:form>
+
             </ui:define>
         </ui:composition>
+
 
     </h:body>
 </html>

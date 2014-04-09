@@ -6,80 +6,160 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"    
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <h:head>
+   <h:head>
         <title>Gestion Specialite</title>
     </h:head>
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
                 <img src="../resources/images/csv.png" width="32" height="32" alt="csv"/>
-                                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                
-                                
-                        Gestion Specialite
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+                <titreGuide>
+                    Gestion Specialite
+
+                </titreGuide>
+
             </ui:define>
 
             <ui:define name="content">
-                <h:form class="left_content">
-                    <p:commandButton value="Ajouter une nouvelle Spécialité" action="#{specialiteManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
-                    
+
+                <h:form class="left_content" id="AjoutS" >
+                    <p:commandButton  value="Ajout d'une nouvelle Specialite" actionListener="#{SpecialiteManagedBean.ajoutEvent(actionEvent)}" update=":edit:editS" oncomplete="SpecialiteAjout.show()" ajax="true" icon="ui-icon-plusthick"/>
+
                 </h:form>
-                
-                <br/>
-                <h1>Liste des Specialités</h1>
-                <br/>
-
-                <p:dataTable  paginator="true" rows="5"   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                 rowsPerPageTemplate="5,10,15" var="specialite" value="#{specialiteManagedBean.listSpecialite}">
-                    <p:column>
+                <h1>Liste Specialites</h1> 
+                <br/> 
+                <h:form id="Specialite">
+                    <p:growl id="growl" showDetail="true" sticky="false"  />
+                    <p:dataTable   paginator="true" rows="5"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                   rowsPerPageTemplate="5,10,15,20,25"  
+                                   var="Specialite" value="#{SpecialiteManagedBean.listSpecialite}"
+                                   id="AjoutTab"
+                                   emptyMessage="Specialite non trouvé" widgetVar="SpecialiteTable">
                         <f:facet name="header">
-                            <h:outputText value="Identifiant"/>
+                            <p:outputPanel>
+                                <h:outputText  value="Recherche : " />
+                                <p:inputText id="globalFilter"  onkeyup="SpecialiteTable.filter()" style="width:250px" />
+                            </p:outputPanel>
                         </f:facet>
-                        <h:outputText value="#{specialite.id}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Nom de Spécialité"/>
-                        </f:facet>
-                        <h:outputText value="#{specialite.nom}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Description"/>
-                        </f:facet>
-                        <h:outputText value="#{specialite.description}"/>
-                    </p:column>
 
-                    <p:column style="width:4%">
 
-                        <h:form>
-                            <p:commandButton action="#{specialiteManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
-                            <p:commandButton action="#{specialiteManagedBean.supprimer()}"  ajax="false" icon="ui-icon-trash"/>
+                        <p:column id="Id" headerText="Identifiant" filterBy="#{Specialite.id}" filterMatchMode="exact" footerText=" Identifiant exacte">
+                            <h:outputText value="#{Specialite.id}" />
+                        </p:column>
 
-                        </h:form>
-                    </p:column>
+                        <p:column id="Nom" headerText="Nom" filterBy="#{Specialite.nom}" filterMatchMode="exact" footerText=" Nom exacte">
 
-                </p:dataTable>
-                
+                            <h:outputText value="#{Specialite.nom}" />
+                        </p:column>
+                        <p:column id="Description" headerText="Description" filterBy="#{Specialite.description}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{Specialite.description}"/>
+                        </p:column>
+
+                       
+                        <p:column style="width:4%">
+                            <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editS"  oncomplete="SpecialiteEdit.show();" actionListener="#{SpecialiteManagedBean.editEvent(Specialite.id)}" ajax="true" icon="ui-icon-pencil"/>
+
+                            <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppSpec"  oncomplete="confirmation.show();" actionListener="#{SpecialiteManagedBean.suppEvent(Specialite.id)}" ajax="true" icon="ui-icon-trash"/>
+
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+
+
+
+                <h:form id="edit">
+
+                    <p:dialog  header="Specialite" widgetVar="SpecialiteAjout" resizable="true" id="editS" modal="true">
+
+                        <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h1>
+                                    <h:outputLabel value="Ajout Specialite" />
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
+
+                            <h:outputLabel for="nom" value="* Nom :" style="color: #000000"  />
+                            <p:inputText value="#{SpecialiteManagedBean.specialite.nom}"  id="nom" required="true"/>
+                            <h:outputLabel for="description" value="Description :" style="color: #000000" />
+                            <p:inputText value="#{SpecialiteManagedBean.specialite.description}"   id="description" />
+                            
+                        </h:panelGrid>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+                            <p:commandButton icon="ui-icon-plusthick" ajax="true" value="Ajouter" update=":Specialite:AjoutTab, growl" actionListener="#{SpecialiteManagedBean.ajouts(actionEvent)}" oncomplete="SpecialiteAjout.hide()"  />
+                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="SpecialiteAjout.hide()"  />
+
+                        </h:panelGrid>
+
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="Actualise">
+                    <p:dialog header="Specialite" widgetVar="SpecialiteEdit" resizable="true" id="editS" modal="true">
+                        <p:growl id="growl" showDetail="true" sticky="false" />
+                        <h:panelGrid id="displaye" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h1>
+                                    <h:outputLabel value="Modifier Specialite"/>
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
+                          
+                            <h:outputLabel for="nom" value="* Nom :" style="color: #000000"  />
+                            <p:inputText value="#{SpecialiteManagedBean.specialite.nom}"  id="nom" required="true"/>
+                            <h:outputLabel for="description" value="Description :" style="color: #000000" />
+                            <p:inputTextarea rows="6" cols="33"  value="#{SpecialiteManagedBean.specialite.description}"   id="description" />
+                        </h:panelGrid>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <p:commandButton icon="ui-icon-pencil" ajax="true" value="Modifier" update=":Specialite:AjoutTab, growl" actionListener="#{SpecialiteManagedBean.edition(actionEvent)}" oncomplete="SpecialiteEdit.hide()"/>
+                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="SpecialiteEdit.hide()"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="formSupp">
+
+                    <p:confirmDialog header="Confirmation" 
+                                     message="Êtes-vous sûr(e) de vouloir supprimer  #{SpecialiteManagedBean.specialite.nom} ?" 
+                                     severity="alert" 
+                                     widgetVar="confirmation" id="suppSpec">
+                        <p:growl id="growl" showDetail="true" sticky="false" />
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4"
+                                     style="margin:0 auto;">
+                            <p:commandButton icon="ui-icon-check" ajax="true" value="Oui" update=":Specialite:AjoutTab, growl" actionListener="#{SpecialiteManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
+                            <p:commandButton value="Non" onclick="confirmation.hide()" icon="ui-icon-close"/>
+                        </h:panelGrid>
+                    </p:confirmDialog>
+                </h:form>
+
             </ui:define>
         </ui:composition>
+
 
     </h:body>
 </html>

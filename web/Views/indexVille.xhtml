@@ -11,13 +11,8 @@
     </h:head>
     <h:body>
         <ui:composition template="./Template.xhtml">
-
             <ui:define name="top">
                 <img src="../resources/images/csv.png" width="32" height="32" alt="csv"/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -34,58 +29,145 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
-                Gestion Ville
+
+                <titreGuide>
+                    Gestion Ville
+
+                </titreGuide>
 
             </ui:define>
 
             <ui:define name="content">
-                <h:form class="left_content">
-                    <p:commandButton value="Ajouter une ville" action="#{villeManagedBean.preparerAjout()}" ajax="false" icon="ui-icon-plusthick"/>
+
+                <h:form class="left_content" id="AjoutVille" >
+                    <p:commandButton  value="Ajout d'une nouvelle Ville" actionListener="#{VilleManagedBean.ajoutEvent(actionEvent)}" update=":edit:editVille" oncomplete="VilleAjout.show()" ajax="true" icon="ui-icon-plusthick"/>
 
                 </h:form>
-                <br/>
-                <h1>Liste des Villes</h1>
-                <br/>
-                <p:dataTable paginator="true" rows="5"   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                             rowsPerPageTemplate="5,10,15" var="ville" value="#{villeManagedBean.listVille}">
-                    <p:column>
+                <h1>Liste Villes</h1> 
+                <br/> 
+                <h:form id="Ville">
+                    <p:growl id="growl" showDetail="true" sticky="false"  />
+                    <p:dataTable   paginator="true" rows="5"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                   rowsPerPageTemplate="5,10,15,20,25"  
+                                   var="Ville" value="#{VilleManagedBean.listVille}"
+                                   id="AjoutTab"
+                                   emptyMessage="Ville non trouvé" widgetVar="VilleTable">
                         <f:facet name="header">
-                            <h:outputText value="Identifiant"/>
+                            <p:outputPanel>
+                                <h:outputText  value="Recherche : " />
+                                <p:inputText id="globalFilter"  onkeyup="VilleTable.filter()" style="width:250px" />
+                            </p:outputPanel>
                         </f:facet>
-                        <h:outputText value="#{ville.id}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Nom de ville"/>
-                        </f:facet>
-                        <h:outputText value="#{ville.nom}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Rue"/>
-                        </f:facet>
-                        <h:outputText value="#{ville.rue}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Gouvernorat"/>
-                        </f:facet>
-                        <h:outputText value="#{ville.gouvernorat}"/>
-                    </p:column>
 
-                    <p:column style="width:4%">
 
-                        <h:form>
-                            <p:commandButton action="#{villeManagedBean.preparerModifier()}"  ajax="false" icon="ui-icon-pencil"/>
-                            <p:commandButton action="#{villeManagedBean.supprimer()}"  ajax="false" icon="ui-icon-trash"/>
+                        <p:column id="Id" headerText="Identifiant" filterBy="#{Ville.id}" filterMatchMode="exact" footerText=" Identifiant exacte">
+                            <h:outputText value="#{Ville.id}" />
+                        </p:column>
 
-                        </h:form>
-                    </p:column>
+                        <p:column id="Nom" headerText="Nom" filterBy="#{Ville.nom}" filterMatchMode="exact" footerText=" Nom exacte">
 
-                </p:dataTable>
+                            <h:outputText value="#{Ville.nom}" />
+                        </p:column>
+                        <p:column id="Gouvernorat" headerText="Gouvernorat" filterBy="#{Ville.gouvernorat}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{Ville.gouvernorat}"/>
+                        </p:column>
+                        <p:column id="Rue" headerText="Rue" filterBy="#{Ville.rue}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{Ville.rue}"/>
+                        </p:column>
+
+
+                        <p:column style="width:4%">
+                            <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editVille"  oncomplete="VilleEdit.show();" actionListener="#{VilleManagedBean.editEvent(Ville.id)}" ajax="true" icon="ui-icon-pencil"/>
+
+                            <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppVille"  oncomplete="confirmation.show();" actionListener="#{VilleManagedBean.suppEvent(Ville.id)}" ajax="true" icon="ui-icon-trash"/>
+
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+
+
+
+                <h:form id="edit">
+
+                    <p:dialog  header="Ville" widgetVar="VilleAjout" resizable="true" id="editVille" modal="true">
+
+                        <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h1>
+                                    <h:outputLabel value="Ajout Ville" />
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
+
+                            <h:outputLabel for="nom" value="* Nom :" style="color: #000000"  />
+                            <p:inputText value="#{VilleManagedBean.ville.nom}"  id="nom" required="true"/>
+                            <h:outputLabel for="gouvernorat" value=" Gouvernorat :" style="color: #000000" />
+                            <p:inputText value="#{VilleManagedBean.ville.gouvernorat}"   id="gouvernorat" />
+                            <h:outputLabel for="rue" value=" Rue :" style="color: #000000" />
+                            <p:inputText value="#{VilleManagedBean.ville.rue}"   id="Rue" />
+
+
+                        </h:panelGrid>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+                            <p:commandButton icon="ui-icon-plusthick" ajax="true" value="Ajouter" update=":Ville:AjoutTab, growl" actionListener="#{VilleManagedBean.ajoutville(actionEvent)}" oncomplete="VilleAjout.hide()"  />
+                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="VilleAjout.hide()"  />
+
+                        </h:panelGrid>
+
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="Actualise">
+                    <p:dialog header="Ville" widgetVar="VilleEdit" resizable="true" id="editVille" modal="true">
+                        <p:growl id="growl" showDetail="true" sticky="false" />
+                        <h:panelGrid id="displaye" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h1>
+                                    <h:outputLabel value="Modifier Ville"/>
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
+
+                            <h:outputLabel for="nom" value="* Nom :" style="color: #000000"  />
+                            <p:inputText value="#{VilleManagedBean.ville.nom}"  id="nom" required="true"/>
+                            <h:outputLabel for="gouvernorat" value=" Gouvernorat :" style="color: #000000" />
+                            <p:inputText value="#{VilleManagedBean.ville.gouvernorat}"   id="gouvernorat" />
+                            <h:outputLabel for="rue" value=" Rue :" style="color: #000000" />
+                            <p:inputText value="#{VilleManagedBean.ville.rue}"   id="Rue" />
+                        </h:panelGrid>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <p:commandButton icon="ui-icon-pencil" ajax="true" value="Modifier" update=":Ville:AjoutTab, growl" actionListener="#{VilleManagedBean.edition(actionEvent)}" oncomplete="VilleEdit.hide()"/>
+                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="VilleEdit.hide()"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="formSupp">
+
+                    <p:confirmDialog header="Confirmation" 
+                                     message="Êtes-vous sûr(e) de vouloir supprimer  #{VilleManagedBean.ville.nom} ?" 
+                                     severity="alert" 
+                                     widgetVar="confirmation" id="suppVille">
+                        <p:growl id="growl" showDetail="true" sticky="false" />
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4"
+                                     style="margin:0 auto;">
+                            <p:commandButton icon="ui-icon-check" ajax="true" value="Oui" update=":Ville:AjoutTab, growl" actionListener="#{VilleManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
+                            <p:commandButton value="Non" onclick="confirmation.hide()" icon="ui-icon-close"/>
+                        </h:panelGrid>
+                    </p:confirmDialog>
+                </h:form>
+
             </ui:define>
         </ui:composition>
 
+
     </h:body>
 </html>
-

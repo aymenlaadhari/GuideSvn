@@ -83,7 +83,7 @@ public void suppEvent(int id) {
         context.addMessage(null, new FacesMessage("Specialite mise à jour"));
     }
 
-    public void ajoutph(ActionEvent actionEvent) {
+    public void ajouts(ActionEvent actionEvent) {
        specialiteInterface = new SpecialiteImpl();
         specialiteInterface.save(specialite);
         FacesContext context = FacesContext.getCurrentInstance();
