@@ -14,18 +14,15 @@ import model.Utilisateur;
  * @author hp
  */
 public interface UtilisateurInterface {
-        public void save(Utilisateur utilisateur);
+        public void save(Utilisateur utilisateur );
 
-    public List<Utilisateur> list();
+    public List<Utilisateur> getListUtilisateur();
 
     public void remove(Utilisateur utilisateur);
 
     public void update(Utilisateur utilisateur);
 
-    public Utilisateur getUtilisateur(long id);
-    
-    public Utilisateur login(Utilisateur utilisateur);
-    
-    public Utilisateur findByUtilisateur(Utilisateur utilisateur);
-    
+    public Utilisateur getUtilisateur(int id);
+      public Utilisateur login(Utilisateur utilisateur);
+      public Utilisateur findByUtilisateur(Utilisateur utilisateur) ;
 }

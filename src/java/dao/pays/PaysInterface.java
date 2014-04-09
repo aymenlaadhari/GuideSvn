@@ -17,9 +17,9 @@ public interface PaysInterface {
 
     public void save(Pay pays);
 
-    public Pay getPays(long id);
+    public Pay getPays(int id);
 
-    public List<Pay> list();
+    public List<Pay> getListPays();
 
     public void remove(Pay pays);
 

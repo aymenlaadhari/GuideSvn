@@ -21,32 +21,81 @@ public class GardeImpl implements GardeInterface{
 
     @Override
     public void save(Garde garde) {
- Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.save(garde);
-        t.commit();    }
+  Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.save(garde);
+            session.getTransaction().commit();
+            session.close();
+            System.out.print("Bien ajouté");
+        } catch (Exception e) {
+            System.out.print("Erreur insertion" + e.getMessage());
+        }
+    }
 
-    @Override
-    public List<Garde> list() {
- Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        List liste = session.createQuery("from Garde").list();
-        t.commit();
-        return liste;    }
+    
 
     @Override
     public void remove(Garde garde) {
 Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.delete(garde);
-        t.commit();    }
+        try {
+            session.beginTransaction();
+            session.delete(garde);
+            session.getTransaction().commit();
+            session.close();
+        
+        System.out.print("Bien supprimé");
+        } catch (Exception e) {
+            System.out.print("Erreur Suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+        }    }
 
     @Override
     public void update(Garde garde) {
          Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.update(garde);
-        t.commit();
+        try {
+            session.beginTransaction();
+            session.update(garde);
+            session.getTransaction().commit();
+            session.close();
+            System.out.print("Bien modifier");
+        } catch (Exception e) {
+            System.out.print("Erreur Modification" + e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Garde> getListGarde() {
+        List<Garde> listGarde = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+           listGarde = session.createQuery("from Garde").list();
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return listGarde;
+        }
+        return listGarde;
+    }
+
+    @Override
+    public Garde getGarde(int id) {
+        Garde garde  = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            garde= (Garde) session.get(Garde.class, id);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return garde;
+        }
+        return garde;
     }
     
 }

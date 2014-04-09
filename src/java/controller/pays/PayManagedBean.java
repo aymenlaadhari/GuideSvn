@@ -8,27 +8,26 @@ package controller.pays;
 import dao.pays.PaysImpl;
 import dao.pays.PaysInterface;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+
 
 
 
 import model.Pay;
+@ManagedBean(name = "PayManagedBean")
+@SessionScoped
+public class PayManagedBean implements Serializable{
 
-/**
- *
- * @author hp
- */
-@ManagedBean
-@RequestScoped
-public class PayManagedBean implements Serializable {
-
+   PaysInterface  paysInterface ;
     private Pay pay;
-    private DataModel listPay;
-
+    private List<Pay> listPay;
+//get+set
     public Pay getPay() {
         return pay;
     }
@@ -37,50 +36,73 @@ public class PayManagedBean implements Serializable {
         this.pay = pay;
     }
 
-   
-
-   
-
-    public DataModel getListPay() {
-        List<Pay> list = new PaysImpl().list();
-        listPay = new ListDataModel(list);
-
+    public List<Pay> getListPay() {
+         paysInterface = new PaysImpl();
+        listPay = paysInterface.getListPays();
         return listPay;
     }
 
-    public String preparerAjout() {
+    public void setListPay(List<Pay> listPay) {
+        this.listPay = listPay;
+    }
+
+    
+    
+ 
+    
+
+    //Methodes
+    public void ajoutEvent(ActionEvent actionEvent) {
         pay = new Pay();
-        return "gestionPay";
+
     }
 
-    public String preparerModifier() {
-        pay = (Pay) (listPay.getRowData());
-        return "gestionPay";
+    public void editEvent(int id) {
+        System.out.print(id);
+        paysInterface = new PaysImpl();
+        pay = paysInterface.getPays(id);
+
+    }
+public void suppEvent(int id) {
+        System.out.print(id);
+        paysInterface = new PaysImpl();
+        pay = paysInterface.getPays(id);
+    }
+    public void deletMessage(ActionEvent actionEvent) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Pay supprimé"));
     }
 
-    public String supprimer() {
-        Pay payTemp = (Pay) (listPay.getRowData());
-        PaysInterface cmi = new PaysImpl();
-        cmi.remove(payTemp);
-        return "indexPay";
+    public void edition(ActionEvent actionEvent) {
+        paysInterface = new PaysImpl();
+       paysInterface.update(pay);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Pay mise à jour"));
     }
 
-    public String ajouter() {
-        PaysInterface cmi = new PaysImpl();
-        cmi.save(pay);
-        return "indexPay";
+    public void ajoutcc(ActionEvent actionEvent) {
+        paysInterface = new PaysImpl();
+       paysInterface.save(pay);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Pay ajouté"));
+        pay = new Pay();
     }
 
-    public String modifier() {
-        PaysInterface cmi = new PaysImpl();
-        cmi.update(pay);
-        return "indexPay";
+    public void delet(ActionEvent actionEvent) {
+        paysInterface = new PaysImpl();
+       paysInterface.remove(pay);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Pay supprimé"));
+
     }
+ 
+
 
     /**
      * Creates a new instance of CentremedicaleManagedBean
      */
     public PayManagedBean() {
+        this.listPay= new ArrayList<>();
 
         if (this.pay == null) {
             this.pay = new Pay();

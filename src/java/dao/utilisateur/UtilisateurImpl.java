@@ -21,42 +21,80 @@ public class UtilisateurImpl implements UtilisateurInterface {
     @Override
     public void save(Utilisateur utilisateur) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.save(utilisateur);
-        t.commit();
+        try {
+            session.beginTransaction();
+            session.save(utilisateur);
+            session.getTransaction().commit();
+            session.close();
+            System.out.print("Bien ajouté");
+        } catch (Exception e) {
+            System.out.print("Erreur insertion" + e.getMessage());
+        }
     }
 
     @Override
-    public List<Utilisateur> list() {
+    public List<Utilisateur> getListUtilisateur() {
+         List<Utilisateur> listUtilisateur = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        List liste = session.createQuery("from Utilisateur").list();
-        t.commit();
-        return liste;
+        try {
+            session.beginTransaction();
+            listUtilisateur = session.createQuery("from Utilisateur").list();
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return listUtilisateur;
+        }
+        return listUtilisateur;
     }
 
     @Override
     public void remove(Utilisateur utilisateur) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.delete(utilisateur);
-        t.commit();
-    }
+         Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.delete(utilisateur);
+            session.getTransaction().commit();
+            session.close();
+
+            System.out.print("Bien supprimé");
+        } catch (Exception e) {
+            System.out.print("Erreur Suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+        }}
 
     @Override
     public void update(Utilisateur utilisateur)  {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.update(utilisateur);
-        t.commit();
+       Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.update(utilisateur);
+            session.getTransaction().commit();
+            session.close();
+            System.out.print("Bien modifier");
+        } catch (Exception e) {
+            System.out.print("Erreur Modification" + e.getMessage());
+        }
     
 
     }
 
     @Override
-    public Utilisateur getUtilisateur(long id) {
+    public Utilisateur getUtilisateur(int id) {
+         Utilisateur  utilisateur = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        return (Utilisateur) session.load(Utilisateur.class, id);
+        try {
+            session.beginTransaction();
+            utilisateur= (Utilisateur) session.get(Utilisateur.class, id);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return utilisateur;
+        }
+        return utilisateur;
     }
 
     @Override

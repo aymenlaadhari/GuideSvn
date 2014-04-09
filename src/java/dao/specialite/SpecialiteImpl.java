@@ -8,9 +8,8 @@ package dao.specialite;
 import java.util.List;
 import model.Specialite;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
+
 import util.HibernateUtil;
 
 /**

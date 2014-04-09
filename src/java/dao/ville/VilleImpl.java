@@ -20,41 +20,80 @@ public class VilleImpl implements VilleInterface {
 
     @Override
     public void save(Ville ville) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.save(ville);
-        t.commit();
+       Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.save(ville);
+            session.getTransaction().commit();
+            session.close();
+            System.out.print("Bien ajouté");
+        } catch (Exception e) {
+            System.out.print("Erreur insertion" + e.getMessage());
+        }
     }
 
     @Override
-    public Ville getVille(long id) {
+    public Ville getVille(int id) {
+       Ville ville = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        return (Ville) session.load(Ville.class, id);
+        try {
+            session.beginTransaction();
+            ville = (Ville) session.get(Ville.class, id);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return ville;
+        }
+        return ville;
     }
 
     @Override
-    public List<Ville> list() {
+    public List<Ville> getListVille() {
+        List<Ville> listVille = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        List lista = session.createQuery("from Ville").list();
-        t.commit();
-        return lista;
+        try {
+            session.beginTransaction();
+           listVille = session.createQuery("from Ville").list();
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return listVille;
+        }
+        return listVille;
     }
 
     @Override
     public void remove(Ville ville) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.delete(ville);
-        t.commit();
+        try {
+            session.beginTransaction();
+            session.delete(ville);
+            session.getTransaction().commit();
+            session.close();
+        
+        System.out.print("Bien supprimé");
+        } catch (Exception e) {
+            System.out.print("Erreur Suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+        }   
     }
 
     @Override
     public void update(Ville ville) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.update(ville);
-        t.commit();
+        try {
+            session.beginTransaction();
+            session.update(ville);
+            session.getTransaction().commit();
+            session.close();
+            System.out.print("Bien modifier");
+        } catch (Exception e) {
+            System.out.print("Erreur Modification" + e.getMessage());
+        }
     }
 
 }

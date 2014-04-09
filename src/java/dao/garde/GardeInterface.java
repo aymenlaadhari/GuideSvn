@@ -16,11 +16,11 @@ import model.Garde;
 public interface GardeInterface {
 
     public void save(Garde garde);
-
-    public List<Garde> list();
-
+    public List<Garde> getListGarde();
     public void remove(Garde garde);
-
     public void update(Garde garde);
+    public Garde getGarde(int id);
+   
+     
 
 }

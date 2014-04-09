@@ -9,24 +9,27 @@ package controller.utilisateur;
 import dao.utilisateur.UtilisateurImpl;
 import dao.utilisateur.UtilisateurInterface;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+
 import model.Utilisateur;
 
-/**
- *
- * @author hp
- */
-@ManagedBean
-@RequestScoped
+@ManagedBean(name = "UtilisateurManagedBean")
+@SessionScoped
 public class UtilisateurManagedBean implements Serializable{
-    
-    private Utilisateur utilisateur;
-    private DataModel listUtlisateur;
 
+    UtilisateurInterface utilisateurInterface;
+    private Utilisateur utilisateur;
+    private List<Utilisateur> listUtilisateur;
+
+    
+
+    //get+set
     public Utilisateur getUtilisateur() {
         return utilisateur;
     }
@@ -34,50 +37,77 @@ public class UtilisateurManagedBean implements Serializable{
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
     }
+   
+ public void setListUtilisateur(List<Utilisateur> listUtilisateur) {
+        this.listUtilisateur = listUtilisateur;
+    }
+   
+ public List<Utilisateur> getListUtilisateur() {
+        utilisateurInterface = new UtilisateurImpl();
+        listUtilisateur = utilisateurInterface.getListUtilisateur();
+        return listUtilisateur;
+    }
 
-    public DataModel getListUtlisateur() {
-        List<Utilisateur> list = new UtilisateurImpl().list();
-        listUtlisateur = new ListDataModel(list);
-        return listUtlisateur;
-    }
     
-     public String preparerAjout() {
+
+    //Methodes
+    public void ajoutEvent(ActionEvent actionEvent) {
         utilisateur = new Utilisateur();
-        return "gestionUtilisateur";
+
     }
-    
-     public String preparerModifier() {
-        utilisateur = (Utilisateur) (listUtlisateur.getRowData());
-        return "gestionUtilisateur";
+
+    public void editEvent(int id) {
+        System.out.print(id);
+        utilisateurInterface = new UtilisateurImpl();
+        utilisateur= utilisateurInterface.getUtilisateur(id);
+
     }
-     
-      public String supprimer() {
-        Utilisateur utilistaeurTemp = (Utilisateur) (listUtlisateur.getRowData());
-          UtilisateurInterface cmi = new UtilisateurImpl();
-        cmi.remove(utilistaeurTemp);
-        return "indexUtilisateur";
+public void suppEvent(int id) {
+        System.out.print(id);
+        utilisateurInterface = new UtilisateurImpl();
+        utilisateur= utilisateurInterface.getUtilisateur(id);
+
     }
-      
-       public String ajouter() {
-        UtilisateurInterface cmi = new UtilisateurImpl();
-        cmi.save(utilisateur);
-        return "indexUtilisateur";
+    public void deletMessage(ActionEvent actionEvent) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Utilisateur supprimé"));
     }
-     
-       
-        public String modifier() {
-        UtilisateurInterface cmi = new UtilisateurImpl();
-        cmi.update(utilisateur);
-        return "indexUtilisateur";
+
+    public void edition(ActionEvent actionEvent) {
+        utilisateurInterface = new UtilisateurImpl();
+        utilisateurInterface.update(utilisateur);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Utilisateur mise à jour"));
     }
+
+    public void ajoutcc(ActionEvent actionEvent) {
+        utilisateurInterface = new UtilisateurImpl();
+        utilisateurInterface.save(utilisateur);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Utilisateur  ajouté"));
+        utilisateur = new Utilisateur();
+    }
+
+    public void delet(ActionEvent actionEvent) {
+       utilisateurInterface = new UtilisateurImpl();
+        utilisateurInterface.remove(utilisateur);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Utilisateur  supprimé"));
+
+    }
+ 
+
 
     /**
-     * Creates a new instance of UtilisateurManagedBean
+     * Creates a new instance of CentremedicaleManagedBean
      */
     public UtilisateurManagedBean() {
-         if (this.utilisateur == null) {
+        this.listUtilisateur = new ArrayList<>();
+
+        if (this.utilisateur== null) {
             this.utilisateur = new Utilisateur();
         }
+
     }
-    
+
 }

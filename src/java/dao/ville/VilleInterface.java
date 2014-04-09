@@ -17,9 +17,9 @@ public interface VilleInterface {
 
     public void save(Ville ville);
 
-    public Ville getVille(long id);
+    public Ville getVille(int id);
 
-    public List<Ville> list();
+    public List<Ville> getListVille();
 
     public void remove(Ville ville);
 
