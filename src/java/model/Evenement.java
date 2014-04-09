@@ -22,6 +22,7 @@ public class Evenement  implements java.io.Serializable {
 
      private int idEvent;
      private String type;
+     private String nom;
      private String inscription;
      private Integer prix;
      private Date date;
@@ -40,6 +41,17 @@ public class Evenement  implements java.io.Serializable {
        this.prix = prix;
        this.date = date;
     }
+
+    public Evenement(int idEvent, String type, String nom, String inscription, Integer prix, Date date) {
+        this.idEvent = idEvent;
+        this.type = type;
+        this.nom = nom;
+        this.inscription = inscription;
+        this.prix = prix;
+        this.date = date;
+    }
+    
+    
    
      @Id 
 
@@ -91,6 +103,15 @@ public class Evenement  implements java.io.Serializable {
     
     public void setDate(Date date) {
         this.date = date;
+    }
+    
+ @Column(name="nom", length=254)
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
 

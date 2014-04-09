@@ -11,6 +11,9 @@
         <property name="type" type="string">
             <column name="type" length="254" />
         </property>
+        <property name="nom" type="string">
+            <column name="nom" length="254" />
+        </property>
         <property name="inscription" type="string">
             <column name="inscription" length="254" />
         </property>

@@ -66,6 +66,9 @@
                         <p:column id="id" headerText="Identifiant" filterBy="#{Evenement.idEvent}" filterMatchMode="exact" footerText=" Identifiant exacte">
                             <h:outputText value="#{Evenement.idEvent}" />
                         </p:column>
+                        <p:column id="nom" headerText="Nom" filterBy="#{Evenement.nom}" filterMatchMode="exact" footerText=" Identifiant exacte">
+                            <h:outputText value="#{Evenement.nom}" />
+                        </p:column>
 
                         <p:column id="type" headerText="Type" filterBy="#{Evenement.type}" filterMatchMode="exact" footerText=" Nom exacte">
 
@@ -107,6 +110,8 @@
                                 <p:separator/>
                             </f:facet>
 
+                            <h:outputLabel for="nom"  value="* Nom :" style="color: #000000"  />
+                            <p:inputText value="#{EvenementManagedBean.evenement.nom}"  id="nom" required="true"/>
                             <h:outputLabel for="type"  value="* Type :" style="color: #000000"  />
                             <p:inputText value="#{EvenementManagedBean.evenement.type}"  id="type" required="true"/>
                             <h:outputLabel for="inscription"  value="* Inscription :" style="color: #000000" />
@@ -138,6 +143,8 @@
                                 </h1> 
                                 <p:separator/>
                             </f:facet>
+                             <h:outputLabel for="nom"  value="* Nom :" style="color: #000000"  />
+                             <p:inputText value="#{EvenementManagedBean.evenement.nom}"  id="nom" required="true"/>
                             <h:outputLabel for="type"  value="* Type :" style="color: #000000"  />
                             <p:inputText value="#{EvenementManagedBean.evenement.type}"  id="type" required="true"/>
                             <h:outputLabel for="inscription"  value="* Inscription :" style="color: #000000" />
