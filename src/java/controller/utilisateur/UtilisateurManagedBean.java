@@ -16,7 +16,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-
 import model.Utilisateur;
 
 @ManagedBean(name = "UtilisateurManagedBean")
@@ -48,8 +47,6 @@ public class UtilisateurManagedBean implements Serializable{
         return listUtilisateur;
     }
 
-    
-
     //Methodes
     public void ajoutEvent(ActionEvent actionEvent) {
         utilisateur = new Utilisateur();
@@ -80,7 +77,7 @@ public void suppEvent(int id) {
         context.addMessage(null, new FacesMessage("Utilisateur mise à jour"));
     }
 
-    public void ajoutcc(ActionEvent actionEvent) {
+    public void ajoutu(ActionEvent actionEvent) {
         utilisateurInterface = new UtilisateurImpl();
         utilisateurInterface.save(utilisateur);
         FacesContext context = FacesContext.getCurrentInstance();

@@ -9,7 +9,6 @@ import java.util.List;
 import model.Utilisateur;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import util.HibernateUtil;
 
 /**
