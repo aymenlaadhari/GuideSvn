@@ -15,7 +15,7 @@
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
                 <img src="../resources/images/csv.png" width="32" height="32" alt="csv"/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -39,8 +39,8 @@
 
             </ui:define>
 
-           
-               <ui:define name="content">
+
+            <ui:define name="content">
 
                 <h:form class="left_content" id="AjoutE" >
                     <p:commandButton  value="Nouveau Evenement" actionListener="#{EvenementManagedBean.ajoutEvent(actionEvent)}" update=":edit:editE" oncomplete="EvenementAjout.show()" ajax="true" icon="ui-icon-plusthick"/>
@@ -54,7 +54,13 @@
                                    rowsPerPageTemplate="5,10,15,20,25"  
                                    var="Evenement" value="#{EvenementManagedBean.listEvenement}"
                                    id="AjoutTab"
-                                   emptyMessage="Evenement non trouvé" widgetVar="EvenementTable">
+                                   emptyMessage="Evenement non trouvé" widgetVar="EvenementTable"
+                                   sortMode="multiple" 
+                                   rowKey="#{Evenement.nom}"  
+                                   selectionMode="single">
+
+                        <p:ajax event="rowToggle" listener="#{EvenementManagedBean.onRowToggle}" update=":Evenement:growl" />  
+
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText  value="Recherche : " />
@@ -64,14 +70,12 @@
 
 
                         <p:column id="id" headerText="Identifiant" filterBy="#{Evenement.idEvent}" filterMatchMode="exact" footerText=" Identifiant exacte">
-                            <h:outputText value="#{Evenement.idEvent}" />
+                            <p:rowToggler /> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h:outputText value="#{Evenement.idEvent}" />
                         </p:column>
-                        <p:column id="nom" headerText="Nom" filterBy="#{Evenement.nom}" filterMatchMode="exact" footerText=" Identifiant exacte">
+                        <p:column id="nom" headerText="Nom" filterBy="#{Evenement.nom}" filterMatchMode="exact" footerText=" Nom exacte">
                             <h:outputText value="#{Evenement.nom}" />
                         </p:column>
-
                         <p:column id="type" headerText="Type" filterBy="#{Evenement.type}" filterMatchMode="exact" footerText=" Nom exacte">
-
                             <h:outputText value="#{Evenement.type}" />
                         </p:column>
                         <p:column id="inscription" headerText="Inscription" filterBy="#{Evenement.inscription}" filterMatchMode="contains" footerText=" Contient">
@@ -84,19 +88,63 @@
                         <p:column id="date" headerText="Date" filterBy="#{Evenement.date}" filterMatchMode="contains" footerText=" Contient">
                             <h:outputText value="#{Evenement.date}"/>
                         </p:column>
-                       
+
                         <p:column style="width:4%">
                             <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editE"  oncomplete="EvenementEdit.show();" actionListener="#{EvenementManagedBean.editEvent(Evenement.idEvent)}" ajax="true" icon="ui-icon-pencil"/>
 
                             <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppEvent"  oncomplete="confirmation.show();" actionListener="#{EvenementManagedBean.suppEvent(Evenement.idEvent)}" ajax="true" icon="ui-icon-trash"/>
 
+                            <p:commandButton id="selectButton" update=":Evenement:display" oncomplete="evenementDialog.show()" icon="ui-icon-search" title="View_Description">  
+                                <f:setPropertyActionListener value="#{Evenement}" target="#{EvenementManagedBean.selectEvenement}" />  
+                            </p:commandButton>  
                         </p:column>
 
+                        <p:rowExpansion>  
+                            <h:panelGrid id="display" columns="2" cellpadding="4" style="width:300px;"  
+                                         styleClass=" ui-widget-content grid">  
+
+                                <f:facet name="header">  
+                                    <img src="../resources/images/images (10).jpg" width="292" height="173" alt="images (10)"/>
+
+                                </f:facet>  
+
+                                <h:outputText value="Nom :" />  
+                                <h:outputText id="nomE" value="#{Evenement.nom}" />  
+
+
+                            </h:panelGrid>  
+
+                        </p:rowExpansion>  
                     </p:dataTable>
 
+                    <p:dialog   widgetVar="evenementDialog" resizable="true" id="evenementDlg"  
+                                showEffect="fade" hideEffect="explode" modal="true"> 
+                        <f:facet name="header">
+                            <h3>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Detail Evenement</h3>
+                        </f:facet>
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+
+                            
+                            <h:form>
+                                <img src="../resources/images/images (3).jpg" width="304" height="166" alt="images (3)"/>
+                                <div>
+                                    <br/><br/>
+                                    <h:outputText value="Nom : " style="color: #045491"   />
+
+                                    <h:outputText value="#{EvenementManagedBean.selectEvenement.nom}" style="font-weight:bold"/>  
+                                    <br/><br/>
+
+                                    <p:commandButton  value="OK" oncomplete="evenementDialog.hide()" icon="ui-icon-check" ajax="true"/>
+                                </div>
+                            </h:form>
+
+                        </h:panelGrid>  
+
+                    </p:dialog>  
                 </h:form>
 
-                 <h:form id="edit">
+                <h:form id="edit">
 
                     <p:dialog  header="Evenement" widgetVar="EvenementAjout" resizable="true" id="editE" modal="true">
 
@@ -109,7 +157,6 @@
                                 </h1> 
                                 <p:separator/>
                             </f:facet>
-
                             <h:outputLabel for="nom"  value="* Nom :" style="color: #000000"  />
                             <p:inputText value="#{EvenementManagedBean.evenement.nom}"  id="nom" required="true"/>
                             <h:outputLabel for="type"  value="* Type :" style="color: #000000"  />
@@ -119,8 +166,8 @@
                             <h:outputLabel for="prix"  value="* Prix :" style="color: #000000"  />
                             <p:inputText value="#{EvenementManagedBean.evenement.prix}"  id="prix" required="true"/>
                             <h:outputLabel for="date"  value="* Date :" style="color: #000000"  />
-                            <p:calendar value="#{EvenementManagedBean.evenement.date}" required="false"  pattern="MM/dd/yyyy HH:mm" id="date" showOn="button" />  
-                            
+                            <p:calendar value="#{EvenementManagedBean.evenement.date}" required="false"  pattern="d/M/yyyy" id="date" showOn="button" />  
+
                         </h:panelGrid>
                         <p:separator/>
                         <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
@@ -132,7 +179,7 @@
                     </p:dialog>
                 </h:form>
 
-               <h:form id="Actualise">
+                <h:form id="Actualise">
                     <p:dialog header="Evenement" widgetVar="EvenementEdit" resizable="true" id="editE" modal="true">
                         <p:growl id="growl" showDetail="true" sticky="false" />
                         <h:panelGrid id="displaye" columns="2" cellpadding="4" style="margin:0 auto;">
@@ -143,8 +190,8 @@
                                 </h1> 
                                 <p:separator/>
                             </f:facet>
-                             <h:outputLabel for="nom"  value="* Nom :" style="color: #000000"  />
-                             <p:inputText value="#{EvenementManagedBean.evenement.nom}"  id="nom" required="true"/>
+                            <h:outputLabel for="nom"  value="* Nom :" style="color: #000000"  />
+                            <p:inputText value="#{EvenementManagedBean.evenement.nom}"  id="nom" required="true"/>
                             <h:outputLabel for="type"  value="* Type :" style="color: #000000"  />
                             <p:inputText value="#{EvenementManagedBean.evenement.type}"  id="type" required="true"/>
                             <h:outputLabel for="inscription"  value="* Inscription :" style="color: #000000" />
@@ -153,7 +200,7 @@
                             <p:inputText value="#{EvenementManagedBean.evenement.prix}"  id="prix" required="true"/>
                             <h:outputLabel for="date"  value="* Date :" style="color: #000000"  />
                             <p:calendar value="#{EvenementManagedBean.evenement.date}" required="false"  pattern="MM/dd/yyyy HH:mm" id="date" showOn="button" />  
-                            
+
                         </h:panelGrid>
                         <p:separator/>
                         <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
@@ -166,7 +213,7 @@
                 <h:form id="formSupp">
 
                     <p:confirmDialog header="Confirmation" 
-                                     message="Êtes-vous sûr(e) de vouloir supprimer  #{EvenementManagedBean.evenement.type} ?" 
+                                     message="Êtes-vous sûr(e) de vouloir supprimer  #{EvenementManagedBean.evenement.nom} ?" 
                                      severity="alert" 
                                      widgetVar="confirmation" id="suppEvent">
                         <p:growl id="growl" showDetail="true" sticky="false" />
@@ -179,7 +226,7 @@
                     </p:confirmDialog>
                 </h:form>
 
-                
+
             </ui:define>
         </ui:composition>
 

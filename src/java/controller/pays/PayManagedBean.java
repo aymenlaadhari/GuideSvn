@@ -26,8 +26,18 @@ public class PayManagedBean implements Serializable{
 
    PaysInterface  paysInterface ;
     private Pay pay;
+    private Pay selectPay;
     private List<Pay> listPay;
 //get+set
+
+    public Pay getSelectPay() {
+        return selectPay;
+    }
+
+    public void setSelectPay(Pay selectPay) {
+        this.selectPay = selectPay;
+    }
+    
     public Pay getPay() {
         return pay;
     }
@@ -45,11 +55,6 @@ public class PayManagedBean implements Serializable{
     public void setListPay(List<Pay> listPay) {
         this.listPay = listPay;
     }
-
-    
-    
- 
-    
 
     //Methodes
     public void ajoutEvent(ActionEvent actionEvent) {

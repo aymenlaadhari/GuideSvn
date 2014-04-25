@@ -69,11 +69,5 @@
 }
 
 
-.singleLine
-{
-    text-wrap:none;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
+
 

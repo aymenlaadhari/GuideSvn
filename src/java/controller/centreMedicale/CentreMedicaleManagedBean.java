@@ -21,6 +21,7 @@ import javax.faces.event.ActionEvent;
 
 
 import model.CentreMedicale;
+import org.primefaces.event.ToggleEvent;
 
 /**
  *
@@ -33,7 +34,9 @@ public class CentreMedicaleManagedBean  implements Serializable{
     CentreMedicaleInterface medicaleInterface ;
     private CentreMedicale centreMedicale ;
     private List<CentreMedicale> listCentreMedicale;
+    private CentreMedicale selectCentreMedicale;
 
+    
     //get+set
    
  public CentreMedicale getCentreMedicale() {
@@ -53,7 +56,14 @@ public class CentreMedicaleManagedBean  implements Serializable{
     public void setListCentreMedicale(List<CentreMedicale> listCentreMedicale) {
         this.listCentreMedicale = listCentreMedicale;
     }
-   
+   public CentreMedicale getSelectCentreMedicale() {
+        return selectCentreMedicale;
+    }
+
+    public void setSelectCentreMedicale(CentreMedicale selectCentreMedicale) {
+        this.selectCentreMedicale = selectCentreMedicale;
+    }
+
     //Methodes
     public void ajoutEvent(ActionEvent actionEvent) {
         centreMedicale = new CentreMedicale();
@@ -100,6 +110,15 @@ public class CentreMedicaleManagedBean  implements Serializable{
         context.addMessage(null, new FacesMessage("Centre Medicale supprimé"));
 
     }
+    //methode pour l affichage de dialog de detail ("flech à gauche")
+  public void onRowToggle(ToggleEvent event) {  
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,  
+                                            "Ligne  " + event.getVisibility(),  
+                                            "Nom :" + ((CentreMedicale) event.getData()).getNom());  
+          
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+    }  
+
  /**
      * Creates a new instance of CentremedicaleManagedBean
      */

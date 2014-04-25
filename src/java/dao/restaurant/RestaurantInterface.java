@@ -14,7 +14,7 @@ public interface RestaurantInterface {
     public List<Restaurant> getlistResto();
     public void remove(Restaurant restaurant);
     public void update(Restaurant restaurant);
-    public Restaurant getRestaurant(int id);
+    public Restaurant getRestaurant(int idresto);
 
     //public Restaurant findByRestaurant(Restaurant restaurant);
 }

@@ -16,9 +16,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import model.Restaurant;
 
 
 import model.Specialite;
+import org.hibernate.Session;
+import org.primefaces.event.ToggleEvent;
+import util.HibernateUtil;
 
 /**
  *
@@ -31,8 +35,17 @@ public class SpecialiteManagedBean implements Serializable{
     SpecialiteInterface specialiteInterface ;
     private Specialite specialite  ;
     private List<Specialite> listSpecialite;
+     private Specialite selectSpecialite  ;
 
     //get+set
+    
+ public Specialite getSelectSpecialite() {
+        return selectSpecialite;
+    }
+
+    public void setSelectSpecialite(Specialite selectSpecialite) {
+        this.selectSpecialite = selectSpecialite;
+    }
     
  public Specialite getSpecialite() {
         return specialite;
@@ -59,16 +72,16 @@ public class SpecialiteManagedBean implements Serializable{
 
     }
 
-    public void editEvent(int id) {
-        System.out.print(id);
+    public void editEvent(int idspec) {
+        System.out.print(idspec);
         specialiteInterface = new SpecialiteImpl();
-        specialite = specialiteInterface.getSpecialite(id);
+        specialite = specialiteInterface.getSpecialite(idspec);
 
     }
-public void suppEvent(int id) {
-         System.out.print(id);
+public void suppEvent(int idspec) {
+         System.out.print(idspec);
         specialiteInterface = new SpecialiteImpl();
-        specialite = specialiteInterface.getSpecialite(id);
+        specialite = specialiteInterface.getSpecialite(idspec);
 
     }
     public void deletMessage(ActionEvent actionEvent) {
@@ -98,8 +111,15 @@ public void suppEvent(int id) {
         context.addMessage(null, new FacesMessage("Specialite supprimé"));
 
     }
-
-
+    //methode pour l affichage de dialog de detail ("flech à gauche")
+  public void onRowToggle(ToggleEvent event) {  
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,  
+                                            "Ligne " + event.getVisibility(),  
+                                            "Nom :" + ((Specialite) event.getData()).getNom());  
+          
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+    } 
+   
     /**
      * Creates a new instance of CentremedicaleManagedBean
      */

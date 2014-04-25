@@ -22,6 +22,16 @@
         <welcome-file>faces/Views/login.xhtml</welcome-file>
         
     </welcome-file-list>
+    <servlet>
+        <servlet-name>ServletAdaptor</servlet-name>
+        <servlet-class>
+            com.sun.jersey.server.impl.container.servlet.ServletAdaptor</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletAdaptor</servlet-name>
+        <url-pattern>/ServiceWeb/*</url-pattern>
+    </servlet-mapping>
     <context-param>
      <param-name>primefaces.THEME</param-name>
      <param-value>redmond</param-value>

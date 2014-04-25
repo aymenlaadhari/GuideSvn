@@ -6,6 +6,7 @@
 package dao.specialite;
 
 import java.util.List;
+import model.Restaurant;
 import model.Specialite;
 
 import org.hibernate.Session;
@@ -80,12 +81,12 @@ public class SpecialiteImpl implements SpecialiteInterface {
     }
 
     @Override
-    public Specialite getSpecialite(int id) {
+    public Specialite getSpecialite(int idspec) {
        Specialite specialite  = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
-            specialite= (Specialite) session.get(Specialite.class, id);
+            specialite= (Specialite) session.get(Specialite.class, idspec);
             session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
@@ -96,6 +97,9 @@ public class SpecialiteImpl implements SpecialiteInterface {
         return specialite;
     }
 
+   
+    
+    
     /*
      @Override
      public Specialite findBySpecialite(Specialite specialite) {
@@ -112,4 +116,5 @@ public class SpecialiteImpl implements SpecialiteInterface {
      return model;
      }
      */
-}
+
+    }

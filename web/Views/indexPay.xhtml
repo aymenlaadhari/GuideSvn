@@ -54,7 +54,11 @@
                                    rowsPerPageTemplate="5,10,15,20,25"  
                                    var="Pays" value="#{PayManagedBean.listPay}"
                                    id="AjoutTab"
-                                   emptyMessage="Pay non trouvé" widgetVar="PaysTable">
+                                   emptyMessage="Pay non trouvé" widgetVar="PaysTable"
+                                   sortMode="multiple" 
+                                   rowKey="#{Pays.nom}"  
+                                   selectionMode="single">  
+                       
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText  value="Recherche : " />
@@ -79,9 +83,41 @@
 
                             <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppPays"  oncomplete="confirmation.show();" actionListener="#{PayManagedBean.suppEvent(Pays.id)}" ajax="true" icon="ui-icon-trash"/>
 
+                        <p:commandButton id="selectButton" update=":Pays:display" oncomplete="paysDialog.show()" icon="ui-icon-search" title="View_Details">  
+                            <f:setPropertyActionListener value="#{Pays}" target="#{PayManagedBean.selectPay}" />  
+                            </p:commandButton>  
                         </p:column>
-
+                        
+                        
                     </p:dataTable>
+                    
+                    <p:dialog   widgetVar="paysDialog" resizable="true" id="paysDlg"  
+                                showEffect="fade" hideEffect="explode" modal="true"> 
+                        <f:facet name="header">
+                            <h3>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Details Pays</h3>
+                        </f:facet>
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+
+                           
+                            <h:form>
+                                <img src="../resources/images/images (7).jpg" width="300" height="168" alt="images (7)"/>
+
+                                <div>
+                                    <br/><br/>
+                                    <h:outputText value="Nom : " style="color: #045491"   />
+
+                                    <h:outputText value="#{PayManagedBean.selectPay.nom}" style="font-weight:bold"/>  
+                                    <br/><br/>
+
+                                    
+                                    <p:commandButton  value="OK" oncomplete="paysDialog.hide()" icon="ui-icon-check" ajax="true"/>
+                                </div>
+                            </h:form>
+
+                        </h:panelGrid>  
+
+                    </p:dialog>  
 
                 </h:form>
 

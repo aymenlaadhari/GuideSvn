@@ -8,7 +8,6 @@ package controller.restaurant;
 
 import dao.restaurant.RestaurantImpl;
 import dao.restaurant.RestaurantInterface;
-import dao.specialite.SpecialiteInterface;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,8 @@ import javax.faces.event.ActionEvent;
 
 
 import model.Restaurant;
-import model.Specialite;
+import org.primefaces.event.ToggleEvent;
+
 
 /**
  *
@@ -33,12 +33,20 @@ import model.Specialite;
 public class RestaurantManagedBean implements Serializable{
     
  RestaurantInterface restaurantInterface;
- SpecialiteInterface specialiteInterface;
-    private Restaurant restaurant;
-    private Specialite specialite;
-       private List<Restaurant> listRestaurant;
+ private Restaurant restaurant;
+ private List<Restaurant> listRestaurant;
+ private Restaurant selectResto;
 
 //get+set
+ 
+    public Restaurant getSelectResto() {
+        return selectResto;
+    }
+
+    public void setSelectResto(Restaurant selectResto) {
+        this.selectResto = selectResto;
+    }
+ 
     public Restaurant getRestaurant() {
         return restaurant;
     }
@@ -46,13 +54,7 @@ public class RestaurantManagedBean implements Serializable{
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
-     public Specialite getSpecialite() {
-        return specialite;
-    }
-
-    public void setSpecialite(Specialite specialite) {
-        this.specialite = specialite;
-    }
+    
 
     public List<Restaurant> getListRestaurant() {
          restaurantInterface= new RestaurantImpl();
@@ -72,16 +74,16 @@ public class RestaurantManagedBean implements Serializable{
     }
     
 
-    public void editEvent(int id) {
-        System.out.print(id);
+    public void editEvent(int idresto) {
+        System.out.print(idresto);
         restaurantInterface = new RestaurantImpl();
-        restaurant = restaurantInterface.getRestaurant(id);
+        restaurant = restaurantInterface.getRestaurant(idresto);
 
     }
-public void suppEvent(int id) {
-        System.out.print(id);
+public void suppEvent(int idresto) {
+        System.out.print(idresto);
         restaurantInterface = new RestaurantImpl();
-        restaurant = restaurantInterface.getRestaurant(id);
+        restaurant = restaurantInterface.getRestaurant(idresto);
 
     }
     public void deletMessage(ActionEvent actionEvent) {
@@ -112,7 +114,14 @@ public void suppEvent(int id) {
 
     }
 
-
+//methode pour l affichage de dialog de detail ("flech à gauche")
+  public void onRowToggle(ToggleEvent event) {  
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,  
+                                            "Ligne  " + event.getVisibility(),  
+                                            "Nom :" + ((Restaurant) event.getData()).getNom());  
+          
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+    } 
     /**
      * Creates a new instance of CentremedicaleManagedBean
      */

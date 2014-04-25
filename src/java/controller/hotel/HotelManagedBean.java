@@ -18,6 +18,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import model.Hotel;
+import org.primefaces.event.ToggleEvent;
 
 @ManagedBean(name = "hotelManagedBean")
 @SessionScoped
@@ -26,8 +27,18 @@ public class HotelManagedBean implements Serializable{
     HotelInterface hotelInterface ;
     private Hotel hotel;
     private List<Hotel> listHotel;
+    private Hotel selectHotel;
 
     //get+set
+    
+    public Hotel getSelectHotel() {
+        return selectHotel;
+    }
+
+    public void setSelectHotel(Hotel selectHotel) {
+        this.selectHotel = selectHotel;
+    }
+    
     public Hotel getHotel() {
         return hotel;
     }
@@ -92,6 +103,14 @@ public class HotelManagedBean implements Serializable{
         context.addMessage(null, new FacesMessage("hotel supprimé"));
 
     }
+    //methode pour l affichage de dialog de detail ("flech à gauche")
+  public void onRowToggle(ToggleEvent event) {  
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,  
+                                            "Ligne  " + event.getVisibility(),  
+                                            "Nom :" + ((Hotel) event.getData()).getNomH());  
+          
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+    } 
 
     /**
      * Creates a new instance of CentremedicaleManagedBean

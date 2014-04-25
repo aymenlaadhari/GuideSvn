@@ -13,7 +13,8 @@
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-               <img src="../resources/images/csv.png" width="32" height="32" alt="csv"/>
+                <img src="../resources/images/images (18).jpg" width="50" height="40" alt="images (18)"/>
+
                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -33,6 +34,7 @@
 
                 <titreGuide>
                     Gestion Pharmacie
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 </titreGuide>
 
@@ -41,10 +43,12 @@
             <ui:define name="content">
 
                 <h:form class="left_content" id="AjoutPh" >
+                    <img src="../resources/images/images (19).jpg" width="50" height="50" alt="images (19)"/>
+
                     <p:commandButton  value="Nouveau Pharmacie" actionListener="#{PharmacieManagedBean.ajoutEvent(actionEvent)}" update=":edit:editPh" oncomplete="PharmacieAjout.show()" ajax="true" icon="ui-icon-plusthick"/>
 
                 </h:form>
-                <h1>Liste Centres Pharmacies</h1> 
+                <h1>Liste pharmacies</h1> 
                 <br/> 
                 <h:form id="Pharmacie">
                     <p:growl id="growl" showDetail="true" sticky="false"  />
@@ -52,7 +56,13 @@
                                    rowsPerPageTemplate="5,10,15,20,25"  
                                    var="Pharmacie" value="#{PharmacieManagedBean.listPharmacie}"
                                    id="AjoutTab"
-                                   emptyMessage="Pharmacie non trouvé" widgetVar="PharmacieTable">
+                                   emptyMessage="Pharmacie non trouvé" widgetVar="PharmacieTable"
+                                   sortMode="multiple" 
+                                   rowKey="#{Pharmacie.nom}"  
+                                   selectionMode="single">  
+                                   
+                        <p:ajax event="rowToggle" listener="#{PharmacieManagedBean.onRowToggle}" update=":Pharmacie:growl" />  
+
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText  value="Recherche : " />
@@ -62,21 +72,18 @@
 
 
                         <p:column id="Id" headerText="Identifiant" filterBy="#{Pharmacie.id}" filterMatchMode="exact" footerText=" Identifiant exacte">
-                            <h:outputText value="#{Pharmacie.id}" />
+                            <p:rowToggler /> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <h:outputText value="#{Pharmacie.id}" />
                         </p:column>
 
                         <p:column id="Nom" headerText="Nom" filterBy="#{Pharmacie.nom}" filterMatchMode="exact" footerText=" Nom exacte">
 
                             <h:outputText value="#{Pharmacie.nom}" />
                         </p:column>
-                        <p:column id="Description" headerText="Description" filterBy="#{Pharmacie.description}" filterMatchMode="contains" footerText=" Contient">
-                            <h:outputText value="#{Pharmacie.description}"/>
-                        </p:column>
-
+                       
                         <p:column id="Latitude" headerText="Latitude" filterBy="#{Pharmacie.latitude}" filterMatchMode="contains" footerText=" Contient">
                             <h:outputText value="#{Pharmacie.latitude}"/>
                         </p:column>
-                        <p:column id="Longitude" headerText="longitude" filterBy="#{Pharmacie.longitude}" filterMatchMode="contains" footerText=" Contient">
+                        <p:column id="Longitude" headerText="Longitude" filterBy="#{Pharmacie.longitude}" filterMatchMode="contains" footerText=" Contient">
                             <h:outputText value="#{Pharmacie.longitude}"/>
                         </p:column>
                         <p:column id="Type" headerText="Type" filterBy="#{Pharmacie.type}" filterMatchMode="startsWith" footerText="Commence par"
@@ -89,7 +96,7 @@
                             <h:outputText value="#{Pharmacie.siteweb}"/>
                         </p:column>
 
-                        <p:column id="Telephone" headerText="Telephone" filterBy="#{Pharmacie.telephone}" filterMatchMode="contains" footerText="Contient"
+                        <p:column id="Telephone" headerText="Téléphone" filterBy="#{Pharmacie.telephone}" filterMatchMode="contains" footerText="Contient"
                                   >
                             <h:outputText value="#{Pharmacie.telephone}"/>
                         </p:column>
@@ -103,9 +110,73 @@
 
                             <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppCentre"  oncomplete="confirmation.show();" actionListener="#{PharmacieManagedBean.suppEvent(Pharmacie.id)}" ajax="true" icon="ui-icon-trash"/>
 
+                        <p:commandButton id="selectButton" update=":Pharmacie:display" oncomplete="pharDialog.show()" icon="ui-icon-search" title="View_Description">  
+                            <f:setPropertyActionListener value="#{Pharmacie}" target="#{PharmacieManagedBean.selectPharmacie}" />  
+                            </p:commandButton>  
                         </p:column>
+                        
+                        <p:rowExpansion>  
+                            <h:panelGrid id="display" columns="2" cellpadding="4" style="width:300px;"  
+                                         styleClass=" ui-widget-content grid">  
+
+                                <f:facet name="header">  
+                                    <img src="../resources/images/téléchargement.jpg" width="578" height="333" alt="téléchargement"/>
+
+                                </f:facet>  
+
+                                <h:outputText value="Nom :" style="color: blue"/>  
+                                <h:outputText id="nom" value="#{Pharmacie.nom}" style="font-weight:bold"  />
+                                 <h:outputText value="Latitude :" style="color: blue"  />  
+                                 <h:outputText id="LatiP" value="#{Pharmacie.latitude}" style="font-weight:bold" />
+                                 <h:outputText value="Longitude :" style="color: blue" />  
+                                 <h:outputText id="LongP" value="#{Pharmacie.longitude}" style="font-weight:bold" />
+                                 <h:outputText value="Type :" style="color: blue"/>  
+                                 <h:outputText id="typeP" value="#{Pharmacie.type}" style="font-weight:bold"/>
+                                 <h:outputText value="Site Web :" style="color: blue"/>  
+                                 <h:outputText id="siteW" value="#{Pharmacie.siteweb}" style="font-weight:bold"/>
+                                 <h:outputText value="Téléphone :" style="color: blue"/>  
+                                 <h:outputText id="tel" value="#{Pharmacie.telephone}" style="font-weight:bold"/>
+                                 <h:outputText value="Email :" style="color: blue"/>  
+                                 <h:outputText id="em" value="#{Pharmacie.email}" style="font-weight:bold"/>
+
+                                
+
+                                </h:panelGrid>  
+
+                        </p:rowExpansion>  
 
                     </p:dataTable>
+                    
+                    <p:dialog   widgetVar="pharDialog" resizable="true" id="userDlg"  
+                                showEffect="fade" hideEffect="explode" modal="true"> 
+                        <f:facet name="header">
+                            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Details Pharmacie</h3>
+                        </f:facet>
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+
+                            <!--  <f:facet name="header">  
+                                  <p:graphicImage value="/images/cars/#{tableBean.selectedCar.manufacturer}.jpg"/>  
+                              </f:facet>  -->
+                            <h:form>
+                                <img src="../resources/images/mmg_narbonne_47.jpg" width="500" height="300" alt="mmg_narbonne_47"/>
+
+                               <div>
+                                    <br/><br/>
+                                    <h:outputText value="Description : " style="color: #045491"   />
+
+                                    <h:outputText value="#{PharmacieManagedBean.selectPharmacie.description}" style="font-weight:bold"/>  
+                                    <br/><br/>
+
+                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                               
+                                    <p:commandButton  value="OK" oncomplete="pharDialog.hide()" icon="ui-icon-check" ajax="true"/>
+                                </div>
+                            </h:form>
+
+                        </h:panelGrid>  
+
+                    </p:dialog>  
 
                 </h:form>
 
@@ -119,28 +190,29 @@
 
                             <f:facet name="header">
                                 <h1>
+                                    <img src="../resources/images/2461501-illustration-of-a-pharmacist-icon-that-can-be-used-as-a-symbol-bullet-button-or-design-element.jpg" width="40" height="40" alt="2461501-illustration-of-a-pharmacist-icon-that-can-be-used-as-a-symbol-bullet-button-or-design-element"/>
                                     <h:outputLabel value="Ajout Pharmacie" />
                                 </h1> 
                                 <p:separator/>
                             </f:facet>
-                            <h:outputLabel for="nom" title="Nom" value="* Nom :" style="color: #000000"  />
+                            <h:outputLabel for="nom" title="Nom" value="Nom:* " style="color: #000000"  />
                             <p:inputText value="#{PharmacieManagedBean.pharmacie.nom}"  id="nom" required="true"/>
-                            <h:outputLabel for="latitude" title="Nom" value="* Latitude :" style="color: #000000" />
+                            <h:outputLabel for="latitude" title="Nom" value="Latitude:* " style="color: #000000" />
                             <p:inputText value="#{PharmacieManagedBean.pharmacie.latitude}"   id="latitude" required="true"/>
-                            <h:outputLabel for="logitude" title="Nom" value="* Logitude :" style="color: #000000"  />
+                            <h:outputLabel for="logitude" title="Nom" value="Longitude:* " style="color: #000000"  />
                             <p:inputText value="#{PharmacieManagedBean.pharmacie.longitude}"  id="logitude" required="true"/>
-                            <h:outputLabel   for="type" value="Type :" style="color: #000000" />
+                            <h:outputLabel   for="type" value="Type: " style="color: #000000" />
                             <p:selectOneMenu value="#{PharmacieManagedBean.pharmacie.type}" id="type" required="false">  
                                 <f:selectItem itemLabel="Jour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" itemValue="Jour"  />  
                                 <f:selectItem itemLabel="Nuit" itemValue="Nuit" />  
                             </p:selectOneMenu> 
-                            <h:outputLabel for="telephone" title="Nom" value="* Telephone :" style="color: #000000"  />
+                            <h:outputLabel for="telephone" title="Nom" value="Téléphone:* " style="color: #000000"  />
                             <p:inputText value="#{PharmacieManagedBean.pharmacie.telephone}"  id="telephone" required="true"/>
-                            <h:outputLabel for="siteweb" title="Nom" value="Site Web :" style="color: #000000" />
+                            <h:outputLabel for="siteweb" title="Nom" value="Site Web: " style="color: #000000" />
                             <p:inputText value="#{PharmacieManagedBean.pharmacie.siteweb}"   id="siteweb" required="false"/>
-                            <h:outputLabel for="email" title="Nom" value="Email  :" style="color: #000000"  />
+                            <h:outputLabel for="email" title="Nom" value="Email: " style="color: #000000"  />
                             <p:inputText value="#{PharmacieManagedBean.pharmacie.email}"  id="email" required="false"/>
-                            <h:outputLabel for="description"  value="Description:" style="color: #000000" />
+                            <h:outputLabel for="description"  value="Description: " style="color: #000000" />
                             <p:inputTextarea rows="6" cols="30" value="#{PharmacieManagedBean.pharmacie.description}"  id="description" required="false"/>
 
                         </h:panelGrid>
@@ -162,27 +234,29 @@
                             <f:facet name="header">
                                 <h1>
                                     <h:outputLabel value="Modifier Pharmacie"/>
+                                    <img src="../resources/images/modifier-icone-5132-128.png" width="50" height="40" alt="modifier-icone-5132-128"/>
+
                                 </h1> 
                                 <p:separator/>
                             </f:facet>
-                             <h:outputLabel for="nom" title="Nom" value="* Nom :" style="color: #000000"  />
+                             <h:outputLabel for="nom" title="Nom" value="Nom:* " style="color: #000000"  />
                             <p:inputText value="#{PharmacieManagedBean.pharmacie.nom}"  id="nom" required="true"/>
-                            <h:outputLabel for="latitude" title="Nom" value="* Latitude :" style="color: #000000" />
+                            <h:outputLabel for="latitude" title="Nom" value="Latitude:* " style="color: #000000" />
                             <p:inputText value="#{PharmacieManagedBean.pharmacie.latitude}"   id="latitude" required="true"/>
-                            <h:outputLabel for="logitude" title="Nom" value="* Logitude :" style="color: #000000"  />
+                            <h:outputLabel for="logitude" title="Nom" value="Longitude:* " style="color: #000000"  />
                             <p:inputText value="#{PharmacieManagedBean.pharmacie.longitude}"  id="logitude" required="true"/>
-                            <h:outputLabel   for="type" value="Type :" style="color: #000000" />
+                            <h:outputLabel   for="type" value="Type: " style="color: #000000" />
                             <p:selectOneMenu value="#{PharmacieManagedBean.pharmacie.type}" id="type" required="false">  
                                 <f:selectItem itemLabel="Jour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" itemValue="Jour"  />  
                                 <f:selectItem itemLabel="Nuit" itemValue="Nuit" />  
                             </p:selectOneMenu> 
-                            <h:outputLabel for="telephone" title="Nom" value="* Telephone :" style="color: #000000"  />
+                            <h:outputLabel for="telephone" title="Nom" value="Téléphone:* " style="color: #000000"  />
                             <p:inputText value="#{PharmacieManagedBean.pharmacie.telephone}"  id="telephone" required="true"/>
-                            <h:outputLabel for="siteweb" title="Nom" value="Site Web :" style="color: #000000" />
+                            <h:outputLabel for="siteweb" title="Nom" value="Site Web: " style="color: #000000" />
                             <p:inputText value="#{PharmacieManagedBean.pharmacie.siteweb}"   id="siteweb" required="false"/>
-                            <h:outputLabel for="email" title="Nom" value="Email  :" style="color: #000000"  />
+                            <h:outputLabel for="email" title="Nom" value="Email: " style="color: #000000"  />
                             <p:inputText value="#{PharmacieManagedBean.pharmacie.email}"  id="email" required="false"/>
-                            <h:outputLabel for="description"  value="Description:" style="color: #000000" />
+                            <h:outputLabel for="description"  value="Description: " style="color: #000000" />
                             <p:inputTextarea rows="6" cols="30" value="#{PharmacieManagedBean.pharmacie.description}"  id="description" required="false"/>
 
                         </h:panelGrid>
@@ -195,19 +269,24 @@
                     </p:dialog>
                 </h:form>
                <h:form id="formSupp">
-
+                   <h1>
                     <p:confirmDialog header="Confirmation" 
-                                     message="Êtes-vous sûr(e) de vouloir supprimer  #{PharmacieManagedBean.pharmacie.nom} ?" 
+                                     message="Êtes-vous sûr(e) de vouloir Supprimer ' #{PharmacieManagedBean.pharmacie.nom} ' ?" 
                                      severity="alert" 
                                      widgetVar="confirmation" id="suppCentre">
                         <p:growl id="growl" showDetail="true" sticky="false" />
 
                         <h:panelGrid id="display" columns="2" cellpadding="4"
                                      style="margin:0 auto;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img src="../resources/images/images (20).jpg" width="225" height="225" alt="images (20)"/>
+
+                                <h:outputLabel/>
                             <p:commandButton icon="ui-icon-check" ajax="true" value="Oui" update=":Pharmacie:AjoutTab, growl" actionListener="#{PharmacieManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
                             <p:commandButton value="Non" onclick="confirmation.hide()" icon="ui-icon-close"/>
                         </h:panelGrid>
                     </p:confirmDialog>
+                       </h1>
                 </h:form>
 
 

@@ -10,29 +10,32 @@
     </h:head>
     <h:body>
         <div class="conteiner">
-            <p:growl  showDetail="true" life="3000"/>
 
-            <h:form id="form">       
+            <h:form id="form" >    
+                <p:growl  id="growl" showDetail="true" life="5000"/>
 
-                <p:panel id="panel"  header="&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Authentification" footer=" &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Guide Touristique ">
+
+                <p:panel id="panel"  header="&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Authentification" footer="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Systeme de Guide Touristique ">
 
                     <h:panelGrid columns="2" cellpadding="5">
                         <h:outputLabel for="username" value="Login :" />
                         <p:inputText  value="#{loginManagedBean.utilisateur.login}"
                                       id="username" required="true" label="username" />
 
-                        <h:outputLabel for="password" value="Password :" />
+                        <h:outputLabel for="password" value="Mot de Passe :" />
                         <p:password value="#{loginManagedBean.utilisateur.password}" required="true" id="password" />
 
                         <f:facet name="footer">
-                           
+                            <br/>
+
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <p:commandButton id="loginButton" value="Connexion"
-                                                 actionListener="#{loginManagedBean.login(actionEvent)}"
-                                                 oncomplete="handleLoginRequest(xhr, status, args)" update="form" ajax="true" icon="ui-icon-check"/>
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                <p:commandButton id="AnnulerButton" value="Annuler "  icon="ui-icon-close"/>
-                            
+                                                                                                                                              actionListener="#{loginManagedBean.login(actionEvent)}"
+                                                                                                                                              oncomplete="handleLoginRequest(xhr, status, args)" update=":form:growl" ajax="true" icon="ui-icon-check"/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+
                         </f:facet>
+
                     </h:panelGrid>
 
                 </p:panel>
@@ -47,11 +50,22 @@
             function handleLoginRequest(xhr, status, args) {
                 if (args.validationFailed || !args.loggedIn) {
                     jQuery('#form').effect("shake", {times: 5}, 100);
+
                 }
                 else {
-                    location.href = args.ruta;
+                    
+                     location.href = args.ruta;
+                    $('#loginLink').fadeOut();
                 }
+                
             }
+            
+
+
+
+
+
+            
         </script>
 
     </h:body>

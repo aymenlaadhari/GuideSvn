@@ -66,7 +66,7 @@ public class ApplicationManagedBean implements Serializable {
 
     
     public String logout() {
-        return "/faces/Views/login";
+        return "/faces/Views/login.xhtml";
     }
 
     public String indexImage() {
@@ -96,6 +96,7 @@ public class ApplicationManagedBean implements Serializable {
         public String indexMonument() {
         return "/faces/Views/indexMonument.xhtml";
     }
+        
 
 
     public ApplicationManagedBean() {

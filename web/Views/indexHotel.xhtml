@@ -8,19 +8,20 @@
 
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-   <h:head>
+    <h:head>
         <title>Gestion Hotel</title>
     </h:head>
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-               <img src="../resources/images/csv.png" width="32" height="32" alt="csv"/>
-                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="../resources/images/imagesHotel.jpg" width="50" height="40" alt="imagesHotel"/>
+
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -39,6 +40,7 @@
 
                 <titreGuide>
                     Gestion Hotel
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
 
                 </titreGuide>
 
@@ -59,7 +61,12 @@
                                    rowsPerPageTemplate="5,10,15,20,25"  
                                    var="Hotel" value="#{hotelManagedBean.listHotel}"
                                    id="AjoutTab"
-                                   emptyMessage="Hotel non trouvé" widgetVar="HotelTable">
+                                   emptyMessage="Hotel non trouvé" widgetVar="HotelTable"
+                                   sortMode="multiple" 
+                                   rowKey="#{Hotel.nomH}"  
+                                   selectionMode="single">
+                        <p:ajax event="rowToggle" listener="#{hotelManagedBean.onRowToggle}" update=":Hotel:growl" />  
+
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText  value="Recherche : " />
@@ -67,16 +74,14 @@
                             </p:outputPanel>
                         </f:facet>
                         <p:column id="Id" headerText="Identifiant" filterBy="#{Hotel.idHotel}" filterMatchMode="exact" footerText=" Identifiant exacte">
-                            <h:outputText value="#{Hotel.idHotel}" />
+                            <p:rowToggler /> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <h:outputText value="#{Hotel.idHotel}" />
                         </p:column>
 
                         <p:column id="Nom" headerText="Nom" filterBy="#{Hotel.nomH}" filterMatchMode="exact" footerText=" Nom exacte">
 
                             <h:outputText value="#{Hotel.nomH}" />
                         </p:column>
-                        <p:column id="Description" headerText="Description" filterBy="#{Hotel.description}" filterMatchMode="contains" footerText=" Contient">
-                            <h:outputText value="#{Hotel.description}"/>
-                        </p:column>
+
 
                         <p:column id="Latitude" headerText="Latitude" filterBy="#{Hotel.latitude}" filterMatchMode="contains" footerText=" Contient">
                             <h:outputText value="#{Hotel.latitude}"/>
@@ -93,7 +98,7 @@
                             <h:outputText value="#{Hotel.sitewebH}"/>
                         </p:column>
 
-                        <p:column id="Telephone" headerText="Telephone" filterBy="#{Hotel.telephoneH}" filterMatchMode="contains" footerText="Contient"
+                        <p:column id="Telephone" headerText="Téléphone" filterBy="#{Hotel.telephoneH}" filterMatchMode="contains" footerText="Contient"
                                   >
                             <h:outputText value="#{Hotel.telephoneH}"/>
                         </p:column>
@@ -105,12 +110,79 @@
                         <p:column style="width:4%">
                             <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editH"  oncomplete="HotelEdit.show();" actionListener="#{hotelManagedBean.editEvent(Hotel.idHotel)}" ajax="true" icon="ui-icon-pencil"/>
 
-                            
+
                             <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppCentre"  oncomplete="confirmation.show();" actionListener="#{hotelManagedBean.suppEvent(Hotel.idHotel)}" ajax="true" icon="ui-icon-trash"/>
 
+                            <p:commandButton id="selectButton" update=":Hotel:display" oncomplete="hotelDialog.show()" icon="ui-icon-search" title="View_Description">  
+                                <f:setPropertyActionListener value="#{Hotel}" target="#{hotelManagedBean.selectHotel}" />  
+                            </p:commandButton>  
                         </p:column>
 
+                        <p:rowExpansion>  
+                            <h:panelGrid id="display" columns="2" cellpadding="4" style="width:300px;"  
+                                         styleClass=" ui-widget-content grid">  
+
+                                <f:facet name="header">  
+                                    <img src="../resources/images/imagesHotel1.jpg" width="477" height="182" alt="imagesHotel1"/>
+
+                                </f:facet>  
+
+                                <h:outputText value="Nom :" style="color: blue"/>  
+                                <h:outputText id="nomHotel" value="#{Hotel.nomH}" style="font-weight:bold" />  
+
+                                <h:outputText value="Latitude :" style="color: blue"/>  
+                                <h:outputText id="la" value="#{Hotel.latitude}" style="font-weight:bold"/>  
+
+                                <h:outputText value="Longitude :" style="color: blue"/>  
+                                <h:outputText id="lo" value="#{Hotel.longitude}" style="font-weight:bold"/>  
+
+                                <h:outputText value="Nombre Etoile :" style="color: blue"/>  
+                                <h:outputText id="nbre" value="#{Hotel.nbreetoile}" style="font-weight:bold"/>  
+
+                                <h:outputText value="Site Web :" style="color: blue" />  
+                                <h:outputText id="SW" value="#{Hotel.sitewebH}" style="font-weight:bold"/>  
+
+                                <h:outputText value="Téléphone :" style="color: blue"/>  
+                                <h:outputText id="THotel" value="#{Hotel.telephoneH}" style="font-weight:bold"/>  
+
+                                <h:outputText value="Email :" style="color: blue"/>  
+                                <h:outputText id="eHotel" value="#{Hotel.emailH}" style="font-weight:bold"/>  
+
+
+
+                            </h:panelGrid>  
+
+                        </p:rowExpansion>  
+
                     </p:dataTable>
+
+                    <p:dialog   widgetVar="hotelDialog" resizable="true" id="userDlg"  
+                                showEffect="fade" hideEffect="explode" modal="true"> 
+                        <f:facet name="header">
+                            <h3>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Details Hôtel</h3>
+                        </f:facet>
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+
+
+                            <h:form>
+                                <img src="../resources/images/téléchargement (5).jpg" width="375" height="183" alt="téléchargement (5)"/>
+
+                                <div>
+                                    <br/><br/>
+                                    <h:outputText value="Description : " style="color: #045491"   />
+
+                                    <h:outputText value="#{hotelManagedBean.selectHotel.description}" style="font-weight:bold"/>  
+                                    <br/><br/>
+                                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    <p:commandButton  value="OK" oncomplete="hotelDialog.hide()" icon="ui-icon-check" ajax="true"/>
+                                </div>
+                            </h:form>
+
+                        </h:panelGrid>  
+
+                    </p:dialog>  
 
                 </h:form>
 
@@ -124,27 +196,29 @@
 
                             <f:facet name="header">
                                 <h1>
+                                    <img src="../resources/images/icon_128.png" width="50" height="50" alt="icon_128"/>
+
                                     <h:outputLabel value="Ajout Hotel" />
                                 </h1> 
                                 <p:separator/>
                             </f:facet>
 
 
-                            <h:outputLabel for="nom" title="Nom" value="* Nom :" style="color: #000000"  />
+                            <h:outputLabel for="nom" title="Nom" value="Nom:* " style="color: #000000"  />
                             <p:inputText value="#{hotelManagedBean.hotel.nomH}"  id="nom" required="true"/>
-                            <h:outputLabel for="latitude"  value="* Latitude :" style="color: #000000" />
+                            <h:outputLabel for="latitude"  value="Latitude:* " style="color: #000000" />
                             <p:inputText value="#{hotelManagedBean.hotel.latitude}"   id="latitude" required="true"/>
-                            <h:outputLabel for="Longitude"  value="* Longitude :" style="color: #000000"  />
+                            <h:outputLabel for="Longitude"  value="Longitude:* " style="color: #000000"  />
                             <p:inputText value="#{hotelManagedBean.hotel.longitude}"  id="Longitude" required="true"/>
-                            <h:outputLabel for="NbreEtoile"  value="* Nombre Etoile :" style="color: #000000"  />
+                            <h:outputLabel for="NbreEtoile"  value="Nombre Etoile:* " style="color: #000000"  />
                             <p:inputText value="#{hotelManagedBean.hotel.nbreetoile}"  id="NbreEtoile" required="true"/>
-                            <h:outputLabel for="telephone" title="Nom" value="* Telephone :" style="color: #000000"  />
+                            <h:outputLabel for="telephone" title="Nom" value="Téléphone:* " style="color: #000000"  />
                             <p:inputText value="#{hotelManagedBean.hotel.telephoneH}"  id="telephone" required="true"/>
-                            <h:outputLabel for="siteweb" title="Nom" value="Site Web :" style="color: #000000" />
+                            <h:outputLabel for="siteweb" title="Nom" value="Site Web: " style="color: #000000" />
                             <p:inputText value="#{hotelManagedBean.hotel.sitewebH}"   id="siteweb" required="false"/>
-                            <h:outputLabel for="email" title="Nom" value="Email  :" style="color: #000000"  />
+                            <h:outputLabel for="email" title="Nom" value="Email: " style="color: #000000"  />
                             <p:inputText value="#{hotelManagedBean.hotel.emailH}"  id="email" required="false"/>
-                            <h:outputLabel for="description"  value="Description :" style="color: #000000" />
+                            <h:outputLabel for="description"  value="Description: " style="color: #000000" />
                             <p:inputTextarea rows="6" cols="30" value="#{hotelManagedBean.hotel.description}"  id="description" required="false"/>
 
                         </h:panelGrid>
@@ -166,24 +240,27 @@
                             <f:facet name="header">
                                 <h1>
                                     <h:outputLabel value="Modifier Hotel"/>
+                                    <img src="../resources/images/images (23).jpg" width="50" height="50" alt="images (23)"/>
+
                                 </h1> 
                                 <p:separator/>
                             </f:facet>
-                            <h:outputLabel for="nom" title="Nom" value="* Nom :" style="color: #000000"  />
+
+                            <h:outputLabel for="nom" title="Nom" value="Nom:* " style="color: #000000"  />
                             <p:inputText value="#{hotelManagedBean.hotel.nomH}"  id="nom" required="true"/>
-                            <h:outputLabel for="latitude"  value="* Latitude :" style="color: #000000" />
+                            <h:outputLabel for="latitude"  value="Latitude:* " style="color: #000000" />
                             <p:inputText value="#{hotelManagedBean.hotel.latitude}"   id="latitude" required="true"/>
-                            <h:outputLabel for="Longitude"  value="* Longitude :" style="color: #000000"  />
+                            <h:outputLabel for="Longitude"  value="Longitude:* " style="color: #000000"  />
                             <p:inputText value="#{hotelManagedBean.hotel.longitude}"  id="Longitude" required="true"/>
-                            <h:outputLabel for="NbreEtoile"  value="* Nombre Etoile :" style="color: #000000"  />
+                            <h:outputLabel for="NbreEtoile"  value="Nombre Etoile:* " style="color: #000000"  />
                             <p:inputText value="#{hotelManagedBean.hotel.nbreetoile}"  id="NbreEtoile" required="true"/>
-                            <h:outputLabel for="telephone" title="Nom" value="* Telephone :" style="color: #000000"  />
+                            <h:outputLabel for="telephone" title="Nom" value="Téléphone:* " style="color: #000000"  />
                             <p:inputText value="#{hotelManagedBean.hotel.telephoneH}"  id="telephone" required="true"/>
-                            <h:outputLabel for="siteweb" title="Nom" value="Site Web :" style="color: #000000" />
+                            <h:outputLabel for="siteweb" title="Nom" value="Site Web: " style="color: #000000" />
                             <p:inputText value="#{hotelManagedBean.hotel.sitewebH}"   id="siteweb" required="false"/>
-                            <h:outputLabel for="email" title="Nom" value="Email  :" style="color: #000000"  />
+                            <h:outputLabel for="email" title="Nom" value="Email: " style="color: #000000"  />
                             <p:inputText value="#{hotelManagedBean.hotel.emailH}"  id="email" required="false"/>
-                            <h:outputLabel for="description"  value="Description:" style="color: #000000" />
+                            <h:outputLabel for="description"  value="Description: " style="color: #000000" />
                             <p:inputTextarea rows="6" cols="30" value="#{hotelManagedBean.hotel.description}"  id="description" required="false"/>
                         </h:panelGrid>
                         <p:separator/>
@@ -195,45 +272,52 @@
                     </p:dialog>
                 </h:form>
                 <h:form id="Delete">
-                    <p:confirmDialog  id = "confirmDialog" 
-                                      message = "Êtes-vous sûr(e) de vouloir supprimer ceci ?" 
-                                      header="Confirmation de Supprimer" severity="alert"
-                                      widgetVar="confirmation">
-                        <p:growl id="messages" showDetail="true" sticky="false" life="10000"/>
+                    <h1>
+                        <p:confirmDialog  id = "confirmDialog" 
+                                          message = "Êtes-vous sûr(e) de vouloir supprimer ceci ?" 
+                                          header="Confirmation de Supprimer" severity="alert"
+                                          widgetVar="confirmation">
+                            <p:growl id="messages" showDetail="true" sticky="false" life="10000"/>
 
 
 
-                        <h:panelGrid id="display" columns="2" cellpadding="4"
-                                     style="margin:0 auto;">
+                            <h:panelGrid id="display" columns="2" cellpadding="4"
+                                         style="margin:0 auto;">
 
-                            <h:outputLabel for="nom" title="Nom" value="Nom :" style="color: #000000"  />
-                            <h:outputText value="#{hotelManagedBean.hotel.nomH}"  id="nom" />
+                                <h:outputLabel for="nom" title="Nom" value="Nom :" style="color: #000000"  />
+                                <h:outputText value="#{hotelManagedBean.hotel.nomH}"  id="nom" />
 
-                            <p:commandButton id="confirm" value="Oui" oncomplete="confirmation.hide()"
-                                             actionListener="#{hotelManagedBean.delet(hotel)}"
-                                             update=":Hotel:AjoutTab">
-                            </p:commandButton>
-                            <p:commandButton id="decline" value="Non"
-                                             oncomplete="confirmation.hide()"  />
-                        </h:panelGrid>
-                    </p:confirmDialog>
+                                <p:commandButton id="confirm" value="Oui" oncomplete="confirmation.hide()"
+                                                 actionListener="#{hotelManagedBean.delet(hotel)}"
+                                                 update=":Hotel:AjoutTab">
+                                </p:commandButton>
+                                <p:commandButton id="decline" value="Non"
+                                                 oncomplete="confirmation.hide()"  />
+                            </h:panelGrid>
+                        </p:confirmDialog>
+                    </h1>
 
                 </h:form>
 
-<h:form id="formSupp">
-
+                <h:form id="formSupp">
+                    <h1>
                     <p:confirmDialog header="Confirmation" 
-                                     message="Êtes-vous sûr(e) de vouloir supprimer : #{hotelManagedBean.hotel.nomH} ?" 
+                                     message="Êtes-vous sûr(e) de vouloir Supprimer '#{hotelManagedBean.hotel.nomH}' ?" 
                                      severity="alert" 
                                      widgetVar="confirmation" id="suppCentre">
                         <p:growl id="growl" showDetail="true" sticky="false" />
 
                         <h:panelGrid id="display" columns="2" cellpadding="4"
                                      style="margin:0 auto;">
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             <img src="../resources/images/images (24).jpg" width="262" height="192" alt="images (24)"/>
+
+                                <h:outputLabel/>
                             <p:commandButton icon="ui-icon-check" ajax="true" value="Oui" update=":Hotel:AjoutTab, growl" actionListener="#{hotelManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
                             <p:commandButton value="Non" onclick="confirmation.hide()" icon="ui-icon-close"/>
                         </h:panelGrid>
                     </p:confirmDialog>
+                        </h1>
                 </h:form>
             </ui:define>
         </ui:composition>

@@ -23,8 +23,8 @@ public interface SpecialiteInterface {
 
     public void update(Specialite specialite);
 
-    public Specialite getSpecialite(int id);
-
+    public Specialite getSpecialite(int idspec);
+  
    // public Specialite findBySpecialite(Specialite specialite);
 
 }

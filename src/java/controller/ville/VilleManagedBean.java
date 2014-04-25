@@ -21,6 +21,7 @@ import javax.faces.event.ActionEvent;
 
 
 import model.Ville;
+import org.primefaces.event.ToggleEvent;
 
 @ManagedBean(name = "VilleManagedBean")
 @SessionScoped
@@ -28,9 +29,19 @@ public class VilleManagedBean implements Serializable{
 
     VilleInterface villeInterface;
     private Ville ville;
+    private Ville selectVille;
+            
     private List<Ville> listVille;
 
     //get+set
+    
+    public Ville getSelectVille() {
+        return selectVille;
+    }
+
+    public void setSelectVille(Ville selectVille) {
+        this.selectVille = selectVille;
+    }
     
     public Ville getVille() {
         return ville;
@@ -97,6 +108,14 @@ public void suppEvent(int id) {
         context.addMessage(null, new FacesMessage("Ville supprimée"));
 
     }
+    //methode pour l affichage de dialog de detail ("flech à gauche")
+  public void onRowToggle(ToggleEvent event) {  
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,  
+                                            "Ligne  " + event.getVisibility(),  
+                                            "Nom :" + ((Ville) event.getData()).getNom());  
+          
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+    } 
  
 
 

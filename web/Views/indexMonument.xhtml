@@ -14,8 +14,8 @@
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-               <img src="../resources/images/csv.png" width="32" height="32" alt="csv"/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="../resources/images/images (12).jpg" width="60" height="40" alt="images (12)"/>
+
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -33,16 +33,19 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 
 
                 <titreGuide>
                     Gestion Monument
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </titreGuide> 
             </ui:define>
 
             <ui:define name="content">
                 <h:form class="left_content" id="AjoutM" >
-                    <p:commandButton  value="Nouveau Monument" actionListener="#{MonumentManagedBean.ajoutEvent(actionEvent)}" update=":edit:editM" oncomplete="MonumentAjout.show()" ajax="true" icon="ui-icon-plusthick"/>
+
+                    <p:commandButton value="Nouveau Monument" icon="ui-icon-plusthick" actionListener="#{MonumentManagedBean.ajoutEvent(actionEvent)}" update=":edit:editM" oncomplete="MonumentAjout.show()" ajax="true" />
 
                 </h:form>
                 <br/>
@@ -55,7 +58,13 @@
                                    rowsPerPageTemplate="5,10,15,20,25"  
                                    var="monument" value="#{MonumentManagedBean.listMonument}"
                                    id="AjoutTab"
-                                   emptyMessage="Monument non trouvé" widgetVar="MonumentTable">
+                                   emptyMessage="Monument non trouvé" widgetVar="MonumentTable"
+                                   sortMode="multiple" 
+                                   rowKey="#{monument.nomM}"  
+                                   selectionMode="single">  
+
+                        <p:ajax event="rowToggle" listener="#{MonumentManagedBean.onRowToggle}" update=":Monument:growl" />  
+
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText  value="Recherche : " />
@@ -65,15 +74,12 @@
 
 
                         <p:column id="monumentId" headerText="Identifiant" filterBy="#{monument.idMonument}" filterMatchMode="exact" footerText=" Identifiant exacte">
-                            <h:outputText value="#{monument.idMonument}" />
+                            <p:rowToggler /> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h:outputText value="#{monument.idMonument}" />
                         </p:column>
 
                         <p:column id="Nom" headerText="Nom" filterBy="#{monument.nomM}" filterMatchMode="exact" footerText=" Nom exacte">
 
                             <h:outputText value="#{monument.nomM}" />
-                        </p:column>
-                        <p:column id="Description" headerText="Description" filterBy="#{monument.description}" filterMatchMode="contains" footerText=" Contient">
-                            <h:outputText value="#{monument.description}"/>
                         </p:column>
 
                         <p:column id="Latitude" headerText="Latitude" filterBy="#{monument.latitude}" filterMatchMode="contains" footerText=" Contient">
@@ -86,9 +92,8 @@
                                   >
                             <h:outputText value="#{monument.type}"/>
                         </p:column>
-                        
-                        <p:column id="dateconstruction" headerText="Date Consctruction" filterBy="#{monument.dateconstruction}" filterMatchMode="startsWith" footerText="Commence par"
-                                  >
+
+                        <p:column id="dateconstruction" headerText="Date Construction" filterBy="#{monument.dateconstruction}" filterMatchMode="contains" footerText=" Contient">
                             <h:outputText value="#{monument.dateconstruction}"/>
                         </p:column>
 
@@ -98,9 +103,72 @@
 
                             <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppCentre"  oncomplete="confirmation.show();" actionListener="#{MonumentManagedBean.suppEvent(monument.idMonument)}" ajax="true" icon="ui-icon-trash"/>
 
+                            <p:commandButton id="selectButton" update=":Monument:display" oncomplete="monumentDialog.show()" icon="ui-icon-search" title="View_Description">  
+                                <f:setPropertyActionListener value="#{monument}" target="#{MonumentManagedBean.selectedMonument}" />  
+                            </p:commandButton>  
                         </p:column>
 
+                        <p:rowExpansion>  
+                            <h:panelGrid id="display" columns="2" cellpadding="4" style="width:300px;"  
+                                         styleClass=" ui-widget-content grid">  
+
+                                <f:facet name="header">  
+                                    <img src="../resources/images/imageMonument.jpg" width="573" height="185" alt="imageMonument"/>
+
+                                </f:facet>  
+
+                                <h:outputText value="Nom :" style="color: blue"/>  
+                                <h:outputText id="nomM" value="#{monument.nomM}" style="font-weight:bold" /> 
+
+                                <h:outputText value="Latitude :" style="color: blue" />  
+                                <h:outputText id="lati" value="#{monument.latitude}" style="font-weight:bold" />
+
+                                <h:outputText value="Longitude :" style="color: blue" />  
+                                <h:outputText id="long" value="#{monument.longitude}"  style="font-weight:bold"/>
+
+                                <h:outputText value="Type :" style="color: blue" />  
+                                <h:outputText id="typeM" value="#{monument.type}"  style="font-weight:bold"/>
+
+                                <h:outputText value="Date de Construction :" style="color: blue" />  
+                                <h:outputText id="dateC" value="#{monument.dateconstruction}"  style="font-weight:bold"/>
+
+
+
+                            </h:panelGrid>  
+
+                        </p:rowExpansion>  
+
                     </p:dataTable>
+
+                    <p:dialog   widgetVar="monumentDialog" resizable="true" id="moDlg"  
+                                showEffect="fade" hideEffect="explode" modal="true"> 
+                        <f:facet name="header">
+                            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Details Monument</h3>
+                        </f:facet>
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+
+
+                            <h:form>
+                                <img src="../resources/images/images (13).jpg" width="359" height="295" alt="images (13)"/>
+
+                                <br/><br/>
+
+                                <h:outputText value="Description : " style="color: #045491"   />
+                                <div>
+
+                                    <h:outputText value="#{MonumentManagedBean.selectedMonument.description}" style="font-weight:bold"/>  
+                                    <br/><br/>
+
+                                </div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p:commandButton  value="OK" oncomplete="monumentDialog.hide()" icon="ui-icon-check" ajax="true"/>
+
+                            </h:form>
+
+                        </h:panelGrid>  
+
+                    </p:dialog>  
 
                 </h:form>
                 <h:form id="edit">
@@ -108,32 +176,41 @@
                     <p:dialog  header="Monument" widgetVar="MonumentAjout" resizable="true" id="editM" modal="true">
 
                         <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
-                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+                        <h:panelGrid id="display" columns="2" cellpadding="5" style="margin:0 auto;">
 
                             <f:facet name="header">
                                 <h1>
+                                    <img src="../resources/images/ajouter-icone-5952-96.png" width="40" height="40" alt="ajouter-icone-5952-96"/>
+
                                     <h:outputLabel value="Ajout Monument" />
+
                                 </h1> 
                                 <p:separator/>
                             </f:facet>
-                            <h:outputLabel for="nom"  value="* Nom :" style="color: #000000"  />
+                            <h:outputLabel for="nom"  value="Nom:* " style="color: #000000"  />
                             <p:inputText value="#{MonumentManagedBean.monument.nomM}"  id="nom" required="true"/>
-                            <h:outputLabel for="latitude"  value="* Latitude :" style="color: #000000" />
-                            <p:inputText value="#{MonumentManagedBean.monument.latitude}"   id="latitude" required="true"/>
-                            <h:outputLabel for="logitude"  value="* Logitude :" style="color: #000000"  />
-                            <p:inputText value="#{MonumentManagedBean.monument.longitude}"  id="logitude" required="true"/>
-                            <h:outputLabel   for="dateconstruction"  value="Date Construction :"  style="color: #000000"/>
-                            <p:calendar value="#{MonumentManagedBean.monument.dateconstruction}" required="false"  pattern="MM/dd/yyyy HH:mm" id="dateconstruction" showOn="button" />  
-                            <h:outputLabel   for="type" value="Type :" style="color: #000000" />
-                            <p:selectOneMenu value="#{MonumentManagedBean.monument.type}" id="type" required="false">  
-                                <f:selectItem itemLabel="Historique&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" itemValue="Historique"  />  
+
+                            <h:outputLabel   for="type" value="Type: " style="color: #000000" />
+                            <p:selectOneMenu value="#{MonumentManagedBean.monument.type}" id="type" > 
+
+                                <f:selectItem itemLabel="Historique&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" itemValue="Historique"  />  
                                 <f:selectItem itemLabel="Touristique" itemValue="Touristique" />  
                                 <f:selectItem itemLabel="Culturel" itemValue="Culturel" />  
                                 <f:selectItem itemLabel="Artistique" itemValue="Artistique" /> 
                                 <f:selectItem itemLabel="Religieux" itemValue="Religieux" /> 
                                 <f:selectItem itemLabel="Antique" itemValue="Antique" /> 
                             </p:selectOneMenu> 
-                            <h:outputLabel for="description"  value="Description:" style="color: #000000" />
+
+                            <h:outputLabel for="latitude"  value="Latitude:* " style="color: #000000" />
+                            <p:inputText value="#{MonumentManagedBean.monument.latitude}"   id="latitude" required="true"/>
+
+                            <h:outputLabel for="logitude"  value="Logitude:* " style="color: #000000"  />
+                            <p:inputText value="#{MonumentManagedBean.monument.longitude}"  id="logitude" required="true"/>
+
+                            <h:outputLabel   for="dateconstruction"  value="Date Construction: "  style="color: #000000"/>
+                            <p:calendar value="#{MonumentManagedBean.monument.dateconstruction}" required="false"  pattern="MM/dd/yyyy HH:mm" id="dateconstruction" showOn="button" />  
+
+                            <h:outputLabel for="description"  value="Description: " style="color: #000000" />
                             <p:inputTextarea rows="6" cols="30" value="#{MonumentManagedBean.monument.description}"  id="description" required="false"/>
 
                         </h:panelGrid>
@@ -152,29 +229,38 @@
 
                             <f:facet name="header">
                                 <h1>
+
                                     <h:outputLabel value="Modifier Monument"/>
+                                    <img src="../resources/images/icon-modifier.jpg" width="50" height="50" alt="icon-modifier"/>
+
                                 </h1> 
                                 <p:separator/>
                             </f:facet>
 
-                            <h:outputLabel  for="nom"  value="* Nom de monument : " style="color: #000000"/>
-                            <p:inputText value="#{MonumentManagedBean.monument.nomM}" id="nom" required="true"/>
-                            <h:outputLabel for="latitude"  value="* Latitude :" style="color: #000000" />
-                            <p:inputText value="#{MonumentManagedBean.monument.latitude}" id="latitude" required="true"/>
-                            <h:outputLabel for="logitude"  value="* Logitude :" style="color: #000000"  />
-                            <p:inputText value="#{MonumentManagedBean.monument.longitude}"  id="logitude" required="true"/>
-                            <h:outputLabel for="dateconstruction"  value="Date Construction :"   style="color: #000000"/>
-                            <p:calendar value="#{MonumentManagedBean.monument.dateconstruction}"   pattern="MM/dd/yyyy HH:mm" id="dateconstruction" showOn="button" />  
-                            <h:outputLabel for="type" value="Type :" style="color: #000000" />
-                            <p:selectOneMenu value="#{MonumentManagedBean.monument.type}" id="type">  
-                                <f:selectItem itemLabel="Historique&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" itemValue="Historique"  />  
+                            <h:outputLabel for="nom"  value="Nom:* " style="color: #000000"  />
+                            <p:inputText value="#{MonumentManagedBean.monument.nomM}"  id="nom" required="true"/>
+
+                            <h:outputLabel   for="type" value="Type: " style="color: #000000" />
+                            <p:selectOneMenu value="#{MonumentManagedBean.monument.type}" id="type" > 
+
+                                <f:selectItem itemLabel="Historique&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" itemValue="Historique"  />  
                                 <f:selectItem itemLabel="Touristique" itemValue="Touristique" />  
                                 <f:selectItem itemLabel="Culturel" itemValue="Culturel" />  
                                 <f:selectItem itemLabel="Artistique" itemValue="Artistique" /> 
                                 <f:selectItem itemLabel="Religieux" itemValue="Religieux" /> 
                                 <f:selectItem itemLabel="Antique" itemValue="Antique" /> 
                             </p:selectOneMenu> 
-                            <h:outputLabel for="description"  value="Description:" style="color: #000000" />
+
+                            <h:outputLabel for="latitude"  value="Latitude:* " style="color: #000000" />
+                            <p:inputText value="#{MonumentManagedBean.monument.latitude}"   id="latitude" required="true"/>
+
+                            <h:outputLabel for="logitude"  value="Logitude:* " style="color: #000000"  />
+                            <p:inputText value="#{MonumentManagedBean.monument.longitude}"  id="logitude" required="true"/>
+
+                            <h:outputLabel   for="dateconstruction"  value="Date Construction: "  style="color: #000000"/>
+                            <p:calendar value="#{MonumentManagedBean.monument.dateconstruction}" required="false"  pattern="MM/dd/yyyy HH:mm" id="dateconstruction" showOn="button" />  
+
+                            <h:outputLabel for="description"  value="Description: " style="color: #000000" />
                             <p:inputTextarea rows="6" cols="30" value="#{MonumentManagedBean.monument.description}"  id="description" required="false"/>
                         </h:panelGrid>
                         <p:separator/>
@@ -185,21 +271,27 @@
                         </h:panelGrid>
                     </p:dialog>
                 </h:form>
-                
+
                 <h:form id="formSupp">
+                    <h1>
+                        <p:confirmDialog header="Confirmation" 
+                                         message="Êtes-vous sûr(e) de vouloir Supprimer ' #{MonumentManagedBean.monument.nomM} ' ?" 
+                                         severity="alert" 
+                                         widgetVar="confirmation" id="suppCentre">
+                            <p:growl id="growl" showDetail="true" sticky="false" />
 
-                    <p:confirmDialog header="Confirmation" 
-                                     message="Êtes-vous sûr(e) de vouloir supprimer  #{MonumentManagedBean.monument.nomM} ?" 
-                                     severity="alert" 
-                                     widgetVar="confirmation" id="suppCentre">
-                        <p:growl id="growl" showDetail="true" sticky="false" />
+                            <h:panelGrid id="display" columns="2" cellpadding="4"
+                                         style="margin:0 auto;">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                        <h:panelGrid id="display" columns="2" cellpadding="4"
-                                     style="margin:0 auto;">
-                            <p:commandButton icon="ui-icon-check" ajax="true" value="Oui" update=":Monument:AjoutTab, growl" actionListener="#{MonumentManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
-                            <p:commandButton value="Non" onclick="confirmation.hide()" icon="ui-icon-close"/>
-                        </h:panelGrid>
-                    </p:confirmDialog>
+                                <img src="../resources/images/actions_edit_clear.png" width="256" height="256" alt="actions_edit_clear"/>
+
+                                <h:outputLabel/>
+                                <p:commandButton icon="ui-icon-check" ajax="true" value="Oui" update=":Monument:AjoutTab, growl" actionListener="#{MonumentManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
+                                <p:commandButton value="Non" onclick="confirmation.hide()" icon="ui-icon-close"/>
+                            </h:panelGrid>
+                        </p:confirmDialog>
+                    </h1>
                 </h:form>
             </ui:define>
         </ui:composition>

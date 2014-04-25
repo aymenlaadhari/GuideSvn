@@ -17,6 +17,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import model.Monument;
+import org.primefaces.event.ToggleEvent;
+
 
 
 @ManagedBean(name = "MonumentManagedBean")
@@ -26,8 +28,17 @@ public class MonumentManagedBean implements Serializable{
    MonumentInterface monumentInterface;
     private Monument monument;
     private List<Monument> listMonument;
+     private Monument selectedMonument;
 
     //get+set
+   
+ public Monument getSelectedMonument() {
+        return selectedMonument;
+    }
+
+    public void setSelectedMonument(Monument selectedMonument) {
+        this.selectedMonument = selectedMonument;
+    }
    
  public Monument getMonument() {
         return monument;
@@ -95,7 +106,14 @@ public class MonumentManagedBean implements Serializable{
         context.addMessage(null, new FacesMessage("Monument supprimé"));
 
     }
-
+//methode pour l affichage de dialog de detail ("flech à gauche")
+  public void onRowToggle(ToggleEvent event) {  
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,  
+                                            "Ligne  " + event.getVisibility(),  
+                                            "Nom :" + ((Monument) event.getData()).getNomM());  
+          
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+    }  
 
     /**
      * Creates a new instance of CentremedicaleManagedBean

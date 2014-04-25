@@ -17,6 +17,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import model.Utilisateur;
+import org.primefaces.event.ToggleEvent;
 
 @ManagedBean(name = "UtilisateurManagedBean")
 @SessionScoped
@@ -25,8 +26,17 @@ public class UtilisateurManagedBean implements Serializable{
     UtilisateurInterface utilisateurInterface;
     private Utilisateur utilisateur;
     private List<Utilisateur> listUtilisateur;
+    private Utilisateur selectedUser;
 
-    
+    public Utilisateur getSelectedUser() {
+        return selectedUser;
+    }
+
+    public void setSelectedUser(Utilisateur selectedUser) {
+        this.selectedUser = selectedUser;
+    }
+
+   
 
     //get+set
     public Utilisateur getUtilisateur() {
@@ -80,10 +90,22 @@ public void suppEvent(int id) {
     public void ajoutu(ActionEvent actionEvent) {
         utilisateurInterface = new UtilisateurImpl();
         utilisateurInterface.save(utilisateur);
+        
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Utilisateur  ajouté"));
         utilisateur = new Utilisateur();
     }
+public void test(ActionEvent actionEvent) {
+    if(this.utilisateur!=null)
+    {
+        utilisateurInterface = new UtilisateurImpl();
+        utilisateurInterface.save(utilisateur);
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Utilisateur  ajouté"));
+        utilisateur = new Utilisateur();
+    }
+}
 
     public void delet(ActionEvent actionEvent) {
        utilisateurInterface = new UtilisateurImpl();
@@ -92,9 +114,8 @@ public void suppEvent(int id) {
         context.addMessage(null, new FacesMessage("Utilisateur  supprimé"));
 
     }
+    
  
-
-
     /**
      * Creates a new instance of CentremedicaleManagedBean
      */

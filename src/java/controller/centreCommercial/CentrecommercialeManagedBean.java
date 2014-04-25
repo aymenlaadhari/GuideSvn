@@ -16,6 +16,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import model.CentreCommercial;
+import org.primefaces.event.ToggleEvent;
+
 
 @ManagedBean(name = "centrecommercialeManagedBean")
 @SessionScoped
@@ -24,6 +26,15 @@ public class CentrecommercialeManagedBean implements Serializable{
     CentreInt centreInt;
     private CentreCommercial centreCommercial;
     private List<CentreCommercial> listCentreCommerciale;
+    private CentreCommercial selectCentre;
+
+    public CentreCommercial getSelectCentre() {
+        return selectCentre;
+    }
+
+    public void setSelectCentre(CentreCommercial selectCentre) {
+        this.selectCentre = selectCentre;
+    }
 
     //get+set
     public CentreCommercial getCentreCommercial() {
@@ -88,7 +99,16 @@ public void suppEvent(int id) {
         context.addMessage(null, new FacesMessage("Centre Commerciale supprimé"));
 
     }
- 
+    
+  
+//methode pour l affichage de dialog de detail ("flech à gauche")
+  public void onRowToggle(ToggleEvent event) {  
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,  
+                                            "Ligne  " + event.getVisibility(),  
+                                            "Nom :" + ((CentreCommercial) event.getData()).getNom());  
+          
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+    }  
 
 
     /**

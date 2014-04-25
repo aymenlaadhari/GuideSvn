@@ -14,8 +14,9 @@
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-               <img src="../resources/images/csv.png" width="32" height="32" alt="csv"/>
-                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="../resources/images/images (21).jpg" width="50" height="40" alt="images (21)"/>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -34,6 +35,7 @@
 
                 <titreGuide>
                     Gestion Centre Medicale
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 </titreGuide>
 
@@ -52,23 +54,25 @@
                                    rowsPerPageTemplate="5,10,15,20,25"  
                                    var="centreMedicale" value="#{centreMedicaleManagedBean.listCentreMedicale}"
                                    id="AjoutTab"
-                                   emptyMessage="Centre non trouvé" widgetVar="CentreMedicaleTable">
+                                   emptyMessage="Centre non trouvé" widgetVar="CentreMedicaleTable"
+                                   sortMode="multiple" 
+                                   rowKey="#{centreMedicale.nom}"  
+                                   selectionMode="single">
+                        <p:ajax event="rowToggle" listener="#{centreMedicaleManagedBean.onRowToggle}" update=":centreMedicale:growl" />  
+
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText  value="Recherche : " />
                                 <p:inputText id="globalFilter"  onkeyup="CentreMedicaleTable.filter()" style="width:250px" />
                             </p:outputPanel>
                         </f:facet>
-                        <p:column id="centreId" headerText="Identifiant" filterBy="#{centreMedicale.id}" filterMatchMode="exact" footerText=" Identifiant exacte">
-                            <h:outputText value="#{centreMedicale.id}" />
+                        <p:column  sortBy="centreId" id="centreId" headerText="Identifiant" filterBy="#{centreMedicale.id}" filterMatchMode="exact" footerText=" Identifiant exacte">
+                            <p:rowToggler /> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h:outputText value="#{centreMedicale.id}" />
                         </p:column>
 
                         <p:column id="Nom" headerText="Nom" filterBy="#{centreMedicale.nom}" filterMatchMode="exact" footerText=" Nom exacte">
 
                             <h:outputText value="#{centreMedicale.nom}" />
-                        </p:column>
-                        <p:column id="Description" headerText="Description" filterBy="#{centreMedicale.description}" filterMatchMode="contains" footerText=" Contient">
-                            <h:outputText value="#{centreMedicale.description}"/>
                         </p:column>
 
                         <p:column id="Latitude" headerText="Latitude" filterBy="#{centreMedicale.latitude}" filterMatchMode="contains" footerText=" Contient">
@@ -77,16 +81,17 @@
                         <p:column id="Longitude" headerText="longitude" filterBy="#{centreMedicale.longitude}" filterMatchMode="contains" footerText=" Contient">
                             <h:outputText value="#{centreMedicale.longitude}"/>
                         </p:column>
-                        <p:column id="Siteweb" headerText="Site Web" filterBy="#{centreMedicale.siteweb}" filterMatchMode="startsWith" footerText="Commence par"
-                                  >
-                            <h:outputText value="#{centreMedicale.siteweb}"/>
-                        </p:column>
+                       
                         <p:column id="type" headerText="Type" filterBy="#{centreMedicale.type}" filterMatchMode="startsWith" footerText="Commence par"
                                   >
                             <h:outputText value="#{centreMedicale.type}"/>
                         </p:column>
+                         <p:column id="Siteweb" headerText="Site Web" filterBy="#{centreMedicale.siteweb}" filterMatchMode="startsWith" footerText="Commence par"
+                                  >
+                            <h:outputText value="#{centreMedicale.siteweb}"/>
+                        </p:column>
 
-                        <p:column id="Telephone" headerText="Telephone" filterBy="#{centreMedicale.telephone}" filterMatchMode="contains" footerText="Contient"
+                        <p:column id="Telephone" headerText="Téléphone" filterBy="#{centreMedicale.telephone}" filterMatchMode="contains" footerText="Contient"
                                   >
                             <h:outputText value="#{centreMedicale.telephone}"/>
                         </p:column>
@@ -98,9 +103,70 @@
                         <p:column style="width:4%">
                             <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editCM"  oncomplete="centreMedicaleEdit.show();" actionListener="#{centreMedicaleManagedBean.editEvent(centreMedicale.id)}" ajax="true" icon="ui-icon-pencil"/>
                             <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppCentre"  oncomplete="confirmation.show();" actionListener="#{centreMedicaleManagedBean.suppEvent(centreMedicale.id)}" ajax="true" icon="ui-icon-trash"/>
+                            <p:commandButton id="selectButton" update=":centreMedicale:display" oncomplete="centreDialog.show()" icon="ui-icon-search" title="View_Description">  
+                                <f:setPropertyActionListener value="#{centreMedicale}" target="#{centreMedicaleManagedBean.selectCentreMedicale}" />  
+                            </p:commandButton>  
                         </p:column>
+                        <p:rowExpansion>  
+                            <h:panelGrid id="display" columns="2" cellpadding="4" style="width:300px;"  
+                                         styleClass=" ui-widget-content grid">  
+
+                                <f:facet name="header">  
+                                    <img src="../resources/images/téléchargement (4).jpg" width="375" height="183" alt="téléchargement (4)"/>
+
+                                </f:facet>  
+
+                                <h:outputText value="Nom :" style="color: blue" />  
+                                <h:outputText id="nom" value="#{centreMedicale.nom}" style="font-weight:bold"/>  
+                                <h:outputText value="Latitude :" style="color: blue"/>  
+                                <h:outputText id="lat" value="#{centreMedicale.latitude}" style="font-weight:bold"/>  
+                                <h:outputText value="Longitude :" style="color: blue"/>  
+                                <h:outputText id="lo" value="#{centreMedicale.longitude}" style="font-weight:bold"/>  
+                                <h:outputText value="Type :" style="color: blue"/>  
+                                <h:outputText id="ty" value="#{centreMedicale.type}" style="font-weight:bold"/>
+                                 <h:outputText value="Site Web :" style="color: blue"/>  
+                                 <h:outputText id="sit" value="#{centreMedicale.siteweb}" style="font-weight:bold"/>  
+                                <h:outputText value="Téléphone :" style="color: blue"/>  
+                                <h:outputText id="tele" value="#{centreMedicale.telephone}" style="font-weight:bold"/>  
+                                 <h:outputText value="Email :" style="color: blue"/>  
+                                 <h:outputText id="ema" value="#{centreMedicale.email}" style="font-weight:bold"/>  
+                                
+
+
+
+                            </h:panelGrid>  
+
+                        </p:rowExpansion>  
 
                     </p:dataTable>
+                    <p:dialog   widgetVar="centreDialog" resizable="true" id="centreDlg"  
+                                showEffect="fade" hideEffect="explode" modal="true"> 
+                        <f:facet name="header">
+                            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Détail Centre Medicale</h3>
+                        </f:facet>
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+
+
+                            <h:form>
+                                <img src="../resources/images/boutique-centre-medical.jpg" width="359" height="295" alt="boutique-centre-medical"/>
+
+                                <div>
+                                    <br/><br/>
+                                    <h:outputText value="Description : " style="color: #045491"   />
+
+                                    <h:outputText value="#{centreMedicaleManagedBean.selectCentreMedicale.description}" style="font-weight:bold"/>  
+                                    <br/><br/>
+
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                
+                                    <p:commandButton  value="OK" oncomplete="centreDialog.hide()" icon="ui-icon-check" ajax="true"/>
+                                </div>
+                            </h:form>
+
+                        </h:panelGrid>  
+
+                    </p:dialog>  
                 </h:form>
 
 
@@ -114,29 +180,31 @@
 
                             <f:facet name="header">
                                 <h1>
+                                    <img src="../resources/images/icone_clinique.jpg" width="50" height="40" alt="icone_clinique"/>
+
                                     <h:outputLabel value="Ajout Centre Medicale" />
                                 </h1> 
                                 <p:separator/>
                             </f:facet>
-                            <h:outputLabel for="nom" title="Nom" value="* Nom :" style="color: #000000"  />
+                            <h:outputLabel for="nom" title="Nom" value="Nom:* " style="color: #000000"  />
                             <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.nom}"  id="nom" required="true"/>
-                            <h:outputLabel for="latitude" title="Nom" value="* Latitude :" style="color: #000000" />
+                            <h:outputLabel for="latitude" title="Nom" value="Latitude:* " style="color: #000000" />
                             <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.latitude}"   id="latitude" required="true"/>
-                            <h:outputLabel for="logitude" title="Nom" value="* Logitude :" style="color: #000000"  />
+                            <h:outputLabel for="logitude" title="Nom" value="Logitude:* " style="color: #000000"  />
                             <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.longitude}"  id="logitude" required="true"/>
-                            <h:outputLabel for="type"  value="Type :  " style="color: #000000"/> 
+                            <h:outputLabel for="type"  value="Type:   " style="color: #000000"/> 
                             <p:selectOneMenu  value="#{centreMedicaleManagedBean.centreMedicale.type}" >  
                                 <f:selectItem  itemLabel="Hopitale &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;     " itemValue="Hopitale  "  />  
                                 <f:selectItem itemLabel="Clinique      " itemValue="Clinique  " />  
                                 <f:selectItem itemLabel="Centre Massage     " itemValue="Centre Massage" />  
                             </p:selectOneMenu> 
-                            <h:outputLabel for="telephone" title="Nom" value="* Telephone :" style="color: #000000"  />
+                            <h:outputLabel for="telephone" title="Nom" value="Telephone:* " style="color: #000000"  />
                             <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.telephone}"  id="telephone" required="true"/>
-                            <h:outputLabel for="siteweb" title="Nom" value="Site Web :" style="color: #000000" />
+                            <h:outputLabel for="siteweb" title="Nom" value="Site Web: " style="color: #000000" />
                             <p:inputText size="40" value="#{centreMedicaleManagedBean.centreMedicale.siteweb}"   id="siteweb" required="false"/>
-                            <h:outputLabel for="email" title="Nom" value="Email :" style="color: #000000"  />
+                            <h:outputLabel for="email" title="Nom" value="Email: " style="color: #000000"  />
                             <p:inputText  size="40" value="#{centreMedicaleManagedBean.centreMedicale.email}"  id="email" required="false"/>
-                            <h:outputLabel for="description"  value="Description :" style="color: #000000" />
+                            <h:outputLabel for="description"  value="Description: " style="color: #000000" />
                             <p:inputTextarea rows="6" cols="30" value="#{centreMedicaleManagedBean.centreMedicale.description}"  id="description" required="false"/>
                         </h:panelGrid>
                         <p:separator/>
@@ -154,29 +222,31 @@
 
                             <f:facet name="header">
                                 <h1>
+                                    <img src="../resources/images/téléchargement (3).jpg" width="50" height="40" alt="téléchargement (3)"/>
+
                                     <h:outputLabel value="Modifier Centre Medicale"/>
                                 </h1> 
                                 <p:separator/>
                             </f:facet>
-                            <h:outputLabel for="nom" title="Nom" value="* Nom :" style="color: #000000"  />
+                            <h:outputLabel for="nom" title="Nom" value="Nom:* " style="color: #000000"  />
                             <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.nom}"  id="nom" required="true"/>
-                            <h:outputLabel for="latitude" title="Nom" value="* Latitude :" style="color: #000000" />
+                            <h:outputLabel for="latitude" title="Nom" value="Latitude:* " style="color: #000000" />
                             <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.latitude}"   id="latitude" required="true"/>
-                            <h:outputLabel for="logitude" title="Nom" value="* Logitude :" style="color: #000000"  />
+                            <h:outputLabel for="logitude" title="Nom" value="Logitude:* " style="color: #000000"  />
                             <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.longitude}"  id="logitude" required="true"/>
-                            <h:outputLabel for="type"  value="Type :  " style="color: #000000"/> 
+                            <h:outputLabel for="type"  value="Type:   " style="color: #000000"/> 
                             <p:selectOneMenu  value="#{centreMedicaleManagedBean.centreMedicale.type}" >  
                                 <f:selectItem  itemLabel="Hopitale &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;     " itemValue="Hopitale  "  />  
                                 <f:selectItem itemLabel="Clinique      " itemValue="Clinique  " />  
                                 <f:selectItem itemLabel="Centre Massage     " itemValue="Centre Massage" />  
                             </p:selectOneMenu> 
-                            <h:outputLabel for="telephone" title="Nom" value="* Telephone :" style="color: #000000"  />
+                            <h:outputLabel for="telephone" title="Nom" value="Telephone:* " style="color: #000000"  />
                             <p:inputText value="#{centreMedicaleManagedBean.centreMedicale.telephone}"  id="telephone" required="true"/>
-                            <h:outputLabel for="siteweb" title="Nom" value="Site Web :" style="color: #000000" />
+                            <h:outputLabel for="siteweb" title="Nom" value="Site Web: " style="color: #000000" />
                             <p:inputText size="40" value="#{centreMedicaleManagedBean.centreMedicale.siteweb}"   id="siteweb" required="false"/>
-                            <h:outputLabel for="email" title="Nom" value="Email :" style="color: #000000"  />
+                            <h:outputLabel for="email" title="Nom" value="Email: " style="color: #000000"  />
                             <p:inputText  size="40" value="#{centreMedicaleManagedBean.centreMedicale.email}"  id="email" required="false"/>
-                            <h:outputLabel for="description"  value="Description :" style="color: #000000" />
+                            <h:outputLabel for="description"  value="Description: " style="color: #000000" />
                             <p:inputTextarea rows="6" cols="30" value="#{centreMedicaleManagedBean.centreMedicale.description}"  id="description" required="false"/>
                         </h:panelGrid>
                         <p:separator/>
@@ -188,21 +258,27 @@
                 </h:form>
 
                 <h:form id="formSupp">
-                    
-                
-                <p:confirmDialog header="Confirmation" 
-                                 message="Êtes-vous sûr(e) de vouloir supprimer  #{centreMedicaleManagedBean.centreMedicale.nom} ?" 
-                                             severity="alert" 
-                                             widgetVar="confirmation" id="suppCentre">
-                    <p:growl id="growl" showDetail="true" sticky="false" />
 
-                                <h:panelGrid id="display" columns="2" cellpadding="4"
-                                             style="margin:0 auto;">
-                                    <p:commandButton icon="ui-icon-check" ajax="true" value="Oui" update=":centreMedicale:AjoutTab, growl" actionListener="#{centreMedicaleManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
-                                    <p:commandButton value="Non" onclick="confirmation.hide()" icon="ui-icon-close"/>
-                                </h:panelGrid>
-                            </p:confirmDialog>
-                    </h:form>
+                    <h1>
+                    <p:confirmDialog header="Confirmation" 
+                                     message="Êtes-vous sûr(e) de vouloir Supprimer ' #{centreMedicaleManagedBean.centreMedicale.nom} ' ?" 
+                                     severity="alert" 
+                                     widgetVar="confirmation" id="suppCentre">
+                        <p:growl id="growl" showDetail="true" sticky="false" />
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4"
+                                     style="margin:0 auto;">
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                             <img src="../resources/images/400_F_21120400_4iGCnes81QkchOcz0UTIDeKK5X7Yt03n.jpg" width="300" height="300" alt="400_F_21120400_4iGCnes81QkchOcz0UTIDeKK5X7Yt03n"/>
+
+                                <h:outputLabel/>
+                            <p:commandButton icon="ui-icon-check" ajax="true" value="Oui" update=":centreMedicale:AjoutTab, growl" actionListener="#{centreMedicaleManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
+                            <p:commandButton value="Non" onclick="confirmation.hide()" icon="ui-icon-close"/>
+                        </h:panelGrid>
+                    </p:confirmDialog>
+                        </h1>
+                </h:form>
             </ui:define>
         </ui:composition>
 

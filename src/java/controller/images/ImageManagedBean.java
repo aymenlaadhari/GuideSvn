@@ -10,18 +10,22 @@ import dao.images.ImageImpl;
 import dao.images.ImageInterface;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import model.Image;
+import org.primefaces.event.FileUploadEvent;
 
 /**
  *
  * @author hp
  */
-@ManagedBean
-@RequestScoped
+@ManagedBean(name = "imageManagedBean")
+@SessionScoped
 public class ImageManagedBean implements Serializable{
 private Image image;
     private DataModel listImage;
@@ -44,16 +48,11 @@ private Image image;
 
         return listImage;
     }
-
-    public String preparerAjout() {
-        image = new Image();
-        return "gestionImage";
-    }
-
-    public String preparerModifier() {
-        image = (Image) (listImage.getRowData());
-        return "gestionImage";
-    }
+public void handleFileUpload(FileUploadEvent event) {  
+        FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");  
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+    } 
+   
 
     public String supprimer() {
         Image imageTemp = (Image) (listImage.getRowData());

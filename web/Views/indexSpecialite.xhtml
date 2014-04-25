@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"    
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-   <h:head>
+    <h:head>
         <title>Gestion Specialite</title>
     </h:head>
     <h:body>
@@ -51,7 +51,13 @@
                                    rowsPerPageTemplate="5,10,15,20,25"  
                                    var="Specialite" value="#{SpecialiteManagedBean.listSpecialite}"
                                    id="AjoutTab"
-                                   emptyMessage="Specialite non trouvé" widgetVar="SpecialiteTable">
+                                   emptyMessage="Specialite non trouvé" widgetVar="SpecialiteTable"
+                                   sortMode="multiple" 
+                                   rowKey="#{Specialite.nom}"  
+                                   selectionMode="single">  
+
+                        <p:ajax event="rowToggle" listener="#{SpecialiteManagedBean.onRowToggle}" update=":Specialite:growl" />  
+
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText  value="Recherche : " />
@@ -60,27 +66,69 @@
                         </f:facet>
 
 
-                        <p:column id="Id" headerText="Identifiant" filterBy="#{Specialite.id}" filterMatchMode="exact" footerText=" Identifiant exacte">
-                            <h:outputText value="#{Specialite.id}" />
+                        <p:column id="Id" headerText="Identifiant" filterBy="#{Specialite.idspec}" filterMatchMode="exact" footerText=" Identifiant exacte">
+                           <p:rowToggler /> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <h:outputText value="#{Specialite.idspec}" />
                         </p:column>
 
                         <p:column id="Nom" headerText="Nom" filterBy="#{Specialite.nom}" filterMatchMode="exact" footerText=" Nom exacte">
 
                             <h:outputText value="#{Specialite.nom}" />
                         </p:column>
-                        <p:column id="Description" headerText="Description" filterBy="#{Specialite.description}" filterMatchMode="contains" footerText=" Contient">
-                            <h:outputText value="#{Specialite.description}"/>
-                        </p:column>
+                        
 
-                       
                         <p:column style="width:4%">
-                            <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editS"  oncomplete="SpecialiteEdit.show();" actionListener="#{SpecialiteManagedBean.editEvent(Specialite.id)}" ajax="true" icon="ui-icon-pencil"/>
+                            <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editS"  oncomplete="SpecialiteEdit.show();" actionListener="#{SpecialiteManagedBean.editEvent(Specialite.idspec)}" ajax="true" icon="ui-icon-pencil"/>
 
-                            <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppSpec"  oncomplete="confirmation.show();" actionListener="#{SpecialiteManagedBean.suppEvent(Specialite.id)}" ajax="true" icon="ui-icon-trash"/>
-
+                            <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppSpec"  oncomplete="confirmation.show();" actionListener="#{SpecialiteManagedBean.suppEvent(Specialite.idspec)}" ajax="true" icon="ui-icon-trash"/>
+                            <p:commandButton id="selectButton" update=":Specialite:display" oncomplete="specDialog.show()" icon="ui-icon-search" title="View_Description">  
+                                <f:setPropertyActionListener value="#{Specialite}" target="#{SpecialiteManagedBean.selectSpecialite}" />  
+                            </p:commandButton>  
                         </p:column>
+                        <p:rowExpansion>  
+                            <h:panelGrid id="display" columns="2" cellpadding="4" style="width:300px;"  
+                                         styleClass=" ui-widget-content grid">  
 
+                                <f:facet name="header">  
+                                    <img src="../resources/images/galleria/galleria2.jpg" width="300" height="313" alt="galleria2"/>
+
+                                </f:facet>  
+
+                                <h:outputText value="Nom :" />  
+                                <h:outputText id="nomSpec" value="#{Specialite.nom}" />  
+
+
+                            </h:panelGrid>  
+
+                        </p:rowExpansion>  
                     </p:dataTable>
+                     <p:dialog   widgetVar="specDialog" resizable="true" id="specDlg"  
+                                showEffect="fade" hideEffect="explode" modal="true"> 
+                        <f:facet name="header">
+                            <h3>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Details Specialite</h3>
+                        </f:facet>
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+
+                           
+                            <h:form>
+                                <img src="../resources/images/galleria/galleria1.jpg" width="300" height="313" alt="galleria1"/>
+
+                                <div>
+                                    <br/><br/>
+                                    <h:outputText value="Description : " style="color: #045491"   />
+
+                                    <h:outputText value="#{SpecialiteManagedBean.selectSpecialite.description}" style="font-weight:bold"/>  
+                                    <br/><br/>
+
+                                   
+                                    <p:commandButton  value="OK" oncomplete="specDialog.hide()" icon="ui-icon-check" ajax="true"/>
+                                </div>
+                            </h:form>
+
+                        </h:panelGrid>  
+
+                    </p:dialog>  
+
 
                 </h:form>
 
@@ -104,7 +152,7 @@
                             <p:inputText value="#{SpecialiteManagedBean.specialite.nom}"  id="nom" required="true"/>
                             <h:outputLabel for="description" value="Description :" style="color: #000000" />
                             <p:inputText value="#{SpecialiteManagedBean.specialite.description}"   id="description" />
-                            
+
                         </h:panelGrid>
                         <p:separator/>
                         <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
@@ -127,7 +175,7 @@
                                 </h1> 
                                 <p:separator/>
                             </f:facet>
-                          
+
                             <h:outputLabel for="nom" value="* Nom :" style="color: #000000"  />
                             <p:inputText value="#{SpecialiteManagedBean.specialite.nom}"  id="nom" required="true"/>
                             <h:outputLabel for="description" value="Description :" style="color: #000000" />

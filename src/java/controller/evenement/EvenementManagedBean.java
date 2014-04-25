@@ -16,6 +16,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import model.Evenement;
+import org.primefaces.event.ToggleEvent;
 
 @ManagedBean(name = "EvenementManagedBean")
 @SessionScoped
@@ -24,8 +25,18 @@ public class EvenementManagedBean implements Serializable{
     EvenementInterface evenementInterface ;
     private Evenement evenement ;
     private List<Evenement> listEvenement;
+    private Evenement selectEvenement;
 
     //get+set
+    
+    public Evenement getSelectEvenement() {
+        return selectEvenement;
+    }
+
+    public void setSelectEvenement(Evenement selectEvenement) {
+        this.selectEvenement = selectEvenement;
+    }
+    
     public Evenement getEvenement() {
         return evenement;
     }
@@ -91,6 +102,15 @@ public void suppEvent(int idEvent) {
         context.addMessage(null, new FacesMessage("Evenement supprimé"));
 
     }
+  //methode pour l affichage de dialog de detail ("flech à gauche")
+  public void onRowToggle(ToggleEvent event) {  
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,  
+                                            "Ligne " + event.getVisibility(),  
+                                            "Nom :" + ((Evenement) event.getData()).getNom());  
+          
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+    }  
+
  
 
 

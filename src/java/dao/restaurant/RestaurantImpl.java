@@ -8,10 +8,7 @@ package dao.restaurant;
 
 import java.util.List;
 import model.Restaurant;
-
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import util.HibernateUtil;
 
 /**
@@ -81,12 +78,12 @@ public class RestaurantImpl implements RestaurantInterface{
     }
 
     @Override
-    public Restaurant getRestaurant(int id) {
+    public Restaurant getRestaurant(int idresto) {
        Restaurant restaurant  = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
-            restaurant= (Restaurant) session.get(Restaurant.class, id);
+            restaurant= (Restaurant) session.get(Restaurant.class, idresto);
             session.getTransaction().commit();
             session.close();
         } catch (Exception e) {

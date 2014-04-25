@@ -18,6 +18,16 @@
 
             <div id="top" class="title ui-widget-header ui-corner-all" >
                 <ui:insert name="top" ></ui:insert> 
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               
+              
+               
+                
+                <p:clock pattern=" dd.MM.yyyy  // HH:mm:ss"/>  
             </div> 
 
             <div id="menu" >
@@ -26,10 +36,11 @@
                         <p:submenu label="Utilisateur" icon="ui-icon-person">
                             <p:menuitem value="Gestion Utilisateur" url="#{applicationManagedBean.indexUtilisateur()}" icon="ui-icon-person"/>
                             <p:separator />
-                            <p:menuitem value="Quit" url="#" icon="ui-icon-close" />
+                           
                         </p:submenu>
                         <p:submenu label="Lieu" icon="ui-icon-home">
-                            <p:menuitem value="Monument" url="#{applicationManagedBean.indexMonument()}" icon="ui-icon-home" ajax="false"/>
+                            <p:menuitem  value="Monument" url="#{applicationManagedBean.indexMonument()}" icon="ui-icon-home" ajax="false"/>
+                          <!-- onclick="PrimeFaces.changeTheme('glass-x')"-->
                             <p:separator />
                             <p:menuitem  value="Restaurant" url="#{applicationManagedBean.indexRestaurant()}" icon="ui-icon-home" ajax="false"/>
                             <p:separator />
@@ -45,28 +56,28 @@
 
 
                         <p:submenu label="Bord" icon="ui-icon-gear">
-                            <p:submenu label="Restaurant" >
+                            <p:submenu label="Restaurant"  icon="ui-icon-home">
                                
                                 <p:menuitem value="Specialite"  url="#{applicationManagedBean.indexSpecialite()}"  ajax="false"/>
 
                             </p:submenu>
                             <p:separator />
-                            <p:submenu label="Pharmacie" >
+                            <p:submenu label="Pharmacie"  icon="ui-icon-home">
                                 
                                 <p:menuitem value="Garde"  url="#{applicationManagedBean.indexgarde()}" ajax="false"/>
                             </p:submenu>
                             <p:separator />
-                            <p:submenu label="Pays" >
+                            <p:submenu label="Pays" icon="ui-icon-home" >
                                 
-                                <p:menuitem value="Gestion de Pays"   action="#{applicationManagedBean.indexPay()}" ajax="false"/>
+                                <p:menuitem value="Gestion de Pays"    icon="ui-icon-home" action="#{applicationManagedBean.indexPay()}" ajax="false"/>
                                 <p:separator />
-                                <p:menuitem value="Ville"   url="#{applicationManagedBean.indexVille()}" ajax="false"/>
+                                <p:menuitem value="Ville"   icon="ui-icon-home" url="#{applicationManagedBean.indexVille()}" ajax="false"/>
                             </p:submenu>
                             
                             <p:separator />
                             <p:menuitem value="Gestion Images"  icon="ui-icon-image" url="#{applicationManagedBean.indexImage()}" ajax="true"/>
                             <p:separator />
-                            <p:menuitem value="Evenement"  icon="ui-icon-clock" url="#{applicationManagedBean.indexEvenement()}" ajax="true"/>
+                            <p:menuitem  value="Evenement"  icon="ui-icon-clock" url="#{applicationManagedBean.indexEvenement()}" ajax="true"/>
 
                         </p:submenu>
 

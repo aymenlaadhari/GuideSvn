@@ -12,94 +12,184 @@
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-                <img src="../resources/images/csv.png" width="32" height="32" alt="csv"/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="../resources/images/images_1.jpg" width="50" height="40" alt="images_1"/>
 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
                 <titreGuide>
                     Gestion Utilisateur
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 
                 </titreGuide>
+
 
             </ui:define>
 
             <ui:define name="content">
 
                 <h:form class="left_content" id="AjoutU" >
-                    <p:commandButton  value="Nouveau Utilisateur" actionListener="#{UtilisateurManagedBean.ajoutEvent(actionEvent)}" update=":edit:editU" oncomplete="UtilisateurAjout.show()" ajax="true" icon="ui-icon-plusthick"/>
+
+
+
 
                 </h:form>
                 <h1>Liste Utilisateurs</h1> 
                 <br/> 
                 <h:form id="Utilisateur">
                     <p:growl id="growl" showDetail="true" sticky="false"  />
-                    <p:dataTable   paginator="true" rows="5"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                   rowsPerPageTemplate="5,10,15,20,25"  
-                                   var="Utilisateur" value="#{UtilisateurManagedBean.listUtilisateur}"
-                                   id="AjoutTab"
-                                   emptyMessage="Utilisateur non trouvé" widgetVar="UtilisateurTable">
+                    <p:dataTable    paginator="true" rows="5"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                    rowsPerPageTemplate="5,10,15,20,25"  
+                                    var="Utilisateur" value="#{UtilisateurManagedBean.listUtilisateur}"
+                                    id="AjoutTab" 
+                                    emptyMessage="Utilisateur non trouvé" widgetVar="UtilisateurTable"
+                                    sortMode="multiple" 
+                                    rowKey="#{Utilisateur.nom}"  
+                                    selectionMode="single"
+                                    style="margin-top: 5px;"
+                                    currentPageReportTemplate="#{component.rowCount == 0 ? '0/0' : '{currentPage}/{totalPages}'} "  
+                                    >  
+
+
                         <f:facet name="header">
-                            <p:outputPanel>
-                                <h:outputText  value="Recherche : " />
-                                <p:inputText id="globalFilter"  onkeyup="UtilisateurTable.filter()" style="width:250px" />
-                            </p:outputPanel>
+                            <div>  
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p:outputPanel>
+                                    <h:outputText  value="Recherche : " />
+                                    <p:inputText id="globalFilter"  onkeyup="UtilisateurTable.filter()" style="width:250px" />
+                                </p:outputPanel>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p:commandButton value="Nouveau Utilisateur" icon="ui-icon ui-icon-plusthick"  actionListener="#{UtilisateurManagedBean.ajoutEvent(actionEvent)}" update=":edit:editU" oncomplete="UtilisateurAjout.show()" ajax="true" />  
+
+                            </div> 
+
                         </f:facet>
 
-
-                        <p:column id="Id" headerText="Identifiant" filterBy="#{Utilisateur.id}" filterMatchMode="exact" footerText=" Identifiant exacte">
+                        <p:column  style="text-align: center;width:18px;" sortBy="Id" id="Id" headerText="Identifiant" filterBy="#{Utilisateur.id}" filterMatchMode="exact" footerText=" Identifiant exacte">
                             <h:outputText value="#{Utilisateur.id}" />
                         </p:column>
 
-                        <p:column id="Nom" headerText="Nom" filterBy="#{Utilisateur.nom}" filterMatchMode="exact" footerText=" Nom exacte">
+                        <p:column  style="text-align: center;width:18px;" sortBy="Nom" id="Nom" headerText="Nom" filterBy="#{Utilisateur.nom}" filterMatchMode="exact" footerText=" Nom exacte">
 
                             <h:outputText value="#{Utilisateur.nom}" />
                         </p:column>
-                        <p:column id="Prenom" headerText="Prenom" filterBy="#{Utilisateur.prenom}" filterMatchMode="contains" footerText=" Contient">
+                        <p:column style="text-align: center;width:18px;" sortBy="Prenom" id="Prenom" headerText="Prénom" filterBy="#{Utilisateur.prenom}" filterMatchMode="startsWith" footerText="Commence par">
                             <h:outputText value="#{Utilisateur.prenom}"/>
                         </p:column>
 
-                        <p:column id="Adresse" headerText="Adresse" filterBy="#{Utilisateur.adresse}" filterMatchMode="contains" footerText=" Contient">
+                        <p:column style="text-align: center;width:18px;" sortBy="Adresse" id="Adresse" headerText="Adresse" filterBy="#{Utilisateur.adresse}" filterMatchMode="contains" footerText=" Contient">
                             <h:outputText value="#{Utilisateur.adresse}"/>
                         </p:column>
-                        <p:column id="Login" headerText="Login" filterBy="#{Utilisateur.login}" filterMatchMode="contains" footerText=" Contient">
+                        <p:column style="text-align: center;width:18px;" id="Login" headerText="Login" filterBy="#{Utilisateur.login}" filterMatchMode="exact" footerText=" Login exacte">
                             <h:outputText value="#{Utilisateur.login}"/>
                         </p:column>
-                        <p:column id="Password" headerText="Mot de passe" filterBy="#{Utilisateur.passCrypt}" filterMatchMode="startsWith" footerText="Commence par"
-                                  >
-                            <h:outputText value="#{Utilisateur.passCrypt}"/>
-                        </p:column>
+                        <p:column style="text-align: center;width:18px;" sortBy="Telephone" id="Telephone" headerText="Téléphone" filterBy="#{Utilisateur.telephone}" filterMatchMode="startsWith" footerText="Commence par">
 
-                        <p:column id="Telephone" headerText="Telephone" filterBy="#{Utilisateur.telephone}" filterMatchMode="contains" footerText="Contient"
-                                  >
                             <h:outputText value="#{Utilisateur.telephone}"/>
                         </p:column>
-                        <p:column id="Email" headerText="Email" filterBy="#{Utilisateur.email}" filterMatchMode="startsWith" footerText="Commence par"
+                        <p:column style="text-align: center;width:18px;"  sortBy="Email" id="Email" headerText="Email" filterBy="#{Utilisateur.email}" filterMatchMode="startsWith" footerText="Commence par"
                                   >
                             <h:outputText value="#{Utilisateur.email}"/>
                         </p:column>
 
-                        <p:column style="width:4%">
+                        <p:column style="text-align: center;width:18px;">
                             <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editU"  oncomplete="UtilisateurEdit.show();" actionListener="#{UtilisateurManagedBean.editEvent(Utilisateur.id)}" ajax="true" icon="ui-icon-pencil"/>
 
                             <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppUser"  oncomplete="confirmation.show();" actionListener="#{UtilisateurManagedBean.suppEvent(Utilisateur.id)}" ajax="true" icon="ui-icon-trash"/>
 
+
+                            <p:commandButton id="selectButton" update=":Utilisateur:display" oncomplete="userDialog.show()" icon="ui-icon-search" title="View_Détails">  
+                                <f:setPropertyActionListener value="#{Utilisateur}" target="#{UtilisateurManagedBean.selectedUser}" />  
+                            </p:commandButton>  
                         </p:column>
 
+
                     </p:dataTable>
+
+                    <p:dialog   widgetVar="userDialog" resizable="true" id="userDlg"  
+                                showEffect="fade" hideEffect="explode" modal="true"> 
+                        <f:facet name="header">
+                            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Détails Utilisateur</h3>
+                        </f:facet>
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+
+                            <!--  <f:facet name="header">  
+                                  <p:graphicImage value="/images/cars/#{tableBean.selectedCar.manufacturer}.jpg"/>  
+                              </f:facet>  -->
+                            <h:form>
+                                <img src="../resources/images/images (1)_1.jpg" width="375" height="172" alt="images (1)_1"/>
+
+                                <div>
+                                    <br/><br/>
+                                    <h4> <h:outputText value="Nom : " style="color: blue"/> &nbsp;&nbsp;
+                                        <h:outputText value="#{UtilisateurManagedBean.selectedUser.nom}" style="font-weight:bold"/>  
+                                    </h4>
+
+                                    <h4> <h:outputText value="Prénom : "  style="color: blue"/> &nbsp;&nbsp;
+
+                                        <h:outputText value="#{UtilisateurManagedBean.selectedUser.prenom}" style="font-weight:bold"/>  
+                                    </h4>
+
+                                    <h4><h:outputText value="Adresse : " style="color: blue"/> &nbsp;&nbsp;
+                                        <h:outputText value="#{UtilisateurManagedBean.selectedUser.adresse}" style="font-weight:bold"/> 
+                                    </h4>
+
+                                    <h4><h:outputText value="Login : " style="color: blue" /> &nbsp;&nbsp;
+                                        <h:outputText value="#{UtilisateurManagedBean.selectedUser.login}" style="font-weight:bold"/>  
+                                    </h4>
+
+                                    <h4><h:outputText value="Mot de passe : " style="color: blue"/> &nbsp;&nbsp;
+                                        <h:outputText value="#{UtilisateurManagedBean.selectedUser.password}" style="font-weight:bold"/> 
+                                    </h4>
+
+                                    <h4>
+                                        <h:outputText value="Téléphone : " style="color: blue" />  &nbsp;&nbsp;
+                                        <h:outputText value="#{UtilisateurManagedBean.selectedUser.telephone}" style="font-weight:bold"/>  
+                                    </h4>
+
+                                    <h4>
+                                        <h:outputText value="Email : " style="color: blue"/>  &nbsp;&nbsp;
+                                        <h:outputText value="#{UtilisateurManagedBean.selectedUser.email}" style="font-weight: bold"/>  
+                                    </h4>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <p:commandButton  value="  OK  " oncomplete="userDialog.hide()"  ajax="true"/>
+                                </div>
+                            </h:form>
+
+                        </h:panelGrid>  
+
+                    </p:dialog>  
 
                 </h:form>
 
@@ -107,71 +197,105 @@
 
                 <h:form id="edit">
 
-                    <p:dialog  header="Utilisateur" widgetVar="UtilisateurAjout" resizable="true" id="editU" modal="true">
+                    <p:dialog   hideEffect="explode" header="Utilisateur" widgetVar="UtilisateurAjout" resizable="true" id="editU" modal="true">
 
                         <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
-                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+                        <h:panelGrid id="display" columns="4" cellpadding="5" style="margin:0 auto;">
 
                             <f:facet name="header">
                                 <h1>
                                     <h:outputLabel value="Ajout Utilisateur" />
                                 </h1> 
                                 <p:separator/>
+                                <br/>
                             </f:facet>
 
-                            <h:outputLabel for="nom" value="* Nom :" style="color: #000000"  />
-                            <p:inputText value="#{UtilisateurManagedBean.utilisateur.nom}"  id="nom" required="true"/>
-                            <h:outputLabel for="prenom" value=" Prenom :" style="color: #000000" />
-                            <p:inputText value="#{UtilisateurManagedBean.utilisateur.prenom}"   id="prenom" />
-                            <h:outputLabel for="adresse" value="Adresse :" style="color: #000000"  />
+                            <h:outputLabel for="nom" value="Nom : * " style="color: #000000"  />
+                            <p:inputText value="#{UtilisateurManagedBean.utilisateur.nom}"  id="nom" required="true" requiredMessage="nom:not null"/>
+                            <h:outputLabel for="prenom" value="Prénom : * " style="color: #000000" />
+                            <p:inputText value="#{UtilisateurManagedBean.utilisateur.prenom}"   id="prenom" required="true"/>
+
+                            <h:outputLabel for="adresse" value="Adresse : " style="color: #000000"  />
                             <p:inputText value="#{UtilisateurManagedBean.utilisateur.adresse}"  id="adresse" />
-                            <h:outputLabel for="login" value="* Login :" style="color: #000000" />
+                            <h:outputLabel /> 
+                            <h:outputLabel/>
+                            
+                            <h:outputLabel for="telephone"  value="Téléphone : " style="color: #000000"  />
+                            <p:inputText value="#{UtilisateurManagedBean.utilisateur.telephone}"  id="telephone" />
+                            <h:outputLabel  for="email"  value="Email : " style="color: #000000"  /> 
+                            <p:inputText value="#{UtilisateurManagedBean.utilisateur.email}"  id="email" />
+                            
+
+                            <h:outputLabel for="login" value="Login : * " style="color: #000000" />
                             <p:inputText value="#{UtilisateurManagedBean.utilisateur.login}"   id="login" required="true"/>
-                            <h:outputLabel for="password"  value="* Mot de passe :" style="color: #000000" />
-                            <p:inputText  value="#{UtilisateurManagedBean.utilisateur.password}"  id="password" required="true"/>
-                            <h:outputLabel for="telephone"  value="* Telephone :" style="color: #000000"  />
-                            <p:inputText value="#{UtilisateurManagedBean.utilisateur.telephone}"  id="telephone" required="true"/>
-                            <h:outputLabel for="email"  value=" Email  :" style="color: #000000"  />
-                            <p:inputText value="#{UtilisateurManagedBean.utilisateur.email}"  id="email" required="false"/>
+                            <h:outputLabel /> 
+                            <h:outputLabel/>
+                            
+                            <h:outputLabel for="password1"  value="Mot de passe : * " style="color: #000000" />
+                            <p:password   inline="true" feedback="true"   value="#{UtilisateurManagedBean.utilisateur.password}"  id="password1" required="true"  match="password2" label="Le mot de passe "  /> 
+                            <h:outputLabel for="password2"  value="Confirmer le Mot de passe : * " style="color: #000000" />
+                            <p:password   value="#{UtilisateurManagedBean.utilisateur.password}"  id="password2" required="true" label="le mot de passe de confirmation "/> 
+
                         </h:panelGrid>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <img src="../resources/images/add_male_user_256.png" width="300" height="256" alt="add_male_user_256"/>
+
                         <p:separator/>
                         <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
                             <p:commandButton icon="ui-icon-plusthick" ajax="true" value="Ajouter" update=":Utilisateur:AjoutTab, growl" actionListener="#{UtilisateurManagedBean.ajoutu(actionEvent)}" oncomplete="UtilisateurAjout.hide()"  />
-                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="UtilisateurAjout.hide()"  />
+                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" />
 
                         </h:panelGrid>
 
                     </p:dialog>
+
                 </h:form>
 
                 <h:form id="Actualise">
-                    <p:dialog header="Utilisateur" widgetVar="UtilisateurEdit" resizable="true" id="editU" modal="true">
-                        <p:growl id="growl" showDetail="true" sticky="false" />
-                        <h:panelGrid id="displaye" columns="2" cellpadding="4" style="margin:0 auto;">
+                    <p:dialog  hideEffect="explode" header="Utilisateur" widgetVar="UtilisateurEdit" resizable="true" id="editU" modal="true">
+                       <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
+                        <h:panelGrid id="display" columns="4" cellpadding="5" style="margin:0 auto;">
 
                             <f:facet name="header">
                                 <h1>
-                                    <h:outputLabel value="Modifier Utilisateur"/>
+                                    <h:outputLabel value="Modifier Utilisateur" />
                                 </h1> 
                                 <p:separator/>
+                                <br/>
                             </f:facet>
-                          
-                            <h:outputLabel for="nom" value="* Nom :" style="color: #000000"  />
-                            <p:inputText value="#{UtilisateurManagedBean.utilisateur.nom}"  id="nom" required="true"/>
-                            <h:outputLabel for="prenom" value=" Prenom :" style="color: #000000" />
-                            <p:inputText value="#{UtilisateurManagedBean.utilisateur.prenom}"   id="prenom" />
-                            <h:outputLabel for="adresse" value="Adresse :" style="color: #000000"  />
+                            
+                            <h:outputLabel for="nom" value="Nom : * " style="color: #000000"  />
+                            <p:inputText value="#{UtilisateurManagedBean.utilisateur.nom}"  id="nom" required="true" requiredMessage="nom:not null"/>
+                            <h:outputLabel for="prenom" value="Prénom : * " style="color: #000000" />
+                            <p:inputText value="#{UtilisateurManagedBean.utilisateur.prenom}"   id="prenom" required="true"/>
+
+                            <h:outputLabel for="adresse" value="Adresse : " style="color: #000000"  />
                             <p:inputText value="#{UtilisateurManagedBean.utilisateur.adresse}"  id="adresse" />
-                            <h:outputLabel for="login" value="* Login :" style="color: #000000" />
+                            <h:outputLabel /> 
+                            <h:outputLabel/>
+                            
+                            <h:outputLabel for="telephone"  value="Téléphone : " style="color: #000000"  />
+                            <p:inputText value="#{UtilisateurManagedBean.utilisateur.telephone}"  id="telephone" />
+                            <h:outputLabel  for="email"  value="Email : " style="color: #000000"  /> 
+                            <p:inputText value="#{UtilisateurManagedBean.utilisateur.email}"  id="email" />
+                            
+
+                            <h:outputLabel for="login" value="Login : * " style="color: #000000" />
                             <p:inputText value="#{UtilisateurManagedBean.utilisateur.login}"   id="login" required="true"/>
-                            <h:outputLabel for="password"  value="* Mot de passe :" style="color: #000000" />
-                            <p:inputText  value="#{UtilisateurManagedBean.utilisateur.password}"  id="password" required="true"/>
-                            <h:outputLabel for="telephone"  value="* Telephone :" style="color: #000000"  />
-                            <p:inputText value="#{UtilisateurManagedBean.utilisateur.telephone}"  id="telephone" required="true"/>
-                            <h:outputLabel for="email"  value=" Email  :" style="color: #000000"  />
-                            <p:inputText value="#{UtilisateurManagedBean.utilisateur.email}"  id="email" required="false"/>
-                       
+                            
+                            <h:outputLabel for="password"  value="Mot de passe : * " style="color: #000000" />
+                            <p:inputText     value="#{UtilisateurManagedBean.utilisateur.password}"  id="password" required="true" /> 
+                            
                         </h:panelGrid>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <img src="../resources/images/edit_male_user_98373.jpg" width="300" height="256" alt="edit_male_user_98373"/>
+
                         <p:separator/>
                         <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
 
@@ -181,19 +305,26 @@
                     </p:dialog>
                 </h:form>
                 <h:form id="formSupp">
+                    <h1>
+                        <p:confirmDialog header="Confirmation" 
+                                         message="Êtes-vous sûr(e) de vouloir Supprimer  '#{UtilisateurManagedBean.utilisateur.nom}' ?" 
+                                         severity="alert" 
+                                         widgetVar="confirmation" id="suppUser">
+                            <p:growl id="growl" showDetail="true" sticky="false" />
 
-                    <p:confirmDialog header="Confirmation" 
-                                     message="Êtes-vous sûr(e) de vouloir supprimer  #{UtilisateurManagedBean.utilisateur.nom} ?" 
-                                     severity="alert" 
-                                     widgetVar="confirmation" id="suppUser">
-                        <p:growl id="growl" showDetail="true" sticky="false" />
+                            <h:panelGrid id="display" columns="2" 
+                                         style="margin:0 auto;">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <img src="../resources/images/remove_male_user_98400.jpg" width="300" height="256" alt="remove_male_user_98400"/>
+                                <h:outputLabel/>
 
-                        <h:panelGrid id="display" columns="2" cellpadding="4"
-                                     style="margin:0 auto;">
-                            <p:commandButton icon="ui-icon-check" ajax="true" value="Oui" update=":Utilisateur:AjoutTab, growl" actionListener="#{UtilisateurManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
-                            <p:commandButton value="Non" onclick="confirmation.hide()" icon="ui-icon-close"/>
-                        </h:panelGrid>
-                    </p:confirmDialog>
+                                <p:commandButton icon="ui-icon-check" ajax="true" value="Oui" update=":Utilisateur:AjoutTab, growl" actionListener="#{UtilisateurManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
+                                <p:commandButton value="Non" onclick="confirmation.hide()" icon="ui-icon-close"/>
+
+
+                            </h:panelGrid>
+                        </p:confirmDialog>
+                    </h1>
                 </h:form>
 
             </ui:define>

@@ -16,6 +16,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import model.Garde;
+import org.primefaces.event.ToggleEvent;
 
 @ManagedBean(name = "GardeManagedBean")
 @SessionScoped
@@ -24,8 +25,18 @@ public class GardeManagedBean implements Serializable {
     GardeInterface gardeInterface;
     private Garde garde;
     private List<Garde> listGarde;
+    private Garde selectGarde;
 
     //get+set
+    
+    public Garde getSelectGarde() {
+        return selectGarde;
+    }
+
+    public void setSelectGarde(Garde selectGarde) {
+        this.selectGarde = selectGarde;
+    }
+    
     public Garde getGarde() {
         return garde;
     }
@@ -91,6 +102,14 @@ public class GardeManagedBean implements Serializable {
         context.addMessage(null, new FacesMessage("Garde supprimé"));
 
     }
+    //methode pour l affichage de dialog de detail ("flech à gauche")
+  public void onRowToggle(ToggleEvent event) {  
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,  
+                                            "Ligne  " + event.getVisibility(),  
+                                            "Nom :" + ((Garde) event.getData()).getId());  
+          
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+    } 
 
     /**
      * Creates a new instance of CentremedicaleManagedBean
