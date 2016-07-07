@@ -1,0 +1,434 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Gestion Centre Commercial</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./Template.xhtml">
+            <ui:define name="top">
+                &nbsp;&nbsp; <img src="../resources/images/commerce.png" width="50" height="40" alt="commerce"/>
+
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+
+
+
+                <titreGuide>
+                    Archive Centre Commercial
+                </titreGuide>
+
+
+            </ui:define>
+
+            <ui:define name="content">
+
+
+                <h1>  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;Liste centres commerciaux archivés</h1> 
+                <br/> 
+                <h:form id="centreCommerciale">
+                    <p:messages autoUpdate="true"/>
+                    <p:dataTable   paginator="true" rows="5"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                   rowsPerPageTemplate="5,10,15,25,35"  
+                                   var="centreCommercial" value="#{centrecommercialeManagedBean.listCentreCommercialeArchive}"
+
+                                   id="AjoutTab"
+                                   sortMode="multiple"
+                                   rowKey="#{centreCommercial.nom}"  
+                                   selectionMode="single"
+                                   emptyMessage="Centre non trouvé" widgetVar="CentreCommercialeTable">
+                        <p:ajax event="rowToggle" listener="#{centrecommercialeManagedBean.onRowToggle}" />  
+
+
+                        <f:facet name="header">
+                            <div>  
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p:outputPanel>
+                                    <h:outputText  value="Recherche : " />
+
+                                    <p:inputText id="globalFilter"  onkeyup="CentreCommercialeTable.filter()" style="width:250px" />
+
+                                </p:outputPanel>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                               
+                            </div> 
+
+                        </f:facet>
+
+
+
+                        <p:column id="Nom" headerText="Nom" filterBy="#{centreCommercial.nom}" filterMatchMode="exact" footerText=" Nom exacte">
+                            <p:rowToggler /> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <h:outputText value="#{centreCommercial.nom}" />
+                        </p:column>
+
+
+                        <p:column id="pays" headerText="Pays" filterBy="#{centreCommercial.idVille.pay.nom}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{centreCommercial.idVille.pay.nom}"/>
+
+                        </p:column> 
+                        <p:column id="ville" headerText="Ville" filterBy="#{centreCommercial.idVille.nom}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{centreCommercial.idVille.nom}"/>
+
+                        </p:column>
+                        <p:column id="type" headerText="Type" filterBy="#{centreCommercial.type}" filterMatchMode="startsWith" footerText="Commence par"
+                                  >
+                            <h:outputText value="#{centreCommercial.type}"/>
+                        </p:column>
+                        <p:column id="Siteweb" headerText="Site Web" filterBy="#{centreCommercial.siteweb}" filterMatchMode="startsWith" footerText="Commence par"
+                                  >
+                            <h:outputText value="#{centreCommercial.siteweb}"/>
+                        </p:column>
+
+                        <p:column id="Telephone" headerText="Téléphone" filterBy="#{centreCommercial.telephone}" filterMatchMode="contains" footerText="Contient"
+                                  >
+                            <h:outputText value="#{centreCommercial.telephone}"/>
+                        </p:column>
+
+                        
+                        <p:column  headerText="Action" style="text-align: center;width:18px;">
+
+                            <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editCentreC"  oncomplete="centreCommercialeEdit.show();" actionListener="#{centrecommercialeManagedBean.editEvent(centreCommercial.idCC)}" ajax="true" icon="ui-icon-pencil"/>
+
+                            <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppCentre"  oncomplete="confirmation.show();" actionListener="#{centrecommercialeManagedBean.suppEvent(centreCommercial.idCC)}" ajax="true" icon="ui-icon-trash"/>
+
+                            <p:commandButton id="selectButton" update=":centreCommerciale:display" oncomplete="centreDialog.show()" icon="ui-icon-search" title="View_Description">  
+                                <f:setPropertyActionListener value="#{centreCommercial}" target="#{centrecommercialeManagedBean.selectCentre}" />  
+                            </p:commandButton>  
+                        </p:column>
+
+                        <p:rowExpansion>  
+                            <img src="#{centreCommercial.image}" width="420" height="250" />
+
+                            <br/>
+                            <h:outputText value="Nom : " style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="nom" value="#{centreCommercial.nom}" style="color:#000000;font-weight:bold;"/>  
+                            <br/>
+                            <h:outputText value="Pays : " style="color: blue;font-weight:bold;" />  
+                            <h:outputText id="pay" value="#{centreCommercial.idVille.pay.nom}"  style="color:#000000;font-weight:bold;"/>
+                            <br/>
+                            <h:outputText value="Ville : " style="color: blue;font-weight:bold;" />  
+                            <h:outputText id="vill" value="#{centreCommercial.idVille.nom}"  style="color:#000000;font-weight:bold;"/>
+                            <br/>
+                            <h:outputText value="Latitude : " style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="lat" value="#{centreCommercial.latitude}" style="color:#000000;font-weight:bold"/>  
+                            <br/>
+                            <h:outputText value="Longitude : " style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="lo" value="#{centreCommercial.longitude}" style="color:#000000;font-weight:bold"/>  
+                            <br/>
+                            <h:outputText value="Type : " style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="ty" value="#{centreCommercial.type}" style="color:#000000;font-weight:bold"/>
+                            <br/>
+
+                            <h:outputText value="Site Web :" style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="sit" value="#{centreCommercial.siteweb}" style="color:#000000;font-weight:bold"/>  
+                            <br/>
+                            <h:outputText value="Téléphone :" style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="tele" value="#{centreCommercial.telephone}" style="color:#000000;font-weight:bold"/>  
+                            <br/>
+                            <h:outputText value="Email :" style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="ema" value="#{centreCommercial.email}" style="color:#000000;font-weight:bold"/>  
+                           
+
+                        </p:rowExpansion>  
+
+                    </p:dataTable>
+                    <p:dialog  width="550" height="500"  widgetVar="centreDialog" resizable="false" id="centreDlg"  
+                               showEffect="fade" hideEffect="explode" modal="true"> 
+                        <f:facet name="header">
+                            <h3>Détail Centre Commercial</h3>
+
+                        </f:facet>
+
+                        <h:panelGrid id="display" style="margin:0 auto;">  
+
+
+                            <h:form>
+                                <img src="#{centrecommercialeManagedBean.selectCentre.image}" width="450" height="200" />
+                                <br/><br/>
+                                <h:outputText value="Description : " style="color: #045491;font-weight: bold;"   />
+
+                                <p>
+                                    <p:inputTextarea autoResize="false" disabled="true" cols="30"  maxlength="10" rows="15" style="color: #000000;font-weight:bold;width: 100%;" 
+                                                     value="#{centrecommercialeManagedBean.selectCentre.description}" />  
+                                </p>
+
+                                <div align="center">
+                                    <p:commandButton  value="OK" oncomplete="centreDialog.hide()"  ajax="true"/>
+                                </div>
+
+
+                            </h:form>
+
+                        </h:panelGrid>  
+
+                    </p:dialog>
+
+                </h:form>
+
+
+
+                <h:form id="edit">
+                   
+
+                        <p:dialog  width="660" height="620"  hideEffect="explode"  widgetVar="CentreCommercialeAjout" resizable="false" id="editCC" modal="true">
+
+                            <f:facet name="header">
+                                <h3>
+
+                                    Gestion Centre Commercial</h3>
+                            </f:facet>
+                            <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
+                            <h:panelGrid id="display" columns="3" cellpadding="4" style="margin:0 auto;">
+
+                                <f:facet name="header">
+                                    <h1>
+
+                                        <h:outputLabel value="Ajout Centre Commercial" />
+                                        <img src="../resources/images/ajouter-icone-5952-96.png" width="50" height="40" alt="ajouter-icone-5952-96"/>
+
+                                    </h1> 
+                                    <p:separator/>
+                                </f:facet>
+
+                                <h:outputLabel for="nom" title="Nom" value="Nom : * " style="color: #000000;font-weight: bold;"  />
+                                <p:inputText style="width: 42%"  requiredMessage="Saisir le nom de centre" required="true" value="#{centrecommercialeManagedBean.centreCommercial.nom}"  id="nom"/>
+                                <p:message for="nom"/>
+                                <h:outputLabel   for="idpays" value="Pays : *" style="color: #000000;font-weight: bold;" />
+                                <p:selectOneMenu style="width: 45%"  requiredMessage="Choisir le pays" required="true" id="idpays" value="#{PayManagedBean.idpays}" valueChangeListener="#{PayManagedBean.processScat}" > 
+                                    <f:selectItem itemLabel="Choisir le pays" itemValue="" />
+                                    <f:selectItems value="#{PayManagedBean.listPay}" var="z" itemLabel="#{z.nom}" itemValue="#{z.idPay}"/> 
+                                    <p:ajax update="scat" event="change" />
+
+                                </p:selectOneMenu> 
+                                <p:message for="idpays"/>
+                                <h:outputLabel   for="ville" value="Ville : *" style="color: #000000;font-weight: bold;" />
+                                <p:selectOneMenu style="width: 45%"  requiredMessage="Choisir la ville" required="true" id="scat" value="#{centrecommercialeManagedBean.centreCommercial.idVille}" converter="villeConvertor"> 
+                                    <f:selectItem itemLabel="Choisir la ville" itemValue=""  />
+                                    <f:selectItems value="#{PayManagedBean.listVille}" var="z" itemLabel="#{z.nom}" itemValue="#{z}"/>
+                                </p:selectOneMenu> 
+                                 <p:message for="scat"/>
+                                
+                                <h:outputLabel for="latitude"  value="Latitude : * " style="color: #000000;font-weight: bold;" />
+                                <p:inputText style="width: 42%"  requiredMessage="Taper latitude" required="true" value="#{centrecommercialeManagedBean.centreCommercial.latitude}"   id="latitude" />
+                               <p:message for="latitude"/>
+                                <h:outputLabel for="longitude"  value="Longitude : *  " style="color: #000000;font-weight: bold;"  />
+                                <p:inputText style="width: 42%"  requiredMessage="Taper longitude" required="true" value="#{centrecommercialeManagedBean.centreCommercial.longitude}"  id="longitude"/>
+                                <p:message for="longitude"/>
+                                <h:outputLabel></h:outputLabel>
+                                <p:commandButton style="width: 45%" value="Map" oncomplete="dlg.show()" ajax="true">
+                                </p:commandButton>
+
+                                <h:outputLabel></h:outputLabel>
+                                <h:outputLabel for="type"  value="Type : *" style="color: #000000;font-weight: bold;"/> 
+                                <p:selectOneMenu id="type" requiredMessage="Choisir type" required="true" style="width: 45%" value="#{centrecommercialeManagedBean.centreCommercial.type}" >  
+                                    <f:selectItem  itemLabel="Boutique" itemValue="Boutique  "  />  
+                                    <f:selectItem itemLabel="Café      " itemValue="Café  " />  
+                                </p:selectOneMenu> 
+                               <p:message for="type"/>
+                                <h:outputLabel for="telephone"  value="Téléphone : * " style="color: #000000;font-weight: bold;"  />
+                                <p:inputText style="width: 42%"  requiredMessage="Saisir téléphone" required="true" value="#{centrecommercialeManagedBean.centreCommercial.telephone}"  id="telephone" />
+                                <p:message for="telephone"/>
+                                <h:outputLabel for="siteweb"  value="Site Web : " style="color: #000000;font-weight: bold;" />
+                                <p:inputText style="width: 80%" value="#{centrecommercialeManagedBean.centreCommercial.siteweb}"   id="siteweb" />
+                                <h:outputLabel></h:outputLabel>
+                                <h:outputLabel for="email"  value="Email : " style="color: #000000;font-weight: bold;"  />
+                                <p:inputText style="width: 80%" value="#{centrecommercialeManagedBean.centreCommercial.email}"  id="email" />
+                                <p:watermark for="email" value="adminGuide@gmail.com"></p:watermark>
+                                <h:outputLabel for="validation"  value="Validation : " style="color: #000000;font-weight: bold;" />
+                                <p:selectBooleanCheckbox value="#{centrecommercialeManagedBean.centreCommercial.validation}"  id="validation" />
+                                <h:outputLabel></h:outputLabel>
+                                <h:outputLabel value="Image : " style="color: #000000;font-weight: bold;"></h:outputLabel>
+                                <p:fileUpload  update=":centreCommerciale:AjoutTab, growl" fileUploadListener="#{centrecommercialeManagedBean.fileUpload}"
+                                               mode="advanced"
+                                               label="Choose a file"
+                                               sizeLimit="10485760"
+                                               multiple="true"
+                                               allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                               invalidSizeMessage="The maximum file size allowed is 10 Megabytes !"
+                                               invalidFileMessage="You are allowed to upload only images !"
+                                               />
+                                <h:outputLabel></h:outputLabel>
+                                <h:outputLabel for="description"  value="Description : " style="color: #000000;font-weight: bold;" />
+                                <p:inputTextarea autoResize="false" cols="50" rows="7" value="#{centrecommercialeManagedBean.centreCommercial.description}"  id="description" required="false"/>
+                                <h:outputLabel></h:outputLabel>
+                            </h:panelGrid>
+                            <h:outputLabel value="* " style="color: #000000;font-weight: bolder;"></h:outputLabel>
+                            <h:outputLabel value=" Champs obligatoire" style="color: #FF0000;font-weight: bolder;"></h:outputLabel>
+
+                            <p:separator/>
+                            <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+                                <p:commandButton icon="ui-icon-plusthick" ajax="true" value="Ajouter" update=":centreCommerciale:AjoutTab" actionListener="#{centrecommercialeManagedBean.ajoutcc(actionEvent)}" oncomplete="CentreCommercialeAjout.hide()"/>
+                                <p:commandButton icon="ui-icon-close" immediate="true" value="Annuler" oncomplete="CentreCommercialeAjout.hide()"  />
+
+                            </h:panelGrid>
+
+                        </p:dialog>
+                 
+                </h:form>
+                <p:dialog widgetVar="dlg" width="1350" height="600" modal="true">
+                       <p:growl id="growl1" showDetail="true" life="4000" />
+
+                    <p:gmap center="35.832980900, 10.638749999999959" zoom="15" type="HYBRID"
+                            style="width:1350px;height:600px" >
+                        <p:ajax event="stateChange" listener="#{centreMedicaleManagedBean.onStateChange}" />
+
+                        <p:ajax event="pointSelect" listener="#{centrecommercialeManagedBean.onPointSelectLatitude}" update="growl1"/>
+                        <p:ajax update="edit:latitude" listener="#{centrecommercialeManagedBean.onPointSelectLatitudeLongitude}" event="pointSelect" />
+                        <p:ajax update="edit:longitude" listener="#{centrecommercialeManagedBean.onPointSelectLatitudeLongitude}" event="pointSelect" />
+                    </p:gmap>
+                </p:dialog>
+                <h:form id="Actualise">
+                    <p:dialog  width="660" height="620"  hideEffect="explode"  widgetVar="centreCommercialeEdit" resizable="false" id="editCentreC" modal="true">
+
+
+                        <f:facet name="header">
+                            <h3>
+                                Gestion Centre Commercial</h3>
+                        </f:facet>
+                        <p:growl id="growl" showDetail="true" sticky="false" />
+                        <h:panelGrid id="displaye" columns="3" cellpadding="5" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h1>
+                                    <img src="../resources/images/ICON-Pencil1.png" width="50" height="40" alt="ICON-Pencil1"/>
+
+                                    <h:outputLabel value="Modifier Centre Commercial"/>
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
+                                <h:outputLabel for="nom" title="Nom" value="Nom : * " style="color: #000000;font-weight: bold;"  />
+                                <p:inputText style="width: 42%"  requiredMessage="Saisir le nom de centre" required="true" value="#{centrecommercialeManagedBean.centreCommercial.nom}"  id="nom"/>
+                                <p:message for="nom"/>
+                                <h:outputLabel   for="idpays" value="Pays : *" style="color: #000000;font-weight: bold;" />
+                                <p:selectOneMenu style="width: 45%"  requiredMessage="Choisir le pays" required="true" id="idpays" value="#{PayManagedBean.idpays}" valueChangeListener="#{PayManagedBean.processScat}" > 
+                                    <f:selectItem itemLabel="Choisir le pays" itemValue="" />
+                                    <f:selectItems value="#{PayManagedBean.listPay}" var="z" itemLabel="#{z.nom}" itemValue="#{z.idPay}"/> 
+                                    <p:ajax update="scat" event="change" />
+
+                                </p:selectOneMenu> 
+                                <p:message for="idpays"/>
+                                <h:outputLabel   for="ville" value="Ville : *" style="color: #000000;font-weight: bold;" />
+                                <p:selectOneMenu style="width: 45%"  requiredMessage="Choisir la ville" required="true" id="scat" value="#{centrecommercialeManagedBean.centreCommercial.idVille}" converter="villeConvertor"> 
+                                    <f:selectItem itemLabel="Choisir la ville" itemValue=""  />
+                                    <f:selectItems value="#{PayManagedBean.listVille}" var="z" itemLabel="#{z.nom}" itemValue="#{z}"/>
+                                </p:selectOneMenu> 
+                                 <p:message for="scat"/>
+                                
+                                <h:outputLabel for="latitude"  value="Latitude : * " style="color: #000000;font-weight: bold;" />
+                                <p:inputText style="width: 42%"  requiredMessage="Taper latitude" required="true" value="#{centrecommercialeManagedBean.centreCommercial.latitude}"   id="latitude" />
+                               <p:message for="latitude"/>
+                                <h:outputLabel for="longitude"  value="Longitude : *  " style="color: #000000;font-weight: bold;"  />
+                                <p:inputText style="width: 42%"  requiredMessage="Taper longitude" required="true" value="#{centrecommercialeManagedBean.centreCommercial.longitude}"  id="longitude"/>
+                                <p:message for="longitude"/>
+                                <h:outputLabel></h:outputLabel>
+                                <p:commandButton style="width: 45%" value="Map" oncomplete="dlg.show()" ajax="true">
+                                </p:commandButton>
+
+                                <h:outputLabel></h:outputLabel>
+                                <h:outputLabel for="type"  value="Type : *" style="color: #000000;font-weight: bold;"/> 
+                                <p:selectOneMenu id="type" requiredMessage="Choisir type" required="true" style="width: 45%" value="#{centrecommercialeManagedBean.centreCommercial.type}" >  
+                                    <f:selectItem  itemLabel="Boutique" itemValue="Boutique  "  />  
+                                    <f:selectItem itemLabel="Café      " itemValue="Café  " />  
+                                </p:selectOneMenu> 
+                               <p:message for="type"/>
+                                <h:outputLabel for="telephone"  value="Téléphone : * " style="color: #000000;font-weight: bold;"  />
+                                <p:inputText style="width: 42%"  requiredMessage="Saisir téléphone" required="true" value="#{centrecommercialeManagedBean.centreCommercial.telephone}"  id="telephone" />
+                                <p:message for="telephone"/>
+                                <h:outputLabel for="siteweb"  value="Site Web : " style="color: #000000;font-weight: bold;" />
+                                <p:inputText style="width: 80%" value="#{centrecommercialeManagedBean.centreCommercial.siteweb}"   id="siteweb" />
+                                <h:outputLabel></h:outputLabel>
+                                <h:outputLabel for="email"  value="Email : " style="color: #000000;font-weight: bold;"  />
+                                <p:inputText style="width: 80%" value="#{centrecommercialeManagedBean.centreCommercial.email}"  id="email" />
+                                <p:watermark for="email" value="adminGuide@gmail.com"></p:watermark>
+                                
+                                 <h:outputLabel for="archive"  value="Archive : " style="color: #000000;font-weight: bold;" />
+                                 <p:selectBooleanCheckbox value="#{centrecommercialeManagedBean.centreCommercial.archive}"  id="archive" />
+                                <h:outputLabel></h:outputLabel>
+                                 <h:outputLabel for="validation"  value="Validation : " style="color: #000000;font-weight: bold;" />
+                                 <p:selectBooleanCheckbox value="#{centrecommercialeManagedBean.centreCommercial.validation}"  id="validation" />
+                                <h:outputLabel></h:outputLabel>
+                                <h:outputLabel value="Image : " style="color: #000000;font-weight: bold;"></h:outputLabel>
+                                <p:fileUpload  update=":centreCommerciale:AjoutTab, growl" fileUploadListener="#{centrecommercialeManagedBean.fileUpload}"
+                                               mode="advanced"
+                                               label="Choose a file"
+                                               sizeLimit="10485760"
+                                               multiple="true"
+                                               allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                               invalidSizeMessage="The maximum file size allowed is 10 Megabytes !"
+                                               invalidFileMessage="You are allowed to upload only images !"
+                                               />
+                                <h:outputLabel></h:outputLabel>
+                                <h:outputLabel for="description"  value="Description : " style="color: #000000;font-weight: bold;" />
+                                <p:inputTextarea autoResize="false" cols="50" rows="7" value="#{centrecommercialeManagedBean.centreCommercial.description}"  id="description" required="false"/>
+                                <h:outputLabel></h:outputLabel>
+                            </h:panelGrid>
+                            <h:outputLabel value="* " style="color: #000000;font-weight: bolder;"></h:outputLabel>
+                            <h:outputLabel value=" Champs obligatoire" style="color: #FF0000;font-weight: bolder;"></h:outputLabel>
+
+                       
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <p:commandButton icon="ui-icon-pencil" ajax="true" value="Modifier" update=":centreCommerciale:AjoutTab, growl" actionListener="#{centrecommercialeManagedBean.edition(actionEvent)}" oncomplete="centreCommercialeEdit.hide()"/>
+                            <p:commandButton icon="ui-icon-close" immediate="true" value="Annuler" oncomplete="centreCommercialeEdit.hide()"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="formSupp">
+                    <h1>
+                        <p:confirmDialog header="Confirmation" 
+                                         message="Êtes-vous sûr(e) de vouloir Supprimer  ' #{centrecommercialeManagedBean.centreCommercial.nom} ' ?" 
+                                         severity="alert" 
+                                         widgetVar="confirmation" id="suppCentre" hideEffect="explode" >
+                            <p:growl id="growl" showDetail="true" sticky="false" />
+
+                            <h:panelGrid id="display" columns="2" cellpadding="4"
+                                         style="margin:0 auto;">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <img src="#{centrecommercialeManagedBean.centreCommercial.image}" width="380" height="250" />
+
+                                <h:outputLabel/>
+                                <p:commandButton ajax="true" value="Oui" update=":centreCommerciale:AjoutTab" actionListener="#{centrecommercialeManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
+                                <p:commandButton value="Non" onclick="confirmation.hide()" />
+                            </h:panelGrid>
+                        </p:confirmDialog>
+                    </h1>
+                </h:form>
+               
+            </ui:define>
+        </ui:composition>
+
+
+    </h:body>
+</html>

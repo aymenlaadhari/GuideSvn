@@ -7,6 +7,8 @@ package controller.ville;
 
 
 
+import dao.pays.PaysImpl;
+import dao.pays.PaysInterface;
 import dao.ville.VilleImpl;
 import dao.ville.VilleInterface;
 import java.io.Serializable;
@@ -17,6 +19,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
+import model.Pay;
 
 
 
@@ -30,8 +34,8 @@ public class VilleManagedBean implements Serializable{
     VilleInterface villeInterface;
     private Ville ville;
     private Ville selectVille;
-            
     private List<Ville> listVille;
+    
 
     //get+set
     
@@ -69,16 +73,16 @@ public class VilleManagedBean implements Serializable{
 
     }
 
-    public void editEvent(int id) {
-        System.out.print(id);
+    public void editEvent(int idVille) {
+        System.out.print(idVille);
         villeInterface = new VilleImpl();
-        ville = villeInterface.getVille(id);
+        ville = villeInterface.getVille(idVille);
 
     }
-public void suppEvent(int id) {
-        System.out.print(id);
+public void suppEvent(int idVille) {
+        System.out.print(idVille);
         villeInterface = new VilleImpl();
-        ville = villeInterface.getVille(id);
+        ville = villeInterface.getVille(idVille);
 
     }
     public void deletMessage(ActionEvent actionEvent) {
@@ -117,13 +121,33 @@ public void suppEvent(int id) {
         FacesContext.getCurrentInstance().addMessage(null, msg);  
     } 
  
-
-
+///
+  public List<SelectItem> getAllPays()
+          {
+              List<SelectItem> items = new ArrayList<SelectItem>();
+              PaysInterface paysInter = new PaysImpl();
+              List<Pay> paysList = paysInter.getListPays();
+              for(Pay pay : paysList)
+              {
+                  items.add(new SelectItem (pay.getNom()));
+              }
+              
+              return  items;
+          }
+  ///list pays dans ville
+  public List<Pay> getAllPaysVille()
+          {
+              PaysInterface paysInter = new PaysImpl();
+              List<Pay> paysList = paysInter.getListPays();
+              
+              
+              return  paysList;
+          }
     /**
      * Creates a new instance of CentremedicaleManagedBean
      */
     public VilleManagedBean() {
-        this.listVille = new ArrayList<>();
+        this.listVille = new ArrayList<Ville>();
 
         if (this.ville== null) {
             this.ville = new Ville();

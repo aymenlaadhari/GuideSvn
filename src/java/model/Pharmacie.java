@@ -17,25 +17,38 @@ import javax.persistence.Table;
 public class Pharmacie  implements java.io.Serializable {
 
 
-     private int id;
+     private int idPhar;
      private String telephone;
+     private String image;
      private String email;
      private String siteweb;
-     private Long longitude;
-     private Long latitude;
+     private Double longitude;
+     private Double latitude;
      private String type;
      private String nom;
      private String description;
+     private boolean archive;
+     private boolean validation;
+     private Ville idVille;
+ private String imagemobile;
 
+    public String getImagemobile() {
+        return imagemobile;
+    }
+
+    public void setImagemobile(String imagemobile) {
+        this.imagemobile = imagemobile;
+    }
     public Pharmacie() {
     }
 
 	
-    public Pharmacie(int id) {
-        this.id = id;
+    public Pharmacie(int idPhar) {
+        this.idPhar = idPhar;
     }
-    public Pharmacie(int id, String telephone, String email, String siteweb, Long longitude, Long latitude, String type, String nom, String description) {
-       this.id = id;
+    public Pharmacie(int idPhar,String image,Ville ville, String telephone, String email, String siteweb, Double longitude, Double latitude, String type, String nom, String description) {
+       this.idPhar = idPhar;
+       this.image=image;
        this.telephone = telephone;
        this.email = email;
        this.siteweb = siteweb;
@@ -43,23 +56,29 @@ public class Pharmacie  implements java.io.Serializable {
        this.latitude = latitude;
        this.type = type;
        this.nom = nom;
+        this.idVille=ville;
        this.description = description;
     }
-   
+   public Ville getIdVille() {
+        return idVille;
+    }
+
+    public void setIdVille(Ville ville) {
+        this.idVille = ville;
+    }
+    
      @Id 
-
-    
-    @Column(name="id", unique=true, nullable=false)
-    public int getId() {
-        return this.id;
+    @Column(name="idPhar", unique=true, nullable=false)
+    public int getIdPhar() {
+        return this.idPhar;
     }
     
-    public void setId(int id) {
-        this.id = id;
+    public void setIdPhar(int idPhar) {
+        this.idPhar = idPhar;
     }
 
     
-    @Column(name="telephone", length=25)
+    @Column(name="telephone", length=258)
     public String getTelephone() {
         return this.telephone;
     }
@@ -69,7 +88,7 @@ public class Pharmacie  implements java.io.Serializable {
     }
 
     
-    @Column(name="email", length=25)
+    @Column(name="email", length=258)
     public String getEmail() {
         return this.email;
     }
@@ -79,7 +98,7 @@ public class Pharmacie  implements java.io.Serializable {
     }
 
     
-    @Column(name="siteweb", length=25)
+    @Column(name="siteweb", length=258)
     public String getSiteweb() {
         return this.siteweb;
     }
@@ -90,26 +109,26 @@ public class Pharmacie  implements java.io.Serializable {
 
     
     @Column(name="longitude")
-    public Long getLongitude() {
+    public Double getLongitude() {
         return this.longitude;
     }
     
-    public void setLongitude(Long longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
     
     @Column(name="latitude")
-    public Long getLatitude() {
+    public Double getLatitude() {
         return this.latitude;
     }
     
-    public void setLatitude(Long latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
     
-    @Column(name="type", length=25)
+    @Column(name="type", length=258)
     public String getType() {
         return this.type;
     }
@@ -129,7 +148,7 @@ public class Pharmacie  implements java.io.Serializable {
     }
 
     
-    @Column(name="description", length=258)
+    @Column(name="description", length=10000)
     public String getDescription() {
         return this.description;
     }
@@ -138,9 +157,73 @@ public class Pharmacie  implements java.io.Serializable {
         this.description = description;
     }
 
+    
+    
+  @Column(name="image", length=258)
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
 
+  @Column(name="validation")
+    public boolean isValidation() {
+        return validation;
+    }
 
+    public void setValidation(boolean validation) {
+        this.validation = validation;
+    }
+
+    @Column(name="archive")
+    public boolean isArchive() {
+        return archive;
+    }
+
+    public void setArchive(boolean archive) {
+        this.archive = archive;
+    }
+
+@Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + (this.nom != null ? this.nom.hashCode() : 0);
+        hash = 17 * hash + (this.longitude != null ? this.longitude.hashCode() : 0);
+        hash = 17 * hash + (this.latitude != null ? this.latitude.hashCode() : 0);
+         hash = 17 * hash + (this.telephone != null ? this.telephone.hashCode() : 0);
+        hash = 17 * hash + (this.type != null ? this.type.hashCode() : 0);
+        
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pharmacie other = (Pharmacie) obj;
+        if ((this.nom == null) ? (other.nom != null) : !this.nom.equals(other.nom)) {
+            return false;
+        }
+        if (this.longitude != other.longitude && (this.longitude == null || !this.longitude.equals(other.longitude))) {
+            return false;
+        }
+        if (this.latitude != other.latitude && (this.latitude == null || !this.latitude.equals(other.latitude))) {
+            return false;
+        }
+          if (this.telephone != other.telephone && (this.telephone == null || !this.telephone.equals(other.telephone))) {
+            return false;
+        }
+           if (this.type != other.type && (this.type == null || !this.type.equals(other.type))) {
+            return false;
+        }
+        return true;
+    }
 }
-
 

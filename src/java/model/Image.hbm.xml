@@ -4,18 +4,19 @@
 <!-- Generated Apr 2, 2014 11:37:37 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="model.Image" table="image" schema="public">
-        <id name="id" type="int">
-            <column name="id" />
+        <id name="idImage" type="int">
+            <column name="idImage" />
             <generator class="increment" />
         </id>
         <property name="nom" type="string">
-            <column name="nom" length="25" />
+            <column name="nom" length="258" />
         </property>
         <property name="description" type="string">
-            <column name="description" length="25" />
+            <column name="description" length="10000" />
         </property>
-        <property name="data" type="binary">
-            <column name="data" />
+         <property name="data" type="string">
+            <column name="data" length="10000" />
         </property>
+        
     </class>
 </hibernate-mapping>

@@ -16,7 +16,9 @@ public interface HotelInterface {
 
     public void remove(Hotel hotel);
 
-    public List<Hotel> getListHotel();
+    public List<Hotel> getListHotel();//valide
+    public List<Hotel> getListHotelInvalide();
+    public List<Hotel> getListHotelArchive();
 
     public Hotel getHotel(int idHotel);
 

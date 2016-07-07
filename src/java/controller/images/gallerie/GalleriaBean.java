@@ -39,9 +39,10 @@ public class GalleriaBean implements Serializable{
     public void init() {
         images = new ArrayList<String>();
 
-        for(int i=1;i<=7;i++) {
+        for(int i=1;i<=8;i++) {
             images.add("galleria" + i + ".jpg");
         }
+        
 
       
 

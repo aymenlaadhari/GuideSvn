@@ -7,6 +7,8 @@ package dao.pays;
 
 import java.util.List;
 import model.Pay;
+import model.Ville;
+import org.hibernate.Query;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -34,11 +36,11 @@ public class PaysImpl implements PaysInterface {
 
     @Override
     public Pay getPays(int id) {
-         Pay pay  = null;
+        Pay pay = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
-            pay= (Pay) session.get(Pay.class, id);
+            pay = (Pay) session.get(Pay.class, id);
             session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
@@ -51,11 +53,12 @@ public class PaysImpl implements PaysInterface {
 
     @Override
     public List<Pay> getListPays() {
-         List<Pay> listPays = null;
+        List<Pay> listPays = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
+            System.err.println("session " + session);
             session.beginTransaction();
-           listPays = session.createQuery("from Pay").list();
+            listPays = session.createQuery("from Pay").list();
             session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
@@ -65,16 +68,38 @@ public class PaysImpl implements PaysInterface {
         }
         return listPays;
     }
+
+    
+    public List<Ville> getListVille(int idPays) {
+        List<Ville> listVille = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            System.err.println("session " + session);
+            session.beginTransaction();
+            Query query = session.createQuery("from Ville where idpay = :idpay ");
+            query.setParameter("idpay", idPays);
+            listVille = query.list();
+            System.err.println("getListVille            "+listVille);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return listVille;
+        }
+        return listVille;
+    }
+
     @Override
     public void remove(Pay pays) {
-       Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
             session.delete(pays);
             session.getTransaction().commit();
             session.close();
-        
-        System.out.print("Bien supprimé");
+
+            System.out.print("Bien supprimé");
         } catch (Exception e) {
             System.out.print("Erreur Suppression" + e.getMessage());
             session.beginTransaction().rollback();

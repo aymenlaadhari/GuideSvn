@@ -9,7 +9,6 @@ import java.util.List;
 import model.Ville;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import util.HibernateUtil;
 
 /**
@@ -33,12 +32,13 @@ public class VilleImpl implements VilleInterface {
     }
 
     @Override
-    public Ville getVille(int id) {
+    public Ville getVille(int idVille) {
        Ville ville = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
-            ville = (Ville) session.get(Ville.class, id);
+            ville = (Ville) session.get(Ville.class, idVille);
+            org.hibernate.Hibernate.initialize(ville.getPay());
             session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
@@ -50,12 +50,17 @@ public class VilleImpl implements VilleInterface {
     }
 
     @Override
-    public List<Ville> getListVille() {
+    public List<Ville> getListVille()
+    {
         List<Ville> listVille = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
            listVille = session.createQuery("from Ville").list();
+           for (Ville cp : listVille) {
+                org.hibernate.Hibernate.initialize(cp.getPay());
+                //or cp.getCustomer().getLoginName();
+            }
             session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
@@ -65,6 +70,7 @@ public class VilleImpl implements VilleInterface {
         }
         return listVille;
     }
+
 
     @Override
     public void remove(Ville ville) {

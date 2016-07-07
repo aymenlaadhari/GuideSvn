@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+
+
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Archive Evenement</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./Template.xhtml">
+            <ui:define name="top">
+                <img src="../resources/images/csv.png" width="32" height="32" alt="csv"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+                <titreGuide>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Archive Evenement
+
+                </titreGuide>
+
+            </ui:define>
+
+
+            <ui:define name="content">
+
+
+                <h1>Liste Evenements</h1> 
+                <br/> 
+                <h:form id="Evenement">
+                    <p:growl id="growl" showDetail="true" sticky="false"  />
+                    <p:dataTable   paginator="true" rows="5"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                   rowsPerPageTemplate="5,10,15,20,25"  
+                                   var="Evenement" value="#{EvenementManagedBean.listEvenementArchive}"
+                                   id="AjoutTab"
+                                   emptyMessage="Evenement non trouvé" widgetVar="EvenementTable"
+                                   sortMode="multiple" 
+                                   rowKey="#{Evenement.nom}"  
+                                   selectionMode="single">
+
+                        <p:ajax event="rowToggle" listener="#{EvenementManagedBean.onRowToggle}" update=":Evenement:growl" />  
+
+                        <f:facet name="header">
+                            <div>  
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p:outputPanel>
+                                    <h:outputText  value="Recherche : " />
+
+                                    <p:inputText id="globalFilter"  onkeyup="EvenementTable.filter()" style="width:250px" />
+
+                                </p:outputPanel>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                                
+                            </div> 
+
+                        </f:facet>
+
+
+                        <p:column id="id" headerText="Identifiant" filterBy="#{Evenement.idEvent}" filterMatchMode="exact" footerText=" Identifiant exacte">
+                            <p:rowToggler /> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h:outputText value="#{Evenement.idEvent}" />
+                        </p:column>
+                        <p:column id="nom" headerText="Nom" filterBy="#{Evenement.nom}" filterMatchMode="exact" footerText=" Nom exacte">
+                            <h:outputText value="#{Evenement.nom}" />
+                        </p:column>
+                        <p:column id="type" headerText="Type" filterBy="#{Evenement.type}" filterMatchMode="exact" footerText=" Nom exacte">
+                            <h:outputText value="#{Evenement.type}" />
+                        </p:column>
+                        <p:column id="inscription" headerText="Inscription" filterBy="#{Evenement.inscription}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{Evenement.inscription}"/>
+                        </p:column>
+
+                        <p:column id="prix" headerText="Prix" filterBy="#{Evenement.prix}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{Evenement.prix}"/>
+                        </p:column>
+                        <p:column id="date" headerText="Date" filterBy="#{Evenement.date}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{Evenement.date}"/>
+                        </p:column>
+                        
+                        <p:column  headerText="Action" style="text-align: center;width:18px;">
+
+                            <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editE"  oncomplete="EvenementEdit.show();" actionListener="#{EvenementManagedBean.editEvent(Evenement.idEvent)}" ajax="true" icon="ui-icon-pencil"/>
+
+                            
+                            <p:commandButton id="selectButton" update=":Evenement:display" oncomplete="evenementDialog.show()" icon="ui-icon-search" title="View_Description">  
+                                <f:setPropertyActionListener value="#{Evenement}" target="#{EvenementManagedBean.selectEvenement}" />  
+                            </p:commandButton>  
+                        </p:column>
+
+                        <p:rowExpansion>  
+                            <h:panelGrid id="display" columns="2" cellpadding="4" style="width:300px;"  
+                                         styleClass=" ui-widget-content grid">  
+
+                                <f:facet name="header">  
+                                    <img src="../resources/images/images (10).jpg" width="292" height="173" alt="images (10)"/>
+
+                                </f:facet>  
+
+                                <h:outputText value="Nom :" />  
+                                <h:outputText id="nomE" value="#{Evenement.nom}" />  
+
+                            </h:panelGrid>  
+
+                        </p:rowExpansion>  
+                    </p:dataTable>
+
+                    <p:dialog   widgetVar="evenementDialog" resizable="true" id="evenementDlg"  
+                                showEffect="fade" hideEffect="explode" modal="true"> 
+                        <f:facet name="header">
+                            <h3>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                Détail Evenement</h3>
+                        </f:facet>
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+
+
+                            <h:form>
+                                <img src="../resources/images/images (3).jpg" width="304" height="166" alt="images (3)"/>
+                                <div>
+                                    <br/><br/>
+                                    <h:outputText value="Nom : " style="color: #045491"   />
+
+                                    <h:outputText value="#{EvenementManagedBean.selectEvenement.nom}" style="font-weight:bold"/>  
+                                    <br/><br/>
+                                    <div align="center">
+                                        <p:commandButton  value="OK" oncomplete="evenementDialog.hide()" ajax="true"/>
+                                    </div>
+                                </div>
+                            </h:form>
+
+                        </h:panelGrid>  
+
+                    </p:dialog>  
+                </h:form>
+
+               
+
+                <h:form id="Actualise">
+                    <p:dialog  hideEffect="explode"  widgetVar="EvenementEdit" resizable="true" id="editE" modal="true">
+                        <f:facet name="header">
+                            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                Gestion Evenement</h3>
+                        </f:facet>
+                        <p:growl id="growl" showDetail="true" sticky="false" />
+                        <h:panelGrid id="displaye" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h1>
+                                    <h:outputLabel value="Modifier Evenement"/>
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
+                            <h:outputLabel for="nom"  value="Nom :* " style="color: #000000"  />
+                            <p:inputText value="#{EvenementManagedBean.evenement.nom}"  id="nom" required="true"/>
+                            <h:outputLabel for="type"  value="Type : *" style="color: #000000"  />
+                            <p:inputText value="#{EvenementManagedBean.evenement.type}"  id="type" required="true"/>
+                            <h:outputLabel for="inscription"  value="Inscription : *" style="color: #000000" />
+                            <p:inputText value="#{EvenementManagedBean.evenement.inscription}"   id="inscription" required="true"/>
+                            <h:outputLabel for="prix"  value="Prix : *" style="color: #000000"  />
+                            <p:inputText value="#{EvenementManagedBean.evenement.prix}"  id="prix" required="true"/>
+                            <h:outputLabel for="date"  value="Date : *" style="color: #000000"  />
+                            <p:calendar value="#{EvenementManagedBean.evenement.date}" required="false"  pattern="MM/dd/yyyy HH:mm" id="date" showOn="button" />  
+                            <h:outputLabel for="archive"  value="Archive : " style="color: #000000;font-weight: bold;" />
+                            <p:selectBooleanCheckbox value="#{EvenementManagedBean.evenement.archive}"  id="archive" />
+ 
+                        </h:panelGrid>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <p:commandButton icon="ui-icon-pencil" ajax="true" value="Modifier" update=":Evenement:AjoutTab, growl" actionListener="#{EvenementManagedBean.edition(actionEvent)}" oncomplete="EvenementEdit.hide()"/>
+                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="EvenementEdit.hide()"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                
+
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>
+

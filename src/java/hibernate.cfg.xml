@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-  <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
-    <property name="hibernate.connection.username">postgres</property>
-    <property name="hibernate.connection.password">aymen</property>
-    <property name="hibernate.current_session_context_class">thread</property>
-    <mapping resource="model/Ville.hbm.xml"/>
-    <mapping resource="model/Pay.hbm.xml"/>
-    <mapping resource="model/Specialite.hbm.xml"/>
-    <mapping resource="model/Garde.hbm.xml"/>
-    <mapping resource="model/Hotel.hbm.xml"/>
-    <mapping resource="model/CentreMedicale.hbm.xml"/>
-    <mapping resource="model/Utilisateur.hbm.xml"/>
-    <mapping resource="model/Monument.hbm.xml"/>
-    <mapping resource="model/Evenement.hbm.xml"/>
-    <mapping resource="model/Pharmacie.hbm.xml"/>
-    <mapping resource="model/CentreCommercial.hbm.xml"/>
-    <mapping resource="model/Restaurant.hbm.xml"/>
-    <mapping resource="model/Image.hbm.xml"/>
-  </session-factory>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">aymen</property>
+        <!-- Enable Hibernate's automatic session context management -->
+        <property name="hibernate.current_session_context_class">thread</property>
+        <!--<property name="javax.persistence.validation.mode"> none </property>-->
+        <property name="hibernate.show_sql">true</property>
+        <property name="format_sql">true</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
+        <mapping resource="model/Ville.hbm.xml"/>
+        <mapping resource="model/Pay.hbm.xml"/>
+        <mapping resource="model/Specialite.hbm.xml"/>
+        <mapping resource="model/Hotel.hbm.xml"/>
+        <mapping resource="model/CentreMedicale.hbm.xml"/>
+        <mapping resource="model/Utilisateur.hbm.xml"/>
+        <mapping resource="model/Monument.hbm.xml"/>
+        <mapping resource="model/Evenement.hbm.xml"/>
+        <mapping resource="model/Pharmacie.hbm.xml"/>
+        <mapping resource="model/CentreCommercial.hbm.xml"/>
+        <mapping resource="model/Restaurant.hbm.xml"/>
+        <mapping resource="model/Image.hbm.xml"/>
+        <mapping resource="model/ClientWeb.hbm.xml"/>
+        <mapping resource="model/Commentaire.hbm.xml"/>
+        <mapping resource="model/ClientMobile.hbm.xml"/>
+        <mapping resource="model/Feeds.hbm.xml"/>
+    </session-factory>
 </hibernate-configuration>

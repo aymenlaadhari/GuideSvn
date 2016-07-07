@@ -4,12 +4,21 @@
 <!-- Generated Apr 2, 2014 11:37:37 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="model.Pay" table="pay" schema="public">
-        <id name="id" type="int">
-            <column name="id" />
+        <id name="idPay" type="int">
+            <column name="idPay"  />
             <generator class="increment" />
         </id>
         <property name="nom" type="string">
-            <column name="nom" />
+            <column name="nom" length="258" />
+            
         </property>
+              
+         <set name="ville" table="ville" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idPay" />
+            </key>
+            <one-to-many class="model.Ville" />
+        </set>
+        
     </class>
 </hibernate-mapping>

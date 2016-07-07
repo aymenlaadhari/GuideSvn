@@ -36,8 +36,8 @@ public class EvenementImpl implements EvenementInterface
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
-           listEvenement = session.createQuery("from Evenement").list();
-            session.getTransaction().commit();
+           listEvenement = session.createQuery("from Evenement where validation = true").list();
+                       session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
             System.out.print("erreur suppression" + e.getMessage());
@@ -99,6 +99,24 @@ public class EvenementImpl implements EvenementInterface
         return evenement;
     }
 
+    @Override
+    public List<Evenement> getListEvenementInvalide() {
+        List<Evenement> listEvenementInvalide = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+           listEvenementInvalide = session.createQuery("from Evenement where validation = false").list();
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return listEvenementInvalide;
+        }
+        return listEvenementInvalide;
+       }
+
+   
        
 
 

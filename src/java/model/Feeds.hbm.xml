@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2 mai 2015 11:02:00 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.Feeds" table="feeds" schema="public">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <timestamp name="timestamp" column="timestamp" />
+        <property name="name" type="string">
+            <column name="name" length="50" />
+        </property>
+        <property name="image" type="string">
+            <column name="image" length="50" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="200" />
+        </property>
+        <property name="profilepic" type="string">
+            <column name="profilepic" length="50" />
+        </property>
+        <property name="url" type="string">
+            <column name="url" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>

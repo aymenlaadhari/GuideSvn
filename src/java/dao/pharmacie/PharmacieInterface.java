@@ -19,7 +19,9 @@ public interface PharmacieInterface {
     public void remove(Pharmacie pharmacie);
     public void update(Pharmacie pharmacie);
     public Pharmacie getPharmacie(int id);
-    public List<Pharmacie> getListPharmacie();
+    public List<Pharmacie> getListPharmacie();//valide
+    public List<Pharmacie> getListPharmacieInvalide();
+    public List<Pharmacie> getListPharmacieArchive();
 
   
 }

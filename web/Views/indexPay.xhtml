@@ -9,13 +9,16 @@
 
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-   <h:head>
+    <h:head>
         <title>Gestion Pays</title>
     </h:head>
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="top">
-                <img src="../resources/images/csv.png" width="32" height="32" alt="csv"/>
+                &nbsp;&nbsp;
+                <img src="../resources/images/pays1.png" width="52" height="40" alt="pays"/>
+
+
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -34,6 +37,7 @@
 
 
                 <titreGuide>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     Gestion Pays
 
                 </titreGuide>
@@ -42,10 +46,7 @@
 
             <ui:define name="content">
 
-                <h:form class="left_content" id="AjoutPays" >
-                    <p:commandButton  value="Ajout Pays" actionListener="#{PayManagedBean.ajoutEvent(actionEvent)}" update=":edit:editPays" oncomplete="PaysAjout.show()" ajax="true" icon="ui-icon-plusthick"/>
 
-                </h:form>
                 <h1>Liste Pays</h1> 
                 <br/> 
                 <h:form id="Pays">
@@ -58,60 +59,80 @@
                                    sortMode="multiple" 
                                    rowKey="#{Pays.nom}"  
                                    selectionMode="single">  
-                       
+
+
+
+
                         <f:facet name="header">
-                            <p:outputPanel>
-                                <h:outputText  value="Recherche : " />
-                                <p:inputText id="globalFilter"  onkeyup="PaysTable.filter()" style="width:250px" />
-                            </p:outputPanel>
+                            <div>  
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p:outputPanel>
+                                    <h:outputText  value="Recherche : " />
+                                    <p:inputText id="globalFilter"  onkeyup="PaysTable.filter()" style="width:250px" />
+
+
+                                </p:outputPanel>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                                <p:commandButton  value="Ajout Pays" actionListener="#{PayManagedBean.ajoutEvent(actionEvent)}" update=":edit:editPays" oncomplete="PaysAjout.show()" ajax="true" icon="ui-icon-plusthick"/>
+
+                            </div> 
                         </f:facet>
-
-
-                        <p:column id="Id" headerText="Identifiant" filterBy="#{Pays.id}" filterMatchMode="exact" footerText=" Identifiant exacte">
-                            <h:outputText value="#{Pays.id}" />
-                        </p:column>
-
+                        
                         <p:column id="Nom" headerText="Nom" filterBy="#{Pays.nom}" filterMatchMode="exact" footerText=" Nom exacte">
 
                             <h:outputText value="#{Pays.nom}" />
                         </p:column>
-                        
 
-                       
-                        <p:column style="width:4%">
-                            <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editPays"  oncomplete="PaysEdit.show();" actionListener="#{PayManagedBean.editEvent(Pays.id)}" ajax="true" icon="ui-icon-pencil"/>
 
-                            <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppPays"  oncomplete="confirmation.show();" actionListener="#{PayManagedBean.suppEvent(Pays.id)}" ajax="true" icon="ui-icon-trash"/>
 
-                        <p:commandButton id="selectButton" update=":Pays:display" oncomplete="paysDialog.show()" icon="ui-icon-search" title="View_Details">  
-                            <f:setPropertyActionListener value="#{Pays}" target="#{PayManagedBean.selectPay}" />  
+                        <p:column  headerText="Action" style="text-align: center;width:18px;">
+
+                            <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editPays"  oncomplete="PaysEdit.show();" actionListener="#{PayManagedBean.editEvent(Pays.idPay)}" ajax="true" icon="ui-icon-pencil"/>
+
+                            <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppPays"  oncomplete="confirmation.show();" actionListener="#{PayManagedBean.suppEvent(Pays.idPay)}" ajax="true" icon="ui-icon-trash"/>
+
+                            <p:commandButton id="selectButton" update=":Pays:display" oncomplete="paysDialog.show()" icon="ui-icon-search" title="View_Details">  
+                                <f:setPropertyActionListener value="#{Pays}" target="#{PayManagedBean.selectPay}" />  
                             </p:commandButton>  
                         </p:column>
-                        
-                        
+
+
                     </p:dataTable>
-                    
+
                     <p:dialog   widgetVar="paysDialog" resizable="true" id="paysDlg"  
                                 showEffect="fade" hideEffect="explode" modal="true"> 
                         <f:facet name="header">
-                            <h3>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Details Pays</h3>
+                            <h3>Details Pays</h3>
                         </f:facet>
 
                         <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
 
-                           
+
                             <h:form>
                                 <img src="../resources/images/images (7).jpg" width="300" height="168" alt="images (7)"/>
 
                                 <div>
                                     <br/><br/>
-                                    <h:outputText value="Nom : " style="color: #045491"   />
+                                    <h:outputText value="Nom : " style="color: #045491;font-weight: bold;"   />
 
                                     <h:outputText value="#{PayManagedBean.selectPay.nom}" style="font-weight:bold"/>  
                                     <br/><br/>
 
-                                    
-                                    <p:commandButton  value="OK" oncomplete="paysDialog.hide()" icon="ui-icon-check" ajax="true"/>
+                                    <div align="center">
+                                        <p:commandButton  value="OK" oncomplete="paysDialog.hide()" ajax="true"/>
+                                    </div>
                                 </div>
                             </h:form>
 
@@ -125,8 +146,12 @@
 
                 <h:form id="edit">
 
-                    <p:dialog  header="Pays" widgetVar="PaysAjout" resizable="true" id="editPays" modal="true">
+                    <p:dialog hideEffect="explode"  widgetVar="PaysAjout" resizable="true" id="editPays" modal="true">
+                        <f:facet name="header">
+                            <h3>
 
+                                Gestion Pays</h3>
+                        </f:facet>
                         <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
                         <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
 
@@ -137,15 +162,14 @@
                                 <p:separator/>
                             </f:facet>
 
-                            <h:outputLabel for="nom" value="* Nom :" style="color: #000000"  />
-                            <p:inputText value="#{PayManagedBean.pay.nom}"  id="nom" required="true"/>
-                            
-                            
+                            <h:outputLabel for="nom" value="Nom : *" style="color: #000000;font-weight: bold;"  />
+                            <p:inputText requiredMessage="Taper le pays" value="#{PayManagedBean.pay.nom}"  id="nom" required="true"/>
+
                         </h:panelGrid>
                         <p:separator/>
                         <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
                             <p:commandButton icon="ui-icon-plusthick" ajax="true" value="Ajouter" update=":Pays:AjoutTab, growl" actionListener="#{PayManagedBean.ajoutpays(actionEvent)}" oncomplete="PaysAjout.hide()"  />
-                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="PaysAjout.hide()"  />
+                            <p:commandButton icon="ui-icon-close"  immediate="true" value="Annuler" oncomplete="PaysAjout.hide()"  />
 
                         </h:panelGrid>
 
@@ -153,7 +177,12 @@
                 </h:form>
 
                 <h:form id="Actualise">
-                    <p:dialog header="Pays" widgetVar="PaysEdit" resizable="true" id="editPays" modal="true">
+                    <p:dialog  hideEffect="explode"  widgetVar="PaysEdit" resizable="true" id="editPays" modal="true">
+                        <f:facet name="header">
+                            <h3>
+
+                                Gestion Pays</h3>
+                        </f:facet>
                         <p:growl id="growl" showDetail="true" sticky="false" />
                         <h:panelGrid id="displaye" columns="2" cellpadding="4" style="margin:0 auto;">
 
@@ -163,31 +192,32 @@
                                 </h1> 
                                 <p:separator/>
                             </f:facet>
-                          
-                           <h:outputLabel for="nom" value="* Nom :" style="color: #000000"  />
-                            <p:inputText value="#{PayManagedBean.pay.nom}"  id="nom" required="true"/>
-                            
+
+                            <h:outputLabel for="nom" value="Nom : *" style="color: #000000;font-weight: bold;"  />
+                            <p:inputText requiredMessage="Taper le pays" value="#{PayManagedBean.pay.nom}"  id="nom" required="true"/>
+
                         </h:panelGrid>
                         <p:separator/>
                         <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
 
                             <p:commandButton icon="ui-icon-pencil" ajax="true" value="Modifier" update=":Pays:AjoutTab, growl" actionListener="#{PayManagedBean.edition(actionEvent)}" oncomplete="PaysEdit.hide()"/>
-                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="PaysEdit.hide()"/>
+                            <p:commandButton icon="ui-icon-close" immediate="true" value="Annuler" oncomplete="PaysEdit.hide()"/>
                         </h:panelGrid>
                     </p:dialog>
                 </h:form>
                 <h:form id="formSupp">
 
                     <p:confirmDialog header="Confirmation" 
-                                     message="Êtes-vous sûr(e) de vouloir supprimer  #{PayManagedBean.pay.nom} ?" 
+                                     message="Êtes-vous sûr(e) de vouloir supprimer le pays ' #{PayManagedBean.pay.nom} '?" 
                                      severity="alert" 
-                                     widgetVar="confirmation" id="suppPays">
+                                     widgetVar="confirmation" id="suppPays"
+                                     hideEffect="explode">
                         <p:growl id="growl" showDetail="true" sticky="false" />
 
                         <h:panelGrid id="display" columns="2" cellpadding="4"
                                      style="margin:0 auto;">
-                            <p:commandButton icon="ui-icon-check" ajax="true" value="Oui" update=":Pays:AjoutTab, growl" actionListener="#{PayManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
-                            <p:commandButton value="Non" onclick="confirmation.hide()" icon="ui-icon-close"/>
+                            <p:commandButton  ajax="true" value="Oui" update=":Pays:AjoutTab, growl" actionListener="#{PayManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
+                            <p:commandButton value="Non" onclick="confirmation.hide()" />
                         </h:panelGrid>
                     </p:confirmDialog>
                 </h:form>

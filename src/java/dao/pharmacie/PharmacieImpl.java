@@ -8,10 +8,7 @@ package dao.pharmacie;
 
 import java.util.List;
 import model.Pharmacie;
-
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import util.HibernateUtil;
 
 /**
@@ -35,13 +32,18 @@ public class PharmacieImpl implements PharmacieInterface{
     }
 
     @Override
-    public List<Pharmacie> getListPharmacie() {
+    public List<Pharmacie> getListPharmacie() 
+    {
        List<Pharmacie> listPharmacie = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
-           listPharmacie  = session.createQuery("from Pharmacie ").list();
-            session.getTransaction().commit();
+           listPharmacie  = session.createQuery("from Pharmacie where validation = true and archive = false").list();
+            for (Pharmacie cp : listPharmacie) {
+                org.hibernate.Hibernate.initialize(cp.getIdVille());
+                //or cp.getCustomer().getLoginName();
+            }
+           session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
             System.out.print("erreur suppression" + e.getMessage());
@@ -50,6 +52,47 @@ public class PharmacieImpl implements PharmacieInterface{
         }
         return listPharmacie ;
     }
+    @Override
+    public List<Pharmacie> getListPharmacieInvalide() {
+        List<Pharmacie> listPharmacieInvalide = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+           listPharmacieInvalide  = session.createQuery("from Pharmacie where validation = false and archive = false ").list();
+            for (Pharmacie cp : listPharmacieInvalide) {
+                org.hibernate.Hibernate.initialize(cp.getIdVille());
+                //or cp.getCustomer().getLoginName();
+            }
+           session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return listPharmacieInvalide ;
+        }
+        return listPharmacieInvalide ;
+        }
+
+    @Override
+    public List<Pharmacie> getListPharmacieArchive() {
+        List<Pharmacie> listPharmacieArchive = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+           listPharmacieArchive  = session.createQuery("from Pharmacie where validation = true and archive = true ").list();
+             for (Pharmacie cp : listPharmacieArchive) {
+                org.hibernate.Hibernate.initialize(cp.getIdVille());
+                //or cp.getCustomer().getLoginName();
+            }
+           session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return listPharmacieArchive ;
+        }
+        return listPharmacieArchive ;
+        }
 
     @Override
     public void remove(Pharmacie pharmacie) {
@@ -95,6 +138,8 @@ public class PharmacieImpl implements PharmacieInterface{
         }
         return pharmacie;
     }
+
+    
 
     
 }

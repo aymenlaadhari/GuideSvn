@@ -18,6 +18,8 @@ public interface EvenementInterface {
     public void remove(Evenement evenement);
     public void update(Evenement evenement);
     public Evenement getEvenement(int idEvent);
-    public List<Evenement> getListEvenement();
+    public List<Evenement> getListEvenement();//valide
+    public List<Evenement> getListEvenementInvalide();
+    
     
 }

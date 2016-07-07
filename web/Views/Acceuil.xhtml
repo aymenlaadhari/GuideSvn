@@ -12,23 +12,35 @@
         <ui:composition template="./Template.xhtml">
 
             <ui:define name="top">
-                 &nbsp;&nbsp; &nbsp;<img src="../resources/images/images (15).jpg" width="40" height="40" alt="images (15)"/>
+                &nbsp;&nbsp; &nbsp; <img src="../resources/images/logo-guide-routard.png" width="50" height="40" alt="logo-guide-routard"/>
 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               
+
+
                 <titreGuide>
-                    Bienvenue chez notre application "MaYen Touristique"
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GuideApp Système
+                    
 
                 </titreGuide>
 
-
-
-
             </ui:define>
             <ui:define name="content" >
-                <img src="../resources/images/Untitled (2).png" width="1290" height="584" alt="Untitled (2)"/>
-
+                 <h3>
+                        <p:outputLabel  style="font-weight: bold;color: crimson" value="Bienvenue chez notre application, #{LoginManagedBean.utilisateur.login}"/>
+                     </h3>
+                 <br/>
+                <div align="center" style="background-image:url(/resources/images/rc_world.jpg)" >
+                            
+                <p:galleria  value="#{galleriaBean.images}" var="image" panelWidth="500" panelHeight="313" showCaption="true">
+                    <p:graphicImage value="/resources/images/galleria/#{image}" title="MaYen Touristique"/>
+                </p:galleria>
+                     </div>
             </ui:define>
 
         </ui:composition>

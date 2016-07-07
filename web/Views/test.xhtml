@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/faces/templates/Template.xhtml">
+
+    <ui:define name="head">
+        <style type="text/css">
+            #content{margin:0 10px !important;}
+        </style>        
+    </ui:define>
+
+    <ui:define name="sidebar1"></ui:define>
+
+    <ui:define name="content">
+
+
+            <h:panelGrid columns="2">
+            <div class="login">
+            <img src="/miloWeb/images/medical.jpg" />
+            </div>
+            <h:column>
+            <center>
+                <div class="login">
+                    <h4 style="color: #FF0000;"><h:outputText value="#{loginBean.message}"/></h4><br/>
+                    <ul style="list-style-type:none; width: 265px; text-align: left;" >
+                        <li>User ID</li>
+                        <li><h:inputText id="userId" styleClass="loginText" value="#{loginBean.user.userID}"></h:inputText></li>
+                        <li>Password</li>
+                        <li><h:inputSecret id="password" styleClass="loginText" value="#{loginBean.user.password}"></h:inputSecret></li>
+                        <li><h:commandButton id="login" value="Login" action="#{loginBean.login}" styleClass="button"></h:commandButton></li>
+                    </ul>
+                </div>
+            </center>
+            </h:column>
+            </h:panelGrid>
+    </ui:define>
+
+</ui:composition>
+</html>
+

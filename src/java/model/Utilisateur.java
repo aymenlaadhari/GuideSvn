@@ -1,13 +1,8 @@
 package model;
-// Generated Apr 2, 2014 11:37:33 AM by Hibernate Tools 3.6.0
-
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,10 +11,10 @@ import javax.persistence.Table;
 @Table(name="utilisateur"
     ,schema="public"
 )
-public class Utilisateur  implements java.io.Serializable {
+public class Utilisateur implements java.io.Serializable {
 
 
-     private int id;
+     private int idUser; 
      private String nom;
      private String prenom;
      private String adresse;
@@ -27,18 +22,19 @@ public class Utilisateur  implements java.io.Serializable {
      private String password;
      private String login;
      private String telephone;
+     private String sexe;
      private String passCrypt; 
      MessageDigest md;
 
     public Utilisateur() {
     }
 
-	
-    public Utilisateur(int id) {
-        this.id = id;
+
+    public Utilisateur(int idUser) {
+        this.idUser = idUser;
     }
-    public Utilisateur(int id, String nom, String prenom, String adresse, String email, String password, String login, String telephone) {
-       this.id = id;
+    public Utilisateur(int idUser, String nom, String prenom,String sexe, String adresse, String email, String password, String login, String telephone) {
+       this.idUser = idUser;
        this.nom = nom;
        this.prenom = prenom;
        this.adresse = adresse;
@@ -46,21 +42,22 @@ public class Utilisateur  implements java.io.Serializable {
        this.password = password;
        this.login = login;
        this.telephone = telephone;
+       this.sexe=sexe;
     }
-   
+    
      @Id 
-
-    @Column(name="id", unique=true, nullable=false)
-    public int getId() {
-        return this.id;
+    @Column(name="idUser", unique=true, nullable=false)
+    public int getIdUser() {
+        return this.idUser;
     }
     
-    public void setId(int id) {
-        this.id = id;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
     
-    @Column(name="nom", length=25)
+    @Column(name="nom", length=258)
+     //@NotNull(message = "Nom requis")
     public String getNom() {
         return this.nom;
     }
@@ -70,7 +67,7 @@ public class Utilisateur  implements java.io.Serializable {
     }
 
     
-    @Column(name="prenom", length=25)
+    @Column(name="prenom", length=258)
     public String getPrenom() {
         return this.prenom;
     }
@@ -80,7 +77,7 @@ public class Utilisateur  implements java.io.Serializable {
     }
 
     
-    @Column(name="adresse", length=25)
+    @Column(name="adresse", length=258)
     public String getAdresse() {
         return this.adresse;
     }
@@ -90,8 +87,9 @@ public class Utilisateur  implements java.io.Serializable {
     }
 
     
-    @Column(name="email", length=25)
-    public String getEmail() {
+    @Column(name="email", length=258)
+
+        public String getEmail() {
         return this.email;
     }
     
@@ -99,8 +97,19 @@ public class Utilisateur  implements java.io.Serializable {
         this.email = email;
     }
 
-    
-    @Column(name="password", length=25)
+    @Column(name="sexe", length=258)
+    public String getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
+            
+    @Column(name="password", length=258)
+//    @NotNull(message = "Mot de passe requis")
+//    @Size(min = 4, max = 25, message = "Mot de passe doit étre en 4 et 25 caractéres")
     public String getPassword() {
         return this.password;
     }
@@ -111,6 +120,7 @@ public class Utilisateur  implements java.io.Serializable {
 
     
     @Column(name="login", length=258)
+//     @NotNull(message = "Login requis")
     public String getLogin() {
         return this.login;
     }
@@ -121,6 +131,7 @@ public class Utilisateur  implements java.io.Serializable {
 
     
     @Column(name="telephone", length=258)
+    //@NotNull(message = "Telephone requis")
     public String getTelephone() {
         return this.telephone;
     }
@@ -153,5 +164,4 @@ public class Utilisateur  implements java.io.Serializable {
 
 
 }
-
 

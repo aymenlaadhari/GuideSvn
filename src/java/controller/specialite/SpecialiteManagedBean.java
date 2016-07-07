@@ -124,7 +124,7 @@ public void suppEvent(int idspec) {
      * Creates a new instance of CentremedicaleManagedBean
      */
     public SpecialiteManagedBean() {
-        this.listSpecialite = new ArrayList<>();
+        this.listSpecialite = new ArrayList<Specialite>();
 
         if (this.specialite == null) {
             this.specialite = new Specialite();

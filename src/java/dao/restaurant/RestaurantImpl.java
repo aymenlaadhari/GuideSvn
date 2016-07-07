@@ -37,8 +37,12 @@ public class RestaurantImpl implements RestaurantInterface{
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
-           listResto = session.createQuery("from Restaurant").list();
-            session.getTransaction().commit();
+           listResto = session.createQuery("from Restaurant where validation = true and archive = false ").list();
+            for (Restaurant cp : listResto) {
+                org.hibernate.Hibernate.initialize(cp.getIdVille());
+                //or cp.getCustomer().getLoginName();
+            }
+           session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
             System.out.print("erreur suppression" + e.getMessage());
@@ -93,5 +97,47 @@ public class RestaurantImpl implements RestaurantInterface{
         }
         return restaurant;
     }
+
+    @Override
+    public List<Restaurant> getlistRestoInvalide() {
+         List<Restaurant> listRestoInvalid = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+           listRestoInvalid = session.createQuery("from Restaurant where validation = false and archive = false").list();
+             for (Restaurant cp : listRestoInvalid) {
+                org.hibernate.Hibernate.initialize(cp.getIdVille());
+                //or cp.getCustomer().getLoginName();
+            }
+           session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return listRestoInvalid;
+        }
+        return listRestoInvalid;
+       }
+
+    @Override
+    public List<Restaurant> getlistRestoArchive() {
+         List<Restaurant> listRestoArchive = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+           listRestoArchive = session.createQuery("from Restaurant where validation = true and archive = true").list();
+             for (Restaurant cp : listRestoArchive) {
+                org.hibernate.Hibernate.initialize(cp.getIdVille());
+                //or cp.getCustomer().getLoginName();
+            }
+           session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return listRestoArchive;
+        }
+        return listRestoArchive;
+         }
 
 }

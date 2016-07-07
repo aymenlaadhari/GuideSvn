@@ -17,26 +17,49 @@ import javax.persistence.Table;
 public class CentreMedicale  implements java.io.Serializable {
 
 
-     private int id;
+     private int idCM;
+     private String image;
      private String telephone;
      private String email;
      private String siteweb;
-     private Long longitude;
-     private Long latitude;
+     private Double longitude;
+     private Double latitude;
      private String nom;
      private String description;
-     private String categorie;
      private String type;
+     private boolean validation ;
+     private boolean archive;
+     private Ville idVille;
+      private String imagemobile;
+
+    public String getImagemobile() {
+        return imagemobile;
+    }
+
+    public void setImagemobile(String imagemobile) {
+        this.imagemobile = imagemobile;
+    }
+
+    public Ville getIdVille() {
+        return idVille;
+    }
+
+    public void setIdVille(Ville ville) {
+        this.idVille = ville;
+    }
+
 
     public CentreMedicale() {
     }
 
 	
-    public CentreMedicale(int id) {
-        this.id = id;
+    public CentreMedicale(int idCM) {
+        this.idCM = idCM;
     }
-    public CentreMedicale(int id, String telephone, String email, String siteweb, Long longitude, Long latitude, String nom, String description, String categorie, String type) {
-       this.id = id;
+    public CentreMedicale(int idCM,String image,Ville ville, String telephone, String email, String siteweb, Double longitude, Double latitude, String nom, String description,String type) {
+       this.idCM = idCM;
+       this.image=image;
+       this.idVille = ville;
        this.telephone = telephone;
        this.email = email;
        this.siteweb = siteweb;
@@ -44,24 +67,22 @@ public class CentreMedicale  implements java.io.Serializable {
        this.latitude = latitude;
        this.nom = nom;
        this.description = description;
-       this.categorie = categorie;
        this.type = type;
     }
    
      @Id 
 
-    
-    @Column(name="id", unique=true, nullable=false)
-    public int getId() {
-        return this.id;
+    @Column(name="idCM", unique=true, nullable=false)
+    public int getIdCM() {
+        return this.idCM;
     }
     
-    public void setId(int id) {
-        this.id = id;
+    public void setIdCM(int idCM) {
+        this.idCM = idCM;
     }
 
     
-    @Column(name="telephone", length=25)
+    @Column(name="telephone", length=258)
     public String getTelephone() {
         return this.telephone;
     }
@@ -71,7 +92,7 @@ public class CentreMedicale  implements java.io.Serializable {
     }
 
     
-    @Column(name="email", length=25)
+    @Column(name="email", length=258)
     public String getEmail() {
         return this.email;
     }
@@ -81,7 +102,7 @@ public class CentreMedicale  implements java.io.Serializable {
     }
 
     
-    @Column(name="siteweb", length=25)
+    @Column(name="siteweb", length=258)
     public String getSiteweb() {
         return this.siteweb;
     }
@@ -92,21 +113,21 @@ public class CentreMedicale  implements java.io.Serializable {
 
     
     @Column(name="longitude")
-    public Long getLongitude() {
+    public Double getLongitude() {
         return this.longitude;
     }
     
-    public void setLongitude(Long longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
     
     @Column(name="latitude")
-    public Long getLatitude() {
+    public Double getLatitude() {
         return this.latitude;
     }
     
-    public void setLatitude(Long latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
@@ -121,7 +142,7 @@ public class CentreMedicale  implements java.io.Serializable {
     }
 
     
-    @Column(name="description", length=258)
+    @Column(name="description", length=10000)
     public String getDescription() {
         return this.description;
     }
@@ -130,15 +151,6 @@ public class CentreMedicale  implements java.io.Serializable {
         this.description = description;
     }
 
-    
-    @Column(name="categorie", length=258)
-    public String getCategorie() {
-        return this.categorie;
-    }
-    
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
-    }
 
     
     @Column(name="type", length=258)
@@ -149,10 +161,74 @@ public class CentreMedicale  implements java.io.Serializable {
     public void setType(String type) {
         this.type = type;
     }
+    
+ @Column(name="image", length=258)
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
 
 
+  @Column(name="validation")
+    public boolean isValidation() {
+        return validation;
+    }
 
+    public void setValidation(boolean validation) {
+        this.validation = validation;
+    }
+
+    @Column(name="archive")
+    public boolean isArchive() {
+        return archive;
+    }
+
+    public void setArchive(boolean archive) {
+        this.archive = archive;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + (this.nom != null ? this.nom.hashCode() : 0);
+        hash = 17 * hash + (this.longitude != null ? this.longitude.hashCode() : 0);
+        hash = 17 * hash + (this.latitude != null ? this.latitude.hashCode() : 0);
+         hash = 17 * hash + (this.telephone != null ? this.telephone.hashCode() : 0);
+        hash = 17 * hash + (this.type != null ? this.type.hashCode() : 0);
+        return hash;
+        
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+      final CentreMedicale other = (CentreMedicale) obj;
+        if ((this.nom == null) ? (other.nom != null) : !this.nom.equals(other.nom)) {
+            return false;
+        }
+        if (this.longitude != other.longitude && (this.longitude == null || !this.longitude.equals(other.longitude))) {
+            return false;
+        }
+        if (this.latitude != other.latitude && (this.latitude == null || !this.latitude.equals(other.latitude))) {
+            return false;
+        }
+         if (this.telephone != other.telephone && (this.telephone == null || !this.telephone.equals(other.telephone))) {
+            return false;
+        }
+          if (this.type != other.type && (this.type == null || !this.type.equals(other.type))) {
+            return false;
+        }
+        return true;
+    }
 }
 
 

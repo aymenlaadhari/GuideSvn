@@ -5,23 +5,30 @@
 <hibernate-mapping>
     <class name="model.Evenement" table="evenement" schema="public">
         <id name="idEvent" type="int">
-            <column name="id_event" />
+            <column name="idEvent" />
             <generator class="increment" />
         </id>
-        <property name="type" type="string">
-            <column name="type" length="254" />
-        </property>
-        <property name="nom" type="string">
-            <column name="nom" length="254" />
+        
+         <property name="nom" type="string">
+            <column name="nom" length="258" />
         </property>
         <property name="inscription" type="string">
-            <column name="inscription" length="254" />
+            <column name="inscription" length="1000" />
         </property>
-        <property name="prix" type="java.lang.Integer">
+        <property name="type" type="string">
+            <column name="type" length="258" />
+        </property>
+         <property name="prix" type="int">
             <column name="prix" />
         </property>
         <property name="date" type="date">
-            <column name="date" length="13" />
+            <column name="date" length="258"/>
         </property>
+        <property name="validation" type="boolean">
+            <column name="validation" default="false"/>
+        </property>
+        
     </class>
+   
+       
 </hibernate-mapping>

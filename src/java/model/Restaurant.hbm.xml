@@ -4,39 +4,54 @@
 <!-- Generated Apr 2, 2014 11:37:37 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="model.Restaurant" table="restaurant" schema="public">
-        <id name="id" type="int">
-            <column name="id" />
+        <id name="idResto" type="int">
+            <column name="idResto" />
             <generator class="increment" />
         </id>
+        
+        <many-to-one name="idVille" class="model.Ville" fetch="join" cascade="persist" lazy="proxy">
+            <column name="idVille" />
+        </many-to-one>
         <property name="telephone" type="string">
-            <column name="telephone" length="25" />
+            <column name="telephone" length="258"  />
         </property>
         <property name="email" type="string">
-            <column name="email" length="25" />
+            <column name="email" length="258"  />
         </property>
         <property name="siteweb" type="string">
-            <column name="siteweb" length="25" />
+            <column name="siteweb" length="258" />
         </property>
-        <property name="longitude" type="java.lang.Long">
-            <column name="longitude" />
+        <property name="longitude" type="java.lang.Double">
+            <column name="longitude"  precision="20" scale="20"/>
         </property>
-        <property name="latitude" type="java.lang.Long">
-            <column name="latitude" />
+        <property name="latitude" type="java.lang.Double">
+            <column name="latitude"  precision="20" scale="20"/>
         </property>
         <property name="nom" type="string">
-            <column name="nom" length="258" />
+            <column name="nom" length="258"  />
         </property>
         <property name="description" type="string">
-            <column name="description" length="258" />
+            <column name="description" length="10000" />
         </property>
-        <property name="categorie" type="string">
-            <column name="categorie" length="258" />
+        <property name="horairehouverture" type="java.util.Date">
+            <column name="horairehouverture"  />
         </property>
-        <property name="horairehouverture" type="date">
-            <column name="horairehouverture" length="13" />
+        <property name="horairefermeture" type="java.util.Date">
+            <column name="horairefermeture"  />
         </property>
-        <property name="horairefermeture" type="date">
-            <column name="horairefermeture" length="13" />
+       
+        <property name="image" type="string">
+            <column name="image" length="258" />
         </property>
+        <property name="validation" type="boolean">
+            <column name="validation" default="false"/>
+        </property>
+        <property name="archive" type="boolean">
+            <column name="archive" default="false"/>
+        </property>
+        <property name="imagemobile" type="string">
+            <column name="imagemobile" length="258" />
+        </property>
+       
     </class>
 </hibernate-mapping>

@@ -19,7 +19,7 @@ public interface UtilisateurInterface
     public List<Utilisateur> getListUtilisateur();
     public void remove(Utilisateur utilisateur);
     public void update(Utilisateur utilisateur);
-    public Utilisateur getUtilisateur(int id);
+    public Utilisateur getUtilisateur(int idUser);
     public Utilisateur login(Utilisateur utilisateur);
     public Utilisateur findByUtilisateur(Utilisateur utilisateur) ;
 }

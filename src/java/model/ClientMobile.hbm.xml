@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 2, 2014 11:37:37 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.ClientMobile" table="clientmobile" schema="public">
+        <id name="idClientMobile" type="int">
+            <column name="idClientMobile" />
+            <generator class="increment"/>
+           
+        </id>
+        <property name="nom" type="string">
+            <column name="nom" length="258" />
+        </property>
+        <property name="prenom" type="string">
+            <column name="prenom" length="258" />
+        </property>
+        <property name="sexe" type="string">
+            <column name="sexe" length="258" />
+        </property>
+        <property name="adresse" type="string">
+            <column name="adresse" length="258" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="258" unique="true"/>
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="258" />
+        </property>
+        <property name="login" type="string">
+            <column name="login" length="258" />
+        </property>
+        <property name="telephone" type="string">
+            <column name="telephone" length="258"/>
+        </property>
+       
+       <!-- <set name="hotels" table="commentaire" cascade="all">
+
+            <key column="idclientmobile" />
+            <many-to-many column="idhotel" class="model.Hotel" />
+
+        </set>-->
+
+    </class>
+
+</hibernate-mapping>

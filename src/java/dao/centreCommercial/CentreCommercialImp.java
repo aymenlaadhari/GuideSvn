@@ -60,13 +60,13 @@ public class CentreCommercialImp implements CentreInt {
         }
     }
     @Override
-    public CentreCommercial getCentreCommercial(int id) {
+    public CentreCommercial getCentreCommercial(int idCC) {
  
         CentreCommercial centreCommercial  = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
-            centreCommercial= (CentreCommercial) session.get(CentreCommercial.class, id);
+            centreCommercial= (CentreCommercial) session.get(CentreCommercial.class, idCC);
             session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
@@ -82,8 +82,12 @@ public class CentreCommercialImp implements CentreInt {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
-           listCentreCommercial = session.createQuery("from CentreCommercial").list();
-            session.getTransaction().commit();
+           listCentreCommercial = session.createQuery("from CentreCommercial where validation = true and archive = false").list();
+            for (CentreCommercial cp : listCentreCommercial) {
+                org.hibernate.Hibernate.initialize(cp.getIdVille());
+                //or cp.getCustomer().getLoginName();
+            }
+           session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
             System.out.print("erreur suppression" + e.getMessage());
@@ -92,4 +96,48 @@ public class CentreCommercialImp implements CentreInt {
         }
         return listCentreCommercial;
     }
+   
+    @Override
+    public List<CentreCommercial> getListCentreCommercialInvalide() {
+         List<CentreCommercial> listCentreCommercialInvalide = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+           listCentreCommercialInvalide = session.createQuery("from CentreCommercial where validation = false and archive = false").list();
+            for (CentreCommercial cp : listCentreCommercialInvalide) {
+                org.hibernate.Hibernate.initialize(cp.getIdVille());
+                //or cp.getCustomer().getLoginName();
+            }
+           session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return listCentreCommercialInvalide;
+        }
+        return listCentreCommercialInvalide;
+    }
+
+    @Override
+    public List<CentreCommercial> getListCentreCommercialArchive() {
+       List<CentreCommercial> listCentreCommercialArchive = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+           listCentreCommercialArchive = session.createQuery("from CentreCommercial where validation = true and archive = true").list();
+            for (CentreCommercial cp : listCentreCommercialArchive) {
+                org.hibernate.Hibernate.initialize(cp.getIdVille());
+                //or cp.getCustomer().getLoginName();
+            }
+           session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return listCentreCommercialArchive;
+        }
+        return listCentreCommercialArchive;
+    }
+
+     
 }

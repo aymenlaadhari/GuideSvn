@@ -4,15 +4,23 @@
 <!-- Generated Apr 2, 2014 11:37:37 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="model.Specialite" table="specialite" schema="public">
-        <id name="id" type="int">
-            <column name="id" />
+        <id name="idSpec" type="int">
+            <column name="idSpec" />
             <generator class="increment" />
         </id>
         <property name="nom" type="string">
-            <column name="nom" length="25" />
+            <column name="nom" length="258" unique="true"/>
         </property>
         <property name="description" type="string">
-            <column name="description" length="25" />
+            <column name="description" length="10000" />
         </property>
+        
+        
+         <!--<set name="restaurant" table="restaurant" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idspec" not-null="true" />
+            </key>
+            <one-to-many class="model.Restaurant" />
+        </set>-->
     </class>
 </hibernate-mapping>

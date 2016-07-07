@@ -7,10 +7,7 @@ package dao.centreMedical;
 
 import java.util.List;
 import model.CentreMedicale;
-
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import util.HibernateUtil;
 
 /**
@@ -72,7 +69,8 @@ public class CentreMedicalImpl implements CentreMedicaleInterface {
         try {
             session.beginTransaction();
            centreMedicale= (CentreMedicale) session.get(CentreMedicale.class, id);
-            session.getTransaction().commit();
+           
+           session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
             System.out.print("erreur suppression" + e.getMessage());
@@ -85,18 +83,65 @@ public class CentreMedicalImpl implements CentreMedicaleInterface {
 
     @Override
     public List<CentreMedicale> getListCentreMedicale() {
-        List<CentreMedicale> listCentreMedicale = null;
+       List<CentreMedicale> listCentreMedicale = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
-           listCentreMedicale = session.createQuery("from CentreMedicale").list();
+           listCentreMedicale = session.createQuery("from CentreMedicale where validation=true and archive=false").list();
+           for (CentreMedicale cp : listCentreMedicale) {
+                org.hibernate.Hibernate.initialize(cp.getIdVille());
+                //or cp.getCustomer().getLoginName();
+            }
             session.getTransaction().commit();
+            session.close();
+        }   catch (Exception e) {
+            System.out.print("Erreur suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return  listCentreMedicale;
+        }
+        return listCentreMedicale;
+    }
+
+
+    @Override
+    public List<CentreMedicale> getListCentreMedicaleInvalide() {
+        List<CentreMedicale> listCentreMedicaleInvalide = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+           listCentreMedicaleInvalide = session.createQuery("from CentreMedicale where validation = false and archive = false").list();
+             for (CentreMedicale cp : listCentreMedicaleInvalide) {
+                org.hibernate.Hibernate.initialize(cp.getIdVille());
+                //or cp.getCustomer().getLoginName();
+            }
+           session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
             System.out.print("Erreur Suppression" + e.getMessage());
             session.beginTransaction().rollback();
-            return listCentreMedicale;
+            return listCentreMedicaleInvalide;
         }
-        return listCentreMedicale;
-    }
+        return listCentreMedicaleInvalide;
+       }
+
+    @Override
+    public List<CentreMedicale> getListCentreMedicaleArchive() {
+        List<CentreMedicale> listCentreMedicaleArchive = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+           listCentreMedicaleArchive = session.createQuery("from CentreMedicale where validation = true and archive = true").list();
+             for (CentreMedicale cp : listCentreMedicaleArchive) {
+                org.hibernate.Hibernate.initialize(cp.getIdVille());
+                //or cp.getCustomer().getLoginName();
+            }
+           session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.print("Erreur Suppression" + e.getMessage());
+            session.beginTransaction().rollback();
+            return listCentreMedicaleArchive;
+        }
+        return listCentreMedicaleArchive;
+        }
 }

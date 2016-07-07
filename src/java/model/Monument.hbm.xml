@@ -5,38 +5,39 @@
 <hibernate-mapping>
     <class name="model.Monument" table="monument" schema="public">
         <id name="idMonument" type="int">
-            <column name="id_monument" />
+            <column name="idMonument" />
             <generator class="increment" />
         </id>
+        <many-to-one name="idVille" class="model.Ville" fetch="join" cascade="persist" lazy="proxy">
+            <column name="idVille"/>
+        </many-to-one>
         <property name="nomM" type="string">
-            <column name="nom_m" length="254" />
+            <column name="nomM" length="258"/>
         </property>
-        <property name="categorieM" type="string">
-            <column name="categorie_m" length="254" />
-        </property>
-        <property name="sitewebM" type="string">
-            <column name="siteweb_m" length="254" />
-        </property>
+      
         <property name="longitude" type="java.lang.Double">
-            <column name="longitude" precision="17" scale="17" />
+            <column name="longitude" precision="20" scale="20"/>
         </property>
         <property name="latitude" type="java.lang.Double">
-            <column name="latitude" precision="17" scale="17" />
+            <column name="latitude" precision="20" scale="20"/>
         </property>
         <property name="description" type="string">
-            <column name="description" length="254" />
+            <column name="description" length="10000" />
         </property>
         <property name="type" type="string">
-            <column name="type" length="254" />
+            <column name="type" length="258" />
         </property>
         <property name="dateconstruction" type="date">
-            <column name="dateconstruction" length="13" />
+            <column name="dateconstruction" length="258" />
         </property>
-        <property name="finconstruction" type="date">
-            <column name="finconstruction" length="13" />
+        <property name="image" type="string">
+            <column name="image" length="258" />
         </property>
-        <property name="historique" type="string">
-            <column name="historique" length="258" />
+        <property name="imagemobile" type="string">
+            <column name="imagemobile" length="258" />
         </property>
+        
+       
+       
     </class>
 </hibernate-mapping>

@@ -15,21 +15,79 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 
 
 
 import model.Pay;
+import model.Ville;
 @ManagedBean(name = "PayManagedBean")
 @SessionScoped
 public class PayManagedBean implements Serializable{
 
-   PaysInterface  paysInterface ;
+    PaysInterface  paysInterface ;
     private Pay pay;
     private Pay selectPay;
     private List<Pay> listPay;
-//get+set
+    private List<Ville> listVille;
 
+    private int idpays;
+    private Ville ville;
+
+//get+set
+   
+
+    
+    public int getIdpays() {
+        return idpays;
+    }
+
+    public void setIdpays(int idpays) {
+        this.idpays = idpays;
+        System.out.println("setIdpays "+idpays );
+    }
+
+   /* public List<Ville> getListVille() {
+        return listVille;
+    }*/
+
+    public void setListVille(List<Ville> listVille) {
+        this.listVille = listVille;
+    }
+    
+    public void processScat() {
+        getSubCategoryName();
+        getListVille();
+    }
+   
+    @SuppressWarnings("unchecked")
+    public List<SelectItem> getSubCategoryName() {
+        List<SelectItem> subcat = new ArrayList<SelectItem>();
+        //if (catname != null && !catname.equals("")) {            
+        try {
+            System.err.println("getSubCategoryName idpays "+idpays);
+            List<Ville> listPay1 = getListVille();
+            for(Ville temp:listPay1)
+            {
+                subcat.add(new SelectItem(temp.getNom()));
+            }
+            
+ 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        // }
+        return subcat;
+    }
+//////
+    public List<Ville> getListVille() {
+        listVille=new ArrayList<Ville>();
+        PaysImpl paysInterface = new PaysImpl();
+        listVille = paysInterface.getListVille(idpays);
+        System.err.println("getListVille idpays "+idpays);
+        return listVille;
+    }
     public Pay getSelectPay() {
         return selectPay;
     }
@@ -45,7 +103,13 @@ public class PayManagedBean implements Serializable{
     public void setPay(Pay pay) {
         this.pay = pay;
     }
+    public Ville getVille() {
+        return ville;
+    }
 
+    public void setVille(Ville ville) {
+        this.ville = ville;
+    }
     public List<Pay> getListPay() {
          paysInterface = new PaysImpl();
         listPay = paysInterface.getListPays();
@@ -107,7 +171,7 @@ public void suppEvent(int id) {
      * Creates a new instance of CentremedicaleManagedBean
      */
     public PayManagedBean() {
-        this.listPay= new ArrayList<>();
+        this.listPay= new ArrayList<Pay>();
 
         if (this.pay == null) {
             this.pay = new Pay();

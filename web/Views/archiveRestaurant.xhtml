@@ -1,0 +1,503 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+
+
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Gestion Restaurant</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./Template.xhtml">
+            <ui:define name="top">
+
+                &nbsp;&nbsp;<img src="../resources/images/resto.png" width="52" height="40" alt="resto"/>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+                <titreGuide>
+                    Archive Restaurant
+
+
+
+                </titreGuide>
+
+            </ui:define>
+
+            <ui:define name="content">
+
+
+                <h1>Liste Restaurants archivés</h1> 
+                <br/> 
+                <h:form id="Resto">
+                    <p:messages autoUpdate="true"/>
+                    <p:dataTable   paginator="true" rows="5"   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                   rowsPerPageTemplate="5,10,15,20,25"  
+                                   var="restaurant" value="#{RestaurantManagedBean.listRestaurantArchive}"
+                                   id="AjoutTab"
+                                   emptyMessage="Restaurant non trouvé" widgetVar="RestaurantTable"
+                                   sortMode="multiple" 
+                                   rowKey="#{restaurant.nom}"  
+                                   selectionMode="single">  
+
+                        <p:ajax event="rowToggle" listener="#{RestaurantManagedBean.onRowToggle}" />  
+
+                        <f:facet name="header">
+                            <div>  
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p:outputPanel>
+                                    <h:outputText  value="Recherche : " />
+                                    <p:inputText id="globalFilter"  onkeyup="RestaurantTable.filter()" style="width:250px" />
+                                </p:outputPanel>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                               
+                            </div> 
+
+                        </f:facet>
+
+                        <p:column id="Nom" headerText="Nom" filterBy="#{restaurant.nom}" filterMatchMode="exact" footerText=" Nom exacte">
+                            <p:rowToggler /> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                            <h:outputText value="#{restaurant.nom}" />
+                        </p:column>
+                        <p:column id="pays" headerText="Pays" filterBy="#{restaurant.idVille.pay.nom}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{restaurant.idVille.pay.nom}"/>
+                        </p:column> 
+                        <p:column id="ville" headerText="Ville" filterBy="#{restaurant.idVille.nom}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{restaurant.idVille.nom}"/>
+                        </p:column>
+
+                        <p:column id="Telephone" headerText="Téléphone" filterBy="#{restaurant.telephone}" filterMatchMode="contains" footerText="Contient"
+                                  >
+                            <h:outputText value="#{restaurant.telephone}"/>
+                        </p:column>
+
+
+                      
+
+                        <p:column  headerText="Action" style="text-align: center;width:18px;">
+
+                            <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editResto"  oncomplete="RestaurantEdit.show();" actionListener="#{RestaurantManagedBean.editEvent(restaurant.idResto)}" ajax="true" icon="ui-icon-pencil"/>
+
+                            <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppCentre"  oncomplete="confirmation.show();" actionListener="#{RestaurantManagedBean.suppEvent(restaurant.idResto)}" ajax="true" icon="ui-icon-trash"/>
+
+                            <p:commandButton id="selectButton" update=":Resto:display" oncomplete="RestoDialog.show()" icon="ui-icon-search" title="View_Description">  
+                                <f:setPropertyActionListener value="#{restaurant}" target="#{RestaurantManagedBean.selectResto}" />  
+                            </p:commandButton>  
+                        </p:column>
+
+                        <p:rowExpansion>  
+
+
+                            <img src="#{restaurant.image}" width="420" height="250" />
+
+                            <br/>
+                            <h:outputText value="Nom : " style="color: blue;font-weight: bold;" />  
+                            <h:outputText id="nom" value="#{restaurant.nom}" style="color: #000000;font-weight:bold" />
+                            <br/>
+                            <h:outputText value="Latitude : " style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="latitude" value="#{restaurant.latitude}" style="color: #000000;font-weight:bold" />
+                            <br/>
+                            <h:outputText value="Longitude: " style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="longG" value="#{restaurant.longitude}"  style="color: #000000;font-weight:bold"/>
+                            <br/>
+                            <h:outputText value="Horaire Houverture : " style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="ho" value="#{restaurant.horairehouverture}" style="color: #000000;font-weight:bold" />
+                            <br/>
+                            <h:outputText value="Horaire Fermeture : " style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="hf" value="#{restaurant.horairefermeture}" style="color: #000000;font-weight:bold" />
+                            <br/>
+                            <h:outputText value="Téléphone : " style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="tel" value="#{restaurant.telephone}"  style="color: #000000;font-weight:bold"/>
+                            <br/>
+                            <h:outputText value="Site Web : " style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="site" value="#{restaurant.siteweb}" style="color: #000000;font-weight:bold" />
+                            <br/>
+                            <h:outputText value="Email : " style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="emaill" value="#{restaurant.email}" style="color: #000000;font-weight:bold"/>
+                            <br/>
+                            <h:outputText value="Pays : " style="color: blue;font-weight:bold;" />  
+                            <h:outputText id="pay" value="#{restaurant.idVille.pay.nom}"  style="color:#000000;font-weight:bold;"/>
+
+                            <br/><h:outputText value="Ville : " style="color: blue;font-weight:bold;" />  
+                            <h:outputText id="vill" value="#{restaurant.idVille.nom}"  style="color:#000000;font-weight:bold;"/>
+
+
+
+                        </p:rowExpansion>  
+
+                    </p:dataTable>
+
+                    <p:dialog  width="550" height="500" widgetVar="RestoDialog" resizable="false" id="RestoDlg"  
+                               showEffect="fade" hideEffect="explode" modal="true"> 
+                        <f:facet name="header">
+                            <h3>Details Restaurant</h3>
+                        </f:facet>
+
+                        <h:panelGrid id="display" style="color: blue">  
+
+
+                            <h:form>
+                                <img src="#{RestaurantManagedBean.selectResto.image}" width="450" height="200" />
+                                <br/><br/>
+
+
+                                <h:outputText value="Description: " style="color: #045491"   />
+                                <p>
+                                    <p:inputTextarea autoResize="false" disabled="true" cols="30"  maxlength="10" rows="15" style="color: #000000;font-weight:bold;width: 100%;" 
+                                                     value="#{RestaurantManagedBean.selectResto.description}" />  
+                                </p>
+                                <div align="center">
+
+                                    <p:commandButton  value="OK" oncomplete="RestoDialog.hide()" ajax="true"/>
+                                </div>
+
+                            </h:form>
+
+                        </h:panelGrid>  
+
+                    </p:dialog>  
+
+                </h:form>
+
+
+                <h:form id="edit">
+
+                    <p:dialog width="660" height="620"  hideEffect="explode" widgetVar="RestaurantAjout" resizable="false" id="editR" modal="true">
+                        <f:facet name="header">
+                            <h3>
+                                Gestion Restaurant</h3>
+                        </f:facet>
+
+                        <p:growl id="growl" showDetail="true" sticky="false" life="4000"/>
+                        <h:panelGrid id="display" columns="3" cellpadding="4" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h1>
+
+                                    <h:outputLabel value="Ajout Restaurant" /> &nbsp;&nbsp;
+
+                                    <img src="../resources/images/service-128.png" width="30" height="30" alt="service-128"/>
+
+
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
+                            <h:outputLabel for="Nom" title="Nom" value="Nom : * " style="color: #000000;font-weight: bold;"  />
+                            <p:inputText style="width: 42%"  requiredMessage="Taper le nom de restaurant" required="true" value="#{RestaurantManagedBean.restaurant.nom}"  id="nom" />
+                            <p:message for="nom"/>
+
+
+                            <h:outputLabel   for="idpays" value="Pays : *" style="color: #000000;font-weight: bold;" />
+
+
+
+                            <p:selectOneMenu style="width: 45%"  requiredMessage=" Choisir pays" required="true"  id="idpays" value="#{PayManagedBean.idpays}" valueChangeListener="#{PayManagedBean.processScat}" > 
+                                <f:selectItem itemLabel="Choisir le pays" itemValue="" />
+                                <f:selectItems value="#{PayManagedBean.listPay}" var="z" itemLabel="#{z.nom}" itemValue="#{z.idPay}"/> 
+                                <p:ajax update="scat" event="change" />
+
+                            </p:selectOneMenu> 
+
+
+                            <p:message for="idpays"/>
+                            <h:outputLabel   for="ville" value="Ville : *" style="color: #000000;font-weight: bold;" />
+
+
+                            <p:selectOneMenu style="width: 45%"  requiredMessage="Choisir ville" required="true"  id="scat" value="#{RestaurantManagedBean.restaurant.idVille}" converter="villeConvertor"> 
+
+                                <f:selectItem itemLabel="Choisir la ville" itemValue=""  />
+                                <f:selectItems value="#{PayManagedBean.listVille}" var="z" itemLabel="#{z.nom}" itemValue="#{z}"/>
+
+                            </p:selectOneMenu> 
+
+                            <p:message for="scat"/>
+
+
+
+<h:outputLabel   for="specialite" value="Specialite : " style="color: #000000;font-weight: bold;" />
+                            <p:selectOneMenu style="width: 45%" value="" id="specialite" > 
+
+                                <f:selectItem   itemLabel="Tunisienne " 
+                                                itemValue="Tunisienne"  />  
+
+                            </p:selectOneMenu> 
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel for="latitude" title="Nom" value="Latitude : * " style="color: #000000;font-weight: bold;" />
+                            <p:inputText style="width: 45%"  requiredMessage="Taper latitude" required="true"  value="#{RestaurantManagedBean.restaurant.latitude}"   id="latitude" />
+                            <p:message for="latitude"/>
+                            <h:outputLabel for="longitude" title="Nom" value="Longitude : * " style="color: #000000;font-weight: bold;"  />
+                            <p:inputText style="width: 45%"  requiredMessage="Taper longitude" required="true"  value="#{RestaurantManagedBean.restaurant.longitude}"  id="longitude" />
+                            <p:message for="longitude"/>
+
+                            <h:outputLabel></h:outputLabel>
+                            <p:commandButton style="width: 45%" value="Map" oncomplete="dlg.show()" ajax="true">
+                            </p:commandButton>
+                            <h:outputLabel></h:outputLabel>
+                             
+                            <h:outputLabel   for="ouverture"  value="Horaire Ouverture : "  style="color: #000000;font-weight: bold;"/>
+                            <p:calendar value="#{RestaurantManagedBean.restaurant.horairehouverture}"   pattern="HH:mm" id="ouverture" showOn="button" timeOnly="true" />  
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel   for="fermeture"  value="Horaire Fermeture : "  style="color: #000000;font-weight: bold;"/>
+                            <p:calendar value="#{RestaurantManagedBean.restaurant.horairefermeture}"   pattern="HH:mm" id="fermeture" showOn="button" timeOnly="true"  />  
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel for="telephone" title="Nom" value="Téléphone : * " style="color: #000000;font-weight: bold;"  />
+                            <p:inputText value="#{RestaurantManagedBean.restaurant.telephone}"  id="telephone" />
+                            <p:message for="telephone"/>
+                            <h:outputLabel for="Siteweb" title="Nom" value="Site Web : " style="color: #000000;font-weight: bold;" />
+                            <p:inputText  style="width: 80%"  value="#{RestaurantManagedBean.restaurant.siteweb}"   id="siteweb"/>
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel for="email" title="Nom" value="Email : " style="color: #000000;font-weight: bold;"  />
+                            <p:inputText style="width: 80%"  value="#{RestaurantManagedBean.restaurant.email}"  id="email" />
+                            <p:watermark for="email" value="adminGuide@gmail.com"/>
+
+                            <h:outputLabel for="validation"  value="Validation : " style="color: #000000;font-weight: bold;" />
+                            <p:selectBooleanCheckbox value="#{RestaurantManagedBean.restaurant.validation}"  id="validation" />
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel value="Image : " style="color: #000000;font-weight: bold;"></h:outputLabel>
+                            <p:fileUpload update=":Resto:AjoutTab, growl" fileUploadListener="#{RestaurantManagedBean.fileUpload}"
+                                          mode="advanced"
+
+                                          label="Choose a file"
+                                          sizeLimit="10485760"
+                                          multiple="true"
+                                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                          invalidSizeMessage="The maximum file size allowed is 10 Megabytes !"
+                                          invalidFileMessage="You are allowed to upload only images !"
+                                          />
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel for="Description"  value="Description :  " style="color: #000000;font-weight: bold;" />
+                            <p:inputTextarea autoResize="false" cols="50" rows="7" value="#{RestaurantManagedBean.restaurant.description}"  id="description"/>
+                            <h:outputLabel></h:outputLabel>
+                        </h:panelGrid>
+                        <h:outputLabel value="*" style="color: #000000;font-weight: bolder;"></h:outputLabel>
+                        <h:outputLabel value=" Champs obligatoire" style="color: #FF0000;font-weight: bolder;"></h:outputLabel>
+
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+                            <p:commandButton icon="ui-icon-plusthick" ajax="true" value="Ajouter" update=":Resto:AjoutTab" actionListener="#{RestaurantManagedBean.ajoutr(actionEvent)}" oncomplete="RestaurantAjout.hide()"  />
+                            <p:commandButton icon="ui-icon-close" immediate="true" value="Annuler" oncomplete="RestaurantAjout.hide()"  />
+
+                        </h:panelGrid>
+
+                    </p:dialog>
+
+                </h:form>
+                <p:dialog widgetVar="dlg" width="1355" height="600" modal="true">
+
+                    <p:gmap center="35.832980900, 10.638749999999959" zoom="15" type="HYBRID"
+                            style="width: 1355px;height:600px" >
+                        <p:growl id="growl1" showDetail="true" life="4000" />
+                        <p:ajax event="stateChange" listener="#{RestaurantManagedBean.onStateChange}" />
+
+                        <p:ajax event="pointSelect" listener="#{RestaurantManagedBean.onPointSelectLatitude}" update="growl1"/>
+                        <p:ajax update="edit:latitude" listener="#{RestaurantManagedBean.onPointSelectLatitudeLongitude}" event="pointSelect" />
+                        <p:ajax update="edit:longitude" listener="#{RestaurantManagedBean.onPointSelectLatitudeLongitude}" event="pointSelect" />
+                    </p:gmap>
+                </p:dialog>
+
+                <h:form id="Actualise">
+
+                    <p:dialog width="660" height="620"  hideEffect="explode"  widgetVar="RestaurantEdit" resizable="false" id="editResto" modal="true">
+                        <f:facet name="header">
+                            <h3>
+
+                                Gestion Restaurant</h3>
+                        </f:facet>
+                        <p:growl id="growl" showDetail="true" sticky="false" life="4000"/>
+                        <h:panelGrid id="displaye" columns="3" cellpadding="4" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h1>
+                                    <img src="../resources/images/ICON-Pencil1.png" width="50" height="40" alt="ICON-Pencil1"/>
+                                    <h:outputLabel value="Modifier Restaurant"/>
+
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
+
+                            <h:outputLabel for="Nom" title="Nom" value="Nom : * " style="color: #000000;font-weight: bold;"  />
+                            <p:inputText style="width: 42%"  requiredMessage="Taper le nom de restaurant" required="true" value="#{RestaurantManagedBean.restaurant.nom}"  id="nom" />
+                            <p:message for="nom"/>
+
+
+                            <h:outputLabel   for="idpays" value="Pays : *" style="color: #000000;font-weight: bold;" />
+
+
+
+                            <p:selectOneMenu style="width: 45%"  requiredMessage=" Choisir pays" required="true"  id="idpays" value="#{PayManagedBean.idpays}" valueChangeListener="#{PayManagedBean.processScat}" > 
+                                <f:selectItem itemLabel="Choisir le pays" itemValue="" />
+                                <f:selectItems value="#{PayManagedBean.listPay}" var="z" itemLabel="#{z.nom}" itemValue="#{z.idPay}"/> 
+                                <p:ajax update="scat" event="change" />
+
+                            </p:selectOneMenu> 
+
+
+                            <p:message for="idpays"/>
+                            <h:outputLabel   for="ville" value="Ville : *" style="color: #000000;font-weight: bold;" />
+
+
+                            <p:selectOneMenu style="width: 45%"  requiredMessage="Choisir ville" required="true"  id="scat" value="#{RestaurantManagedBean.restaurant.idVille}" converter="villeConvertor"> 
+
+                                <f:selectItem itemLabel="Choisir la ville" itemValue=""  />
+                                <f:selectItems value="#{PayManagedBean.listVille}" var="z" itemLabel="#{z.nom}" itemValue="#{z}"/>
+
+                            </p:selectOneMenu> 
+
+                            <p:message for="scat"/>
+
+
+<h:outputLabel   for="specialite" value="Specialite : " style="color: #000000;font-weight: bold;" />
+                            <p:selectOneMenu style="width: 45%" value="" id="specialite" > 
+
+                                <f:selectItem   itemLabel="Tunisienne " 
+                                                itemValue="Tunisienne"  />  
+
+                            </p:selectOneMenu> 
+                            <h:outputLabel></h:outputLabel>
+
+
+                            <h:outputLabel for="latitude" title="Nom" value="Latitude : * " style="color: #000000;font-weight: bold;" />
+                            <p:inputText style="width: 45%"  requiredMessage="Taper latitude" required="true"  value="#{RestaurantManagedBean.restaurant.latitude}"   id="latitude" />
+                            <p:message for="latitude"/>
+                            <h:outputLabel for="longitude" title="Nom" value="Longitude : * " style="color: #000000;font-weight: bold;"  />
+                            <p:inputText style="width: 45%"  requiredMessage="Taper longitude" required="true"  value="#{RestaurantManagedBean.restaurant.longitude}"  id="longitude" />
+                            <p:message for="longitude"/>
+
+                            <h:outputLabel></h:outputLabel>
+                            <p:commandButton style="width: 45%" value="Map" oncomplete="dlg.show()" ajax="true">
+                            </p:commandButton>
+                            <h:outputLabel></h:outputLabel>
+
+
+
+
+
+
+
+
+
+                            <h:outputLabel   for="ouverture"  value="Horaire Ouverture : "  style="color: #000000;font-weight: bold;"/>
+                            <p:calendar value="#{RestaurantManagedBean.restaurant.horairehouverture}"   pattern="HH:mm" id="ouverture" showOn="button" timeOnly="true" />  
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel   for="fermeture"  value="Horaire Fermeture : "  style="color: #000000;font-weight: bold;"/>
+                            <p:calendar value="#{RestaurantManagedBean.restaurant.horairefermeture}"   pattern="HH:mm" id="fermeture" showOn="button" timeOnly="true"  />  
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel for="telephone" title="Nom" value="Téléphone : * " style="color: #000000;font-weight: bold;"  />
+                            <p:inputText value="#{RestaurantManagedBean.restaurant.telephone}"  id="telephone" />
+                            <p:message for="telephone"/>
+                            <h:outputLabel for="Siteweb" title="Nom" value="Site Web : " style="color: #000000;font-weight: bold;" />
+                            <p:inputText  style="width: 80%"  value="#{RestaurantManagedBean.restaurant.siteweb}"   id="siteweb"/>
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel for="email" title="Nom" value="Email : " style="color: #000000;font-weight: bold;"  />
+                            <p:inputText style="width: 80%"  value="#{RestaurantManagedBean.restaurant.email}"  id="email" />
+                            <p:watermark for="email" value="adminGuide@gmail.com"/>
+
+                            <h:outputLabel for="archive"  value="Archive : " style="color: #000000;font-weight: bold;" />
+                            <p:selectBooleanCheckbox value="#{RestaurantManagedBean.restaurant.archive}"  id="archive" />
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel value="Image : " style="color: #000000;font-weight: bold;"></h:outputLabel>
+                            <p:fileUpload update=":Resto:AjoutTab, growl" fileUploadListener="#{RestaurantManagedBean.fileUpload}"
+                                          mode="advanced"
+
+                                          label="Choose a file"
+                                          sizeLimit="10485760"
+                                          multiple="true"
+                                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                          invalidSizeMessage="The maximum file size allowed is 10 Megabytes !"
+                                          invalidFileMessage="You are allowed to upload only images !"
+                                          />
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel for="Description"  value="Description :  " style="color: #000000;font-weight: bold;" />
+                            <p:inputTextarea autoResize="false" cols="50" rows="7" value="#{RestaurantManagedBean.restaurant.description}"  id="description"/>
+                            <h:outputLabel></h:outputLabel>
+                        </h:panelGrid>
+                        <h:outputLabel value="*" style="color: #000000;font-weight: bolder;"></h:outputLabel>
+                        <h:outputLabel value=" Champs obligatoire" style="color: #FF0000;font-weight: bolder;"></h:outputLabel>
+
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <p:commandButton icon="ui-icon-pencil" ajax="true" value="Modifier" update=":Resto:AjoutTab, growl" actionListener="#{RestaurantManagedBean.edition(actionEvent)}" oncomplete="RestaurantEdit.hide()"/>
+                            <p:commandButton icon="ui-icon-close" immediate="true" value="Annuler" oncomplete="RestaurantEdit.hide()"/>
+                        </h:panelGrid>
+                    </p:dialog>
+
+                </h:form>
+                <h:form id="formSupp">
+                    <h1>
+
+                        <p:confirmDialog   hideEffect="explode"  header="Confirmation" 
+                                           message="Êtes-vous sûr(e) de vouloir Supprimer  ' #{RestaurantManagedBean.restaurant.nom} ' ?" 
+                                           severity="alert" 
+                                           widgetVar="confirmation" id="suppCentre">
+                            <p:growl id="growl" showDetail="true" sticky="false" />
+
+                            <h:panelGrid id="display" columns="2" cellpadding="4"
+                                         style="margin:0 auto;">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+
+                                <img src="#{RestaurantManagedBean.restaurant.image}" width="380" height="250" />
+
+                                <h:outputLabel/>
+
+                                <p:commandButton ajax="true" value="Oui" update=":Resto:AjoutTab, growl" actionListener="#{RestaurantManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
+                                <p:commandButton value="Non" onclick="confirmation.hide()"/>
+                            </h:panelGrid>
+                        </p:confirmDialog>
+                    </h1>
+                </h:form>
+                <form id="map">
+                    <p:growl id="messages" showDetail="true" life="2000" />
+
+                    <p:dialog widgetVar="dlgMap">
+
+                        <p:gmap center= "41.381542, 2.122893" zoom="15" type="HYBRID" style="width :600px ;height :400px" widgetVar="myMap"
+                                >
+                            <p:ajax event="stateChange" listener="#{MonumentManagedBean.onStateChange}" update="messages" />
+                            <p:ajax event="pointSelect" listener="#{MonumentManagedBean.onPointSelectLatitude}" update="messages"/>
+                        </p:gmap>
+
+                    </p:dialog>
+
+                </form>
+
+            </ui:define>
+        </ui:composition>
+
+
+    </h:body>
+</html>

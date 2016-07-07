@@ -17,39 +17,40 @@ import javax.persistence.Table;
 public class Image  implements java.io.Serializable {
 
 
-     private int id;
+     private int idImage;
      private String nom;
      private String description;
-     private byte[] data;
+     private String data;
+    
 
     public Image() {
     }
 
 	
-    public Image(int id) {
-        this.id = id;
+    public Image(int idImage) {
+        this.idImage = idImage;
     }
-    public Image(int id, String nom, String description, byte[] data) {
-       this.id = id;
+    public Image(int idImage, String nom, String description) {
+       this.idImage = idImage;
        this.nom = nom;
        this.description = description;
-       this.data = data;
+      
     }
    
      @Id 
 
     
-    @Column(name="id", unique=true, nullable=false)
-    public int getId() {
-        return this.id;
+    @Column(name="idImage", unique=true, nullable=false)
+    public int getIdImage() {
+        return this.idImage;
     }
     
-    public void setId(int id) {
-        this.id = id;
+    public void setIdImage(int idImage) {
+        this.idImage = idImage;
     }
 
     
-    @Column(name="nom", length=25)
+    @Column(name="nom", length=258)
     public String getNom() {
         return this.nom;
     }
@@ -59,7 +60,7 @@ public class Image  implements java.io.Serializable {
     }
 
     
-    @Column(name="description", length=25)
+    @Column(name="description", length=10000)
     public String getDescription() {
         return this.description;
     }
@@ -68,19 +69,15 @@ public class Image  implements java.io.Serializable {
         this.description = description;
     }
 
-    
-    @Column(name="data")
-    public byte[] getData() {
-        return this.data;
+    public String getData() {
+        return data;
     }
-    
-    public void setData(byte[] data) {
+
+    public void setData(String data) {
         this.data = data;
     }
 
-
-
-
-}
+    
+    }
 
 

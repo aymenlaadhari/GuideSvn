@@ -31,6 +31,7 @@ public class MonumentImpl implements MonumentInterface
             System.out.print("Bien ajouté");
         } catch (Exception e) {
             System.out.print("Erreur insertion" + e.getMessage());
+            session.beginTransaction().rollback();
         }
         }
 
@@ -45,6 +46,7 @@ public class MonumentImpl implements MonumentInterface
             System.out.print("Bien modifier");
         } catch (Exception e) {
             System.out.print("Erreur Modification" + e.getMessage());
+            session.beginTransaction().rollback();
         }}
 
     @Override
@@ -78,13 +80,17 @@ public class MonumentImpl implements MonumentInterface
     }
 
     @Override
-    public List<Monument> getListMonument() {
+    public List<Monument> getListMonument() { //valide
     
         List<Monument> listMonument = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
            listMonument = session.createQuery("from Monument").list();
+           for (Monument cp : listMonument) {
+                org.hibernate.Hibernate.initialize(cp.getIdVille());
+                //or cp.getCustomer().getLoginName();
+            }
             session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
@@ -94,6 +100,8 @@ public class MonumentImpl implements MonumentInterface
         }
         return listMonument;
     }
+
+    
 }
 
    

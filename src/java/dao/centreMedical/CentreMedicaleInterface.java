@@ -19,5 +19,7 @@ public interface CentreMedicaleInterface {
     public void updateCentreMedicale(CentreMedicale centreMedicale);
     public void deletCentreMedicale(CentreMedicale centreMedicale);
     public CentreMedicale getCentreMedicale(int id);
-    public List<CentreMedicale> getListCentreMedicale();
+    public List<CentreMedicale> getListCentreMedicale();//valide
+    public List<CentreMedicale> getListCentreMedicaleInvalide();
+    public List<CentreMedicale> getListCentreMedicaleArchive();
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 2, 2014 11:37:37 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.Commentaire" table="commentaire" schema="public">
+        <id name="idCommentaire" type="int">
+            <column name="idCommentaire" />
+            <generator class="increment" />
+        </id>
+        
+         <property name="commentaire" type="string">
+            <column name="commentaire" length="10000" />
+        </property>
+        <property name="date" type="date">
+            <column name="date" />
+        </property>
+        <property name="vote" type="int">
+            <column name="vote" />
+        </property>
+       
+    </class>
+   
+       
+</hibernate-mapping>

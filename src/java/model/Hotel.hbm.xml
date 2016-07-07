@@ -5,35 +5,70 @@
 <hibernate-mapping>
     <class name="model.Hotel" table="hotel" schema="public">
         <id name="idHotel" type="int">
-            <column name="id_hotel" />
+            <column name="idHotel" />
             <generator class="increment" />
         </id>
+        <many-to-one name="idVille" class="model.Ville" fetch="join" cascade="persist" lazy="proxy">
+            <column name="idVille" />
+        </many-to-one>
         <property name="nomH" type="string">
-            <column name="nom_h" length="254" />
+            <column name="nomH" length="258" />
         </property>
-        <property name="categorieH" type="string">
-            <column name="categorie_h" length="254" />
-        </property>
+        
         <property name="sitewebH" type="string">
-            <column name="siteweb_h" length="254" />
+            <column name="sitewebH" length="258" />
         </property>
         <property name="longitude" type="java.lang.Double">
-            <column name="longitude" precision="17" scale="17" />
+            <column name="longitude" precision="20" scale="20"/>
         </property>
         <property name="latitude" type="java.lang.Double">
-            <column name="latitude" precision="17" scale="17" />
+            <column name="latitude" precision="20" scale="20"/>
         </property>
         <property name="description" type="string">
-            <column name="description" length="254" />
+            <column name="description" length="10000" />
         </property>
         <property name="nbreetoile" type="int">
-            <column name="nbreetoile" not-null="true" />
+            <column name="nbreetoile"  />
         </property>
         <property name="telephoneH" type="string">
-            <column name="telephone_h" length="254" />
+            <column name="telephone_h" length="258"  />
         </property>
         <property name="emailH" type="string">
-            <column name="email_h" length="254" />
+            <column name="emailH" length="258" />
         </property>
+        <property name="image" type="string">
+            <column name="image" length="258" />
+        </property>
+        <property name="imagemobile" type="string">
+            <column name="imagemobile" length="258" />
+        </property>
+        <property name="validation" type="boolean">
+            <column name="validation" default="false"/>
+        </property>
+        <property name="archive" type="boolean">
+            <column name="archive" default="false"/>
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="10000" />
+        </property>
+        <property name="profilePic" type="string">
+            <column name="profilePic" length="258" />
+        </property>
+        <property name="timeStamp" type="string">
+            <column name="timeStamp" length="258" />
+        </property>
+        <property name="url" type="string">
+            <column name="url" length="258" />
+        </property>
+        
+        
+        <!--<set name="clientsMobiles" table="commentaire" cascade="all">
+
+            <key column="idhotel" />
+
+            <many-to-many column="idclientmobile" class="model.ClientMobile" />
+
+        </set>  -->
+       
     </class>
 </hibernate-mapping>

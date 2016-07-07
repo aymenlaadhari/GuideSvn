@@ -11,7 +11,9 @@ import model.Restaurant;
 public interface RestaurantInterface {
 
     public void save(Restaurant restaurant);
-    public List<Restaurant> getlistResto();
+    public List<Restaurant> getlistResto();//valide
+    public List<Restaurant> getlistRestoInvalide();
+    public List<Restaurant> getlistRestoArchive();
     public void remove(Restaurant restaurant);
     public void update(Restaurant restaurant);
     public Restaurant getRestaurant(int idresto);

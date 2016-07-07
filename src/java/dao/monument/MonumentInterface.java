@@ -8,14 +8,18 @@ package dao.monument;
 import java.util.List;
 import model.Monument;
 
-
-
 public interface MonumentInterface {
 
-     public void addMonument(Monument monument);
+    public void addMonument(Monument monument);
+
     public void updateMonument(Monument monument);
+
     public void deletMonument(Monument monument);
+
     public Monument getMonument(int id);
-    public List<Monument> getListMonument();
-         
+
+    public List<Monument> getListMonument();//valide
+
+    
+
 }

@@ -17,7 +17,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import model.Utilisateur;
-import org.primefaces.event.ToggleEvent;
 
 @ManagedBean(name = "UtilisateurManagedBean")
 @SessionScoped
@@ -69,10 +68,10 @@ public class UtilisateurManagedBean implements Serializable{
         utilisateur= utilisateurInterface.getUtilisateur(id);
 
     }
-public void suppEvent(int id) {
-        System.out.print(id);
+public void suppEvent(int idUser) {
+        System.out.print(idUser);
         utilisateurInterface = new UtilisateurImpl();
-        utilisateur= utilisateurInterface.getUtilisateur(id);
+        utilisateur= utilisateurInterface.getUtilisateur(idUser);
 
     }
     public void deletMessage(ActionEvent actionEvent) {
@@ -84,7 +83,7 @@ public void suppEvent(int id) {
         utilisateurInterface = new UtilisateurImpl();
         utilisateurInterface.update(utilisateur);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Utilisateur mise à jour"));
+        context.addMessage(null, new FacesMessage("Utilisateur modifier"));
     }
 
     public void ajoutu(ActionEvent actionEvent) {
@@ -120,7 +119,7 @@ public void test(ActionEvent actionEvent) {
      * Creates a new instance of CentremedicaleManagedBean
      */
     public UtilisateurManagedBean() {
-        this.listUtilisateur = new ArrayList<>();
+        this.listUtilisateur = new ArrayList<Utilisateur>();
 
         if (this.utilisateur== null) {
             this.utilisateur = new Utilisateur();

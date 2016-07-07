@@ -1,0 +1,461 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Gestion Pharmacie</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./Template.xhtml">
+            <ui:define name="top">
+                &nbsp;&nbsp; <img src="../resources/images/phar1.png" width="50" height="40" alt="phar1"/>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <titreGuide>
+                    Archive Pharmacie
+
+                </titreGuide>
+
+            </ui:define>
+
+            <ui:define name="content">
+
+
+                <h1>Liste pharmacies archivés</h1> 
+                <br/> 
+                <h:form id="Pharmacie">
+                    <p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+                    <p:dataTable   paginator="true" rows="5"   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                   rowsPerPageTemplate="5,10,15,20,25"  
+                                   var="Pharmacie" value="#{PharmacieManagedBean.listPharmacieArchive}"
+                                   id="AjoutTab"
+                                   emptyMessage="Pharmacie non trouvé" widgetVar="PharmacieTable"
+                                   sortMode="multiple" 
+                                   rowKey="#{Pharmacie.nom}"  
+                                   selectionMode="single">  
+
+                        <p:ajax event="rowToggle" listener="#{PharmacieManagedBean.onRowToggle}" update=":Pharmacie:growl" />  
+
+
+                        <f:facet name="header">
+                            <div>  
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p:outputPanel>
+                                    <h:outputText  value="Recherche : " />
+
+                                    <p:inputText id="globalFilter"  onkeyup="PharmacieTable.filter()" style="width:250px" />
+                                </p:outputPanel>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                               
+                            </div> 
+
+
+
+                        </f:facet>
+
+                        <p:column id="Nom" headerText="Nom" filterBy="#{Pharmacie.nom}" filterMatchMode="exact" footerText=" Nom exacte">
+                            <p:rowToggler /> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                            <h:outputText value="#{Pharmacie.nom}" />
+                        </p:column>
+                        <p:column id="pays" headerText="Pays" filterBy="#{Pharmacie.idVille.pay.nom}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{Pharmacie.idVille.pay.nom}"/>
+                        </p:column> 
+                        <p:column id="ville" headerText="Ville" filterBy="#{Pharmacie.idVille.nom}" filterMatchMode="contains" footerText=" Contient">
+                            <h:outputText value="#{Pharmacie.idVille.nom}"/>
+                        </p:column>
+
+
+                        <p:column id="Type" headerText="Type" filterBy="#{Pharmacie.type}" filterMatchMode="startsWith" footerText="Commence par"
+                                  >
+                            <h:outputText value="#{Pharmacie.type}"/>
+                        </p:column>
+
+                        <p:column id="Siteweb" headerText="Site Web" filterBy="#{Pharmacie.siteweb}" filterMatchMode="startsWith" footerText="Commence par"
+                                  >
+                            <h:outputText value="#{Pharmacie.siteweb}"/>
+                        </p:column>
+
+                        <p:column id="Telephone" headerText="Téléphone" filterBy="#{Pharmacie.telephone}" filterMatchMode="contains" footerText="Contient"
+                                  >
+                            <h:outputText value="#{Pharmacie.telephone}"/>
+                        </p:column>
+                        <p:column id="Email" headerText="Email" filterBy="#{Pharmacie.email}" filterMatchMode="startsWith" footerText="Commence par"
+                                  >
+                            <h:outputText value="#{Pharmacie.email}"/>
+                        </p:column>
+                       
+
+                        <p:column  headerText="Action" style="text-align: center;width:18px;">
+
+                            <p:commandButton  id="Editer"   title="Modifier" update=":Actualise:editPh"  oncomplete="PharmacieEdit.show();" actionListener="#{PharmacieManagedBean.editEvent(Pharmacie.idPhar)}" ajax="true" icon="ui-icon-pencil"/>
+
+                            <p:commandButton  id="Supprimer"   title="Supprimer" update=":formSupp:suppCentre"  oncomplete="confirmation.show();" actionListener="#{PharmacieManagedBean.suppEvent(Pharmacie.idPhar)}" ajax="true" icon="ui-icon-trash"/>
+
+                            <p:commandButton id="selectButton" update=":Pharmacie:display" oncomplete="pharDialog.show()" icon="ui-icon-search" title="View_Description">  
+                                <f:setPropertyActionListener value="#{Pharmacie}" target="#{PharmacieManagedBean.selectPharmacie}" />  
+                            </p:commandButton>  
+                        </p:column>
+
+                        <p:rowExpansion>  
+                            <img src="#{Pharmacie.image}" width="420" height="250" />
+
+                            <br/> 
+
+                            <h:outputText value="Nom : " style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="nom" value="#{Pharmacie.nom}" style="color:#000000;font-weight:bold"  />
+                            <br/>
+                            <h:outputText value="Pays : " style="color: blue;font-weight:bold;" />  
+                            <h:outputText id="pay" value="#{Pharmacie.idVille.pay.nom}"  style="color:#000000;font-weight:bold;"/>
+                            <br/>
+                            <h:outputText value="Ville : " style="color: blue;font-weight:bold;" />  
+                            <h:outputText id="vill" value="#{Pharmacie.idVille.nom}"  style="color:#000000;font-weight:bold;"/>
+                            <br/>
+                            <h:outputText value="Latitude : " style="color: blue;font-weight: bold;"  />  
+                            <h:outputText id="LatiP" value="#{Pharmacie.latitude}" style="color:#000000;font-weight:bold" />
+                            <br/>
+                            <h:outputText value="Longitude : " style="color: blue;font-weight: bold;" />  
+                            <h:outputText id="LongP" value="#{Pharmacie.longitude}" style="color:#000000;font-weight:bold" />
+                            <br/>
+                            <h:outputText value="Type : " style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="typeP" value="#{Pharmacie.type}" style="color:#000000;font-weight:bold"/>
+                            <br/>
+                            <h:outputText value="Site Web : " style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="siteW" value="#{Pharmacie.siteweb}" style="color:#000000;font-weight:bold"/>
+                            <br/>
+                            <h:outputText value="Téléphone : " style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="tel" value="#{Pharmacie.telephone}" style="color:#000000;font-weight:bold"/>
+                            <br/>
+                            <h:outputText value="Email : " style="color: blue;font-weight: bold;"/>  
+                            <h:outputText id="em" value="#{Pharmacie.email}" style="color:#000000;font-weight:bold"/>
+
+                        </p:rowExpansion>  
+
+                    </p:dataTable>
+
+                    <p:dialog width="550" height="500"  widgetVar="pharDialog" resizable="false" id="userDlg"  
+                              showEffect="fade" hideEffect="explode" modal="true"> 
+
+                        <f:facet name="header">
+                            <h3>
+                                Détails Pharmacie</h3>
+                        </f:facet>
+
+                        <h:panelGrid id="display"  style="margin:0 auto;">  
+
+                            <h:form>
+                                <img src="#{PharmacieManagedBean.selectPharmacie.image}" width="450" height="200" />
+                                <br/><br/>
+                                <h:outputText value="Description : " style="color: #045491;font-weight: bold;"   />
+
+                                <p>
+                                    <p:inputTextarea autoResize="false" disabled="true" cols="30"  maxlength="10" rows="15" style="color: #000000;font-weight:bold;width: 100%;" 
+                                                     value="#{PharmacieManagedBean.selectPharmacie.description}" />  
+                                </p>
+
+                                <div align="center">
+                                    <p:commandButton  value="OK" oncomplete="pharDialog.hide()" ajax="true"/>
+
+                                </div>
+
+                            </h:form>
+
+                        </h:panelGrid>  
+
+                    </p:dialog>  
+
+                </h:form>
+
+
+                <h:form id="edit">
+                    <p:dialog   width="660" height="620" hideEffect="explode" widgetVar="PharmacieAjout" resizable="false" id="editPh" modal="true">
+                        <f:facet name="header">
+                            <h3> Gestion Pharmacie</h3>
+                        </f:facet>
+                        <p:growl id="growl" showDetail="true" sticky="false" life="4000"/>
+                        <h:panelGrid id="display" columns="3" cellpadding="5" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h1>
+                                    <h:outputLabel value="Ajout Pharmacie" />
+                                    <img src="../resources/images/2461501-illustration-of-a-pharmacist-icon-that-can-be-used-as-a-symbol-bullet-button-or-design-element.jpg" width="40" height="40" alt="2461501-illustration-of-a-pharmacist-icon-that-can-be-used-as-a-symbol-bullet-button-or-design-element"/>
+
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
+                            <h:outputLabel for="nom" title="Nom" value="Nom : * " style="color: #000000;font-weight: bold;"  />
+                            <p:inputText style="width: 42%"  value="#{PharmacieManagedBean.pharmacie.nom}"  id="nom" requiredMessage="Entrer le nom de pharmacie" required="true"/>
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel   for="idpays" value="Pays : *" style="color: #000000;font-weight: bold;" />
+                            <p:selectOneMenu requiredMessage="Choisir le pays" required="true" style="width: 45%" id="idpays" value="#{PayManagedBean.idpays}" valueChangeListener="#{PayManagedBean.processScat}" > 
+                                <f:selectItem itemLabel="Choisir le pays" itemValue="" />
+                                <f:selectItems value="#{PayManagedBean.listPay}" var="z" itemLabel="#{z.nom}" itemValue="#{z.idPay}"/> 
+                                <p:ajax update="scat" event="change" />
+
+                            </p:selectOneMenu> 
+
+
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel   for="ville" value="Ville : " style="color: #000000;font-weight: bold;" />
+
+
+                            <p:selectOneMenu requiredMessage="Choisir la ville" required="true" style="width: 45%" id="scat" value="#{PharmacieManagedBean.pharmacie.idVille}" converter="villeConvertor"> 
+
+                                <f:selectItem itemLabel="Choisir la ville" itemValue=""  />
+                                <f:selectItems value="#{PayManagedBean.listVille}" var="z" itemLabel="#{z.nom}" itemValue="#{z}"/>
+
+                            </p:selectOneMenu> 
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel   for="type" value="Type : *" style="color: #000000;font-weight: bold;" />
+                            <p:selectOneMenu requiredMessage="Choisir le type de pharmacie"  required="true" style="width: 45%"  value="#{PharmacieManagedBean.pharmacie.type}" id="type">  
+                                <f:selectItem itemLabel="Jour" itemValue="Jour"  />  
+                                <f:selectItem itemLabel="Nuit" itemValue="Nuit" />  
+                            </p:selectOneMenu> 
+                            <h:outputLabel></h:outputLabel>
+
+                            <h:outputLabel></h:outputLabel>
+
+                            <p:commandButton  style="width: 45%" value="Map" oncomplete="dlg.show()" ajax="true">
+                            </p:commandButton>
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel for="latitude" title="Nom" value="Latitude : * " style="color: #000000;font-weight: bold;" />
+                            <p:inputText requiredMessage="Taper latitude"  required="true" style="width: 42%" value="#{PharmacieManagedBean.pharmacie.latitude}"   id="latitude" />
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel for="longitude" title="Nom" value="Longitude : * " style="color: #000000;font-weight: bold;"  />
+                            <p:inputText requiredMessage="Taper longitude"  required="true" style="width: 42%" value="#{PharmacieManagedBean.pharmacie.longitude}"  id="longitude"/>
+                            <h:outputLabel></h:outputLabel>
+
+                            <h:outputLabel for="telephone" title="Nom" value="Téléphone : * " style="color: #000000;font-weight: bold;"  />
+                            <p:inputText requiredMessage="Saisir le numéro de téléphone"  required="true" style="width: 42%" value="#{PharmacieManagedBean.pharmacie.telephone}"  id="telephone" />
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel for="siteweb" title="Nom" value="Site Web : " style="color: #000000;font-weight: bold;" />
+                            <p:inputText style="width: 70%" value="#{PharmacieManagedBean.pharmacie.siteweb}"   id="siteweb" required="false"/>
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel for="email" title="Nom" value="Email : " style="color: #000000;font-weight: bold;"  />
+                            <p:inputText style="width: 70%" value="#{PharmacieManagedBean.pharmacie.email}"  id="email" required="false"/>
+                          <p:watermark for="email" value="adminGuide@gmail.com "  />
+                            <h:outputLabel for="validation"  value="Validation : " style="color: #000000;font-weight: bold;" />
+                            <p:selectBooleanCheckbox value="#{PharmacieManagedBean.pharmacie.validation}"  id="validation" />
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel value="Image : " style="color: #000000;font-weight: bold;"></h:outputLabel>
+                            <p:fileUpload update=":Pharmacie:AjoutTab, growl" fileUploadListener="#{PharmacieManagedBean.fileUpload}"
+                                          mode="advanced"
+                                          label="Choose a file"
+                                          sizeLimit="10485760"
+                                          multiple="true"
+                                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                          invalidSizeMessage="The maximum file size allowed is 10 Megabytes !"
+                                          invalidFileMessage="You are allowed to upload only images !"
+                                          />
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel for="description"  value="Description : " style="color: #000000;font-weight: bold;" />
+                            <p:inputTextarea autoResize="false" cols="50" rows="7" value="#{PharmacieManagedBean.pharmacie.description}"  id="description" required="false"/>
+
+                        </h:panelGrid>
+                        <h:outputLabel value="*" style="color: #000000;font-weight: bolder;"></h:outputLabel>
+                        <h:outputLabel value=" Champs obligatoire" style="color: #FF0000;font-weight: bolder;"></h:outputLabel>
+
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+                            <p:commandButton icon="ui-icon-plusthick" ajax="true" value="Ajouter" update=":Pharmacie:AjoutTab, growl" actionListener="#{PharmacieManagedBean.ajoutph(actionEvent)}" oncomplete="PharmacieAjout.hide()"  />
+                            <p:commandButton icon="ui-icon-close" immediate="true" value="Annuler" oncomplete="PharmacieAjout.hide()"  />
+
+                        </h:panelGrid>
+
+                    </p:dialog>
+
+                </h:form>
+                <p:dialog widgetVar="dlg" width="825" height="500" modal="true">
+
+                    <p:gmap center="35.832980900, 10.638749999999959" zoom="15" type="HYBRID"
+                            style="width:800px;height:500px" >
+                        
+                        <p:ajax event="stateChange" listener="#{PharmacieManagedBean.onStateChange}" update="messages" />
+                        <p:ajax event="pointSelect" listener="#{PharmacieManagedBean.onPointSelectLatitude}" update="messages"/>
+                        <p:ajax update="edit:latitude" listener="#{PharmacieManagedBean.onPointSelectLatitudeLongitude}" event="pointSelect" />
+                        <p:ajax update="edit:longitude" listener="#{PharmacieManagedBean.onPointSelectLatitudeLongitude}" event="pointSelect" />
+                    </p:gmap>
+                </p:dialog>
+
+                <h:form id="Actualise">
+
+                    <p:dialog    width="660" height="620" resizable="false"  hideEffect="explode" widgetVar="PharmacieEdit"  id="editPh" modal="true">
+
+                        <f:facet name="header">
+                            <h3>
+
+                                Gestion Pharmacie</h3>
+                        </f:facet>
+                        <p:growl id="growl" showDetail="true" sticky="false" life="5000" />
+                        <h:panelGrid id="displaye" columns="3" cellpadding="4" style="margin:0 auto;">
+
+                            <f:facet name="header">
+                                <h1>
+                                    <h:outputLabel value="Modifier Pharmacie"/>
+                                    <img src="../resources/images/modifier-icone-5132-128.png" width="50" height="40" alt="modifier-icone-5132-128"/>
+
+                                </h1> 
+                                <p:separator/>
+                            </f:facet>
+                            <h:outputLabel for="nom" title="Nom" value="Nom : * " style="color: #000000;font-weight: bold;"  />
+                            <p:inputText style="width: 42%"  value="#{PharmacieManagedBean.pharmacie.nom}"  id="nom" requiredMessage="Entrer le nom de pharmacie" required="true"/>
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel   for="idpays" value="Pays : *" style="color: #000000;font-weight: bold;" />
+                            <p:selectOneMenu requiredMessage="Choisir le pays" required="true" style="width: 45%" id="idpays" value="#{PayManagedBean.idpays}" valueChangeListener="#{PayManagedBean.processScat}" > 
+                                <f:selectItem itemLabel="Choisir le pays" itemValue="" />
+                                <f:selectItems value="#{PayManagedBean.listPay}" var="z" itemLabel="#{z.nom}" itemValue="#{z.idPay}"/> 
+                                <p:ajax update="scat" event="change" />
+
+                            </p:selectOneMenu> 
+
+
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel   for="ville" value="Ville : " style="color: #000000;font-weight: bold;" />
+
+
+                            <p:selectOneMenu requiredMessage="Choisir la ville" required="true" style="width: 45%" id="scat" value="#{PharmacieManagedBean.pharmacie.idVille}" converter="villeConvertor"> 
+
+                                <f:selectItem itemLabel="Choisir la ville" itemValue=""  />
+                                <f:selectItems value="#{PayManagedBean.listVille}" var="z" itemLabel="#{z.nom}" itemValue="#{z}"/>
+
+                            </p:selectOneMenu> 
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel   for="type" value="Type : *" style="color: #000000;font-weight: bold;" />
+                            <p:selectOneMenu requiredMessage="Choisir le type de pharmacie"  required="true" style="width: 45%"  value="#{PharmacieManagedBean.pharmacie.type}" id="type">  
+                                <f:selectItem itemLabel="Jour" itemValue="Jour"  />  
+                                <f:selectItem itemLabel="Nuit" itemValue="Nuit" />  
+                            </p:selectOneMenu> 
+                            <h:outputLabel></h:outputLabel>
+
+                            <h:outputLabel></h:outputLabel>
+
+                            <p:commandButton  style="width: 45%" value="Map" oncomplete="dlg.show()" ajax="true">
+                            </p:commandButton>
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel for="latitude" title="Nom" value="Latitude : * " style="color: #000000;font-weight: bold;" />
+                            <p:inputText requiredMessage="Taper latitude"  required="true" style="width: 42%" value="#{PharmacieManagedBean.pharmacie.latitude}"   id="latitude" />
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel for="longitude" title="Nom" value="Longitude : * " style="color: #000000;font-weight: bold;"  />
+                            <p:inputText requiredMessage="Taper longitude"  required="true" style="width: 42%" value="#{PharmacieManagedBean.pharmacie.longitude}"  id="longitude"/>
+                            <h:outputLabel></h:outputLabel>
+
+                            <h:outputLabel for="telephone" title="Nom" value="Téléphone : * " style="color: #000000;font-weight: bold;"  />
+                            <p:inputText requiredMessage="Saisir le numéro de téléphone"  required="true" style="width: 42%" value="#{PharmacieManagedBean.pharmacie.telephone}"  id="telephone" />
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel for="siteweb" title="Nom" value="Site Web : " style="color: #000000;font-weight: bold;" />
+                            <p:inputText style="width: 70%" value="#{PharmacieManagedBean.pharmacie.siteweb}"   id="siteweb" required="false"/>
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel for="email" title="Nom" value="Email : " style="color: #000000;font-weight: bold;"  />
+                            <p:inputText style="width: 70%" value="#{PharmacieManagedBean.pharmacie.email}"  id="email" required="false"/>
+                            <p:watermark for="email" value="adminGuide@gmail.com "  />
+                            
+                             <h:outputLabel for="archive"  value="Archive : " style="color: #000000;font-weight: bold;" />
+                            <p:selectBooleanCheckbox value="#{PharmacieManagedBean.pharmacie.archive}"  id="archive" />
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel value="Image : " style="color: #000000;font-weight: bold;"></h:outputLabel>
+                            <p:fileUpload update=":Pharmacie:AjoutTab, growl" fileUploadListener="#{PharmacieManagedBean.fileUpload}"
+                                          mode="advanced"
+                                          label="Choose a file"
+                                          sizeLimit="10485760"
+                                          multiple="true"
+                                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                          invalidSizeMessage="The maximum file size allowed is 10 Megabytes !"
+                                          invalidFileMessage="You are allowed to upload only images !"
+                                          />
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel for="description"  value="Description : " style="color: #000000;font-weight: bold;" />
+                            <p:inputTextarea autoResize="false" cols="50" rows="7" value="#{PharmacieManagedBean.pharmacie.description}"  id="description" required="false"/>
+
+                        </h:panelGrid>
+                        <h:outputLabel value="*" style="color: #000000;font-weight: bolder;"></h:outputLabel>
+                        <h:outputLabel value=" Champs obligatoire" style="color: #FF0000;font-weight: bolder;"></h:outputLabel>
+
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+
+                            <p:commandButton icon="ui-icon-pencil" ajax="true" value="Modifier" update=":Pharmacie:AjoutTab, growl" actionListener="#{PharmacieManagedBean.edition(actionEvent)}" oncomplete="PharmacieEdit.hide()"/>
+                            <p:commandButton icon="ui-icon-close" ajax="true" value="Annuler" oncomplete="PharmacieEdit.hide()"/>
+                        </h:panelGrid>
+                    </p:dialog>
+
+                </h:form>
+                <h:form id="formSupp">
+                    <p:scrollPanel>
+                        <h1>
+                            <p:confirmDialog header="Confirmation" 
+                                             message="Êtes-vous sûr(e) de vouloir Supprimer ' #{PharmacieManagedBean.pharmacie.nom} ' ?" 
+                                             severity="alert" 
+                                             widgetVar="confirmation" id="suppCentre"
+                                             hideEffect="explode">
+                                <p:growl id="growl" showDetail="true" sticky="false" life="2000" />
+
+                                <h:panelGrid id="display" 
+                                             style="margin:0 auto;" columns="2">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <img src="#{PharmacieManagedBean.pharmacie.image}" width="380" height="250" />
+
+                                    <h:outputLabel/>
+
+                                    <p:commandButton  ajax="true" value="Oui" update=":Pharmacie:AjoutTab, growl" actionListener="#{PharmacieManagedBean.delet(actionEvent)}" oncomplete="confirmation.hide()"/>
+                                    <p:commandButton value="Non" onclick="confirmation.hide()" />
+                                </h:panelGrid>
+                            </p:confirmDialog>
+                        </h1>
+                    </p:scrollPanel>
+                </h:form>
+
+                <form id="map">
+                    <p:growl id="messages" showDetail="true" life="2000" />
+
+                    <p:dialog widgetVar="dlgMap">
+                        <p:gmap center= "41.381542, 2.122893" zoom="15" type="HYBRID" style="width :600px ;height :400px" widgetVar="myMap"
+                                >
+                            <p:ajax event="stateChange" listener="#{MonumentManagedBean.onStateChange}" update="messages" />
+                            <p:ajax event="pointSelect" listener="#{MonumentManagedBean.onPointSelectLatitude}" update="messages"/>
+                        </p:gmap>
+
+
+                    </p:dialog>
+
+                </form>
+            </ui:define>
+        </ui:composition>
+
+
+    </h:body>
+</html>
+

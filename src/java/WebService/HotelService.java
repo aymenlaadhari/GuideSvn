@@ -10,9 +10,12 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import dao.hotel.HotelImpl;
 import dao.hotel.HotelInterface;
+import java.util.List;
 import javax.ws.rs.core.MediaType;
+import WebService.adapter.HotelAdapter;
 import model.Hotel;
 
 
@@ -32,12 +35,18 @@ public class HotelService {
             HotelInterface ui = new HotelImpl();
             feedData = (ArrayList<Hotel>) ui.getListHotel();
             Gson gson = new Gson();
-            System.out.println(gson.toJson(feedData));
-            feeds = gson.toJson(feedData);
+            System.out.println((feedData));
+          //  System.out.println(gson.toJson(feedData));
+            feeds = messagesToJson(feedData);
         } catch (Exception e) {
           System.out.println("Exception Error"); //Console 
         }
-        return feeds;
+        return "{\"hotels\":"+feeds+"}";
     }
+     public String messagesToJson(List<Hotel> messages) {  
+    GsonBuilder gsonBuilder = new GsonBuilder();
+    Gson gson = gsonBuilder.registerTypeAdapter(Hotel.class, new HotelAdapter()).create();
+    return gson.toJson(messages);
+}  
 
 }

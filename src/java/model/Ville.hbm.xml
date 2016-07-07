@@ -4,18 +4,24 @@
 <!-- Generated Apr 2, 2014 11:37:37 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="model.Ville" table="ville" schema="public">
-        <id name="id" type="int">
-            <column name="id" />
+        <id name="idVille" type="int" >
+            <column name="idVille" />
             <generator class="increment" />
         </id>
+        <many-to-one name="pay" class="model.Pay" fetch="join" cascade="persist" lazy="proxy">
+            <column name="idpay"/>
+        </many-to-one>
+        
         <property name="gouvernorat" type="string">
-            <column name="gouvernorat" length="25" />
+            <column name="gouvernorat" length="258"/>
         </property>
         <property name="nom" type="string">
-            <column name="nom" length="25" />
+            <column name="nom" length="258"/>
         </property>
+        
         <property name="rue" type="string">
-            <column name="rue" length="25" />
+            <column name="rue" length="258" />
         </property>
+        
     </class>
 </hibernate-mapping>

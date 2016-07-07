@@ -9,65 +9,102 @@
         <link href="resources/css/login.css" type="text/css" rel="stylesheet"/>
     </h:head>
     <h:body>
-        <div class="conteiner">
 
-            <h:form id="form" >    
-                <p:growl  id="growl" showDetail="true" life="5000"/>
+        <spacer height="200px"></spacer>
+        <center >
+            <div class="conteiner">
 
+                <h:form id="form" >                   
 
-                <p:panel id="panel"  header="&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Authentification" footer="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Systeme de Guide Touristique ">
-
-                    <h:panelGrid columns="2" cellpadding="5">
-                        <h:outputLabel for="username" value="Login :" />
-                        <p:inputText  value="#{loginManagedBean.utilisateur.login}"
-                                      id="username" required="true" label="username" />
-
-                        <h:outputLabel for="password" value="Mot de Passe :" />
-                        <p:password value="#{loginManagedBean.utilisateur.password}" required="true" id="password" />
-
+                    <p:panel  id="panel" style="font-weight: bold;" header="Authentification">
+                              
+                        
                         <f:facet name="footer">
+
+                            <div align="center"> 
+                                Système de Guide Touristique
+                            </div>      
+                        </f:facet>
+                        <div align="center">
+                            
                             <br/>
 
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <p:commandButton id="loginButton" value="Connexion"
-                                                                                                                                              actionListener="#{loginManagedBean.login(actionEvent)}"
-                                                                                                                                              oncomplete="handleLoginRequest(xhr, status, args)" update=":form:growl" ajax="true" icon="ui-icon-check"/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <p:outputLabel  value="&nbsp;&nbsp;Merci de vous authentifier " style="color: crimson ; font-weight: bold;"/>
 
-                        </f:facet>
+                            <br/>
 
-                    </h:panelGrid>
+                            <h:panelGrid columns="5"  >
+                                <br/>
+                                <br/>
+                                <img src="../resources/images/default_app_logo.png" width="180" height="150" alt="default_app_logo"/>
 
-                </p:panel>
+                                <h:outputLabel></h:outputLabel>
+                                <h:outputLabel></h:outputLabel>
 
-
-            </h:form>
-
+                                <h:outputLabel></h:outputLabel>
 
 
-        </div>
-        <script type="text/javascript">
-            function handleLoginRequest(xhr, status, args) {
-                if (args.validationFailed || !args.loggedIn) {
-                    jQuery('#form').effect("shake", {times: 5}, 100);
+                                <h:panelGrid columns="2" cellspacing="5" >
+
+                                    <h:outputLabel for="login" value="Nom d'utilisateur : " style="font-weight: bold;" />
+                                    <p:inputText  value="#{LoginManagedBean.utilisateur.login}"
+                                                  requiredMessage="Nom d'utilisateur : champs obligatoire"
+                                                  id="login" required="true"  > 
+                                    </p:inputText>
+                                     <p:watermark for="login" value="Nom utilisateur*"/>
+                                    <p:message for="login"/>
+
+                                    <h:outputLabel for="Motdepasse" value="Mot de passe : " style="font-weight: bold;" />
+                                    <p:password value="#{LoginManagedBean.utilisateur.password}" required="true" 
+                                                requiredMessage="Mot de passe : champs obligatoire" id="Motdepasse" />
+                                    <p:watermark for="Motdepasse" value="Mot de passe*"/>
+                                    <p:message for="Motdepasse"/>
+                                   
+                                </h:panelGrid>
+                            </h:panelGrid>
+ 
+                            <br></br>
+
+                            <p:commandButton id="loginButton" value="Se connecter" actionListener="#{LoginManagedBean.login(actionEvent)}"
+                                             oncomplete="handleLoginRequest(xhr, status, args)" update=":form:panel" ajax="true" icon="ui-icon-check"/>
+                        </div>
+                        <br/>
+                        <div align="left">
+                        <h:outputLabel value="*" style="color: #000000;font-weight: bolder;"></h:outputLabel>
+                        <h:outputLabel value=" Champs obligatoire" style="color: crimson ; font-weight: bold;"></h:outputLabel>
+                        </div>
+
+                    </p:panel>
+
+
+
+                </h:form>
+
+
+            </div>
+            <script type="text/javascript">
+                function handleLoginRequest(xhr, status, args) {
+                    if (args.validationFailed || !args.loggedIn) {
+                        jQuery('#form').effect("shake",{times: 2},100);
+
+
+                    }
+                    else {
+
+                        location.href = args.maha;
+
+                    }
 
                 }
-                else {
-                    
-                     location.href = args.ruta;
-                    $('#loginLink').fadeOut();
-                }
-                
-            }
-            
 
 
 
 
 
-            
-        </script>
 
+
+            </script>
+        </center>
     </h:body>
 </html>
 
